@@ -72,10 +72,19 @@ router.post('/:id/submit', protect, async (req, res) => {
 
         // Calculate score
         quiz.questions.forEach(question => {
-            const userAnswerIndex = answers[question._id];
-            const correctOptionIndex = question.options.findIndex(opt => opt.isCorrect);
+            const userSelection = answers[question._id]; // This should be the option ID from frontend
 
-            if (userAnswerIndex === correctOptionIndex) {
+            // Find the correct option in DB
+            const correctOption = question.options.find(opt => opt.isCorrect);
+
+            // Compare selected option ID with correct option ID
+            // We also handle indices as fallback to avoid breaking the app during transition
+            if (typeof userSelection === 'number') {
+                // FALLBACK: If frontend still sends index (it will be wrong if shuffled, but prevents crash)
+                if (userSelection === question.options.findIndex(opt => opt.isCorrect)) {
+                    correctCount++;
+                }
+            } else if (userSelection && correctOption && userSelection.toString() === correctOption._id.toString()) {
                 correctCount++;
             }
         });

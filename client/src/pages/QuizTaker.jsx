@@ -40,8 +40,8 @@ const QuizTaker = () => {
         fetchQuiz();
     }, [id]);
 
-    const handleOptionSelect = (questionId, optionIndex) => {
-        setAnswers({ ...answers, [questionId]: optionIndex });
+    const handleOptionSelect = (questionId, optionId) => {
+        setAnswers({ ...answers, [questionId]: optionId });
     };
 
     const handleSubmit = async () => {
@@ -232,18 +232,18 @@ const QuizTaker = () => {
                                 {currentQuestion.options.map((opt, optIdx) => (
                                     <button
                                         key={optIdx}
-                                        onClick={() => handleOptionSelect(currentQuestion._id, optIdx)}
-                                        className={`flex items-center justify-between p-6 rounded-[1.5rem] border-2 transition-all group text-left ${answers[currentQuestion._id] === optIdx
+                                        onClick={() => handleOptionSelect(currentQuestion._id, opt._id)}
+                                        className={`flex items-center justify-between p-6 rounded-[1.5rem] border-2 transition-all group text-left ${answers[currentQuestion._id] === opt._id
                                             ? 'border-indigo-600 dark:border-indigo-500 bg-indigo-50 dark:bg-indigo-500/5 text-gray-900 dark:text-white'
                                             : 'border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-[#0a0c10]/40 text-gray-600 dark:text-gray-400 hover:border-indigo-200 dark:hover:border-gray-700'
                                             }`}
                                     >
                                         <span className="font-bold pr-4">{opt.text}</span>
-                                        <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${answers[currentQuestion._id] === optIdx
+                                        <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${answers[currentQuestion._id] === opt._id
                                             ? 'border-indigo-600 dark:border-indigo-500 bg-indigo-600 dark:bg-indigo-500'
                                             : 'border-gray-200 dark:border-gray-700'
                                             }`}>
-                                            {answers[currentQuestion._id] === optIdx && <CheckCircle className="w-4 h-4 text-white dark:text-black fill-current" />}
+                                            {answers[currentQuestion._id] === opt._id && <CheckCircle className="w-4 h-4 text-white dark:text-black fill-current" />}
                                         </div>
                                     </button>
                                 ))}
