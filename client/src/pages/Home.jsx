@@ -295,7 +295,7 @@ const Home = () => {
                     {[
                         { label: "Familias Protegidas", val: "1,200+", icon: <Users className="w-5 h-5" /> },
                         { label: "Casos Analizados", val: "500+", icon: <Search className="w-5 h-5" /> },
-                        { label: "Modulos Expertos", val: "24", icon: <Zap className="w-5 h-5" /> },
+                        { label: "Lecciones Expertas", val: "30", icon: <Zap className="w-5 h-5" /> },
                         { label: "Indice de Satisfacción", val: "99%", icon: <Award className="w-5 h-5" /> }
                     ].map((stat, i) => (
                         <div key={i} className="text-center space-y-2 group">
