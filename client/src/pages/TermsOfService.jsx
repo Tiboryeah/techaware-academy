@@ -76,7 +76,7 @@ const TermsOfService = () => {
                         </div>
                         <h2 className="text-2xl font-black tracking-tighter uppercase text-sm tracking-widest">Nuestra Visión</h2>
                         <p className="text-gray-600 dark:text-gray-400 leading-relaxed italic font-medium">
-                            "Consolidarnos como la plataforma líder en educación digital para padres en Latinoamérica, siendo un referente en innovación tecnológica e impacto social."
+                            "Consolidarnos como la plataforma líder en educación digital para padres en Latinoamérica, siendo un referente en innovación tecnológica, impacto social y compromiso con la protección infantil."
                         </p>
                     </motion.section>
                 </div>
@@ -117,13 +117,13 @@ const TermsOfService = () => {
                     </h2>
                     <div className="space-y-6 text-gray-600 dark:text-gray-400 leading-relaxed font-medium italic">
                         <p>
-                            El acceso a TechAware Academy implica la aceptación de un uso responsable de nuestra infraestructura en la nube. Nuestros servicios están orientados exclusivamente a la educación y prevención de riesgos digitales infantiles.
+                            El acceso a TechAware Kids implica la aceptación de un uso responsable de nuestra infraestructura en la nube. Nuestro objetivo es proveer un servicio de IT confiable, seguro y eficiente que soporte la operación de la aplicación web, permitiendo concientizar y apoyar a los padres de familia a prevenir los riesgos digitales en niños de 6 a 12 años.
                         </p>
                         <p>
-                            Queda estrictamente prohibido el uso de la plataforma para fines maliciosos, la alteración del código o cualquier acción que comprometa la integridad de los datos protegidos bajo la norma ISO 27000 que rige nuestras operaciones.
+                            Integramos tecnologías de terceros para enriquecer la experiencia educativa. Esto incluye el uso de la API de **YouTube** para la visualización de contenido multimedia de apoyo y el motor de inteligencia artificial **Google Gemini** para facilitar interacciones informativas y asistencia técnica mediante nuestro chatbot.
                         </p>
                         <p>
-                            Nos reservamos el derecho de actualizar estos términos para alinearnos con los objetivos estratégicos de optimización tecnológica y gestión de riesgos según el marco COBIT.
+                            Queda estrictamente prohibido el uso de la plataforma para fines maliciosos, la alteración del código o cualquier acción que comprometa la integridad de los datos protegidos bajo la norma ISO 27000. Nuestras operaciones se alinean con los objetivos estratégicos de la organización, optimizando recursos y fortaleciendo la gestión de riesgos basada en el marco de referencia COBIT.
                         </p>
                     </div>
 

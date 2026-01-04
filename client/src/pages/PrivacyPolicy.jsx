@@ -22,6 +22,11 @@ const PrivacyPolicy = () => {
             icon: <Scale className="w-6 h-6 text-indigo-500" />,
             title: "Gobernanza de TI (COBIT)",
             content: "La gestión de nuestros recursos tecnológicos y riesgos se basa en el marco de referencia COBIT (Control Objectives for Information and Related Technologies). Este alineamiento nos permite optimizar los recursos, reducir costos operativos y fortalecer nuestra toma de decisiones estratégica, garantizando un servicio confiable y alineado a las mejores prácticas globales en gestión de TI."
+        },
+        {
+            icon: <Zap className="w-6 h-6 text-indigo-500" />,
+            title: "Integración de Servicios de Terceros (YouTube y Gemini)",
+            content: "Para cumplir con nuestra misión de innovación y educación, integramos servicios externos mediante APIs. Utilizamos YouTube para proporcionar contenido visual educativo y Google Gemini para potenciar nuestro asistente de inteligencia artificial. El uso de estos servicios se realiza bajo estrictas medidas de seguridad para garantizar que la interacción del usuario sea privada y se alinee con nuestros objetivos de protección infantil."
         }
     ];
 
@@ -52,7 +57,7 @@ const PrivacyPolicy = () => {
                         transition={{ delay: 0.2 }}
                         className="text-gray-500 dark:text-gray-400 text-lg italic font-medium"
                     >
-                        Ultima actualización: 3 de Enero, 2026
+                        Ultima actualización: 4 de Enero, 2026
                     </motion.p>
                 </div>
             </div>
