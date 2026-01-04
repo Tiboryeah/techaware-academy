@@ -133,19 +133,6 @@ router.put('/update-password', protect, async (req, res) => {
 const multer = require('multer');
 const path = require('path');
 
-// Configure Multer for File Uploads
-const storage = multer.diskStorage({
-    destination(req, file, cb) {
-        cb(null, 'uploads/profiles/');
-    },
-    filename(req, file, cb) {
-        cb(
-            null,
-            `user-${req.user._id}-${Date.now()}${path.extname(file.originalname)}`
-        );
-    },
-});
-
 const checkFileType = (file, cb) => {
     const filetypes = /jpg|jpeg|png/;
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
@@ -158,17 +145,20 @@ const checkFileType = (file, cb) => {
     }
 };
 
-const upload = multer({
-    storage,
+const sharp = require('sharp');
+
+// @desc    Update User Profile (Name & Avatar)
+// @route   PUT /api/auth/update-profile
+// @access  Private
+// Use memory storage for Buffer processing
+const memoryUpload = multer({
+    storage: multer.memoryStorage(),
     fileFilter: function (req, file, cb) {
         checkFileType(file, cb);
     },
 });
 
-// @desc    Update User Profile (Name & Avatar)
-// @route   PUT /api/auth/update-profile
-// @access  Private
-router.put('/update-profile', protect, upload.single('avatar'), async (req, res) => {
+router.put('/update-profile', protect, memoryUpload.single('avatar'), async (req, res) => {
     try {
         const user = await User.findById(req.user._id);
 
@@ -176,8 +166,14 @@ router.put('/update-profile', protect, upload.single('avatar'), async (req, res)
             user.name = req.body.name || user.name;
 
             if (req.file) {
-                // Normalize path to use forward slashes for URLs
-                user.avatar = `/uploads/profiles/${req.file.filename}`;
+                // Resize and compress to stay under Atlas limits (~50KB)
+                const compressedBuffer = await sharp(req.file.buffer)
+                    .resize(200, 200, { fit: 'cover' })
+                    .jpeg({ quality: 70 })
+                    .toBuffer();
+
+                const base64Avatar = `data:image/jpeg;base64,${compressedBuffer.toString('base64')}`;
+                user.avatar = base64Avatar;
             }
 
             const updatedUser = await user.save();
@@ -188,7 +184,7 @@ router.put('/update-profile', protect, upload.single('avatar'), async (req, res)
                 email: updatedUser.email,
                 avatar: updatedUser.avatar,
                 role: updatedUser.role,
-                token: generateToken(updatedUser._id), // Optionally refresh token
+                token: generateToken(updatedUser._id),
             });
         } else {
             res.status(404).json({ message: 'User not found' });

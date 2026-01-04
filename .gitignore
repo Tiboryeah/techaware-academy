@@ -22,6 +22,7 @@ yarn-error.log*
 
 # Backups and temporary files
 BACKUP_PRE_DEPLOYMENT/
+server/uploads/
 *.js.map
 .DS_Store
 
