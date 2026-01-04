@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import api from '../services/api';
+import { API_BASE_URL } from '../constants';
 import { motion } from 'framer-motion';
 import { jsPDF } from 'jspdf';
 import {
@@ -266,7 +267,7 @@ const Dashboard = () => {
                             <div className="w-16 h-16 rounded-2xl bg-indigo-50 dark:bg-gray-800 border-2 border-indigo-100 dark:border-gray-700 overflow-hidden shadow-lg flex-shrink-0">
                                 {user.avatar ? (
                                     <img
-                                        src={user.avatar.startsWith('http') ? user.avatar : `http://localhost:5000${user.avatar}`}
+                                        src={user.avatar.startsWith('http') ? user.avatar : `${API_BASE_URL}${user.avatar}`}
                                         alt="Profile"
                                         className="w-full h-full object-cover"
                                     />

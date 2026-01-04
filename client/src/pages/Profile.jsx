@@ -91,17 +91,9 @@ const Profile = () => {
         setIsPassLoading(true);
 
         try {
-            const token = localStorage.getItem('token');
-            const config = {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            };
-
-            await axios.put(
-                'http://localhost:5000/api/auth/update-password',
-                { currentPassword, newPassword },
-                config
+            await api.put(
+                '/api/auth/update-password',
+                { currentPassword, newPassword }
             );
             addToast('¡Contraseña actualizada con éxito!', 'success');
             setCurrentPassword('');
