@@ -3,6 +3,7 @@ const Quiz = require('../models/Quiz');
 const Question = require('../models/Question');
 const Attempt = require('../models/Attempt');
 const { protect } = require('../middleware/authMiddleware');
+const shuffleArray = require('../utils/shuffle');
 const router = express.Router();
 
 // @desc    Get diagnostic quiz
@@ -12,7 +13,14 @@ router.get('/diagnostic', async (req, res) => {
     try {
         const quiz = await Quiz.findOne({ scope: 'diagnostic' }).populate('questions');
         if (quiz) {
-            res.json(quiz);
+            const quizObj = quiz.toObject();
+            if (quizObj.questions) {
+                quizObj.questions = quizObj.questions.map(q => ({
+                    ...q,
+                    options: shuffleArray(q.options)
+                }));
+            }
+            res.json(quizObj);
         } else {
             res.status(404).json({ message: 'Diagnostic quiz not found' });
         }
@@ -28,7 +36,14 @@ router.get('/:id', async (req, res) => {
     try {
         const quiz = await Quiz.findById(req.params.id).populate('questions');
         if (quiz) {
-            res.json(quiz);
+            const quizObj = quiz.toObject();
+            if (quizObj.questions) {
+                quizObj.questions = quizObj.questions.map(q => ({
+                    ...q,
+                    options: shuffleArray(q.options)
+                }));
+            }
+            res.json(quizObj);
         } else {
             res.status(404).json({ message: 'Quiz not found' });
         }
