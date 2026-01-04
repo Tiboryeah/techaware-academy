@@ -267,7 +267,7 @@ const Dashboard = () => {
                             <div className="w-16 h-16 rounded-2xl bg-indigo-50 dark:bg-gray-800 border-2 border-indigo-100 dark:border-gray-700 overflow-hidden shadow-lg flex-shrink-0">
                                 {user.avatar ? (
                                     <img
-                                        src={user.avatar.startsWith('http') ? user.avatar : `${API_BASE_URL}${user.avatar}`}
+                                        src={(user.avatar.startsWith('http') || user.avatar.startsWith('data:')) ? user.avatar : `${API_BASE_URL}${user.avatar}`}
                                         alt="Profile"
                                         className="w-full h-full object-cover"
                                     />

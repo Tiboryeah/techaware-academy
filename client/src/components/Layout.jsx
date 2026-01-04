@@ -79,7 +79,7 @@ const Layout = () => {
                                         <div className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white overflow-hidden">
                                             {user.avatar ? (
                                                 <img
-                                                    src={user.avatar.startsWith('http') ? user.avatar : `${API_BASE_URL}${user.avatar}`}
+                                                    src={(user.avatar.startsWith('http') || user.avatar.startsWith('data:')) ? user.avatar : `${API_BASE_URL}${user.avatar}`}
                                                     alt="Avatar"
                                                     className="w-full h-full object-cover"
                                                 />

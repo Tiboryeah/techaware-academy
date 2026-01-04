@@ -94,7 +94,7 @@ const Home = () => {
                                 <div className="relative w-32 h-32 lg:w-40 lg:h-40 rounded-[2.5rem] rotate-3 group-hover:rotate-0 transition-all duration-500 border-[6px] border-white dark:border-[#0a0c10] shadow-2xl overflow-hidden bg-white dark:bg-gray-800">
                                     {user.avatar ? (
                                         <img
-                                            src={user.avatar.startsWith('http') ? user.avatar : `${API_BASE_URL}${user.avatar}`}
+                                            src={(user.avatar.startsWith('http') || user.avatar.startsWith('data:')) ? user.avatar : `${API_BASE_URL}${user.avatar}`}
                                             alt="Profile"
                                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                         />

@@ -32,7 +32,7 @@ const Profile = () => {
             // If user has an avatar, construct the full URL
             if (user.avatar) {
                 // Check if it's already a full URL or relative
-                const avatarUrl = user.avatar.startsWith('http')
+                const avatarUrl = (user.avatar.startsWith('http') || user.avatar.startsWith('data:'))
                     ? user.avatar
                     : `${API_BASE_URL}${user.avatar}`;
                 setAvatarPreview(avatarUrl);
