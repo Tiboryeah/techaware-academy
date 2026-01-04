@@ -195,11 +195,7 @@ const ForgotPassword = () => {
                                 </div>
                             </motion.div>
 
-                            {error && (
-                                <div className="text-red-500 dark:text-red-400 text-xs font-bold text-center bg-red-500/5 py-2 rounded-lg border border-red-500/10 italic">
-                                    {error}
-                                </div>
-                            )}
+                            {/* Error display handled by Toast */}
 
                             <button
                                 type="submit"
