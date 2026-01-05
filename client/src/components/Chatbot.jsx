@@ -12,14 +12,36 @@ const Chatbot = () => {
     const [isTyping, setIsTyping] = useState(false);
     const [conversationId, setConversationId] = useState(null); // Keep track of current chat
     const messagesEndRef = useRef(null);
+    const messagesContainerRef = useRef(null);
 
-    const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    const scrollToNewestMessage = (isBot = false) => {
+        if (!messagesContainerRef.current) return;
+
+        const container = messagesContainerRef.current;
+        if (isBot) {
+            // Find the last message and scroll to its top
+            const messageDivs = container.querySelectorAll('.message-item');
+            if (messageDivs.length > 0) {
+                const lastMessage = messageDivs[messageDivs.length - 1];
+                lastMessage.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+        } else {
+            messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        }
     };
 
     useEffect(() => {
-        scrollToBottom();
-    }, [messages, isOpen]);
+        if (messages.length > 1) {
+            const lastMessage = messages[messages.length - 1];
+            scrollToNewestMessage(lastMessage.sender === 'bot');
+        }
+    }, [messages]);
+
+    useEffect(() => {
+        if (isOpen) {
+            setTimeout(() => scrollToNewestMessage(false), 100);
+        }
+    }, [isOpen]);
 
     const handleSendMessage = async (e) => {
         e.preventDefault();
@@ -91,13 +113,13 @@ const Chatbot = () => {
                         </div>
 
                         {/* Messages Area */}
-                        <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-gray-50 dark:bg-[#0a0c10]/40 scroll-smooth transition-colors">
+                        <div ref={messagesContainerRef} className="flex-1 overflow-y-auto p-6 space-y-6 bg-gray-50 dark:bg-[#0a0c10]/40 scroll-smooth transition-colors">
                             {messages.map((msg) => (
                                 <motion.div
                                     initial={{ opacity: 0, x: msg.sender === 'user' ? 20 : -20 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     key={msg.id}
-                                    className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                                    className={`message-item flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                                 >
                                     <div className="flex flex-col gap-1 max-w-[85%]">
                                         <div className={`p-4 rounded-[1.5rem] text-sm shadow-sm transition-colors ${msg.sender === 'user'
