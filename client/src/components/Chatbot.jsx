@@ -187,10 +187,16 @@ const Chatbot = () => {
                                     <Send size={20} className="fill-current" />
                                 </button>
                             </form>
-                            <div className="mt-4 flex justify-center gap-3">
-                                <button onClick={() => setInputText("Roblox")} className="text-[9px] font-black uppercase tracking-widest text-gray-400 hover:text-indigo-600 transition-colors bg-gray-50 dark:bg-[#0a0c10] px-3 py-1 rounded-lg border border-gray-100 dark:border-gray-800">Roblox</button>
-                                <button onClick={() => setInputText("TikTok")} className="text-[9px] font-black uppercase tracking-widest text-gray-400 hover:text-indigo-600 transition-colors bg-gray-50 dark:bg-[#0a0c10] px-3 py-1 rounded-lg border border-gray-100 dark:border-gray-800">TikTok</button>
-                                <button onClick={() => setInputText("Grooming")} className="text-[9px] font-black uppercase tracking-widest text-gray-400 hover:text-indigo-600 transition-colors bg-gray-50 dark:bg-[#0a0c10] px-3 py-1 rounded-lg border border-gray-100 dark:border-gray-800">Grooming</button>
+                            <div className="mt-4 flex flex-col items-center gap-4">
+                                <div className="flex justify-center gap-3">
+                                    <button onClick={() => setInputText("Roblox")} className="text-[9px] font-black uppercase tracking-widest text-gray-400 hover:text-indigo-600 transition-colors bg-gray-50 dark:bg-[#0a0c10] px-3 py-1 rounded-lg border border-gray-100 dark:border-gray-800">Roblox</button>
+                                    <button onClick={() => setInputText("TikTok")} className="text-[9px] font-black uppercase tracking-widest text-gray-400 hover:text-indigo-600 transition-colors bg-gray-50 dark:bg-[#0a0c10] px-3 py-1 rounded-lg border border-gray-100 dark:border-gray-800">TikTok</button>
+                                    <button onClick={() => setInputText("Grooming")} className="text-[9px] font-black uppercase tracking-widest text-gray-400 hover:text-indigo-600 transition-colors bg-gray-50 dark:bg-[#0a0c10] px-3 py-1 rounded-lg border border-gray-100 dark:border-gray-800">Grooming</button>
+                                </div>
+                                <div className="flex items-center gap-1.5 opacity-40">
+                                    <ShieldCheck size={10} className="text-gray-400" />
+                                    <p className="text-[8px] font-black uppercase tracking-tighter text-gray-500">Guardián virtual puede contener errores</p>
+                                </div>
                             </div>
                         </div>
                     </motion.div>
