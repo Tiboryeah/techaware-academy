@@ -41,6 +41,7 @@ const Layout = () => {
                                     { name: 'Inicio', path: '/' },
                                     { name: 'Cursos', path: '/modules', protected: true },
                                     { name: 'Casos Reales', path: '/cases', protected: true },
+                                    { name: 'Gobernanza', path: '/governance' },
                                 ].map((item) => (
                                     (!item.protected || user) && (
                                         <Link
