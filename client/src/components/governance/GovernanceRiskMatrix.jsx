@@ -42,9 +42,9 @@ const GovernanceRiskMatrix = () => {
                         </thead>
                         <tbody className="divide-y divide-gray-200 dark:divide-gray-700 font-medium">
                             <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/20">
-                                <td className="py-2 border-r">TAW_OP_01</td>
-                                <td className="py-2 border-r font-bold text-indigo-600">TAW_INF_01</td>
-                                <td className="py-2 border-r text-left px-2">Infraestructura en la nube</td>
+                                <td className="py-2 border-r">TAW-OP-01</td>
+                                <td className="py-2 border-r font-bold text-indigo-600">TAW-INF-01</td>
+                                <td className="py-2 border-r text-left px-2">Infraestructura Cloud</td>
                                 <td className="py-2 border-r">3</td>
                                 <td className="py-2 border-r">3</td>
                                 <td className="py-2 border-r font-bold text-red-500">5</td>
@@ -54,32 +54,68 @@ const GovernanceRiskMatrix = () => {
                                 <td className="py-2 font-black text-red-600 bg-red-100 dark:bg-red-900/20">V</td>
                             </tr>
                             <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/20">
-                                <td className="py-2 border-r">TAW_SEG_02</td>
-                                <td className="py-2 border-r font-bold text-indigo-600">TAW_DAT_02</td>
-                                <td className="py-2 border-r text-left px-2">Base de datos de usuarios</td>
+                                <td className="py-2 border-r">TAW-OP-01</td>
+                                <td className="py-2 border-r font-bold text-indigo-600">TAW-SW-03</td>
+                                <td className="py-2 border-r text-left px-2">Plataforma Web</td>
+                                <td className="py-2 border-r">3</td>
+                                <td className="py-2 border-r">2</td>
+                                <td className="py-2 border-r font-bold text-orange-500">4</td>
+                                <td className="py-2 border-r">2</td>
+                                <td className="py-2 border-r">2</td>
+                                <td className="py-2 border-r">3</td>
+                                <td className="py-2 font-black text-orange-600 bg-orange-100 dark:bg-orange-900/20">IV</td>
+                            </tr>
+                            <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/20">
+                                <td className="py-2 border-r">TAW-OP-01</td>
+                                <td className="py-2 border-r font-bold text-indigo-600">TAW-MON-01</td>
+                                <td className="py-2 border-r text-left px-2">Sistema Monitoreo</td>
+                                <td className="py-2 border-r">1</td>
+                                <td className="py-2 border-r">2</td>
+                                <td className="py-2 border-r font-bold text-yellow-500">2</td>
+                                <td className="py-2 border-r">1</td>
+                                <td className="py-2 border-r">1</td>
+                                <td className="py-2 border-r">1</td>
+                                <td className="py-2 font-black text-yellow-600 bg-yellow-100 dark:bg-yellow-900/20">II</td>
+                            </tr>
+                            <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/20">
+                                <td className="py-2 border-r">TAW-SEG-02</td>
+                                <td className="py-2 border-r font-bold text-indigo-600">TAW-DAT-02</td>
+                                <td className="py-2 border-r text-left px-2">Base de Datos Usuarios</td>
                                 <td className="py-2 border-r">3</td>
                                 <td className="py-2 border-r">2</td>
                                 <td className="py-2 border-r font-bold text-red-500">4</td>
+                                <td className="py-2 border-r">3</td>
+                                <td className="py-2 border-r">3</td>
+                                <td className="py-2 border-r">5</td>
+                                <td className="py-2 font-black text-red-600 bg-red-100 dark:bg-red-900/20">V</td>
+                            </tr>
+                            <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/20">
+                                <td className="py-2 border-r">TAW-SEG-02</td>
+                                <td className="py-2 border-r font-bold text-indigo-600">TAW-SW-03</td>
+                                <td className="py-2 border-r text-left px-2">Plataforma Web</td>
+                                <td className="py-2 border-r">3</td>
+                                <td className="py-2 border-r">2</td>
+                                <td className="py-2 border-r font-bold text-orange-500">4</td>
+                                <td className="py-2 border-r">2</td>
                                 <td className="py-2 border-r">2</td>
                                 <td className="py-2 border-r">3</td>
+                                <td className="py-2 font-black text-orange-600 bg-orange-100 dark:bg-orange-900/20">IV</td>
+                            </tr>
+                            <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/20">
+                                <td className="py-2 border-r">TAW-SEG-02</td>
+                                <td className="py-2 border-r font-bold text-indigo-600">TAW-ACC-02</td>
+                                <td className="py-2 border-r text-left px-2">Control de Accesos</td>
+                                <td className="py-2 border-r">3</td>
+                                <td className="py-2 border-r">2</td>
+                                <td className="py-2 border-r font-bold text-red-500">4</td>
+                                <td className="py-2 border-r">3</td>
+                                <td className="py-2 border-r">2</td>
                                 <td className="py-2 border-r">4</td>
                                 <td className="py-2 font-black text-red-600 bg-red-100 dark:bg-red-900/20">V</td>
                             </tr>
                             <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/20">
-                                <td className="py-2 border-r">TAW_SEG_02</td>
-                                <td className="py-2 border-r font-bold text-indigo-600">TAW_SW_03</td>
-                                <td className="py-2 border-r text-left px-2">Plataforma web</td>
-                                <td className="py-2 border-r">3</td>
-                                <td className="py-2 border-r">2</td>
-                                <td className="py-2 border-r font-bold text-orange-500">4</td>
-                                <td className="py-2 border-r">1</td>
-                                <td className="py-2 border-r">2</td>
-                                <td className="py-2 border-r">2</td>
-                                <td className="py-2 font-black text-orange-600 bg-orange-100 dark:bg-orange-900/20">IV</td>
-                            </tr>
-                            <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/20">
-                                <td className="py-2 border-r">TAW_SOP_03</td>
-                                <td className="py-2 border-r font-bold text-indigo-600">TAW_PER_04</td>
+                                <td className="py-2 border-r">TAW-SOP-03</td>
+                                <td className="py-2 border-r font-bold text-indigo-600">TAW-PER-04</td>
                                 <td className="py-2 border-r text-left px-2">Personal de IT</td>
                                 <td className="py-2 border-r">2</td>
                                 <td className="py-2 border-r">2</td>
@@ -90,9 +126,9 @@ const GovernanceRiskMatrix = () => {
                                 <td className="py-2 font-black text-yellow-600 bg-yellow-100 dark:bg-yellow-900/20">III</td>
                             </tr>
                             <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/20">
-                                <td className="py-2 border-r">TAW_SOP_03</td>
-                                <td className="py-2 border-r font-bold text-indigo-600">TAW_DOC_05</td>
-                                <td className="py-2 border-r text-left px-2">Documentación técnica</td>
+                                <td className="py-2 border-r">TAW-SOP-03</td>
+                                <td className="py-2 border-r font-bold text-indigo-600">TAW-DOC-05</td>
+                                <td className="py-2 border-r text-left px-2">Documentación Técnica</td>
                                 <td className="py-2 border-r">1</td>
                                 <td className="py-2 border-r">1</td>
                                 <td className="py-2 border-r font-bold text-green-500">1</td>
@@ -100,6 +136,18 @@ const GovernanceRiskMatrix = () => {
                                 <td className="py-2 border-r">1</td>
                                 <td className="py-2 border-r">1</td>
                                 <td className="py-2 font-black text-green-600 bg-green-100 dark:bg-green-900/20">I</td>
+                            </tr>
+                            <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/20">
+                                <td className="py-2 border-r">TAW-SOP-03</td>
+                                <td className="py-2 border-r font-bold text-indigo-600">TAW-TOOL-03</td>
+                                <td className="py-2 border-r text-left px-2">Gestión Incidentes</td>
+                                <td className="py-2 border-r">2</td>
+                                <td className="py-2 border-r">1</td>
+                                <td className="py-2 border-r font-bold text-yellow-500">2</td>
+                                <td className="py-2 border-r">2</td>
+                                <td className="py-2 border-r">2</td>
+                                <td className="py-2 border-r">3</td>
+                                <td className="py-2 font-black text-yellow-600 bg-yellow-100 dark:bg-yellow-900/20">III</td>
                             </tr>
                         </tbody>
                     </table>
@@ -204,7 +252,7 @@ const GovernanceRiskMatrix = () => {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 gap-8">
                 {/* TABLA 4: Análisis de Vulnerabilidades */}
                 <div className="p-6 bg-white dark:bg-[#161b22] rounded-[2rem] border border-gray-100 dark:border-gray-800 shadow-xl space-y-4">
                     <div className="flex items-center gap-3">
@@ -236,16 +284,52 @@ const GovernanceRiskMatrix = () => {
                                     <td className="px-3 py-2 font-black bg-blue-50 dark:bg-blue-900/20 text-blue-600">5</td>
                                 </tr>
                                 <tr>
+                                    <td className="px-3 py-2 text-left">Privilegios excesivos y falta de MFA (TAW_ACC_02)</td>
+                                    <td className="px-3 py-2">3</td>
+                                    <td className="px-3 py-2">3</td>
+                                    <td className="px-3 py-2 font-black bg-blue-50 dark:bg-blue-900/20 text-blue-600">5</td>
+                                </tr>
+                                <tr>
                                     <td className="px-3 py-2 text-left">Ausencia de redundancia geográfica (TAW_INF_01)</td>
                                     <td className="px-3 py-2">2</td>
                                     <td className="px-3 py-2">3</td>
                                     <td className="px-3 py-2 font-black bg-blue-50 dark:bg-blue-900/20 text-blue-600">4</td>
                                 </tr>
                                 <tr>
-                                    <td className="px-3 py-2 text-left">Librerías desactualizadas y XSS (TAW_SW_03)</td>
+                                    <td className="px-3 py-2 text-left">Desactualización de parches de seguridad (TAW_SW_03 OP)</td>
+                                    <td className="px-3 py-2">2</td>
+                                    <td className="px-3 py-2">3</td>
+                                    <td className="px-3 py-2 font-black bg-blue-50 dark:bg-blue-900/20 text-blue-600">4</td>
+                                </tr>
+                                <tr>
+                                    <td className="px-3 py-2 text-left">Librerías vulnerables y fallos de sesión (TAW_SW_03 SEG)</td>
                                     <td className="px-3 py-2">2</td>
                                     <td className="px-3 py-2">2</td>
                                     <td className="px-3 py-2 font-black bg-blue-50 dark:bg-blue-900/20 text-blue-600">3</td>
+                                </tr>
+                                <tr>
+                                    <td className="px-3 py-2 text-left">Inaccesibilidad remota de herramientas (TAW_TOOL_03)</td>
+                                    <td className="px-3 py-2">2</td>
+                                    <td className="px-3 py-2">2</td>
+                                    <td className="px-3 py-2 font-black bg-blue-50 dark:bg-blue-900/20 text-blue-600">3</td>
+                                </tr>
+                                <tr>
+                                    <td className="px-3 py-2 text-left">Falta de capacitación técnica especializada (TAW_PER_04)</td>
+                                    <td className="px-3 py-2">2</td>
+                                    <td className="px-3 py-2">2</td>
+                                    <td className="px-3 py-2 font-black bg-blue-50 dark:bg-blue-900/20 text-blue-600">3</td>
+                                </tr>
+                                <tr>
+                                    <td className="px-3 py-2 text-left">Umbrales de alerta mal configurados (TAW_MON_01)</td>
+                                    <td className="px-3 py-2">1</td>
+                                    <td className="px-3 py-2">2</td>
+                                    <td className="px-3 py-2 font-black bg-blue-50 dark:bg-blue-900/20 text-blue-600">2</td>
+                                </tr>
+                                <tr>
+                                    <td className="px-3 py-2 text-left">Inconsistencia en manuales operativos (TAW_DOC_05)</td>
+                                    <td className="px-3 py-2">1</td>
+                                    <td className="px-3 py-2">2</td>
+                                    <td className="px-3 py-2 font-black bg-blue-50 dark:bg-blue-900/20 text-blue-600">2</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -279,24 +363,66 @@ const GovernanceRiskMatrix = () => {
                             <tbody className="divide-y divide-gray-200 dark:divide-gray-700 font-medium">
                                 <tr>
                                     <td className="px-3 py-2 text-left">Ciberdelito (Ataque dirigido)</td>
-                                    <td className="px-3 py-2 text-left text-gray-500">Robo de identidad de menores</td>
+                                    <td className="px-3 py-2 text-left text-gray-500">Robo de identidad de menores (TAW_DAT_02)</td>
                                     <td className="px-2 py-2">3</td>
                                     <td className="px-2 py-2">3</td>
                                     <td className="px-3 py-2 font-black bg-blue-50 dark:bg-blue-900/20 text-blue-600">5</td>
                                 </tr>
                                 <tr>
-                                    <td className="px-3 py-2 text-left">Denegación de Servicio (DoS)</td>
-                                    <td className="px-3 py-2 text-left text-gray-500">Interrupción de plataforma</td>
+                                    <td className="px-3 py-2 text-left">Suplantación de identidad</td>
+                                    <td className="px-3 py-2 text-left text-gray-500">Acceso no autorizado (TAW_ACC_02)</td>
                                     <td className="px-2 py-2">2</td>
                                     <td className="px-2 py-2">3</td>
                                     <td className="px-3 py-2 font-black bg-blue-50 dark:bg-blue-900/20 text-blue-600">4</td>
                                 </tr>
                                 <tr>
-                                    <td className="px-3 py-2 text-left">Sabotaje de contenido</td>
-                                    <td className="px-3 py-2 text-left text-gray-500">Alteración de material didáctico</td>
+                                    <td className="px-3 py-2 text-left">Denegación de Servicio (DoS)</td>
+                                    <td className="px-3 py-2 text-left text-gray-500">Interrupción de plataforma (TAW_SW_03 OP)</td>
+                                    <td className="px-2 py-2">2</td>
+                                    <td className="px-2 py-2">3</td>
+                                    <td className="px-3 py-2 font-black bg-blue-50 dark:bg-blue-900/20 text-blue-600">4</td>
+                                </tr>
+                                <tr>
+                                    <td className="px-3 py-2 text-left">Ingeniería Social</td>
+                                    <td className="px-3 py-2 text-left text-gray-500">Divulgación de credenciales (TAW_PER_04)</td>
+                                    <td className="px-2 py-2">2</td>
+                                    <td className="px-2 py-2">3</td>
+                                    <td className="px-3 py-2 font-black bg-blue-50 dark:bg-blue-900/20 text-blue-600">4</td>
+                                </tr>
+                                <tr>
+                                    <td className="px-3 py-2 text-left">Inyección de código malicioso</td>
+                                    <td className="px-3 py-2 text-left text-gray-500">Alteración de contenidos (TAW_SW_03 SEG)</td>
                                     <td className="px-2 py-2">2</td>
                                     <td className="px-2 py-2">2</td>
                                     <td className="px-3 py-2 font-black bg-blue-50 dark:bg-blue-900/20 text-blue-600">3</td>
+                                </tr>
+                                <tr>
+                                    <td className="px-3 py-2 text-left">Falla técnica de infraestructura</td>
+                                    <td className="px-3 py-2 text-left text-gray-500">Caída del servicio cloud (TAW_INF_01)</td>
+                                    <td className="px-2 py-2">2</td>
+                                    <td className="px-2 py-2">2</td>
+                                    <td className="px-3 py-2 font-black bg-blue-50 dark:bg-blue-900/20 text-blue-600">3</td>
+                                </tr>
+                                <tr>
+                                    <td className="px-3 py-2 text-left">Interrupción de servicio externo</td>
+                                    <td className="px-3 py-2 text-left text-gray-500">Incapacidad de gestión (TAW_TOOL_03)</td>
+                                    <td className="px-2 py-2">2</td>
+                                    <td className="px-2 py-2">2</td>
+                                    <td className="px-3 py-2 font-black bg-blue-50 dark:bg-blue-900/20 text-blue-600">3</td>
+                                </tr>
+                                <tr>
+                                    <td className="px-3 py-2 text-left">Error humano de operación</td>
+                                    <td className="px-3 py-2 text-left text-gray-500">Pérdida de visibilidad (TAW_MON_01)</td>
+                                    <td className="px-2 py-2">1</td>
+                                    <td className="px-2 py-2">2</td>
+                                    <td className="px-3 py-2 font-black bg-blue-50 dark:bg-blue-900/20 text-blue-600">2</td>
+                                </tr>
+                                <tr>
+                                    <td className="px-3 py-2 text-left">Pérdida de conocimiento</td>
+                                    <td className="px-3 py-2 text-left text-gray-500">Retraso en recuperación (TAW_DOC_05)</td>
+                                    <td className="px-2 py-2">1</td>
+                                    <td className="px-2 py-2">2</td>
+                                    <td className="px-3 py-2 font-black bg-blue-50 dark:bg-blue-900/20 text-blue-600">2</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -339,6 +465,20 @@ const GovernanceRiskMatrix = () => {
                             </tr>
                             <tr className="bg-blue-100/50 dark:bg-blue-900/30">
                                 <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">4</td>
+                                <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">5</td>
+                                <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">2</td>
+                                <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">12</td>
+                                <td className="py-4 bg-blue-300 dark:bg-blue-700 text-black dark:text-white">480</td>
+                            </tr>
+                            <tr className="bg-blue-100/50 dark:bg-blue-900/30">
+                                <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">4</td>
+                                <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">4</td>
+                                <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">2</td>
+                                <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">8</td>
+                                <td className="py-4 bg-blue-300 dark:bg-blue-700 text-black dark:text-white">256</td>
+                            </tr>
+                            <tr className="bg-blue-100/50 dark:bg-blue-900/30">
+                                <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">4</td>
                                 <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">4</td>
                                 <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">2</td>
                                 <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">14</td>
@@ -350,6 +490,34 @@ const GovernanceRiskMatrix = () => {
                                 <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">2</td>
                                 <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">12</td>
                                 <td className="py-4 bg-blue-300 dark:bg-blue-700 text-black dark:text-white">216</td>
+                            </tr>
+                            <tr className="bg-blue-100/50 dark:bg-blue-900/30">
+                                <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">3</td>
+                                <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">3</td>
+                                <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">2</td>
+                                <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">14</td>
+                                <td className="py-4 bg-blue-300 dark:bg-blue-700 text-black dark:text-white">252</td>
+                            </tr>
+                            <tr className="bg-blue-100/50 dark:bg-blue-900/30">
+                                <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">3</td>
+                                <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">3</td>
+                                <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">2</td>
+                                <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">9</td>
+                                <td className="py-4 bg-blue-300 dark:bg-blue-700 text-black dark:text-white">162</td>
+                            </tr>
+                            <tr className="bg-blue-100/50 dark:bg-blue-900/30">
+                                <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">2</td>
+                                <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">2</td>
+                                <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">2</td>
+                                <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">7</td>
+                                <td className="py-4 bg-blue-300 dark:bg-blue-700 text-black dark:text-white">56</td>
+                            </tr>
+                            <tr className="bg-blue-100/50 dark:bg-blue-900/30">
+                                <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">2</td>
+                                <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">2</td>
+                                <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">2</td>
+                                <td className="py-4 border-r dark:border-gray-700 text-black dark:text-white">10</td>
+                                <td className="py-4 bg-blue-300 dark:bg-blue-700 text-black dark:text-white">80</td>
                             </tr>
                         </tbody>
                     </table>
@@ -388,73 +556,129 @@ const GovernanceRiskMatrix = () => {
                         <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                             {/* Row 1 */}
                             <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/20">
-                                <td className="p-2 border-r font-mono">TAW_OP_01</td>
-                                <td className="p-2 border-r font-mono font-bold text-indigo-600">TAW_INF_01</td>
-                                <td className="p-2 border-r">Infraestructura en la nube</td>
+                                <td className="p-2 border-r font-mono">TAW-OP-01</td>
+                                <td className="p-2 border-r font-mono font-bold text-indigo-600">TAW-INF-01</td>
+                                <td className="p-2 border-r">Infraestructura Cloud</td>
                                 <td className="p-2 text-center border-r">2</td><td className="p-2 text-center border-r">4</td><td className="p-2 text-center border-r">5</td>
                                 <td className="p-2 text-center border-r font-bold bg-blue-50 dark:bg-blue-900/20">11</td>
                                 <td className="p-2 text-center border-r font-bold text-red-500 bg-blue-50 dark:bg-blue-900/20">Alto</td>
                                 <td className="p-2 text-center border-r font-bold bg-blue-50 dark:bg-blue-900/20">3</td>
-                                <td className="p-2 border-r text-gray-500">Falta de redundancia regional, config débil de red, falla técnica (proveedor)</td>
-                                <td className="p-2 border-r text-gray-500">Ataque DDoS, Interrupción del servicio educativo digital.</td>
-                                <td className="p-2 border-r font-medium">Interrupción del servicio educativo digital.</td>
-                                <td className="p-2 bg-green-50/50 dark:bg-green-900/10 font-bold border-l-4 border-green-500">Implementación de Multi-AZ y Plan de Recuperación (DRP).</td>
+                                <td className="p-2 border-r text-gray-500">Mala configuración de red</td>
+                                <td className="p-2 border-r text-gray-500">Falla técnica</td>
+                                <td className="p-2 border-r font-medium">Interrupción del servicio</td>
+                                <td className="p-2 bg-green-50/50 dark:bg-green-900/10 font-bold border-l-4 border-green-500">Multi-AZ, Load Balancing</td>
                             </tr>
                             {/* Row 2 */}
                             <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/20">
-                                <td className="p-2 border-r font-mono">TAW_SEG_02</td>
-                                <td className="p-2 border-r font-mono font-bold text-indigo-600">TAW_DAT_02</td>
-                                <td className="p-2 border-r">Base de datos de usuarios</td>
+                                <td className="p-2 border-r font-mono">TAW-OP-01</td>
+                                <td className="p-2 border-r font-mono font-bold text-indigo-600">TAW-SW-03</td>
+                                <td className="p-2 border-r">Plataforma Web</td>
+                                <td className="p-2 text-center border-r">3</td><td className="p-2 text-center border-r">4</td><td className="p-2 text-center border-r">5</td>
+                                <td className="p-2 text-center border-r font-bold bg-blue-50 dark:bg-blue-900/20">12</td>
+                                <td className="p-2 text-center border-r font-bold text-red-500 bg-blue-50 dark:bg-blue-900/20">Alto</td>
+                                <td className="p-2 text-center border-r font-bold bg-blue-50 dark:bg-blue-900/20">3</td>
+                                <td className="p-2 border-r text-gray-500">Código no sanitizado</td>
+                                <td className="p-2 border-r text-gray-500">Inyección XSS</td>
+                                <td className="p-2 border-r font-medium">Alteración de contenido</td>
+                                <td className="p-2 bg-green-50/50 dark:bg-green-900/10 font-bold border-l-4 border-green-500">WAF, Auditoría código</td>
+                            </tr>
+                            {/* Row 3 */}
+                            <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/20">
+                                <td className="p-2 border-r font-mono">TAW-OP-01</td>
+                                <td className="p-2 border-r font-mono font-bold text-indigo-600">TAW-MON-01</td>
+                                <td className="p-2 border-r">Sistema Monitoreo</td>
+                                <td className="p-2 text-center border-r">3</td><td className="p-2 text-center border-r">1</td><td className="p-2 text-center border-r">4</td>
+                                <td className="p-2 text-center border-r font-bold bg-blue-50 dark:bg-blue-900/20">8</td>
+                                <td className="p-2 text-center border-r font-bold text-orange-500 bg-blue-50 dark:bg-blue-900/20">Medio</td>
+                                <td className="p-2 text-center border-r font-bold bg-blue-50 dark:bg-blue-900/20">2</td>
+                                <td className="p-2 border-r text-gray-500">Alertas mal configuradas</td>
+                                <td className="p-2 border-r text-gray-500">Falta de visibilidad</td>
+                                <td className="p-2 border-r font-medium">Retraso en detección</td>
+                                <td className="p-2 bg-green-50/50 dark:bg-green-900/10 font-bold border-l-4 border-green-500">Dashboard en tiempo real</td>
+                            </tr>
+                            {/* Row 4 */}
+                            <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/20">
+                                <td className="p-2 border-r font-mono">TAW-SEG-02</td>
+                                <td className="p-2 border-r font-mono font-bold text-indigo-600">TAW-DAT-02</td>
+                                <td className="p-2 border-r">Base de Datos Usuarios</td>
                                 <td className="p-2 text-center border-r">5</td><td className="p-2 text-center border-r">5</td><td className="p-2 text-center border-r">4</td>
                                 <td className="p-2 text-center border-r font-bold bg-blue-50 dark:bg-blue-900/20">14</td>
                                 <td className="p-2 text-center border-r font-bold text-red-500 bg-blue-50 dark:bg-blue-900/20">Alto</td>
                                 <td className="p-2 text-center border-r font-bold bg-blue-50 dark:bg-blue-900/20">3</td>
-                                <td className="p-2 border-r text-gray-500">Inyección SQL, falta de cifrado en reposo.</td>
-                                <td className="p-2 border-r text-gray-500">Ciberdelito, Robo de identidad de menores.</td>
-                                <td className="p-2 border-r font-medium">Exfiltración de datos sensibles de usuarios.</td>
-                                <td className="p-2 bg-green-50/50 dark:bg-green-900/10 font-bold border-l-4 border-green-500">Uso de Argon2 para passwords y cifrado AES-256.</td>
-                            </tr>
-                            {/* Row 3 */}
-                            <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/20">
-                                <td className="p-2 border-r font-mono">TAW_SEG_02</td>
-                                <td className="p-2 border-r font-mono font-bold text-indigo-600">TAW_SW_03</td>
-                                <td className="p-2 border-r">Plataforma web</td>
-                                <td className="p-2 text-center border-r">3</td><td className="p-2 text-center border-r">4</td><td className="p-2 text-center border-r">3</td>
-                                <td className="p-2 text-center border-r font-bold bg-blue-50 dark:bg-blue-900/20">12</td>
-                                <td className="p-2 text-center border-r font-bold text-red-500 bg-blue-50 dark:bg-blue-900/20">Alto</td>
-                                <td className="p-2 text-center border-r font-bold bg-blue-50 dark:bg-blue-900/20">3</td>
-                                <td className="p-2 border-r text-gray-500">Librerías desactualizadas, vulnerabilidad XSS.</td>
-                                <td className="p-2 border-r text-gray-500">Inyección de código malicioso, Sabotaje.</td>
-                                <td className="p-2 border-r font-medium">Alteración de los contenidos didácticos.</td>
-                                <td className="p-2 bg-green-50/50 dark:bg-green-900/10 font-bold border-l-4 border-green-500">Escaneo de vulnerabilidades y Hardening de software.</td>
-                            </tr>
-                            {/* Row 4 */}
-                            <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/20">
-                                <td className="p-2 border-r font-mono">TAW_SOP_03</td>
-                                <td className="p-2 border-r font-mono font-bold text-indigo-600">TAW_PER_04</td>
-                                <td className="p-2 border-r">Personal de IT</td>
-                                <td className="p-2 text-center border-r">2</td><td className="p-2 text-center border-r">4</td><td className="p-2 text-center border-r">4</td>
-                                <td className="p-2 text-center border-r font-bold bg-gray-50 dark:bg-gray-800/50">10</td>
-                                <td className="p-2 text-center border-r font-bold text-orange-500 bg-gray-50 dark:bg-gray-800/50">Medio</td>
-                                <td className="p-2 text-center border-r font-bold bg-gray-50 dark:bg-gray-800/50">2</td>
-                                <td className="p-2 border-r text-gray-500">Alta rotación, falta de capacitación en seguridad cloud.</td>
-                                <td className="p-2 border-r text-gray-500">Error humano, Ingeniería social.</td>
-                                <td className="p-2 border-r font-medium">Configuración errónea de privilegios de acceso.</td>
-                                <td className="p-2 bg-green-50/50 dark:bg-green-900/10 font-bold border-l-4 border-green-500">Capacitación bajo APO07 y planes de retención.</td>
+                                <td className="p-2 border-r text-gray-500">Falta cifrado</td>
+                                <td className="p-2 border-r text-gray-500">Ciberdelito</td>
+                                <td className="p-2 border-r font-medium">Exfiltración de datos</td>
+                                <td className="p-2 bg-green-50/50 dark:bg-green-900/10 font-bold border-l-4 border-green-500">Argon2, AES-256</td>
                             </tr>
                             {/* Row 5 */}
                             <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/20">
-                                <td className="p-2 border-r font-mono">TAW_SOP_03</td>
-                                <td className="p-2 border-r font-mono font-bold text-indigo-600">TAW_DOC_05</td>
-                                <td className="p-2 border-r">Documentación técnica</td>
+                                <td className="p-2 border-r font-mono">TAW-SEG-02</td>
+                                <td className="p-2 border-r font-mono font-bold text-indigo-600">TAW-SW-03</td>
+                                <td className="p-2 border-r">Plataforma Web</td>
+                                <td className="p-2 text-center border-r">3</td><td className="p-2 text-center border-r">4</td><td className="p-2 text-center border-r">5</td>
+                                <td className="p-2 text-center border-r font-bold bg-blue-50 dark:bg-blue-900/20">12</td>
+                                <td className="p-2 text-center border-r font-bold text-red-500 bg-blue-50 dark:bg-blue-900/20">Alto</td>
+                                <td className="p-2 text-center border-r font-bold bg-blue-50 dark:bg-blue-900/20">3</td>
+                                <td className="p-2 border-r text-gray-500">Sesiones inseguras</td>
+                                <td className="p-2 border-r text-gray-500">Hijacking</td>
+                                <td className="p-2 border-r font-medium">Suplantación de identidad</td>
+                                <td className="p-2 bg-green-50/50 dark:bg-green-900/10 font-bold border-l-4 border-green-500">TLS 1.3, MFA</td>
+                            </tr>
+                            {/* Row 6 */}
+                            <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/20">
+                                <td className="p-2 border-r font-mono">TAW-SEG-02</td>
+                                <td className="p-2 border-r font-mono font-bold text-indigo-600">TAW-ACC-02</td>
+                                <td className="p-2 border-r">Control de Accesos</td>
+                                <td className="p-2 text-center border-r">5</td><td className="p-2 text-center border-r">5</td><td className="p-2 text-center border-r">4</td>
+                                <td className="p-2 text-center border-r font-bold bg-blue-50 dark:bg-blue-900/20">14</td>
+                                <td className="p-2 text-center border-r font-bold text-red-500 bg-blue-50 dark:bg-blue-900/20">Alto</td>
+                                <td className="p-2 text-center border-r font-bold bg-blue-50 dark:bg-blue-900/20">3</td>
+                                <td className="p-2 border-r text-gray-500">Privilegios excesivos</td>
+                                <td className="p-2 border-r text-gray-500">Escalación</td>
+                                <td className="p-2 border-r font-medium">Acceso no autorizado</td>
+                                <td className="p-2 bg-green-50/50 dark:bg-green-900/10 font-bold border-l-4 border-green-500">RBAC, IAM Policies</td>
+                            </tr>
+                            {/* Row 7 */}
+                            <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/20">
+                                <td className="p-2 border-r font-mono">TAW-SOP-03</td>
+                                <td className="p-2 border-r font-mono font-bold text-indigo-600">TAW-PER-04</td>
+                                <td className="p-2 border-r">Personal de IT</td>
+                                <td className="p-2 text-center border-r">2</td><td className="p-2 text-center border-r">3</td><td className="p-2 text-center border-r">4</td>
+                                <td className="p-2 text-center border-r font-bold bg-gray-50 dark:bg-gray-800/50">9</td>
+                                <td className="p-2 text-center border-r font-bold text-orange-500 bg-gray-50 dark:bg-gray-800/50">Medio</td>
+                                <td className="p-2 text-center border-r font-bold bg-gray-50 dark:bg-gray-800/50">2</td>
+                                <td className="p-2 border-r text-gray-500">Falta de capacitación</td>
+                                <td className="p-2 border-r text-gray-500">Error humano</td>
+                                <td className="p-2 border-r font-medium">Mala administración</td>
+                                <td className="p-2 bg-green-50/50 dark:bg-green-900/10 font-bold border-l-4 border-green-500">Capacitación APO07</td>
+                            </tr>
+                            {/* Row 8 */}
+                            <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/20">
+                                <td className="p-2 border-r font-mono">TAW-SOP-03</td>
+                                <td className="p-2 border-r font-mono font-bold text-indigo-600">TAW-DOC-05</td>
+                                <td className="p-2 border-r">Documentación Técnica</td>
                                 <td className="p-2 text-center border-r">2</td><td className="p-2 text-center border-r">3</td><td className="p-2 text-center border-r">2</td>
                                 <td className="p-2 text-center border-r font-bold bg-gray-50 dark:bg-gray-800/50">7</td>
                                 <td className="p-2 text-center border-r font-bold text-orange-500 bg-gray-50 dark:bg-gray-800/50">Medio</td>
                                 <td className="p-2 text-center border-r font-bold bg-gray-50 dark:bg-gray-800/50">2</td>
-                                <td className="p-2 border-r text-gray-500">Documentación desactualizada o inaccesible.</td>
-                                <td className="p-2 border-r text-gray-500">Pérdida de conocimiento institucional.</td>
-                                <td className="p-2 border-r font-medium">Retraso en la resolución de incidentes (DSS02).</td>
-                                <td className="p-2 bg-green-50/50 dark:bg-green-900/10 font-bold border-l-4 border-green-500">Control de versiones y repositorio centralizado.</td>
+                                <td className="p-2 border-r text-gray-500">Versiones obsoletas</td>
+                                <td className="p-2 border-r text-gray-500">Fuga información</td>
+                                <td className="p-2 border-r font-medium">Error en recuperación</td>
+                                <td className="p-2 bg-green-50/50 dark:bg-green-900/10 font-bold border-l-4 border-green-500">Git para documentos</td>
+                            </tr>
+                            {/* Row 9 */}
+                            <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/20">
+                                <td className="p-2 border-r font-mono">TAW-SOP-03</td>
+                                <td className="p-2 border-r font-mono font-bold text-indigo-600">TAW-TOOL-03</td>
+                                <td className="p-2 border-r">Gestión Incidentes</td>
+                                <td className="p-2 text-center border-r">2</td><td className="p-2 text-center border-r">4</td><td className="p-2 text-center border-r">4</td>
+                                <td className="p-2 text-center border-r font-bold bg-gray-50 dark:bg-gray-800/50">10</td>
+                                <td className="p-2 text-center border-r font-bold text-orange-500 bg-gray-50 dark:bg-gray-800/50">Medio</td>
+                                <td className="p-2 text-center border-r font-bold bg-gray-50 dark:bg-gray-800/50">2</td>
+                                <td className="p-2 border-r text-gray-500">Inaccesibilidad remota</td>
+                                <td className="p-2 border-r text-gray-500">Pérdida control</td>
+                                <td className="p-2 border-r font-medium">Incapacidad respuesta</td>
+                                <td className="p-2 bg-green-50/50 dark:bg-green-900/10 font-bold border-l-4 border-green-500">Hosting externo (SaaS)</td>
                             </tr>
                         </tbody>
                     </table>
@@ -473,6 +697,9 @@ const GovernanceRiskMatrix = () => {
                     <table className="w-full text-left text-[10px] bg-white dark:bg-[#161b22]">
                         <thead className="bg-[#92D050] text-black font-black uppercase">
                             <tr>
+                                <th colSpan="3" className="px-4 py-2 border-b border-black/10 text-center">IDENTIFICACIÓN DE INFRAESTRUCTURAS CRÍTICAS</th>
+                            </tr>
+                            <tr>
                                 <th className="px-4 py-3 border-r border-black/10 w-1/3">INFRAESTRUCTURAS CRÍTICAS DETECTADAS</th>
                                 <th className="px-4 py-3 border-r border-black/10 w-1/6 text-center">GRADO DE CRITICIDAD</th>
                                 <th className="px-4 py-3 w-1/2 text-center">CONTROLES A IMPLEMENTAR</th>
@@ -484,24 +711,32 @@ const GovernanceRiskMatrix = () => {
                                     <span className="font-black text-indigo-600 block mb-1">TAW_INF_01:</span>
                                     Infraestructura en la nube
                                 </td>
-                                <td className="p-4 border-r dark:border-gray-700 text-center font-black text-red-600 bg-red-50 dark:bg-red-900/10">V (Crítico)</td>
-                                <td className="p-4 text-justify">Implementación de esquemas de alta disponibilidad (Multi-AZ), balanceo de carga automatizado y un Plan de Recuperación ante Desastres (DRP) que garantice el 98% de disponibilidad.</td>
+                                <td className="p-4 border-r dark:border-gray-700 text-center font-black text-black dark:text-gray-200">V</td>
+                                <td className="p-4 text-justify">Despliegue en configuración Multi-AZ (Zonas de Disponibilidad) para garantizar redundancia física y activación de balanceadores de carga (Load Balancers) bajo el dominio DSS01.</td>
                             </tr>
                             <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/20">
                                 <td className="p-4 border-r dark:border-gray-700">
                                     <span className="font-black text-indigo-600 block mb-1">TAW_DAT_02:</span>
                                     Base de datos de usuarios
                                 </td>
-                                <td className="p-4 border-r dark:border-gray-700 text-center font-black text-red-600 bg-red-50 dark:bg-red-900/10">V (Crítico)</td>
-                                <td className="p-4 text-justify">Aplicación de cifrado AES-256 para datos en reposo, hashing de credenciales mediante el algoritmo Argon2, y auditoría perimetral de accesos bajo el dominio DSS01 de COBIT.</td>
+                                <td className="p-4 border-r dark:border-gray-700 text-center font-black text-black dark:text-gray-200">V</td>
+                                <td className="p-4 text-justify">Implementación de cifrado AES-256 para datos en reposo, hashing de contraseñas mediante el algoritmo Argon2 y gestión de respaldos inmutables para mitigar riesgos de ciberdelito.</td>
+                            </tr>
+                            <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/20">
+                                <td className="p-4 border-r dark:border-gray-700">
+                                    <span className="font-black text-indigo-600 block mb-1">TAW_ACC_02:</span>
+                                    Sistema de control de accesos
+                                </td>
+                                <td className="p-4 border-r dark:border-gray-700 text-center font-black text-black dark:text-gray-200">V</td>
+                                <td className="p-4 text-justify">Configuración de Políticas IAM basadas en el principio de menor privilegio (RBAC), implementación obligatoria de MFA (Multi-Factor Authentication) y auditoría de logs de acceso.</td>
                             </tr>
                             <tr className="hover:bg-gray-50 dark:hover:bg-gray-800/20">
                                 <td className="p-4 border-r dark:border-gray-700">
                                     <span className="font-black text-indigo-600 block mb-1">TAW_SW_03:</span>
                                     Plataforma web
                                 </td>
-                                <td className="p-4 border-r dark:border-gray-700 text-center font-black text-orange-500 bg-orange-50 dark:bg-orange-900/10">IV (Alto)</td>
-                                <td className="p-4 text-justify">Despliegue de un Web Application Firewall (WAF) para mitigar ataques de inyección, implementación de certificados TLS 1.3 y escaneos de vulnerabilidades trimestrales.</td>
+                                <td className="p-4 border-r dark:border-gray-700 text-center font-black text-black dark:text-gray-200">IV</td>
+                                <td className="p-4 text-justify">Integración de un Web Application Firewall (WAF) para la mitigación de ataques XSS e Inyección SQL, junto con la implementación de certificados TLS 1.3 para el cifrado de datos en tránsito.</td>
                             </tr>
                         </tbody>
                     </table>

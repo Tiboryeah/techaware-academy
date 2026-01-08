@@ -110,18 +110,18 @@ const GovernanceBusinessCase = () => {
                             <tbody className="text-[10px] divide-y divide-gray-200 dark:divide-gray-700 bg-blue-50/50 dark:bg-blue-900/10">
                                 <tr>
                                     <td className="px-4 py-2 border-r border-gray-200 dark:border-gray-700 font-bold">Brechas de seguridad por ciberataques</td>
-                                    <td className="px-4 py-2 border-r border-gray-200 dark:border-gray-700 text-gray-500 italic">En blanco por ahora</td>
-                                    <td className="px-4 py-2 text-gray-500 italic">En blanco por ahora</td>
+                                    <td className="px-4 py-2 border-r border-gray-200 dark:border-gray-700">Alto</td>
+                                    <td className="px-4 py-2">Media</td>
                                 </tr>
                                 <tr>
                                     <td className="px-4 py-2 border-r border-gray-200 dark:border-gray-700 font-bold">Fallos en la infraestructura de servidores</td>
-                                    <td className="px-4 py-2 border-r border-gray-200 dark:border-gray-700"></td>
-                                    <td className="px-4 py-2"></td>
+                                    <td className="px-4 py-2 border-r border-gray-200 dark:border-gray-700">Alto</td>
+                                    <td className="px-4 py-2">Baja</td>
                                 </tr>
                                 <tr>
                                     <td className="px-4 py-2 border-r border-gray-200 dark:border-gray-700 font-bold">Falta de capacitación por parte del equipo para implementar servicios en la nube</td>
-                                    <td className="px-4 py-2 border-r border-gray-200 dark:border-gray-700"></td>
-                                    <td className="px-4 py-2"></td>
+                                    <td className="px-4 py-2 border-r border-gray-200 dark:border-gray-700">Medio</td>
+                                    <td className="px-4 py-2">Media</td>
                                 </tr>
                             </tbody>
                         </table>
