@@ -179,7 +179,7 @@ const GovernanceRiskMatrix = () => {
                             <tbody className="divide-y divide-gray-200 dark:divide-gray-700 font-medium">
                                 {/* Capacidad */}
                                 <tr>
-                                    <td rowSpan="3" className="border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 p-2 text-center font-black uppercase writing-vertical-lr rotate-180">Capacidad</td>
+                                    <td rowSpan="3" className="border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 p-2 text-center font-black uppercase writing-vertical-lr">Capacidad</td>
                                     <td className="p-2 border-r border-gray-200 dark:border-gray-700 text-center font-bold text-lg">1</td>
                                     <td className="p-2">Poca o nula capacidad de realizar el ataque.</td>
                                 </tr>
@@ -193,7 +193,7 @@ const GovernanceRiskMatrix = () => {
                                 </tr>
                                 {/* Motivación */}
                                 <tr className="border-t-2 border-gray-200 dark:border-gray-700">
-                                    <td rowSpan="3" className="border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 p-2 text-center font-black uppercase writing-vertical-lr rotate-180">Motivación</td>
+                                    <td rowSpan="3" className="border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 p-2 text-center font-black uppercase writing-vertical-lr">Motivación</td>
                                     <td className="p-2 border-r border-gray-200 dark:border-gray-700 text-center font-bold text-lg">1</td>
                                     <td className="p-2">Poca o nula motivación. No se está inclinado a actuar.</td>
                                 </tr>
@@ -232,8 +232,8 @@ const GovernanceRiskMatrix = () => {
                             </thead>
                             <tbody className="divide-y divide-gray-200 dark:divide-gray-700 font-medium">
                                 <tr>
-                                    <td rowSpan="3" className="border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 p-2 text-center font-black uppercase writing-vertical-lr rotate-180 w-8">
-                                        Probabilidad de ocurre
+                                    <td rowSpan="3" className="border-r border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 p-2 text-center font-black uppercase writing-vertical-lr w-8">
+                                        Probabilidad de Ocurrencia
                                     </td>
                                     <td className="p-2 border-r border-gray-200 dark:border-gray-700 text-center font-bold text-lg h-24">1</td>
                                     <td className="p-2">Baja, no hay historial y es raro que la amenazas ocurra.</td>
