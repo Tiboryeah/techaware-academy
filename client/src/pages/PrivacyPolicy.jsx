@@ -18,11 +18,7 @@ const PrivacyPolicy = () => {
             title: "Seguridad Basada en Estándares Internacionales",
             content: "Nuestras prácticas de gestión de seguridad de la información se alinean estrictamente con la norma ISO 27000. Buscamos garantizar en todo momento la Confidencialidad, Integridad y Disponibilidad (Tríada CID) de sus datos. Implementamos controles robustos para la protección de la privacidad, asegurando que la información de las familias sea tratada de forma segura y responsable."
         },
-        {
-            icon: <Scale className="w-6 h-6 text-indigo-500" />,
-            title: "Gobernanza de TI (COBIT)",
-            content: "La gestión de nuestros recursos tecnológicos y riesgos se basa en el marco de referencia COBIT (Control Objectives for Information and Related Technologies). Este alineamiento nos permite optimizar los recursos, reducir costos operativos y fortalecer nuestra toma de decisiones estratégica, garantizando un servicio confiable y alineado a las mejores prácticas globales en gestión de TI."
-        },
+
         {
             icon: <Zap className="w-6 h-6 text-indigo-500" />,
             title: "Integración de Servicios de Terceros (YouTube y Gemini)",

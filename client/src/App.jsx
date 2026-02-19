@@ -11,7 +11,7 @@ import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import QuizTaker from './pages/QuizTaker';
 import RealCases from './pages/RealCases';
-import Governance from './pages/Governance';
+
 
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -41,7 +41,7 @@ function App() {
                 <Route path="register" element={<Register />} />
                 <Route path="privacy" element={<PrivacyPolicy />} />
                 <Route path="terms" element={<TermsOfService />} />
-                <Route path="governance" element={<Governance />} />
+
 
                 {/* Protected Routes */}
                 <Route element={<ProtectedRoute />}>
