@@ -1,11 +1,18 @@
 const nodemailer = require('nodemailer');
 
 const sendEmail = async (options) => {
+    if (process.env.USE_MOCK_EMAIL === 'true') {
+        console.log("------------------------------------------");
+        console.log("[MOCK EMAIL] To:", options.email);
+        console.log("[MOCK EMAIL] Subject:", options.subject);
+        console.log("[MOCK EMAIL] Message:", options.message);
+        console.log("------------------------------------------");
+        return;
+    }
+
     // 1. Create a transporter
-    // For development, we can use a service like Gmail or a testing service like Ethereal
-    // Ideally, these come from env vars
     const transporter = nodemailer.createTransport({
-        service: 'gmail', // Or 'hotmail', 'sendgrid', etc.
+        service: 'gmail',
         auth: {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS

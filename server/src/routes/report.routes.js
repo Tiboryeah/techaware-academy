@@ -24,40 +24,32 @@ router.post('/submit', protect, async (req, res) => {
 
         await newReport.save();
 
-        // Send email notification
+        // Send email notification using unified utility
         try {
-            const transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                    user: process.env.EMAIL_USER,
-                    pass: process.env.EMAIL_PASS
-                }
-            });
-
-            const mailOptions = {
-                from: process.env.EMAIL_USER,
-                to: process.env.EMAIL_USER,
-                subject: `📢 NUEVO REPORTE: ${title}`,
-                html: `
-                    <div style="font-family: sans-serif; padding: 20px; color: #333;">
-                        <h2 style="color: #4f46e5;">Nuevo Caso Recibido</h2>
-                        <p><strong>De:</strong> ${req.user.name} (${req.user.email})</p>
-                        <p><strong>Categoría:</strong> ${category || 'Otro'}</p>
-                        <p><strong>Título:</strong> ${title}</p>
-                        <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
-                        <p><strong>Descripción:</strong></p>
-                        <div style="background: #f9fafb; padding: 15px; border-radius: 8px; border: 1px solid #e5e7eb;">
-                            ${description.replace(/\n/g, '<br>')}
-                        </div>
-                        <p style="font-size: 12px; color: #6b7280; margin-top: 30px;">
-                            Este es un mensaje automático del Sistema de Reportes Kuxipilli.
-                        </p>
+            const sendEmail = require('../utils/sendEmail');
+            const message = `
+                <div style="font-family: sans-serif; padding: 20px; color: #333;">
+                    <h2 style="color: #4f46e5;">Nuevo Caso Recibido</h2>
+                    <p><strong>De:</strong> ${req.user.name} (${req.user.email})</p>
+                    <p><strong>Categoría:</strong> ${category || 'Otro'}</p>
+                    <p><strong>Título:</strong> ${title}</p>
+                    <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
+                    <p><strong>Descripción:</strong></p>
+                    <div style="background: #f9fafb; padding: 15px; border-radius: 8px; border: 1px solid #e5e7eb;">
+                        ${description.replace(/\n/g, '<br>')}
                     </div>
-                `
-            };
+                    <p style="font-size: 12px; color: #6b7280; margin-top: 30px;">
+                        Este es un mensaje automático del Sistema de Reportes Kuxipilli.
+                    </p>
+                </div>
+            `;
 
-            await transporter.sendMail(mailOptions);
-            console.log(`[EMAIL SENT] Notification for new report: ${title}`);
+            await sendEmail({
+                email: process.env.EMAIL_USER, // Send to site admin
+                subject: `📢 NUEVO REPORTE: ${title}`,
+                message: message
+            });
+            console.log(`[Notification] Order processed for report: ${title}`);
         } catch (emailError) {
             console.error("Error sending email notification:", emailError);
         }

@@ -1,16 +1,19 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { MessageCircle, X, Send, ShieldCheck, Sparkles, User, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import api from '../services/api';
+import AuthContext from '../context/AuthContext';
+import logo from '../assets/logo_v2.png';
 
 const Chatbot = () => {
+    const { user } = useContext(AuthContext);
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState([
         { id: 1, text: "Hola, soy tu **Asistente de Seguridad Digital**. Mi conocimiento proviene de fuentes oficiales para ayudarte a proteger a tu familia.", sender: 'bot' }
     ]);
     const [inputText, setInputText] = useState("");
     const [isTyping, setIsTyping] = useState(false);
-    const [conversationId, setConversationId] = useState(null); // Keep track of current chat
+    const [conversationId, setConversationId] = useState(null);
     const messagesEndRef = useRef(null);
     const messagesContainerRef = useRef(null);
 
@@ -19,7 +22,6 @@ const Chatbot = () => {
 
         const container = messagesContainerRef.current;
         if (isBot) {
-            // Find the last message and scroll to its top
             const messageDivs = container.querySelectorAll('.message-item');
             if (messageDivs.length > 0) {
                 const lastMessage = messageDivs[messageDivs.length - 1];
@@ -52,6 +54,18 @@ const Chatbot = () => {
         setMessages(prev => [...prev, userMessage]);
         setInputText("");
         setIsTyping(true);
+
+        if (!user) {
+            setTimeout(() => {
+                setMessages(prev => [...prev, {
+                    id: Date.now() + 1,
+                    text: "Para interactuar con el **Guardián Virtual**, es necesario que inicies sesión en tu cuenta. Esto me permite recordar nuestras conversaciones y darte un seguimiento especializado. [Ir a Iniciar Sesión](/login)",
+                    sender: 'bot'
+                }]);
+                setIsTyping(false);
+            }, 600);
+            return;
+        }
 
         try {
             const { data } = await api.post('/api/chatbot/message', {
@@ -87,118 +101,124 @@ const Chatbot = () => {
                         initial={{ opacity: 0, y: 20, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                        className="bg-white dark:bg-[#161b22] w-80 sm:w-[400px] h-[600px] rounded-[2.5rem] shadow-2xl flex flex-col border border-gray-100 dark:border-gray-800 mb-6 overflow-hidden transition-colors"
+                        className="bg-white dark:bg-[#0d1117] w-80 sm:w-[420px] h-[650px] rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.2)] flex flex-col border border-white/20 dark:border-gray-800 mb-6 overflow-hidden transition-all duration-500 backdrop-blur-xl"
                     >
                         {/* Header */}
-                        <div className="bg-indigo-600 p-6 flex justify-between items-center text-white relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 blur-2xl -mr-12 -mt-12" />
-                            <div className="flex items-center gap-4 relative z-10">
-                                <div className="bg-white/20 p-2.5 rounded-2xl backdrop-blur-md">
-                                    <ShieldCheck size={24} />
+                        <div className="bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700 p-5 flex justify-between items-center text-white relative overflow-hidden shadow-lg">
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 blur-3xl -mr-16 -mt-16 rounded-full" />
+                            <div className="absolute bottom-0 left-0 w-24 h-24 bg-purple-400/20 blur-2xl -ml-12 -mb-12 rounded-full" />
+
+                            <div className="flex items-center gap-4 relative z-10 pl-2">
+                                <div className="relative group w-12 h-12 flex items-center justify-center">
+                                    <div className="absolute -inset-2 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                                    <img src={logo} alt="Kuxibot" className="relative w-full h-full object-contain scale-[1.8] drop-shadow-[0_0_8px_rgba(255,255,255,0.3)] transition-transform duration-500 group-hover:scale-[2]" />
                                 </div>
-                                <div className="space-y-0.5">
-                                    <h3 className="font-black text-sm uppercase tracking-widest">Guardián Virtual</h3>
-                                    <div className="flex items-center gap-1.5">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                                        <p className="text-[10px] font-bold text-indigo-100 uppercase tracking-widest">Activo ahora</p>
+                                <div className="flex flex-col">
+                                    <h3 className="font-black text-lg leading-tight tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-white to-indigo-100">KUXIBOT</h3>
+                                    <div className="flex items-center gap-2">
+                                        <span className="relative flex h-2 w-2">
+                                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
+                                        </span>
+                                        <span className="text-[9px] font-black text-indigo-50/80 uppercase tracking-[0.2em]">Sistema Experto</span>
                                     </div>
                                 </div>
                             </div>
                             <button
                                 onClick={() => setIsOpen(false)}
-                                className="p-2 hover:bg-white/10 rounded-xl transition-colors relative z-10"
+                                className="p-2.5 bg-white/10 hover:bg-white/20 rounded-2xl transition-all duration-300 border border-white/10 hover:scale-110 active:scale-95 relative z-10"
                             >
-                                <X size={20} />
+                                <X size={20} strokeWidth={2.5} />
                             </button>
                         </div>
 
                         {/* Messages Area */}
-                        <div ref={messagesContainerRef} className="flex-1 overflow-y-auto p-6 space-y-6 bg-gray-50 dark:bg-[#0a0c10]/40 scroll-smooth transition-colors">
+                        <div
+                            ref={messagesContainerRef}
+                            className="flex-grow overflow-y-auto p-6 space-y-6 scrollbar-thin scrollbar-thumb-gray-200 dark:scrollbar-thumb-gray-800"
+                        >
                             {messages.map((msg) => (
                                 <motion.div
-                                    initial={{ opacity: 0, x: msg.sender === 'user' ? 20 : -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
                                     key={msg.id}
-                                    className={`message-item flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'} message-item`}
                                 >
-                                    <div className="flex flex-col gap-1 max-w-[85%]">
-                                        <div className={`p-4 rounded-[1.5rem] text-sm shadow-sm transition-colors ${msg.sender === 'user'
-                                            ? 'bg-indigo-600 text-white rounded-br-none'
-                                            : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-100 dark:border-gray-700 rounded-bl-none'
-                                            }`}>
-                                            <div className="whitespace-pre-wrap leading-relaxed italic break-words overflow-hidden">
-                                                {msg.text.split('\n').map((line, lineIdx) => {
-                                                    const isListItem = line.trim().startsWith('* ') || line.trim().startsWith('- ');
-                                                    return (
-                                                        <div key={lineIdx} className={`${isListItem ? 'ml-4' : ''} min-h-[1.2rem] break-words overflow-hidden`}>
-                                                            {line.split(/(\*\*.*?\*\*|\[.*?\]\(.*?\))/g).map((part, i) => {
-                                                                if (part.startsWith('**') && part.endsWith('**')) {
-                                                                    return <strong key={i} className="font-black text-indigo-700 dark:text-indigo-400 bg-indigo-500/5 px-1 rounded">{part.slice(2, -2)}</strong>;
-                                                                }
-                                                                if (part.startsWith('[') && part.includes('](')) {
-                                                                    const match = part.match(/\[(.*?)\]\((.*?)\)/);
-                                                                    if (match) {
-                                                                        return <a key={i} href={match[2]} target="_blank" rel="noopener noreferrer" className="text-indigo-600 dark:text-indigo-400 font-bold underline break-all">
-                                                                            {match[1]}
-                                                                        </a>;
-                                                                    }
-                                                                }
-                                                                return <span key={i} className="break-words">{part}</span>;
-                                                            })}
-                                                        </div>
-                                                    );
-                                                })}
-                                            </div>
+                                    <div className={`flex gap-3 max-w-[88%] ${msg.sender === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
+                                        <div className={`w-10 h-10 flex-shrink-0 flex items-center justify-center transition-transform duration-300 hover:scale-110 ${msg.sender === 'user' ? 'bg-gradient-to-tr from-indigo-600 to-violet-600 text-white rounded-2xl shadow-lg overflow-hidden' : ''}`}>
+                                            {msg.sender === 'user' ? <User size={20} /> : <img src={logo} alt="Bot" className="w-full h-full scale-[1.7] object-contain drop-shadow-md" />}
                                         </div>
-                                        <div className={`flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest text-gray-400 ${msg.sender === 'user' ? 'justify-end pr-2' : 'justify-start pl-2'}`}>
-                                            {msg.sender === 'user' ? <User size={10} /> : <Sparkles size={10} />}
-                                            {msg.sender === 'user' ? 'Tú' : 'IA Guardián'}
+                                        <div className={`p-4 rounded-[1.5rem] text-sm leading-relaxed shadow-[0_4px_15px_rgba(0,0,0,0.05)] transition-all duration-300 ${msg.sender === 'user'
+                                            ? 'bg-gradient-to-br from-indigo-600 to-violet-700 text-white rounded-tr-none shadow-indigo-200 dark:shadow-none'
+                                            : 'bg-white dark:bg-gray-800/40 text-gray-800 dark:text-gray-100 border border-indigo-50/50 dark:border-gray-700/50 rounded-tl-none ring-1 ring-black/[0.02]'
+                                            }`}>
+                                            {msg.text.split('\n').map((line, i) => (
+                                                <p key={i} className={i > 0 ? 'mt-2' : ''}>
+                                                    {line.split('**').map((part, j) =>
+                                                        j % 2 === 1 ? <strong key={j} className="font-black">{part}</strong> : part
+                                                    )}
+                                                </p>
+                                            ))}
+                                            {msg.text.includes('[') && msg.text.includes('](') && (
+                                                <div className="mt-3 pt-3 border-t border-white/10">
+                                                    <a
+                                                        href={msg.text.match(/\[(.*?)\]\((.*?)\)/)[2]}
+                                                        className="inline-flex items-center gap-2 text-xs font-bold bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded-lg transition-all"
+                                                    >
+                                                        {msg.text.match(/\[(.*?)\]\((.*?)\)/)[1]} <Zap size={10} />
+                                                    </a>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </motion.div>
                             ))}
                             {isTyping && (
-                                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">
-                                    <div className="bg-white dark:bg-gray-800 p-4 rounded-[1.5rem] rounded-bl-none border border-gray-100 dark:border-gray-700 shadow-sm flex space-x-2 items-center">
-                                        <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                                        <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                                        <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                                <div className="flex justify-start">
+                                    <div className="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-2xl rounded-tl-none border border-gray-100 dark:border-gray-800">
+                                        <div className="flex gap-1">
+                                            <motion.div animate={{ opacity: [0.4, 1, 0.4] }} transition={{ repeat: Infinity, duration: 1 }} className="w-1.5 h-1.5 bg-indigo-500 rounded-full" />
+                                            <motion.div animate={{ opacity: [0.4, 1, 0.4] }} transition={{ repeat: Infinity, duration: 1, delay: 0.2 }} className="w-1.5 h-1.5 bg-indigo-500 rounded-full" />
+                                            <motion.div animate={{ opacity: [0.4, 1, 0.4] }} transition={{ repeat: Infinity, duration: 1, delay: 0.4 }} className="w-1.5 h-1.5 bg-indigo-500 rounded-full" />
+                                        </div>
                                     </div>
-                                </motion.div>
+                                </div>
                             )}
                             <div ref={messagesEndRef} />
                         </div>
 
                         {/* Input Area */}
-                        <div className="p-6 bg-white dark:bg-[#161b22] border-t border-gray-100 dark:border-gray-800 transition-colors">
-                            <form onSubmit={handleSendMessage} className="flex gap-3">
+                        <form onSubmit={handleSendMessage} className="p-6 bg-white dark:bg-[#0d1117] border-t border-gray-100 dark:border-gray-800/50 relative">
+                            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent" />
+                            <div className="relative group">
                                 <input
                                     type="text"
                                     value={inputText}
                                     onChange={(e) => setInputText(e.target.value)}
-                                    placeholder="¿En qué puedo ayudarte hoy?"
-                                    className="flex-1 bg-gray-50 dark:bg-[#0a0c10] text-gray-900 dark:text-white border-2 border-transparent focus:border-indigo-600 rounded-2xl px-5 py-3 outline-none transition-all text-sm font-medium"
+                                    placeholder="Escribe tu duda de seguridad..."
+                                    className="w-full pl-6 pr-14 py-4.5 bg-gray-50 dark:bg-[#0a0c10] border-2 border-transparent focus:border-indigo-500/50 focus:bg-white dark:focus:bg-black rounded-[1.5rem] text-sm outline-none transition-all duration-300 dark:text-white shadow-inner"
                                 />
                                 <button
                                     type="submit"
                                     disabled={!inputText.trim()}
-                                    className="bg-indigo-600 text-white p-3.5 rounded-2xl hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all transform active:scale-95 shadow-lg shadow-indigo-600/20"
+                                    className="absolute right-2 top-2 bottom-2 px-5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-[1.2rem] hover:shadow-lg hover:shadow-indigo-500/30 transition-all duration-300 disabled:opacity-30 disabled:grayscale transform active:scale-90 group-hover:translate-x-0.5"
                                 >
-                                    <Send size={20} className="fill-current" />
+                                    <Send size={18} strokeWidth={2.5} />
                                 </button>
-                            </form>
-                            <div className="mt-4 flex flex-col items-center gap-4">
-                                <div className="flex justify-center gap-3">
-                                    <button onClick={() => setInputText("Roblox")} className="text-[9px] font-black uppercase tracking-widest text-gray-400 hover:text-indigo-600 transition-colors bg-gray-50 dark:bg-[#0a0c10] px-3 py-1 rounded-lg border border-gray-100 dark:border-gray-800">Roblox</button>
-                                    <button onClick={() => setInputText("TikTok")} className="text-[9px] font-black uppercase tracking-widest text-gray-400 hover:text-indigo-600 transition-colors bg-gray-50 dark:bg-[#0a0c10] px-3 py-1 rounded-lg border border-gray-100 dark:border-gray-800">TikTok</button>
-                                    <button onClick={() => setInputText("Grooming")} className="text-[9px] font-black uppercase tracking-widest text-gray-400 hover:text-indigo-600 transition-colors bg-gray-50 dark:bg-[#0a0c10] px-3 py-1 rounded-lg border border-gray-100 dark:border-gray-800">Grooming</button>
-                                </div>
-                                <div className="flex items-center gap-1.5 opacity-40">
-                                    <ShieldCheck size={10} className="text-gray-400" />
-                                    <p className="text-[8px] font-black uppercase tracking-tighter text-gray-500">Guardián virtual puede contener errores</p>
-                                </div>
                             </div>
-                        </div>
+                            <div className="mt-5 space-y-2.5 px-2 text-center">
+                                <div className="flex items-center justify-center gap-1.5 group cursor-default">
+                                    <div className="h-px w-8 bg-gray-200 dark:bg-gray-800" />
+                                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 flex items-center gap-1.5 transition-colors group-hover:text-indigo-500">
+                                        <Sparkles size={11} className="text-indigo-400 animate-pulse" /> IA Gemini Flash
+                                    </p>
+                                    <div className="h-px w-8 bg-gray-200 dark:bg-gray-800" />
+                                </div>
+                                <p className="text-[9px] text-gray-400 font-medium italic opacity-80">
+                                    Kuxibot puede cometer errores. Considera verificar la información.
+                                </p>
+                            </div>
+                        </form>
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -208,25 +228,17 @@ const Chatbot = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setIsOpen(!isOpen)}
-                className="bg-indigo-600 text-white p-5 rounded-[2rem] shadow-2xl flex items-center justify-center relative group overflow-hidden"
+                className={`w-16 h-16 flex items-center justify-center transition-all duration-500 group relative active:scale-90 ${isOpen ? 'bg-gray-50 dark:bg-gray-800 text-gray-500 rotate-90 rounded-[1.8rem] shadow-xl' : 'bg-transparent'}`}
             >
-                <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                <AnimatePresence mode="wait">
-                    {isOpen ? (
-                        <motion.div key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }}>
-                            <X size={32} />
-                        </motion.div>
-                    ) : (
-                        <motion.div key="open" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }}>
-                            <MessageCircle size={32} />
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-                {!isOpen && (
-                    <span className="absolute -top-1 -right-1 flex h-4 w-4">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-4 w-4 bg-red-500 border-2 border-white dark:border-[#0a0c10]" />
-                    </span>
+                {isOpen ? (
+                    <X size={28} />
+                ) : (
+                    <>
+                        <img src={logo} alt="Abrir Kuxibot" className="w-full h-full scale-[1.3] object-contain drop-shadow-2xl group-hover:scale-[1.45] transition-transform duration-300" />
+                        {!isOpen && (
+                            <span className="absolute top-2 right-2 w-4 h-4 bg-red-500 border-2 border-white dark:border-gray-900 rounded-full animate-bounce shadow-lg" />
+                        )}
+                    </>
                 )}
             </motion.button>
         </div>

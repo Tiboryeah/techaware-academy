@@ -45,7 +45,7 @@ const Login = () => {
                     <div className="inline-flex items-center justify-center mb-6">
                         <img src={logo} alt="Kuxipilli Logo" className="w-40 h-40 object-cover rounded-full" />
                     </div>
-                    <h2 className="text-4xl font-black text-gray-900 dark:text-white mb-2">¡Hola Guardián! 👋</h2>
+                    <h2 className="text-4xl font-black text-gray-900 dark:text-white mb-2">¡Hola Guardián!</h2>
                     <p className="mt-2 text-gray-500 dark:text-gray-400 font-medium italic">Tu centro de seguridad digital parental</p>
                 </div>
 

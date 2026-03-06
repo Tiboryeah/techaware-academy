@@ -2,24 +2,8 @@ const express = require('express');
 const Conversation = require('../models/Conversation');
 const Message = require('../models/Message');
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+const { protect } = require('../middleware/authMiddleware');
 const router = express.Router();
-
-// Initialize Gemini
-const apiKey = (process.env.GEMINI_API_KEY || "").trim();
-const genAI = new GoogleGenerativeAI(apiKey);
-const model = genAI.getGenerativeModel({
-    model: "gemini-2.0-flash",
-    systemInstruction: `Eres el "Guardián Virtual" de Kuxipilli. Tu misión es ser un experto en seguridad digital infantil y ciberacoso.
-        
-        REGLAS CRÍTICAS:
-        1. Tu tono es profesional, empático y experto.
-        2. Siempre prioriza la seguridad física y emocional del menor.
-        3. Si detectas señales de Grooming o peligro inminente: Indica pasos legales (no borrar evidencia, denunciar ante autoridades) y recomienda no hablar más con el sospechoso.
-        4. No menciones que eres una IA de forma robótica, actúa como el guardián de la plataforma.
-        5. Habla sobre: Roblox (PIN, restricciones), TikTok (Sincronización familiar), YouTube (Cuentas supervisadas), Twitch (Moderación), Ciberacoso, Grooming y bienestar digital.
-        6. Si no sabes algo, remite a fuentes oficiales como UNICEF o centros de seguridad de las plataformas.
-        7. Responde siempre en Español.`
-});
 
 // Simple rule-based logic (Fallback)
 const getFallbackResponse = (text) => {
@@ -30,20 +14,35 @@ const getFallbackResponse = (text) => {
     return 'Entiendo. Como experto en seguridad, te recomiendo revisar nuestras guías de control parental en la sección de "Casos Reales".';
 };
 
-const { protect } = require('../middleware/authMiddleware');
-
-// @desc    Send message to chatbot
-// @route   POST /api/chatbot/message
-// @access  Private
 router.post('/message', protect, async (req, res) => {
     const { text, conversationId } = req.body;
     const userId = req.user._id;
 
-    if (!process.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY === 'tu_api_key_aqui') {
-        console.error("[Chatbot] GEMINI_API_KEY not configured correctly.");
+    // Local check to ensure we use current env vars
+    const currentApiKey = (process.env.GEMINI_API_KEY || "").trim();
+    const isMock = process.env.USE_MOCK_AI === 'true' || !currentApiKey || currentApiKey === 'your_gemini_api_key';
+
+    console.log(`[Chatbot] Request from ${userId} | Mock: ${isMock} | Key: ${currentApiKey.substring(0, 5)}...`);
+
+    if (isMock) {
+        let conversation;
+        if (conversationId) {
+            conversation = await Conversation.findById(conversationId);
+        } else {
+            conversation = await Conversation.create({ userId });
+        }
+
+        const botText = getFallbackResponse(text);
+        const botMsg = await Message.create({
+            conversationId: conversation._id,
+            sender: 'bot',
+            text: botText,
+        });
+
         return res.json({
-            conversationId: conversationId,
-            botMessage: { text: "⚠️ El sistema de IA no está configurado (falta la API Key en el servidor).", sender: 'bot' }
+            conversationId: conversation._id,
+            botMessage: botMsg,
+            isMock: true
         });
     }
 
@@ -55,17 +54,44 @@ router.post('/message', protect, async (req, res) => {
             conversation = await Conversation.create({ userId });
         }
 
-        // 1. Get Conversation History for LLM Context
+        // Initialize model inside handler
+        const genAI = new GoogleGenerativeAI(currentApiKey);
+        const activeModel = genAI.getGenerativeModel({
+            model: "gemini-flash-latest", // Verified working alias for this API key
+            systemInstruction: `Eres "Kuxibot", el asistente experto de Kuxipilli. Tu misión es ser un experto en seguridad digital infantil y ciberacoso.
+            
+            REGLAS CRÍTICAS:
+            1. REGLA RN-07: Solo puedes responder temas relacionados con ciberseguridad, alfabetización digital y acompañamiento parental. Si el usuario pregunta cosas fuera de estos temas (cocina, deportes, tareas escolares generales, etc.), redirígelo cordialmente a los objetivos del sistema.
+            2. Tu tono es profesional, empático y experto.
+            3. Siempre prioriza la seguridad física y emocional del menor.
+            4. Si detectas señales de Grooming o peligro inminente: Indica pasos legales y recomienda no hablar más con el sospechoso.
+            5. Responde siempre en Español.`
+        });
+
+        // 1. Get Conversation History
         const historyMessages = await Message.find({ conversationId: conversation._id })
             .sort({ createdAt: -1 })
-            .limit(6);
+            .limit(10);
 
-        console.log(`[Chatbot] Found ${historyMessages.length} history messages.`);
-
-        const chatHistory = historyMessages.reverse().map(m => ({
+        let chatHistory = historyMessages.reverse().map(m => ({
             role: m.sender === 'user' ? 'user' : 'model',
             parts: [{ text: m.text }]
         }));
+
+        // Gemini requirement: History MUST start with a 'user' message
+        while (chatHistory.length > 0 && chatHistory[0].role === 'model') {
+            chatHistory.shift();
+        }
+
+        // Ensure roles alternate (user, model, user, model...)
+        // This handles cases where there might be consecutive messages from same sender
+        const cleanedHistory = [];
+        chatHistory.forEach((msg, idx) => {
+            if (idx === 0 || msg.role !== cleanedHistory[cleanedHistory.length - 1].role) {
+                cleanedHistory.push(msg);
+            }
+        });
+        chatHistory = cleanedHistory;
 
         // 2. Save current user message
         const userMsg = await Message.create({
@@ -74,25 +100,14 @@ router.post('/message', protect, async (req, res) => {
             text,
         });
 
-        // 3. Generate response using Gemini (with Anonymization - RNF4)
-        let botText;
-        try {
-            // Anonymize sensitive data (RNF4)
-            const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
-            const phoneRegex = /(\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/g;
-            const anonymizedText = text
-                .replace(emailRegex, '[EMAIL_OCUPADO]')
-                .replace(phoneRegex, '[TELÉFONO_OCUPADO]');
+        // 3. Generate response
+        const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+        const phoneRegex = /(\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/g;
+        const anonymizedText = text.replace(emailRegex, '[EMAIL]').replace(phoneRegex, '[TLF]');
 
-            const chat = model.startChat({
-                history: chatHistory,
-            });
-            const result = await chat.sendMessage(anonymizedText);
-            botText = result.response.text();
-        } catch (apiError) {
-            console.error("Gemini API Error:", apiError);
-            botText = getFallbackResponse(text);
-        }
+        const chat = activeModel.startChat({ history: chatHistory });
+        const result = await chat.sendMessage(anonymizedText);
+        const botText = result.response.text();
 
         // 4. Save bot message
         const botMsg = await Message.create({
@@ -111,7 +126,28 @@ router.post('/message', protect, async (req, res) => {
         });
 
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        console.error("Gemini API Error Detail:", error);
+
+        let conversation;
+        if (conversationId) {
+            conversation = await Conversation.findById(conversationId);
+        } else {
+            conversation = await Conversation.create({ userId });
+        }
+
+        // Silent fallback for professional UI
+        const botText = getFallbackResponse(text);
+        const botMsg = await Message.create({
+            conversationId: conversation._id,
+            sender: 'bot',
+            text: botText,
+        });
+
+        res.json({
+            conversationId: conversation._id,
+            botMessage: botMsg,
+            isFallback: true
+        });
     }
 });
 

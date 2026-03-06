@@ -15,8 +15,8 @@ const PrivacyPolicy = () => {
         },
         {
             icon: <Shield className="w-6 h-6 text-indigo-500" />,
-            title: "Seguridad Basada en Estándares Internacionales",
-            content: "Nuestras prácticas de gestión de seguridad de la información se alinean estrictamente con la norma ISO 27000. Buscamos garantizar en todo momento la Confidencialidad, Integridad y Disponibilidad (Tríada CID) de sus datos. Implementamos controles robustos para la protección de la privacidad, asegurando que la información de las familias sea tratada de forma segura y responsable."
+            title: "Seguridad y Protección de Datos",
+            content: "Nuestras prácticas de gestión de seguridad de la información se alinean con los principios fundamentales de Confidencialidad, Integridad y Disponibilidad (Tríada CID). Implementamos protocolos técnicos para la protección de la privacidad, asegurando que la información de las familias sea tratada de forma ética, segura y bajo estrictas medidas de control de acceso."
         },
 
         {
@@ -74,7 +74,7 @@ const PrivacyPolicy = () => {
                             La nube proporciona los recursos tecnológicos necesarios para garantizar la disponibilidad, escalabilidad y accesibilidad del servicio, permitiendo que los usuarios accedan a la plataforma de manera continua desde diferentes dispositivos con conexión a internet.
                         </p>
                         <p className="text-lg leading-relaxed text-gray-600 dark:text-gray-400">
-                            El servicio de IT en la nube se alinea con los objetivos estratégicos de la organización al optimizar recursos tecnológicos, reducir los costos y fortalecer la gestión de riesgos, basado en el marco de referencia COBIT. Además de integrar prácticas de seguridad de la información basadas en la norma ISO 27000 buscando garantizar la confidencialidad, integridad y disponibilidad de los datos, así como la continuidad del servicio, por lo que la nube representa una herramienta indispensable para la operación de Kuxipilli permitiendo ofrecer un servicio confiable, seguro y que esté alineado a las mejores prácticas en la gestión de tecnologías de la información.
+                            El servicio de IT en la nube se alinea con los objetivos estratégicos de la organización al optimizar recursos tecnológicos, reducir los costos y fortalecer la gestión de datos. Buscamos garantizar la confidencialidad, integridad y disponibilidad de la información, así como la continuidad del servicio, por lo que la infraestructura cloud permite ofrecer un entorno confiable, seguro y alineado a las mejores prácticas en la gestión de tecnologías de la información.
                         </p>
                     </div>
                 </motion.section>

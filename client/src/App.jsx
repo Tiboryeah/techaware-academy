@@ -25,6 +25,7 @@ import Profile from './pages/Profile';
 
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
+import VerifyAccount from './pages/VerifyAccount';
 
 function App() {
   return (
@@ -38,6 +39,8 @@ function App() {
                 <Route path="login" element={<Login />} />
                 <Route path="forgot-password" element={<ForgotPassword />} />
                 <Route path="reset-password/:token" element={<ResetPassword />} />
+                <Route path="verify" element={<VerifyAccount />} />
+                <Route path="verify/:token" element={<VerifyAccount />} />
                 <Route path="register" element={<Register />} />
                 <Route path="privacy" element={<PrivacyPolicy />} />
                 <Route path="terms" element={<TermsOfService />} />

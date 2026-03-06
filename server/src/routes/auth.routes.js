@@ -24,8 +24,8 @@ router.post('/register', async (req, res) => {
             return res.status(400).json({ message: 'User already exists' });
         }
 
-        // Generate a random verification token
-        const verificationToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        // Generate a 6-digit random code instead of a long token
+        const verificationToken = Math.floor(100000 + Math.random() * 900000).toString();
 
         const user = await User.create({
             name,
@@ -35,15 +35,13 @@ router.post('/register', async (req, res) => {
         });
 
         if (user) {
-            // US13: Real Verification Email using sendEmail utility
-            const verificationUrl = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/verify/${verificationToken}`;
             const message = `
                 <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px; border: 1px solid #e0e0e0; border-radius: 20px; background-color: #fafafb;">
                     <h2 style="color: #4f46e5; text-align: center;">¡Bienvenido a Kuxipilli!</h2>
                     <p>Hola <strong>${name}</strong>,</p>
-                    <p>Gracias por registrarte. Para activar tu cuenta de guardián y comenzar tu capacitación en seguridad digital, por favor haz clic en el siguiente botón:</p>
-                    <div style="text-align: center; margin: 30px 0;">
-                        <a href="${verificationUrl}" style="background-color: #4f46e5; color: white; padding: 15px 30px; text-decoration: none; border-radius: 10px; font-weight: bold; display: inline-block;">Activar mi Cuenta</a>
+                    <p>Gracias por registrarte. Para activar tu cuenta de guardián y comenzar tu capacitación en seguridad digital, por favor introduce el siguiente código de verificación:</p>
+                    <div style="background-color: #eef2ff; border: 1px dashed #6366f1; padding: 20px; border-radius: 10px; text-align: center; margin: 25px 0;">
+                        <span style="font-family: monospace; font-size: 36px; font-weight: bold; letter-spacing: 5px; color: #1e1b4b;">${verificationToken}</span>
                     </div>
                     <p style="font-size: 12px; color: #6b7280; text-align: center;">Si no has solicitado este registro, puedes ignorar este correo.</p>
                 </div>
@@ -52,21 +50,18 @@ router.post('/register', async (req, res) => {
             try {
                 await sendEmail({
                     email: user.email,
-                    subject: 'Verifica tu cuenta - Kuxipilli',
+                    subject: 'Código de Activación - Kuxipilli',
                     message
                 });
-                console.log(`[SMTP] Verification Token sent to ${email}`);
+                console.log(`[SMTP] Verification Code sent to ${email}: ${verificationToken}`);
             } catch (err) {
                 console.error("Error sending verification email:", err);
             }
 
             res.status(201).json({
                 _id: user._id,
-                name: user.name,
                 email: user.email,
-                role: user.role,
-                isVerified: user.isVerified,
-                message: 'Por favor, revisa tu correo para verificar tu cuenta.'
+                message: 'Por favor, revisa tu correo para verificar tu cuenta con el código.'
             });
         } else {
             res.status(400).json({ message: 'Invalid user data' });
@@ -76,22 +71,73 @@ router.post('/register', async (req, res) => {
     }
 });
 
-// @desc    Verify user email
-// @route   GET /api/auth/verify/:token
+// @desc    Verify user email via POST code
+// @route   POST /api/auth/verify
 // @access  Public
-router.get('/verify/:token', async (req, res) => {
+router.post('/verify', async (req, res) => {
+    const { email, code } = req.body;
     try {
-        const user = await User.findOne({ verificationToken: req.params.token });
+        const user = await User.findOne({ email, verificationToken: code });
 
         if (!user) {
-            return res.status(400).json({ message: 'Invalid token' });
+            return res.status(400).json({ message: 'Código de verificación inválido o incorrecto.' });
         }
 
         user.isVerified = true;
-        user.verificationToken = undefined;
+        user.verificationToken = undefined; // Clear the token
         await user.save();
 
-        res.json({ message: 'Account verified successfully' });
+        res.json({ message: 'Cuenta verificada exitosamente.' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// @desc    Resend verification code
+// @route   POST /api/auth/resend-verification
+// @access  Public
+router.post('/resend-verification', async (req, res) => {
+    const { email } = req.body;
+
+    try {
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(404).json({ message: 'Usuario no encontrado.' });
+        }
+
+        if (user.isVerified) {
+            return res.status(400).json({ message: 'Esta cuenta ya está verificada.' });
+        }
+
+        const verificationToken = Math.floor(100000 + Math.random() * 900000).toString();
+        user.verificationToken = verificationToken;
+        await user.save();
+
+        const message = `
+            <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px; border: 1px solid #e0e0e0; border-radius: 20px; background-color: #fafafb;">
+                <h2 style="color: #4f46e5; text-align: center;">Tu Nuevo Código Kuxipilli</h2>
+                <p>Hola <strong>${user.name}</strong>,</p>
+                <p>Has solicitado un nuevo código de verificación. Por favor, introdúcelo en la pantalla de registro para activar tu cuenta de guardián:</p>
+                <div style="background-color: #eef2ff; border: 1px dashed #6366f1; padding: 20px; border-radius: 10px; text-align: center; margin: 25px 0;">
+                    <span style="font-family: monospace; font-size: 36px; font-weight: bold; letter-spacing: 5px; color: #1e1b4b;">${verificationToken}</span>
+                </div>
+            </div>
+        `;
+
+        try {
+            await sendEmail({
+                email: user.email,
+                subject: 'Nuevo Código de Activación - Kuxipilli',
+                message
+            });
+            console.log(`[SMTP] Resent Verification Code to ${email}: ${verificationToken}`);
+            res.status(200).json({ message: 'Se ha enviado un nuevo código a tu correo.' });
+        } catch (err) {
+            console.error("Error resending verification email:", err);
+            res.status(500).json({ message: 'Fallo al enviar el correo. Por favor intenta más tarde.' });
+        }
+
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

@@ -35,7 +35,7 @@ const Home = () => {
             api.get('/api/progress/summary/all')
                 .then(res => {
                     if (res.data) {
-                        const { completedLessons, totalLessons } = res.data;
+                        const { completedLessons, totalLessons, percentage } = res.data;
                         setProgress({ completed: completedLessons || 0, total: totalLessons || 0 });
                     }
                 })
@@ -112,11 +112,11 @@ const Home = () => {
                             <div className="flex-grow space-y-8 text-center lg:text-left">
                                 <div className="space-y-4">
                                     <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-indigo-50 dark:bg-indigo-500/10 rounded-full text-[10px] font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-500/20">
-                                        <Award className="w-3 h-3" /> Panel de Control
+                                        <ShieldCheck className="w-3 h-3" /> Estado de Grado Académico
                                     </div>
                                     <h2 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white leading-tight tracking-tighter">
-                                        Bienvenido Pro, {user?.name ? user.name.split(' ')[0] : 'Usuario'}<br />
-                                        <span className="text-indigo-600 dark:text-indigo-400">Tu blindaje avanza.</span>
+                                        Bienvenido, {user?.name ? user.name.split(' ')[0] : 'Guardián'}<br />
+                                        <span className="text-indigo-600 dark:text-indigo-400 uppercase text-xs tracking-[0.4em] font-black opacity-60">Seguimiento de Metas Académicas</span>
                                     </h2>
                                 </div>
                                 <div className="space-y-4 max-w-xl mx-auto lg:mx-0">
@@ -150,6 +150,39 @@ const Home = () => {
                             </div>
                         </div>
                     </motion.div>
+
+                    {/* Academic Roadmap */}
+                    <div className="space-y-10">
+                        <div className="flex items-center gap-4">
+                            <div className="h-1 w-12 bg-indigo-600 rounded-full" />
+                            <h2 className="text-3xl font-black text-gray-900 dark:text-white uppercase tracking-tighter">Mapa de Formación Académica</h2>
+                        </div>
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            {[
+                                { status: percentage >= 33 ? 'Completado' : 'En Progreso', title: "Eje I: Redes Sociales y Conectividad", desc: "Análisis de riesgos en plataformas como TikTok, Instagram y WhatsApp.", modules: 4 },
+                                { status: percentage >= 66 ? 'Completado' : 'Pendiente', title: "Eje II: Videojuegos y Metaveros", desc: "Seguridad técnica en Roblox, Fortnite y comunidades de gaming.", modules: 5 },
+                                { status: percentage >= 100 ? 'Completado' : 'Bloqueado', title: "Eje III: Ciberseguridad Avanzada", desc: "Protocolos de respuesta ante incidentes y protección de datos sensibles.", modules: 3 }
+                            ].map((eje, idx) => (
+                                <div key={idx} className="flex gap-6 p-8 bg-white dark:bg-[#161b22] rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-xl group hover:border-indigo-500/30 transition-all">
+                                    <div className={`flex-shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xl shadow-lg ${eje.status === 'Completado' ? 'bg-green-500 text-white' : 'bg-gray-100 dark:bg-gray-800 text-gray-400 group-hover:text-indigo-500'}`}>
+                                        {idx + 1}
+                                    </div>
+                                    <div className="space-y-2">
+                                        <div className="flex items-center gap-3">
+                                            <h3 className="text-xl font-black text-gray-900 dark:text-white leading-tight">{eje.title}</h3>
+                                            <span className={`text-[8px] font-black uppercase tracking-widest px-2 py-1 rounded-full border ${eje.status === 'Completado' ? 'bg-green-500/10 text-green-600 border-green-500/20' : 'bg-gray-500/10 text-gray-500 border-gray-500/20'}`}>
+                                                {eje.status}
+                                            </span>
+                                        </div>
+                                        <p className="text-sm text-gray-500 dark:text-gray-400 font-medium italic">{eje.desc}</p>
+                                        <div className="pt-4 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-indigo-500 opacity-60">
+                                            <ShieldCheck className="w-3 h-3" /> {eje.modules} Módulos Validados
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
 
                     {/* Quick Access Section */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -293,10 +326,10 @@ const Home = () => {
                     className="mt-40 grid grid-cols-2 lg:grid-cols-4 gap-8 py-16 px-12 bg-white/50 dark:bg-[#161b22]/50 backdrop-blur-xl rounded-[4rem] border border-white/20 dark:border-gray-800 shadow-2xl"
                 >
                     {[
-                        { label: "Familias Protegidas", val: "1,200+", icon: <Users className="w-5 h-5" /> },
-                        { label: "Casos Analizados", val: "500+", icon: <Search className="w-5 h-5" /> },
-                        { label: "Lecciones Expertas", val: "30", icon: <Zap className="w-5 h-5" /> },
-                        { label: "Indice de Satisfacción", val: "99%", icon: <Award className="w-5 h-5" /> }
+                        { label: "Módulos de Formación", val: "3", icon: <BookOpen className="w-5 h-5" /> },
+                        { label: "Lecciones Teóricas", val: "34", icon: <ShieldCheck className="w-5 h-5" /> },
+                        { label: "Casos de Estudio", val: "3", icon: <Search className="w-5 h-5" /> },
+                        { label: "Privacidad de Datos", val: "SSL/TLS", icon: <Lock className="w-5 h-5" /> }
                     ].map((stat, i) => (
                         <div key={i} className="text-center space-y-2 group">
                             <div className="mx-auto w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-600 transition-transform group-hover:scale-110">

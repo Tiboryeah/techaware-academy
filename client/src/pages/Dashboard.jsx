@@ -478,24 +478,24 @@ const Dashboard = () => {
                                 if (protectionIndex >= 90) {
                                     levelLabel = "Blindado";
                                     levelColor = "from-indigo-600 to-purple-600";
-                                    levelText = "¡Máximo nivel de protección alcanzado! Eres una leyenda de la seguridad digital.";
-                                    icon = <Award className="w-6 h-6 text-indigo-500" />;
+                                    levelText = "Nivel de seguridad digital avanzado. Ha completado satisfactoriamente los parámetros de formación técnica.";
+                                    icon = <ShieldCheck className="w-6 h-6 text-indigo-500" />;
                                 } else if (protectionIndex >= 65) {
                                     levelLabel = "Seguro";
                                     levelColor = "from-green-500 to-emerald-600";
-                                    levelText = "Nivel de seguridad óptimo. Mantente actualizado con las nuevas lecciones.";
+                                    levelText = "Nivel de seguridad óptimo. Se recomienda el monitoreo continuo de nuevas lecciones.";
                                     icon = <ShieldCheck className="w-6 h-6 text-green-500" />;
                                 } else if (protectionIndex >= 35) {
                                     levelLabel = "Mejorado";
                                     levelColor = "from-yellow-500 to-amber-600";
-                                    levelText = "Vas por buen camino. Sigue acreditando módulos para alcanzar el nivel Seguro.";
+                                    levelText = "Progreso significativo detectado. Continúe acreditando módulos para optimizar el blindaje.";
                                     icon = <TrendingUp className="w-6 h-6 text-yellow-500" />;
                                 }
 
                                 if (!hasDiag) {
                                     levelLabel = "Incompleto";
                                     levelColor = "from-gray-400 to-gray-500";
-                                    levelText = "Realiza el diagnóstico inicial para calcular tu índice de protección familiar.";
+                                    levelText = "Se requiere la realización del diagnóstico inicial para la generación del índice de protección.";
                                 }
 
                                 const radius = 70;

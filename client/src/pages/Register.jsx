@@ -32,11 +32,14 @@ const Register = () => {
         setSuccess('');
         try {
             const { data } = await api.post('/api/auth/register', { name, email, password });
-            setSuccess(data.message || 'Registro exitoso. Por favor revisa tu correo para activar tu cuenta.');
-            // Clear fields
-            setName('');
-            setEmail('');
-            setPassword('');
+            setSuccess(data.message || 'Registro exitoso. Redirigiendo a verificación...');
+
+            // Navigate directly to verify page pass the email in state
+            setTimeout(() => {
+                navigate('/verify', { state: { email } });
+            }, 1500);
+
+            // We don't clear fields immediately so the email is passed to navigate
         } catch (err) {
             setError(err.response?.data?.message || 'Error al registrarse. Intente nuevamente.');
         } finally {
@@ -159,13 +162,10 @@ const Register = () => {
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                className="text-indigo-600 dark:text-indigo-400 text-xs font-black text-center bg-indigo-500/5 py-4 px-4 rounded-2xl border border-indigo-500/10"
+                                className="text-indigo-600 dark:text-indigo-400 text-xs font-black text-center bg-indigo-500/5 py-4 px-4 rounded-2xl border border-indigo-500/10 flex items-center justify-center gap-2"
                             >
-                                <Check className="w-4 h-4 mx-auto mb-2" />
+                                <Check className="w-4 h-4" />
                                 {success}
-                                <div className="mt-3">
-                                    <Link to="/login" className="underline uppercase tracking-widest text-[10px]">Ir al Inicio de Sesión</Link>
-                                </div>
                             </motion.div>
                         )}
 

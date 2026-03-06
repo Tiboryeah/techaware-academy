@@ -123,7 +123,7 @@ const TermsOfService = () => {
                             Integramos tecnologías de terceros para enriquecer la experiencia educativa. Esto incluye el uso de la API de **YouTube** para la visualización de contenido multimedia de apoyo y el motor de inteligencia artificial **Google Gemini** para facilitar interacciones informativas y asistencia técnica mediante nuestro chatbot.
                         </p>
                         <p>
-                            Queda estrictamente prohibido el uso de la plataforma para fines maliciosos, la alteración del código o cualquier acción que comprometa la integridad de los datos protegidos bajo la norma ISO 27000. Nuestras operaciones se alinean con los objetivos estratégicos de la organización, optimizando recursos y fortaleciendo la gestión de riesgos basada en el marco de referencia COBIT.
+                            Queda estrictamente prohibido el uso de la plataforma para fines maliciosos, la alteración del código o cualquier acción que comprometa la integridad de los datos. Nuestras operaciones se orientan a la optimización de recursos tecnológicos y el fortalecimiento de la gestión de riesgos digitales, alineados con los objetivos de protección integral de los usuarios.
                         </p>
                     </div>
 
