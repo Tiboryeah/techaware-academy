@@ -70,36 +70,48 @@ router.post('/:id/submit', protect, async (req, res) => {
         let correctCount = 0;
         const totalQuestions = quiz.questions.length;
 
-        // Calculate score
-        quiz.questions.forEach(question => {
-            const userSelection = answers[question._id]; // This should be the option ID from frontend
+        // Analytical Counters (US08 / RF4)
+        const errorsByArea = new Map();
+        const errorsByPlatform = new Map();
 
-            // Find the correct option in DB
+        // Calculate score and analyze errors
+        quiz.questions.forEach(question => {
+            const userSelection = answers[question._id.toString()];
             const correctOption = question.options.find(opt => opt.isCorrect);
 
-            // Compare selected option ID with correct option ID
-            // We also handle indices as fallback to avoid breaking the app during transition
-            if (typeof userSelection === 'number') {
-                // FALLBACK: If frontend still sends index (it will be wrong if shuffled, but prevents crash)
-                if (userSelection === question.options.findIndex(opt => opt.isCorrect)) {
-                    correctCount++;
-                }
-            } else if (userSelection && correctOption && userSelection.toString() === correctOption._id.toString()) {
+            let isCorrect = false;
+            if (userSelection && correctOption && userSelection.toString() === correctOption._id.toString()) {
+                isCorrect = true;
                 correctCount++;
+            }
+
+            if (!isCorrect) {
+                // Tracking Area weaknesses
+                if (question.riskArea) {
+                    const currentAreaCount = errorsByArea.get(question.riskArea) || 0;
+                    errorsByArea.set(question.riskArea, currentAreaCount + 1);
+                }
+                // Tracking Platform weaknesses
+                if (question.platform) {
+                    const currentPlatformCount = errorsByPlatform.get(question.platform) || 0;
+                    errorsByPlatform.set(question.platform, currentPlatformCount + 1);
+                }
             }
         });
 
         score = Math.round((correctCount / totalQuestions) * 100);
-        const passed = score >= 80; // US09: 80% passing score
+        const passed = score >= 80;
 
-        // Save attempt
+        // Save analytic attempt
         const attempt = await Attempt.create({
             userId,
             quizId,
             answers,
             score,
             passed,
-            riskLevel: score < 50 ? 'High' : score < 80 ? 'Medium' : 'Low',
+            riskLevel: score < 50 ? 'Alto' : score < 80 ? 'Medio' : 'Bajo',
+            errorsByArea,
+            errorsByPlatform
         });
 
         // Update Progress if passed
@@ -149,6 +161,17 @@ router.post('/:id/submit', protect, async (req, res) => {
                     }
                 } else if (quiz.scope === 'course') {
                     progress.isCourseCompleted = true;
+
+                    // RF9: Award official digital accreditation
+                    const Accreditation = require('../models/Accreditation');
+                    try {
+                        await Accreditation.create({
+                            userId,
+                            courseId
+                        });
+                    } catch (err) {
+                        // Ignore if unique index fails (already accredited)
+                    }
                 }
 
                 await progress.save();
@@ -163,6 +186,46 @@ router.post('/:id/submit', protect, async (req, res) => {
             riskLevel: attempt.riskLevel,
         });
 
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// @desc    Get recommendations for an attempt (Expert System - RF4)
+// @route   GET /api/quiz/recommendations/:attemptId
+// @access  Private
+router.get('/recommendations/:attemptId', protect, async (req, res) => {
+    try {
+        const attempt = await Attempt.findById(req.params.attemptId);
+        if (!attempt) return res.status(404).json({ message: 'Attempt not found' });
+
+        const Lesson = require('../models/Lesson');
+
+        // Logic to find lessons/modules related to error areas
+        const areas = Array.from(attempt.errorsByArea.get ? attempt.errorsByArea.keys() : Object.keys(attempt.errorsByArea || {}));
+        const platforms = Array.from(attempt.errorsByPlatform.get ? attempt.errorsByPlatform.keys() : Object.keys(attempt.errorsByPlatform || {}));
+
+        // Find relevant lessons
+        let recommendedLessons = [];
+        if (areas.length > 0 || platforms.length > 0) {
+            recommendedLessons = await Lesson.find({
+                $or: [
+                    { riskAreas: { $in: areas } },
+                    { platforms: { $in: platforms } }
+                ]
+            }).limit(4).select('title _id riskAreas platforms');
+        }
+
+        const logic = {
+            areasToReview: areas,
+            platformsToReview: platforms,
+            recommendedLessons,
+            message: attempt.score < 80
+                ? "Basado en tus resultados, te recomendamos priorizar el estudio de las lecciones mencionadas para fortalecer tu nivel de protección."
+                : "¡Excelente! Has demostrado gran dominio, pero siempre puedes repasar estos puntos clave para mantener tu estatus de Leyenda."
+        };
+
+        res.json(logic);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

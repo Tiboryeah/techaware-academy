@@ -58,7 +58,7 @@ const ResetPassword = () => {
                 className="max-w-md w-full relative z-10"
             >
                 <div className="text-center mb-10">
-                    <img src={logo} alt="TechAware Kids Logo" className="w-24 h-24 object-cover rounded-full mx-auto mb-4" />
+                    <img src={logo} alt="Kuxipilli Logo" className="w-24 h-24 object-cover rounded-full mx-auto mb-4" />
                     <h1 className="text-3xl font-black text-gray-900 dark:text-white tracking-tighter">
                         Nueva Contraseña
                     </h1>

@@ -9,7 +9,7 @@ const apiKey = (process.env.GEMINI_API_KEY || "").trim();
 const genAI = new GoogleGenerativeAI(apiKey);
 const model = genAI.getGenerativeModel({
     model: "gemini-2.0-flash",
-    systemInstruction: `Eres el "Guardián Virtual" de TechAware Kids. Tu misión es ser un experto en seguridad digital infantil y ciberacoso.
+    systemInstruction: `Eres el "Guardián Virtual" de Kuxipilli. Tu misión es ser un experto en seguridad digital infantil y ciberacoso.
         
         REGLAS CRÍTICAS:
         1. Tu tono es profesional, empático y experto.
@@ -74,13 +74,20 @@ router.post('/message', protect, async (req, res) => {
             text,
         });
 
-        // 3. Generate response using Gemini
+        // 3. Generate response using Gemini (with Anonymization - RNF4)
         let botText;
         try {
+            // Anonymize sensitive data (RNF4)
+            const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+            const phoneRegex = /(\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/g;
+            const anonymizedText = text
+                .replace(emailRegex, '[EMAIL_OCUPADO]')
+                .replace(phoneRegex, '[TELÉFONO_OCUPADO]');
+
             const chat = model.startChat({
                 history: chatHistory,
             });
-            const result = await chat.sendMessage(text);
+            const result = await chat.sendMessage(anonymizedText);
             botText = result.response.text();
         } catch (apiError) {
             console.error("Gemini API Error:", apiError);

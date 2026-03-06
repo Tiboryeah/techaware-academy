@@ -30,13 +30,35 @@ router.post('/register', async (req, res) => {
         const user = await User.create({
             name,
             email,
-            passwordHash: password,
+            passHash: password,
             verificationToken,
         });
 
         if (user) {
-            // In a real app, send email here with link: /verify/${verificationToken}
-            console.log(`Verification Token for ${email}: ${verificationToken}`);
+            // US13: Real Verification Email using sendEmail utility
+            const verificationUrl = `${process.env.FRONTEND_URL || 'http://localhost:3000'}/verify/${verificationToken}`;
+            const message = `
+                <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px; border: 1px solid #e0e0e0; border-radius: 20px; background-color: #fafafb;">
+                    <h2 style="color: #4f46e5; text-align: center;">¡Bienvenido a Kuxipilli!</h2>
+                    <p>Hola <strong>${name}</strong>,</p>
+                    <p>Gracias por registrarte. Para activar tu cuenta de guardián y comenzar tu capacitación en seguridad digital, por favor haz clic en el siguiente botón:</p>
+                    <div style="text-align: center; margin: 30px 0;">
+                        <a href="${verificationUrl}" style="background-color: #4f46e5; color: white; padding: 15px 30px; text-decoration: none; border-radius: 10px; font-weight: bold; display: inline-block;">Activar mi Cuenta</a>
+                    </div>
+                    <p style="font-size: 12px; color: #6b7280; text-align: center;">Si no has solicitado este registro, puedes ignorar este correo.</p>
+                </div>
+            `;
+
+            try {
+                await sendEmail({
+                    email: user.email,
+                    subject: 'Verifica tu cuenta - Kuxipilli',
+                    message
+                });
+                console.log(`[SMTP] Verification Token sent to ${email}`);
+            } catch (err) {
+                console.error("Error sending verification email:", err);
+            }
 
             res.status(201).json({
                 _id: user._id,
@@ -44,8 +66,7 @@ router.post('/register', async (req, res) => {
                 email: user.email,
                 role: user.role,
                 isVerified: user.isVerified,
-                token: generateToken(user._id), // Optionally, don't send token until verified
-                message: 'Please check your email to verify your account.'
+                message: 'Por favor, revisa tu correo para verificar tu cuenta.'
             });
         } else {
             res.status(400).json({ message: 'Invalid user data' });
@@ -86,6 +107,11 @@ router.post('/login', async (req, res) => {
         const user = await User.findOne({ email });
 
         if (user && (await user.matchPassword(password))) {
+            // DS-01 Rule: Check if account is verified
+            if (!user.isVerified) {
+                return res.status(401).json({ message: 'Por favor verifique su correo electrónico antes de iniciar sesión.' });
+            }
+
             res.json({
                 _id: user._id,
                 name: user.name,
@@ -119,7 +145,7 @@ router.put('/update-password', protect, async (req, res) => {
         const user = await User.findById(req.user._id);
 
         if (user && (await user.matchPassword(currentPassword))) {
-            user.passwordHash = newPassword;
+            user.passHash = newPassword;
             await user.save();
             res.json({ message: 'Contraseña actualizada correctamente' });
         } else {
@@ -249,7 +275,7 @@ router.post('/forgot-password', async (req, res) => {
             <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px; border: 1px solid #e0e0e0; border-radius: 20px; background-color: #fafafb;">
                 <div style="text-align: center; margin-bottom: 30px;">
                     <h2 style="color: #4f46e5; font-size: 28px; margin: 0;">Código de Verificación</h2>
-                    <p style="color: #6b7280; font-size: 16px;">TechAware Kids</p>
+                    <p style="color: #6b7280; font-size: 16px;">Kuxipilli</p>
                 </div>
                 
                 <div style="background-color: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
@@ -264,7 +290,7 @@ router.post('/forgot-password', async (req, res) => {
                 </div>
 
                 <div style="text-align: center; margin-top: 20px; font-size: 12px; color: #d1d5db;">
-                    &copy; 2026 TechAware Kids Security Team
+                    &copy; 2026 Kuxipilli Security Team
                 </div>
             </div>
         `;
@@ -272,7 +298,7 @@ router.post('/forgot-password', async (req, res) => {
         try {
             await sendEmail({
                 email: user.email,
-                subject: 'Tu Código de Recuperación - TechAware Kids',
+                subject: 'Tu Código de Recuperación - Kuxipilli',
                 message
             });
 
@@ -318,7 +344,7 @@ router.post('/reset-with-code', async (req, res) => {
         }
 
         // Set new password
-        user.passwordHash = newPassword;
+        user.passHash = newPassword;
         user.resetPasswordToken = undefined;
         user.resetPasswordExpire = undefined;
 
@@ -356,7 +382,7 @@ router.put('/reset-password/:resettoken', async (req, res) => {
         }
 
         // Set new password
-        user.passwordHash = req.body.password;
+        user.passHash = req.body.password;
         user.resetPasswordToken = undefined;
         user.resetPasswordExpire = undefined;
 

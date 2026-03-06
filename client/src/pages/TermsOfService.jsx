@@ -117,7 +117,7 @@ const TermsOfService = () => {
                     </h2>
                     <div className="space-y-6 text-gray-600 dark:text-gray-400 leading-relaxed font-medium italic">
                         <p>
-                            El acceso a TechAware Kids implica la aceptación de un uso responsable de nuestra infraestructura en la nube. Nuestro objetivo es proveer un servicio de IT confiable, seguro y eficiente que soporte la operación de la aplicación web, permitiendo concientizar y apoyar a los padres de familia a prevenir los riesgos digitales en niños de 6 a 12 años.
+                            El acceso a Kuxipilli implica la aceptación de un uso responsable de nuestra infraestructura en la nube. Nuestro objetivo es proveer un servicio de IT confiable, seguro y eficiente que soporte la operación de la aplicación web, permitiendo concientizar y apoyar a los padres de familia a prevenir los riesgos digitales en niños de 6 a 12 años.
                         </p>
                         <p>
                             Integramos tecnologías de terceros para enriquecer la experiencia educativa. Esto incluye el uso de la API de **YouTube** para la visualización de contenido multimedia de apoyo y el motor de inteligencia artificial **Google Gemini** para facilitar interacciones informativas y asistencia técnica mediante nuestro chatbot.
@@ -131,7 +131,7 @@ const TermsOfService = () => {
                         <div className="flex -space-x-3">
                             {[1, 2, 3, 4].map(i => (
                                 <div key={i} className="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 border-2 border-white dark:border-[#161b22] flex items-center justify-center text-[10px] font-black">
-                                    TA
+                                    KX
                                 </div>
                             ))}
                         </div>

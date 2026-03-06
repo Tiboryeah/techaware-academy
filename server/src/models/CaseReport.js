@@ -16,13 +16,13 @@ const CaseReportSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        enum: ['Ciberacoso', 'Fraudes', 'Grooming', 'Privacidad', 'Otro'],
+        enum: ['Ciberacoso', 'Grooming', 'Fraude', 'Otro'],
         default: 'Otro'
     },
     status: {
         type: String,
-        enum: ['pending', 'reviewed', 'published'],
-        default: 'pending'
+        enum: ['pendiente', 'revisado'],
+        default: 'pendiente'
     },
     createdAt: {
         type: Date,

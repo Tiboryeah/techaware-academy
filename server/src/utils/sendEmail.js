@@ -14,7 +14,7 @@ const sendEmail = async (options) => {
 
     // 2. Define email options
     const mailOptions = {
-        from: `TechAware Kids <${process.env.EMAIL_USER}>`,
+        from: `Kuxipilli <${process.env.EMAIL_USER}>`,
         to: options.email,
         subject: options.subject,
         html: options.message // Using HTML for better formatting

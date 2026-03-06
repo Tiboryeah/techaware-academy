@@ -50,7 +50,7 @@ router.post('/submit', protect, async (req, res) => {
                             ${description.replace(/\n/g, '<br>')}
                         </div>
                         <p style="font-size: 12px; color: #6b7280; margin-top: 30px;">
-                            Este es un mensaje automático del Sistema de Reportes TechAwareKids.
+                            Este es un mensaje automático del Sistema de Reportes Kuxipilli.
                         </p>
                     </div>
                 `

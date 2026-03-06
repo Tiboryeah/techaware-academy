@@ -21,6 +21,7 @@ const QuizTaker = () => {
     const [quiz, setQuiz] = useState(null);
     const [answers, setAnswers] = useState({});
     const [result, setResult] = useState(null);
+    const [recommendations, setRecommendations] = useState(null);
     const [loading, setLoading] = useState(true);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const navigate = useNavigate();
@@ -48,6 +49,16 @@ const QuizTaker = () => {
         try {
             const { data } = await api.post(`/api/quiz/${quiz._id}/submit`, { answers });
             setResult(data);
+
+            // Fetch expert recommendations (RF4)
+            if (data.attemptId) {
+                try {
+                    const recRes = await api.get(`/api/quiz/recommendations/${data.attemptId}`);
+                    setRecommendations(recRes.data);
+                } catch (recErr) {
+                    console.error("Error fetching recommendations:", recErr);
+                }
+            }
         } catch (error) {
             console.error("Submission error:", error);
         }
@@ -157,13 +168,34 @@ const QuizTaker = () => {
                                 <Target className="w-4 h-4" /> Recomendaciones Personalizadas
                             </h3>
                             <div className="space-y-3">
-                                <div className="p-4 bg-gray-50 dark:bg-[#0a0c10]/40 rounded-2xl border border-gray-100 dark:border-white/5 flex items-center justify-between group hover:border-indigo-500/30 transition-all cursor-pointer" onClick={() => navigate('/modules')}>
-                                    <div className="flex items-center gap-4 text-left">
-                                        <div className="p-2 bg-indigo-500/10 rounded-lg text-indigo-600 dark:text-indigo-400 font-bold"><BookOpen className="w-4 h-4" /></div>
-                                        <p className="text-sm font-bold text-gray-800 dark:text-gray-200">Completar curso: "Seguridad en Videojuegos"</p>
+                                {recommendations && recommendations.recommendedLessons && recommendations.recommendedLessons.length > 0 ? (
+                                    recommendations.recommendedLessons.map((lesson) => (
+                                        <div
+                                            key={lesson._id}
+                                            className="p-4 bg-gray-50 dark:bg-[#0a0c10]/40 rounded-2xl border border-gray-100 dark:border-white/5 flex items-center justify-between group hover:border-indigo-500/30 transition-all cursor-pointer"
+                                            onClick={() => navigate(`/lessons/${lesson._id}`)}
+                                        >
+                                            <div className="flex items-center gap-4 text-left">
+                                                <div className="p-2 bg-indigo-500/10 rounded-lg text-indigo-600 dark:text-indigo-400 font-bold"><BookOpen className="w-4 h-4" /></div>
+                                                <div>
+                                                    <p className="text-sm font-bold text-gray-800 dark:text-gray-200">{lesson.title}</p>
+                                                    <p className="text-[9px] text-gray-400 uppercase font-black tracking-widest">
+                                                        {lesson.riskAreas?.join(', ') || 'General'} • {lesson.platforms?.join(', ')}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <ChevronRight className="w-4 h-4 text-gray-400 dark:text-gray-700 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors" />
+                                        </div>
+                                    ))
+                                ) : (
+                                    <div className="p-4 bg-gray-50 dark:bg-[#0a0c10]/40 rounded-2xl border border-gray-100 dark:border-white/5 flex items-center justify-between group hover:border-indigo-500/30 transition-all cursor-pointer" onClick={() => navigate('/modules')}>
+                                        <div className="flex items-center gap-4 text-left">
+                                            <div className="p-2 bg-indigo-500/10 rounded-lg text-indigo-600 dark:text-indigo-400 font-bold"><BookOpen className="w-4 h-4" /></div>
+                                            <p className="text-sm font-bold text-gray-800 dark:text-gray-200">Sigue explorando nuestros Módulos de Aprendizaje</p>
+                                        </div>
+                                        <ChevronRight className="w-4 h-4 text-gray-400 dark:text-gray-700 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors" />
                                     </div>
-                                    <ChevronRight className="w-4 h-4 text-gray-400 dark:text-gray-700 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors" />
-                                </div>
+                                )}
                             </div>
                         </div>
 

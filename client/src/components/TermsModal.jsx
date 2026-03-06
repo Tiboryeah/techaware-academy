@@ -17,19 +17,15 @@ const TermsModal = ({ isOpen, onClose }) => {
                     <p><strong>Última actualización: Enero 2026</strong></p>
 
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white">1. Introducción</h3>
-                    <p>Bienvenido a <strong>TechAware Kids</strong>. Al acceder y utilizar nuestra plataforma, aceptas cumplir con los siguientes Términos y Condiciones. Esta herramienta está diseñada con fines educativos para padres y tutores sobre seguridad digital.</p>
-
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">2. Uso del Servicio</h3>
-                    <p>TechAware Kids proporciona cursos, guías y herramientas de diagnóstico. El usuario se compromete a utilizar la plataforma de manera ética y legal. Está prohibido compartir cuentas o distribuir el contenido exclusivo sin autorización.</p>
-
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">3. Privacidad y Datos</h3>
-                    <p>Nos tomamos muy en serio tu privacidad. Recopilamos datos mínimos (nombre, correo) para gestionar tu progreso. No compartimos información personal con terceros sin tu consentimiento, salvo requerimiento legal. Consulta nuestro Aviso de Privacidad completo para más detalles.</p>
-
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">4. Propiedad Intelectual</h3>
-                    <p>Todo el contenido (textos, videos, logotipos, cuestionarios) es propiedad exclusiva de TechAware Kids o sus licenciantes. Se otorga una licencia limitada, no exclusiva e intransferible para uso personal y no comercial.</p>
-
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">5. Limitación de Responsabilidad</h3>
-                    <p>TechAware Kids es una herramienta educativa. No garantizamos que el uso de nuestros consejos prevenga todos los riesgos digitales. Los padres son responsables finales de la supervisión de sus hijos.</p>
+                    <p>Bienvenido a <strong>Kuxipilli</strong>. Al acceder y utilizar nuestra plataforma, aceptas cumplir con los siguientes Términos y Condiciones. Esta herramienta está diseñada con fines educativos para padres y tutores sobre seguridad digital.</p>
+                    <h3 className="text-lg font-bold">Uso de la Plataforma</h3>
+                    <p>Kuxipilli proporciona cursos, guías y herramientas de diagnóstico. El usuario se compromete a utilizar la plataforma de manera ética y legal. Está prohibido compartir cuentas o distribuir el contenido exclusivo sin autorización.</p>
+                    <h3 className="text-lg font-bold">Privacidad y Datos</h3>
+                    <p>Respetamos tu privacidad. Tus datos personales y resultados de exámenes se manejan bajo estrictas medidas de seguridad y cifrado.</p>
+                    <h3 className="text-lg font-bold">Propiedad Intelectual</h3>
+                    <p>Todo el contenido (textos, videos, logotipos, cuestionarios) es propiedad exclusiva de Kuxipilli o sus licenciantes. Se otorga una licencia limitada, no exclusiva e intransferible para uso personal y no comercial.</p>
+                    <h3 className="text-lg font-bold">Limitación de Responsabilidad</h3>
+                    <p>Kuxipilli es una herramienta educativa. No garantizamos que el uso de nuestros consejos prevenga todos los riesgos digitales. Los padres son responsables finales de la supervisión de sus hijos.</p>
 
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white">6. Modificaciones</h3>
                     <p>Podemos actualizar estos términos ocasionalmente. Te notificaremos sobre cambios importantes a través de la plataforma o por correo electrónico.</p>

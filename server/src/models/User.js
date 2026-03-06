@@ -16,14 +16,14 @@ const userSchema = mongoose.Schema(
             required: true,
             unique: true,
         },
-        passwordHash: {
+        passHash: {
             type: String,
             required: true,
         },
         role: {
             type: String,
-            enum: ['padre', 'admin'],
-            default: 'padre',
+            enum: ['Parent', 'Admin'],
+            default: 'Parent',
         },
         isVerified: {
             type: Boolean,
@@ -42,17 +42,17 @@ const userSchema = mongoose.Schema(
 
 // Match user entered password to hashed password in database
 userSchema.methods.matchPassword = async function (enteredPassword) {
-    return await bcrypt.compare(enteredPassword, this.passwordHash);
+    return await bcrypt.compare(enteredPassword, this.passHash);
 };
 
 // Encrypt password using bcrypt
 userSchema.pre('save', async function () {
-    if (!this.isModified('passwordHash')) {
+    if (!this.isModified('passHash')) {
         return;
     }
 
     const salt = await bcrypt.genSalt(10);
-    this.passwordHash = await bcrypt.hash(this.passwordHash, salt);
+    this.passHash = await bcrypt.hash(this.passHash, salt);
 });
 
 const User = mongoose.model('User', userSchema);

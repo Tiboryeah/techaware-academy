@@ -254,9 +254,9 @@ const Home = () => {
                             transition={{ duration: 0.8, ease: "circOut" }}
                             className="text-7xl md:text-[10rem] font-black tracking-tighter text-gray-900 dark:text-white leading-[0.75]"
                         >
-                            TechAware<br />
+                            Kuxi<br />
                             <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-800 via-indigo-600 to-indigo-400 dark:from-indigo-600 dark:via-indigo-400 dark:to-indigo-200">
-                                Academy
+                                pilli
                             </span>
                         </motion.h1>
 
@@ -311,7 +311,7 @@ const Home = () => {
                 {/* Main Pillars */}
                 <div className="mt-40 space-y-24">
                     <div className="text-center space-y-4">
-                        <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-indigo-500">Metodología TechAware</h2>
+                        <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-indigo-500">Metodología Kuxipilli</h2>
                         <h3 className="text-5xl font-black text-gray-900 dark:text-white tracking-tighter uppercase">Los tres pilares del blindaje digital</h3>
                     </div>
 
@@ -382,7 +382,7 @@ const Home = () => {
                 <div className="mt-24 pt-12 border-t border-gray-100 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-8 opacity-50">
                     <div className="flex items-center gap-2">
                         <ShieldCheck className="w-5 h-5 text-indigo-600" />
-                        <span className="text-[10px] font-black uppercase tracking-widest text-gray-600 dark:text-gray-400">TechAware Systems v2.4</span>
+                        <span className="text-[10px] font-black uppercase tracking-widest text-gray-600 dark:text-gray-400">Kuxipilli Systems v2.4</span>
                     </div>
                     <div className="text-[10px] font-black uppercase tracking-widest text-gray-600 dark:text-gray-400">Educating for an open and safe web.</div>
                 </div>

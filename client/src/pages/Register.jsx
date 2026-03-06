@@ -18,6 +18,8 @@ const Register = () => {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
+    const [success, setSuccess] = useState('');
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!acceptedTerms) {
@@ -27,9 +29,14 @@ const Register = () => {
 
         setLoading(true);
         setError('');
+        setSuccess('');
         try {
-            await api.post('/api/auth/register', { name, email, password });
-            navigate('/login');
+            const { data } = await api.post('/api/auth/register', { name, email, password });
+            setSuccess(data.message || 'Registro exitoso. Por favor revisa tu correo para activar tu cuenta.');
+            // Clear fields
+            setName('');
+            setEmail('');
+            setPassword('');
         } catch (err) {
             setError(err.response?.data?.message || 'Error al registrarse. Intente nuevamente.');
         } finally {
@@ -52,10 +59,10 @@ const Register = () => {
             >
                 <div className="text-center mb-10">
                     <div className="inline-flex items-center justify-center mb-6">
-                        <img src={logo} alt="TechAware Kids Logo" className="w-40 h-40 object-cover rounded-full" />
+                        <img src={logo} alt="Kuxipilli Logo" className="w-40 h-40 object-cover rounded-full" />
                     </div>
                     <h1 className="text-4xl font-black text-gray-900 dark:text-white tracking-tighter">
-                        Únete a <span className="text-indigo-600 dark:text-indigo-400">TechAware</span>
+                        Únete a <span className="text-indigo-600 dark:text-indigo-400">Kuxipilli</span>
                     </h1>
                     <p className="mt-2 text-gray-500 dark:text-gray-400 font-medium italic">Empieza a proteger a tu familia hoy mismo</p>
                 </div>
@@ -142,9 +149,23 @@ const Register = () => {
                             <motion.div
                                 initial={{ opacity: 0, x: -10 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                className="text-red-500 dark:text-red-400 text-xs font-bold text-center bg-red-500/5 py-2 rounded-lg border border-red-500/10 italic"
+                                className="text-red-500 dark:text-red-400 text-xs font-bold text-center bg-red-500/5 py-3 rounded-xl border border-red-500/10 italic"
                             >
                                 {error}
+                            </motion.div>
+                        )}
+
+                        {success && (
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                className="text-indigo-600 dark:text-indigo-400 text-xs font-black text-center bg-indigo-500/5 py-4 px-4 rounded-2xl border border-indigo-500/10"
+                            >
+                                <Check className="w-4 h-4 mx-auto mb-2" />
+                                {success}
+                                <div className="mt-3">
+                                    <Link to="/login" className="underline uppercase tracking-widest text-[10px]">Ir al Inicio de Sesión</Link>
+                                </div>
                             </motion.div>
                         )}
 

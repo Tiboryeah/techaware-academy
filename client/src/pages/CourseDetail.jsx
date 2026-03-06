@@ -51,7 +51,7 @@ const CourseDetail = () => {
     if (!course) return <div className="text-center py-20 dark:text-white">Curso no encontrado.</div>;
 
     const allModulesCompleted = course.modules.every(m => progress?.completedModules.includes(m._id));
-    const isAdmin = user?.role === 'admin';
+    const isAdmin = user?.role === 'Admin';
 
     return (
         <div className="min-h-screen bg-[#fafafb] dark:bg-[#0a0c10] text-[#1a1a1a] dark:text-gray-100 pb-20 transition-colors duration-500">

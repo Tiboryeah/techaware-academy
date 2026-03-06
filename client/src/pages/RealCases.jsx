@@ -229,7 +229,7 @@ const RealCases = () => {
                                                 <CheckCircle2 className="w-10 h-10" />
                                             </div>
                                             <h3 className="text-3xl font-black text-gray-900 dark:text-white">¡Enviado con éxito!</h3>
-                                            <p className="text-gray-500 dark:text-gray-400 italic">Gracias por colaborar con TechAwareKids.</p>
+                                            <p className="text-gray-500 dark:text-gray-400 italic">Gracias por colaborar con Kuxipilli.</p>
                                         </div>
                                     ) : (
                                         <>

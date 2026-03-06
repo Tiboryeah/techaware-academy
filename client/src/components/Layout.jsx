@@ -32,7 +32,7 @@ const Layout = () => {
                                     <img src={logo} alt="Logo" className="w-14 h-14 rounded-full object-cover border-2 border-indigo-500/20 shadow-lg" />
                                 </div>
                                 <span className="text-xl font-black bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent">
-                                    TechAware<span className="text-indigo-600 dark:text-indigo-400">Kids</span>
+                                    Kuxipilli
                                 </span>
                             </Link>
 
@@ -127,10 +127,10 @@ const Layout = () => {
                         <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-200 dark:border-gray-700">
                             <img src={logo} alt="Logo" className="w-full h-full object-cover" />
                         </div>
-                        <span className="font-bold text-gray-900 dark:text-white">TechAware Kids</span>
+                        <span className="font-bold text-gray-900 dark:text-white">Kuxipilli</span>
                     </div>
                     <div className="text-gray-500 dark:text-gray-400 text-sm">
-                        &copy; 2026 TechAware Kids. Educando para un futuro digital más seguro.
+                        &copy; 2026 Kuxipilli. Educando para un futuro digital más seguro.
                     </div>
                     <div className="flex gap-6">
                         <Link to="/privacy" className="text-sm text-gray-400 hover:text-indigo-500 transition-colors uppercase tracking-widest font-bold text-[10px]">Política</Link>

@@ -11,7 +11,7 @@ const PrivacyPolicy = () => {
         {
             icon: <Database className="w-6 h-6 text-indigo-500" />,
             title: "Infraestructura y Tratamiento de Información",
-            content: "TechAware Kids opera sobre una infraestructura avanzada de servicios en la nube, diseñada para garantizar la disponibilidad, escalabilidad y accesibilidad continua de nuestra plataforma. Este despliegue tecnológico permite que los padres de familia accedan a herramientas de concientización sobre riesgos digitales desde cualquier dispositivo con conexión a internet, manteniendo la integridad operativa bajo los más altos estándares de IT."
+            content: "Kuxipilli opera sobre una infraestructura avanzada de servicios en la nube, diseñada para garantizar la disponibilidad, escalabilidad y accesibilidad continua de nuestra plataforma. Este despliegue tecnológico permite que los padres de familia accedan a herramientas de concientización sobre riesgos digitales desde cualquier dispositivo con conexión a internet, manteniendo la integridad operativa bajo los más altos estándares de IT."
         },
         {
             icon: <Shield className="w-6 h-6 text-indigo-500" />,
@@ -68,13 +68,13 @@ const PrivacyPolicy = () => {
                 >
                     <div className="prose prose-indigo dark:prose-invert max-w-none space-y-6">
                         <p className="text-xl leading-relaxed text-gray-600 dark:text-gray-300 italic">
-                            El servicio de IT de TechAware Kids se basa en el uso de infraestructura y servicios en la nube, que permite el despliegue, operación y mantenimiento de una aplicación web interactiva orientada a la concientización de los padres de familia sobre los riesgos digitales en niños de entre 6 y 12 años.
+                            El servicio de IT de Kuxipilli se basa en el uso de infraestructura y servicios en la nube, que permite el despliegue, operación y mantenimiento de una aplicación web interactiva orientada a la concientización de los padres de familia sobre los riesgos digitales en niños de entre 6 y 12 años.
                         </p>
                         <p className="text-lg leading-relaxed text-gray-600 dark:text-gray-400">
                             La nube proporciona los recursos tecnológicos necesarios para garantizar la disponibilidad, escalabilidad y accesibilidad del servicio, permitiendo que los usuarios accedan a la plataforma de manera continua desde diferentes dispositivos con conexión a internet.
                         </p>
                         <p className="text-lg leading-relaxed text-gray-600 dark:text-gray-400">
-                            El servicio de IT en la nube se alinea con los objetivos estratégicos de la organización al optimizar recursos tecnológicos, reducir los costos y fortalecer la gestión de riesgos, basado en el marco de referencia COBIT. Además de integrar prácticas de seguridad de la información basadas en la norma ISO 27000 buscando garantizar la confidencialidad, integridad y disponibilidad de los datos, así como la continuidad del servicio, por lo que la nube representa una herramienta indispensable para la operación de TechAware Kids permitiendo ofrecer un servicio confiable, seguro y que esté alineado a las mejores prácticas en la gestión de tecnologías de la información.
+                            El servicio de IT en la nube se alinea con los objetivos estratégicos de la organización al optimizar recursos tecnológicos, reducir los costos y fortalecer la gestión de riesgos, basado en el marco de referencia COBIT. Además de integrar prácticas de seguridad de la información basadas en la norma ISO 27000 buscando garantizar la confidencialidad, integridad y disponibilidad de los datos, así como la continuidad del servicio, por lo que la nube representa una herramienta indispensable para la operación de Kuxipilli permitiendo ofrecer un servicio confiable, seguro y que esté alineado a las mejores prácticas en la gestión de tecnologías de la información.
                         </p>
                     </div>
                 </motion.section>

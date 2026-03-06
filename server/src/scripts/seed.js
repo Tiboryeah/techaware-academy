@@ -21,8 +21,8 @@ const importData = async () => {
             adminUser = await User.create({
                 name: 'Admin User',
                 email: 'admin@example.com',
-                passwordHash: '123456',
-                role: 'admin',
+                passHash: '123456',
+                role: 'Admin',
                 isVerified: true
             });
             console.log('(+) Admin User Created');
@@ -710,7 +710,7 @@ const importData = async () => {
         console.log('--- ALL DATA IMPORTED SUCCESSFULLY ---');
         process.exit();
     } catch (error) {
-        console.error(`${error}`);
+        console.error('SEED ERROR:', error);
         process.exit(1);
     }
 };

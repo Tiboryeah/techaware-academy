@@ -5,19 +5,38 @@ const helmet = require('helmet');
 const path = require('path');
 const connectDB = require('./config/db');
 
+const rateLimit = require('express-rate-limit');
+
 // Load env vars
 dotenv.config();
 
 // Connect to database
 connectDB();
-
 const app = express();
 
+// Security Middleware (RNF4 / RT6)
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
+    message: 'Demasiadas solicitudes desde esta IP, por favor intenta de nuevo en 15 minutos.'
+});
+
 // Middleware
-app.use(helmet());
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" })); // Allow images to be loaded
 app.use(cors());
 app.use(express.json());
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(limiter);
+} else {
+    // Relaxed limiter for development to avoid blocking the USER during testing
+    app.use(rateLimit({
+        windowMs: 1 * 60 * 1000, // 1 minute
+        max: 1000,
+        message: 'Rate limit relaxed for development.'
+    }));
+}
+app.use(helmet());
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" })); // Allow images to be loaded
 
 // Serve Static Files
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));

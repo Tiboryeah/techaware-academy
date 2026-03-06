@@ -4,7 +4,7 @@ import AuthContext from '../context/AuthContext';
 import api from '../services/api';
 import { API_BASE_URL } from '../constants';
 import { motion } from 'framer-motion';
-import { jsPDF } from 'jspdf';
+import jsPDF from 'jspdf';
 import {
     LayoutDashboard,
     Trophy,
@@ -21,7 +21,8 @@ import {
     TrendingUp,
     RotateCw,
     Download,
-    Award
+    Award,
+    ShieldCheck
 } from 'lucide-react';
 
 const Dashboard = () => {
@@ -84,7 +85,7 @@ const Dashboard = () => {
         doc.setTextColor(30, 27, 75);
         doc.setFontSize(30);
         doc.setFont('times', 'bold');
-        doc.text('TECHAWARE ACADEMY CERTIFICATION', pageWidth / 2, 40, { align: 'center' });
+        doc.text('KUXIPILLI CERTIFICATION', pageWidth / 2, 40, { align: 'center' });
 
         doc.setFontSize(12);
         doc.setFont('times', 'italic');
@@ -200,7 +201,11 @@ const Dashboard = () => {
         doc.setTextColor(30, 27, 75);
         doc.text('FIRMA AUTORIZADA', pageWidth / 2, 192, { align: 'center' });
 
-        doc.save(`Certificado_TechAware_${category?.replace(/\s/g, '_')}.pdf`);
+        const safeUserName = (user?.name || 'Usuario').split(' ')[0].normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9]/g, '');
+        const safeCourseName = (courseName || 'Curso').normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9]/g, '').substring(0, 15);
+
+        const fileName = `${safeUserName}_${safeCourseName}.pdf`;
+        doc.save(fileName);
     };
 
     if (loading) return (
@@ -460,127 +465,175 @@ const Dashboard = () => {
                     {/* Right Column: Badges and Quick Links */}
                     <div className="lg:col-span-4 space-y-8">
 
-                        {/* Risk Level Semi-Circle (Dynamic Protection Index) */}
-                        <div className="bg-white dark:bg-[#161b22] rounded-[2.5rem] p-8 border border-gray-100 dark:border-gray-800 text-center space-y-4 shadow-sm dark:shadow-2xl transition-all duration-500 relative overflow-hidden group">
-                            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent opacity-0 dark:opacity-100" />
+                        {/* Risk Level Premium Gauge (Dynamic Protection Index - RF4) */}
+                        <div className="bg-white dark:bg-[#161b22] rounded-[3rem] p-10 border border-gray-100 dark:border-gray-800 text-center space-y-6 shadow-xl dark:shadow-[0_0_50px_rgba(79,70,229,0.1)] relative overflow-hidden group">
+                            <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-purple-500/5 opacity-0 dark:opacity-100" />
 
                             {(() => {
                                 let levelLabel = "Vulnerable";
-                                let levelColor = "red";
-                                let levelText = "Tu entorno digital requiere atención inmediata.";
+                                let levelColor = "from-red-500 to-orange-500";
+                                let levelText = "Tu entorno digital requiere atención inmediata. Completa los cursos para fortalecer tu escudo.";
+                                let icon = <ShieldAlert className="w-6 h-6 text-red-500" />;
 
                                 if (protectionIndex >= 90) {
                                     levelLabel = "Blindado";
-                                    levelColor = "indigo";
-                                    levelText = "Máximo nivel de protección alcanzado.";
+                                    levelColor = "from-indigo-600 to-purple-600";
+                                    levelText = "¡Máximo nivel de protección alcanzado! Eres una leyenda de la seguridad digital.";
+                                    icon = <Award className="w-6 h-6 text-indigo-500" />;
                                 } else if (protectionIndex >= 65) {
                                     levelLabel = "Seguro";
-                                    levelColor = "green";
-                                    levelText = "Nivel de seguridad óptimo para tu familia.";
+                                    levelColor = "from-green-500 to-emerald-600";
+                                    levelText = "Nivel de seguridad óptimo. Mantente actualizado con las nuevas lecciones.";
+                                    icon = <ShieldCheck className="w-6 h-6 text-green-500" />;
                                 } else if (protectionIndex >= 35) {
                                     levelLabel = "Mejorado";
-                                    levelColor = "yellow";
-                                    levelText = "Vas por buen camino, sigue acreditando módulos.";
+                                    levelColor = "from-yellow-500 to-amber-600";
+                                    levelText = "Vas por buen camino. Sigue acreditando módulos para alcanzar el nivel Seguro.";
+                                    icon = <TrendingUp className="w-6 h-6 text-yellow-500" />;
                                 }
 
                                 if (!hasDiag) {
                                     levelLabel = "Incompleto";
-                                    levelColor = "gray";
-                                    levelText = "Realiza el diagnóstico inicial para ver tu índice.";
+                                    levelColor = "from-gray-400 to-gray-500";
+                                    levelText = "Realiza el diagnóstico inicial para calcular tu índice de protección familiar.";
                                 }
 
-                                const strokeDash = `${protectionIndex}, 100`;
-                                const colorPrimary = levelColor === 'gray' ? 'gray' : levelColor;
+                                const radius = 70;
+                                const circumference = 2 * Math.PI * radius;
+                                const strokeDashOffset = circumference - (protectionIndex / 100) * circumference;
 
                                 return (
                                     <>
-                                        <div className="relative w-32 h-32 mx-auto">
-                                            <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-                                                <circle cx="18" cy="18" r="16" fill="none" className="stroke-gray-100 dark:stroke-gray-800 stroke-[3]" />
+                                        <div className="relative w-48 h-48 mx-auto flex items-center justify-center">
+                                            {/* Outer Glow */}
+                                            <div className={`absolute inset-0 rounded-full bg-gradient-to-tr ${levelColor} opacity-5 blur-2xl animate-pulse`} />
+
+                                            <svg className="w-full h-full transform -rotate-90 drop-shadow-[0_0_15px_rgba(0,0,0,0.1)]" viewBox="0 0 160 160">
+                                                <circle cx="80" cy="80" r={radius} fill="none" className="stroke-gray-100 dark:stroke-gray-800/50 stroke-[8]" />
                                                 <motion.circle
-                                                    cx="18" cy="18" r="16" fill="none"
-                                                    initial={{ strokeDasharray: "0, 100" }}
-                                                    animate={{ strokeDasharray: strokeDash }}
-                                                    transition={{ duration: 1.5, ease: "easeOut" }}
-                                                    className={`stroke-${colorPrimary}-500 stroke-[3]`}
-                                                    strokeLinecap="round"
+                                                    cx="80" cy="80" r={radius} fill="none"
+                                                    initial={{ strokeDashoffset: circumference }}
+                                                    animate={{ strokeDashoffset: strokeDashOffset }}
+                                                    transition={{ duration: 2, ease: "circOut" }}
+                                                    className={`stroke-current text-transparent bg-clip-border stroke-[10]`}
+                                                    style={{
+                                                        stroke: `url(#gradient-${levelLabel})`,
+                                                        strokeDasharray: circumference,
+                                                        strokeLinecap: 'round'
+                                                    }}
                                                 />
+                                                <defs>
+                                                    <linearGradient id={`gradient-Blindado`} x1="0%" y1="0%" x2="100%" y2="0%">
+                                                        <stop offset="0%" stopColor="#4f46e5" />
+                                                        <stop offset="100%" stopColor="#9333ea" />
+                                                    </linearGradient>
+                                                    <linearGradient id={`gradient-Seguro`} x1="0%" y1="0%" x2="100%" y2="0%">
+                                                        <stop offset="0%" stopColor="#10b981" />
+                                                        <stop offset="100%" stopColor="#059669" />
+                                                    </linearGradient>
+                                                    <linearGradient id={`gradient-Mejorado`} x1="0%" y1="0%" x2="100%" y2="0%">
+                                                        <stop offset="0%" stopColor="#f59e0b" />
+                                                        <stop offset="100%" stopColor="#d97706" />
+                                                    </linearGradient>
+                                                    <linearGradient id={`gradient-Vulnerable`} x1="0%" y1="0%" x2="100%" y2="0%">
+                                                        <stop offset="0%" stopColor="#ef4444" />
+                                                        <stop offset="100%" stopColor="#dc2626" />
+                                                    </linearGradient>
+                                                    <linearGradient id={`gradient-Incompleto`} x1="0%" y1="0%" x2="100%" y2="0%">
+                                                        <stop offset="0%" stopColor="#9ca3af" />
+                                                        <stop offset="100%" stopColor="#6b7280" />
+                                                    </linearGradient>
+                                                </defs>
                                             </svg>
                                             <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                                <span className={`text-2xl font-black text-${colorPrimary}-600 dark:text-${colorPrimary}-400`}>
-                                                    {!hasDiag ? (doneLessons > 0 ? '5%' : `${protectionIndex}%`) : `${protectionIndex}%`}
-                                                </span>
+                                                <motion.span
+                                                    initial={{ opacity: 0, scale: 0.5 }}
+                                                    animate={{ opacity: 1, scale: 1 }}
+                                                    className={`text-5xl font-black bg-clip-text text-transparent bg-gradient-to-tr ${levelColor}`}
+                                                >
+                                                    {protectionIndex}%
+                                                </motion.span>
+                                                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 mt-1">Escudo</span>
                                             </div>
                                         </div>
-                                        <h4 className="text-sm font-black uppercase tracking-widest text-gray-900 dark:text-white flex items-center justify-center gap-2">
-                                            <ShieldAlert className={`w-4 h-4 text-${colorPrimary}-500`} />
-                                            Índice: <span className={`text-${colorPrimary}-500`}>{levelLabel}</span>
-                                        </h4>
-                                        <p className="text-[11px] text-gray-500 italic leading-tight px-4">{levelText}</p>
+
+                                        <div className="space-y-3 px-4 relative z-10">
+                                            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-gray-50 dark:bg-gray-800/50 rounded-full border border-gray-100 dark:border-white/5">
+                                                {icon}
+                                                <span className="text-xs font-black uppercase tracking-widest text-gray-700 dark:text-gray-200">
+                                                    Nivel {levelLabel}
+                                                </span>
+                                            </div>
+                                            <p className="text-sm text-gray-500 dark:text-gray-400 italic leading-relaxed font-medium">
+                                                "{levelText}"
+                                            </p>
+                                        </div>
                                     </>
                                 );
                             })()}
                         </div>
 
-                        {/* Badges Awarded (CU07) */}
-                        <div className="bg-white dark:bg-[#161b22] rounded-[2.5rem] p-8 border border-gray-100 dark:border-gray-800 shadow-xl dark:shadow-none transition-colors">
-                            <h3 className="text-sm font-black uppercase tracking-widest text-gray-900 dark:text-white mb-8">Mis Acreditaciones</h3>
-                            <div className="grid grid-cols-1 gap-4">
+                        {/* Badges Awarded (CU07) - Premium Redesign */}
+                        <div className="bg-white dark:bg-[#161b22] rounded-[3rem] p-10 border border-gray-100 dark:border-gray-800 shadow-xl dark:shadow-none transition-colors">
+                            <h3 className="text-xs font-black uppercase tracking-[0.3em] text-gray-900 dark:text-white mb-10 flex items-center gap-3">
+                                <Award className="w-5 h-5 text-indigo-500" /> Mis Logros Digitales
+                            </h3>
+                            <div className="grid grid-cols-1 gap-6">
                                 {badges.map(badge => {
-                                    const colorStyles = {
+                                    const themes = {
                                         purple: {
-                                            bg: 'bg-purple-500',
-                                            border: 'border-purple-500/20',
-                                            text: 'text-purple-600 dark:text-purple-400',
-                                            shadow: 'shadow-purple-500/20',
-                                            dot: 'bg-purple-500'
+                                            gradient: "from-purple-600 to-indigo-600",
+                                            shadow: "shadow-purple-500/20",
+                                            text: "text-purple-600 dark:text-purple-400"
                                         },
                                         pink: {
-                                            bg: 'bg-pink-500',
-                                            border: 'border-pink-500/20',
-                                            text: 'text-pink-600 dark:text-pink-400',
-                                            shadow: 'shadow-pink-500/20',
-                                            dot: 'bg-pink-500'
+                                            gradient: "from-pink-600 to-rose-600",
+                                            shadow: "shadow-pink-500/20",
+                                            text: "text-pink-600 dark:text-pink-400"
                                         },
                                         red: {
-                                            bg: 'bg-red-500',
-                                            border: 'border-red-500/20',
-                                            text: 'text-red-600 dark:text-red-400',
-                                            shadow: 'shadow-red-500/20',
-                                            dot: 'bg-red-500'
+                                            gradient: "from-red-600 to-orange-600",
+                                            shadow: "shadow-red-500/20",
+                                            text: "text-red-600 dark:text-red-400"
                                         },
                                         indigo: {
-                                            bg: 'bg-indigo-500',
-                                            border: 'border-indigo-500/20',
-                                            text: 'text-indigo-600 dark:text-indigo-400',
-                                            shadow: 'shadow-indigo-500/20',
-                                            dot: 'bg-indigo-500'
+                                            gradient: "from-indigo-600 to-blue-600",
+                                            shadow: "shadow-indigo-500/20",
+                                            text: "text-indigo-600 dark:text-indigo-400"
                                         }
                                     };
 
-                                    const style = colorStyles[badge.color] || colorStyles.indigo;
+                                    const theme = themes[badge.color] || themes.indigo;
 
                                     return (
-                                        <div
+                                        <motion.div
                                             key={badge.id}
-                                            className={`flex items-center justify-between gap-4 p-5 rounded-[2rem] border transition-all duration-300 ${badge.isCompleted
-                                                ? `bg-white dark:bg-[#1c2128] ${style.border} shadow-sm hover:shadow-md dark:shadow-none`
-                                                : 'bg-gray-50/50 dark:bg-gray-800/10 border-transparent grayscale opacity-50'
+                                            whileHover={badge.isCompleted ? { x: 8 } : {}}
+                                            className={`relative flex items-center justify-between gap-6 p-6 rounded-[2.5rem] border transition-all duration-300 ${badge.isCompleted
+                                                ? `bg-white dark:bg-[#1c2128] border-gray-100 dark:border-gray-700 shadow-lg hover:border-indigo-500/30`
+                                                : 'bg-gray-50/50 dark:bg-gray-800/10 border-transparent grayscale opacity-30 shadow-inner'
                                                 }`}
+                                            style={{ backfaceVisibility: 'hidden', transformZ: 0 }}
                                         >
-                                            <div className="flex items-center gap-4">
-                                                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all ${badge.isCompleted
-                                                    ? `${style.bg} text-white shadow-lg ${style.shadow}`
+                                            {badge.isCompleted && (
+                                                <div className={`absolute inset-0 bg-gradient-to-r ${theme.gradient} opacity-[0.03] rounded-[2.5rem] pointer-events-none`} />
+                                            )}
+
+                                            <div className="flex items-center gap-6 relative z-10">
+                                                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-500 ${badge.isCompleted
+                                                    ? `bg-gradient-to-br ${theme.gradient} text-white shadow-xl ${theme.shadow}`
                                                     : 'bg-gray-200 dark:bg-gray-700 text-gray-500'
                                                     }`}>
-                                                    {React.cloneElement(badge.icon, { className: "w-6 h-6" })}
+                                                    {React.cloneElement(badge.icon, { className: "w-7 h-7" })}
                                                 </div>
                                                 <div>
-                                                    <p className="text-[13px] font-black leading-tight text-gray-900 dark:text-white mb-1">{badge.title}</p>
+                                                    <p className={`text-base font-black leading-tight mb-1 ${badge.isCompleted ? 'text-gray-900 dark:text-white' : 'text-gray-400'}`}>
+                                                        {badge.title}
+                                                    </p>
                                                     <div className="flex items-center gap-2">
-                                                        <div className={`w-1.5 h-1.5 rounded-full ${badge.isCompleted ? style.dot : 'bg-gray-400'}`} />
-                                                        <p className={`text-[9px] font-black uppercase tracking-[0.2em] ${badge.isCompleted ? style.text : 'text-gray-500'}`}>
-                                                            {badge.isCompleted ? 'Acreditado' : 'Pendiente'}
+                                                        <div className={`w-1.5 h-1.5 rounded-full ${badge.isCompleted ? 'bg-indigo-500' : 'bg-gray-400'}`} />
+                                                        <p className={`text-[9px] font-black uppercase tracking-[0.2em] ${badge.isCompleted ? theme.text : 'text-gray-500'}`}>
+                                                            {badge.isCompleted ? 'Acreditación Oficial' : 'Curso Pendiente'}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -591,13 +644,13 @@ const Dashboard = () => {
                                                     whileHover={{ scale: 1.1 }}
                                                     whileTap={{ scale: 0.9 }}
                                                     onClick={() => generateCertificate(badge.title, badge.category)}
-                                                    className={`p-3 rounded-xl ${style.bg} text-white shadow-lg ${style.shadow} hover:opacity-90 transition-opacity`}
-                                                    title={`Descargar Certificado de ${badge.title}`}
+                                                    className={`p-4 rounded-xl bg-gray-50 dark:bg-gray-900 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 border border-gray-100 dark:border-gray-800 shadow-sm transition-all relative z-10 group/btn`}
+                                                    title={`Descargar Certificado`}
                                                 >
-                                                    <Download className="w-4 h-4" />
+                                                    <Download className="w-5 h-5 group-hover/btn:animate-bounce" />
                                                 </motion.button>
                                             )}
-                                        </div>
+                                        </motion.div>
                                     );
                                 })}
                             </div>
