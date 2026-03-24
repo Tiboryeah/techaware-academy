@@ -84,9 +84,12 @@ const importData = async () => {
                 const q = await Question.create({
                     quizId: quiz._id,
                     text: qData.text,
-                    type: 'single_choice',
+                    type: qData.type || 'single_choice',
                     options: qData.options,
-                    platform: qData.platform
+                    platform: qData.platform,
+                    metadata: qData.metadata || {},
+                    riskArea: qData.riskArea,
+                    explanation: qData.explanation
                 });
                 quiz.questions.push(q._id);
             }
@@ -102,6 +105,7 @@ const importData = async () => {
             platforms: ['Roblox', 'Minecraft'],
             riskAreas: ['Seguridad de Cuenta', 'Privacidad Avanzada', 'Gasto Controlado', 'Salud Mental y Física'],
             status: 'published',
+            duration: '3 horas'
         });
 
         // WIPE OLD MODULES AND QUIZZES FOR THIS COURSE TO ENSURE CLEAN REPLACEMENT
@@ -109,175 +113,878 @@ const importData = async () => {
         await Quiz.deleteMany({ refId: courseGames._id, scope: 'course' });
         console.log('  (-) Old modules and Course Quiz for Course 1 wiped for clean expansion.');
 
-        // --- MODULE 1: Roblox: Seguridad y Control Parental ---
+        // --- MODULE 1. Fundamentos de videojuegos en línea — 30 min ---
         const mod1 = await getOrCreateModule(courseGames._id, {
-            title: 'Roblox: Seguridad y Control Parental',
-            description: 'Configuración técnica y supervisión remota de alta precisión.'
+            title: 'Módulo 1: Fundamentos de videojuegos en línea',
+            description: 'Entendiendo el panorama general de los mundos digitales.',
+            duration: '30 min'
         });
         await Quiz.deleteMany({ refId: mod1._id, scope: 'module' });
 
         const l1_1 = await getOrCreateLesson(mod1._id, courseGames._id, {
-            title: 'Sincronización Familiar (Remote Management)',
-            content: `# Gestión Parental Remota\n\nRoblox permite ahora gestionar la seguridad desde tu propio dispositivo, vinculando tu cuenta con la de tu hijo.\n\n## Pasos Críticos para Padres\n1.  **Vínculo QR**: En tu sección de "Controles Parentales", añade un hijo y escanea su código.\n2.  **Visibilidad en Tiempo Real**: Podrás monitorear su lista de amigos y el tiempo de juego diario sin acceder a su móvil.\n3.  **Restricciones Remotas**: Si decides que es hora de dormir, puedes bloquear el acceso o cambiar los permisos de chat instantáneamente.`,
-            type: 'article', duration: 7
+            title: 'Artículo 1: ¿Qué son los videojuegos en línea y cómo funcionan?',
+            content: `# ¿Qué son los videojuegos en línea?
+
+> **Nota fundamental:** Un videojuego en línea no es únicamente una actividad lúdica; es un ecosistema que integra comunicación, gestión de identidad, transacciones económicas y protocolos de seguridad.
+
+Los videojuegos en línea son plataformas digitales que requieren una conexión activa a internet para facilitar la interacción entre usuarios en tiempo real. A diferencia de las experiencias desconectadas (offline), estas plataformas se caracterizan por su naturaleza social y su constante evolución mediante actualizaciones y contenido generado por la comunidad.
+
+La organización **UNICEF** destaca que estos entornos pueden ser catalizadores de habilidades críticas como la resiliencia digital y el pensamiento creativo, siempre que exista un marco de supervisión adecuado por parte de los tutores.
+
+## Diversidad en el ecosistema digital
+
+Es común que se agrupen todos los títulos bajo una misma etiqueta, pero existen matices según el tipo de interacción. Por ejemplo, entre los servicios más utilizados hoy en día encontramos:
+
+*   **Plataformas de creación (Ejemplo: Roblox)**: Más que un juego único, funciona como un motor donde coexisten millones de experiencias distintas desarrolladas por otros usuarios. Su fuerte es la socialización y la economía interna.
+*   **Mundos de construcción y supervivencia (Ejemplo: Minecraft)**: Fomenta la resolución de problemas en entornos tridimensionales. Puede utilizarse tanto en solitario como en servidores compartidos con otros jugadores.
+
+## Componentes técnicos esenciales
+
+Para comprender el funcionamiento de estas plataformas, es necesario distinguir cinco pilares básicos:
+
+1. **Dispositivo de ejecución**: El hardware (consola, ordenador o móvil) donde se procesa la información visual del juego.
+2. **Identidad digital (Cuenta)**: Es la representación del usuario. Permite gestionar el progreso, las listas de contactos y los niveles de restricción.
+3. **Infraestructura de red (Internet)**: El canal que permite el flujo de datos entre el jugador y el resto del mundo.
+4. **Arquitectura de Servidor**: El sistema centralizado que sincroniza las acciones de todos los participantes para que ocurran simultáneamente.
+5. **Protocolos de moderación**: Herramientas integradas para filtrar contenido, bloquear comunicaciones no deseadas y reportar incidentes.
+
+## El rol del acompañamiento familiar
+
+Entender esta estructura permite a los padres transformar la percepción de los videojuegos de una "caja negra" a un entorno gestionable. La **ESRB** (Entertainment Software Rating Board) recomienda prestar especial atención a las etiquetas de "Interacción de Usuarios" y "Compras integradas" como indicadores primarios de riesgo.
+
+---
+
+## Evaluación de seguridad previa
+
+Antes de autorizar el acceso a una nueva plataforma, se recomienda validar los siguientes puntos:
+
+1. Grado de interacción social (¿Permite comunicación abierta o restringida?).
+2. Naturaleza del sistema de comunicación (¿Texto, voz o ambos?).
+3. Requisitos de registro y protección de datos personales.
+4. Presencia de sistemas de monetización o microtransacciones.
+5. Disponibilidad y robustez de los controles parentales.
+
+> **Perspectiva Estratégica**: El objetivo de este análisis no es fomentar la restricción por temor, sino proporcionar el contexto técnico necesario para un acompañamiento informado. La seguridad digital comienza con la comprensión de la tecnología que utilizan nuestros hijos.
+
+---
+
+> **Actividad de Reflexión**: Analice la plataforma que utiliza su hijo actualmente. ¿Identifica con claridad cómo se gestiona la comunicación con otros usuarios y si existen mecanismos de gasto real?`,
+            type: 'article', duration: 5
         });
 
         const l1_2 = await getOrCreateLesson(mod1._id, courseGames._id, {
-            title: 'Privacidad, Chat y Clasificación de Contenido',
-            content: `# Filtros y Clasificaciones\n\nEntiende cómo Roblox protege a los menores según su edad y el tipo de juego.\n\n## Restricciones Automáticas (<13 años)\n*   **Mensajes Directos**: Bloqueados por defecto fuera de las experiencias.\n*   **Filtros de Chat**: Censura automática de datos personales (teléfonos, direcciones) y lenguaje inapropiado.\n\n## Etiquetas de Madurez\n*   **Mínimo / Leve (9+)**: Recomendado para niños pequeños.\n*   **Moderado (13+)**: Puede contener violencia más realista o sangre ligera.\n*   **Restringido (17+)**: Requiere verificación de identidad oficial (DNI/Pasaporte).`,
-            type: 'article', duration: 8
+            title: 'Video 1: Recorrido visual: qué es Roblox y qué es Minecraft',
+            content: 'Observa las diferencias visuales y mecánicas entre estas dos plataformas masivas.',
+            type: 'video', videoUrl: 'https://www.youtube.com/watch?v=placeholder1', duration: 6
         });
 
         const l1_3 = await getOrCreateLesson(mod1._id, courseGames._id, {
-            title: 'Cómo Reportar Experiencias y Jugadores',
-            content: `# Actuando ante la Toxicidad\n\nNo basta con configurar la cuenta; hay que saber denunciar.\n\n## Herramientas de Reporte\n*   **Menú Esc (Escape)**: Dentro de cualquier juego, selecciona la pestaña "Reportar".\n*   **Captura de Evidencias**: Roblox guarda logs de chat, pero tomar una captura ayuda si el acoso es visual (griefing).\n*   **Bloqueo**: Enseña a tu hijo que bloquear es la primera línea de defensa. Una vez bloqueado, el usuario no podrá ver su perfil ni sus juegos.`,
-            type: 'article', duration: 6
+            title: 'Artículo 2: Diferencias clave entre Roblox y Minecraft para una familia',
+            content: `# Roblox vs Minecraft: Diferencias clave para una familia
+
+> **Perspectiva Inicial**: Roblox y Minecraft no pertenecen a la misma categoría técnica. Mientras uno funciona como una red de experiencias sociales, el otro es un entorno creativo cuya seguridad depende de la edición y la configuración de la cuenta familiar.
+
+A menudo se agrupan en las conversaciones cotidianas, pero su supervisión requiere estrategias radicalmente distintas. A continuación, desglosamos los cuatro ejes de diferenciación que todo tutor debe conocer.
+
+---
+
+## 1. Naturaleza del entorno: Plataforma vs Sandbox
+
+**Roblox** se define oficialmente como una plataforma inmersiva de creación. Esto significa que la experiencia del menor cambia constantemente de un entorno a otro, ya que el contenido es generado por millones de usuarios. La supervisión aquí debe ser dinámica, revisando qué "experiencias" específicas está consumiendo el usuario.
+
+**Minecraft**, por el contrario, es un juego "sandbox" (mundo abierto). Su estructura gira en torno a la construcción y la supervivencia en un mundo con reglas persistentes. Aquí, la seguridad depende más del modo de juego (Creativo o Supervivencia) y de si el menor juega solo o en red.
+
+---
+
+## 2. El factor de interacción social
+
+La comunicación es el corazón del ecosistema de **Roblox**. La plataforma integra chat de texto y voz de forma predeterminada en la mayoría de sus experiencias. La gestión de la "madurez del contenido" y los filtros de chat son herramientas críticas que deben configurarse desde el primer día.
+
+En **Minecraft**, la interacción es opcional. Un menor puede pasar cientos de horas jugando en solitario sin contacto externo. Sin embargo, si se habilita el multijugador o se accede a "Realms", la supervisión se traslada a los permisos de la cuenta Microsoft/Xbox, fuera del propio software del juego.
+
+---
+
+## 3. Gestión del control parental
+
+> **Roblox**: Los controles están integrados directamente en el sitio web o la aplicación. Se enlazan las cuentas del adulto y el menor para gestionar límites de gasto, tiempo y privacidad de forma centralizada.
+>
+> **Minecraft**: Depende casi exclusivamente del "Grupo Familiar de Microsoft". La habilitación del multijugador o la posibilidad de añadir amigos se decide desde el panel de seguridad de Xbox, no dentro del menú del juego.
+
+---
+
+## 4. Economía y compras integradas
+
+*   **Roblox**: Utiliza una moneda virtual única (Robux). Las compras suelen ser frecuentes y pequeñas, destinadas a funciones estéticas o ventajas dentro de experiencias específicas.
+*   **Minecraft**: El modelo es más tradicional, centrado en el juego base. Las compras se concentran en el "Marketplace" (para la versión Bedrock) o suscripciones a servidores privados (Realms), facilitando una supervisión del gasto más predecible.
+
+---
+
+## Síntesis Pedagógica: ¿Qué revisar primero?
+
+Para facilitar la toma de decisiones, se recomienda seguir esta jerarquía de supervisión según el caso:
+
+1. **Si utiliza Roblox**: Validar primero la cuenta enlazada del adulto, los filtros de chat y el límite de gasto mensual.
+2. **Si utiliza Minecraft**: Verificar la edición del juego (Java o Bedrock), los permisos de multijugador en la cuenta Microsoft y si el menor está accediendo a servidores públicos.
+
+> **Conclusión**: No existe una plataforma "más segura" que otra, sino entornos que requieren un nivel de participación distinto por parte de la familia. Evitar el error de aplicar una misma configuración para ambos es el primer paso hacia una cultura digital responsable.
+
+---
+
+## Actividad de 1 minuto
+Reflexione sobre el uso actual que sus hijos hacen de la tecnología: ¿Sus esfuerzos de supervisión se centran hoy en la cuenta familiar (Minecraft) o en el monitoreo constante de la interacción en vivo (Roblox)?`,
+            type: 'article', duration: 5
         });
 
-        const l1_v = await getOrCreateLesson(mod1._id, courseGames._id, {
-            title: 'Video: Guía Maestra de Configuración Roblox',
-            content: 'Tutorial paso a paso de los nuevos menús de 2025.',
-            type: 'video', videoUrl: 'https://www.youtube.com/watch?v=4-V7vXkHkf0', duration: 5
+        const l1_4 = await getOrCreateLesson(mod1._id, courseGames._id, {
+            title: 'Video 2: Qué debe revisar un padre antes de dejar jugar',
+            content: 'Checklist visual de configuración inicial y señales de alerta.',
+            type: 'video', videoUrl: 'https://www.youtube.com/watch?v=placeholder2', duration: 6
         });
 
-        mod1.lessonOrder = [l1_1._id, l1_2._id, l1_3._id, l1_v._id];
+        mod1.lessonOrder = [l1_1._id, l1_2._id, l1_3._id, l1_4._id];
         await mod1.save();
 
         const q1 = await getOrCreateQuiz({
-            title: 'Examen Módulo 1: Seguridad Roblox',
-            description: 'Demuestra tu dominio técnico sobre los controles de Roblox y la sincronización familiar.',
+            title: 'Examen del Módulo 1: Fundamentos de videojuegos en línea',
+            description: 'Demuestra tu dominio sobre los conceptos básicos antes de avanzar.',
             scope: 'module',
             refId: mod1._id,
-            scopeModel: 'Module'
+            scopeModel: 'Module',
+            minPassing: 80
         }, [
-            { text: '¿Qué sucede si un menor de 13 años intenta enviar su número de teléfono o dirección física en el chat de Roblox?', options: [{ text: 'El sistema filtra el mensaje automáticamente reemplazándolo con hashtags (####).', isCorrect: true }, { text: 'El mensaje se envía pero llega con una advertencia roja.', isCorrect: false }, { text: 'El mensaje solo lo puede ver el padre si tiene vinculada la cuenta.', isCorrect: false }, { text: 'Roblox bloquea la cuenta del niño permanentemente.', isCorrect: false }] },
-            { text: '¿Cuál es la función principal del "PIN de Cuenta" en la configuración de seguridad?', options: [{ text: 'Bloquear el acceso a la configuración para evitar que el niño revierta los ajustes parentales.', isCorrect: true }, { text: 'Es la contraseña necesaria para entrar a jugar cualquier experiencia.', isCorrect: false }, { text: 'Sirve para retirar dinero real de la cuenta de Robux.', isCorrect: false }, { text: 'Permite chatear con usuarios de otros países.', isCorrect: false }] },
-            { text: 'Si activas el "Límite de Madurez" en un nivel "Leve (9+)", ¿qué ocurre con los juegos etiquetados como "Moderados (13+)"?', options: [{ text: 'Aparecen bloqueados y el niño no puede entrar a ellos.', isCorrect: true }, { text: 'Se pueden jugar pero sin sonido.', isCorrect: false }, { text: 'El niño puede entrar si un amigo de 13 años lo invita.', isCorrect: false }, { text: 'Roblox pide la tarjeta de crédito del padre cada vez que entra.', isCorrect: false }] },
-            { text: '¿Cómo se completa técnicamente el proceso de "Sincronización Familiar" según las actualizaciones de finales de 2024?', options: [{ text: 'Escaneando un código QR desde el dispositivo del padre directamente en la cuenta del hijo.', isCorrect: true }, { text: 'Enviando un correo electrónico a soporte técnico de Roblox.', isCorrect: false }, { text: 'Compartiendo la misma contraseña entre padre e hijo.', isCorrect: false }, { text: 'Instalando una aplicación externa de control parental.', isCorrect: false }] }
+            {
+                text: 'Instrucción: Selecciona la definición correcta para cada concepto básico.',
+                type: 'drag_drop',
+                metadata: {
+                    pairs: [
+                        { key: 'Cuenta', value: 'Perfil que guarda progreso, permisos y configuraciones' },
+                        { key: 'Servidor', value: 'Espacio o sistema que coordina la partida y conecta a los jugadores' },
+                        { key: 'Chat', value: 'Función que permite comunicarse con otras personas dentro del juego' },
+                        { key: 'Compra dentro del juego', value: 'Pago digital por moneda virtual, objetos o mejoras' },
+                        { key: 'Multijugador', value: 'Función que permite jugar con otras personas' }
+                    ],
+                    correctAnswer: {
+                        'Cuenta': 'Perfil que guarda progreso, permisos y configuraciones',
+                        'Servidor': 'Espacio o sistema que coordina la partida y conecta a los jugadores',
+                        'Chat': 'Función que permite comunicarse con otras personas dentro del juego',
+                        'Compra dentro del juego': 'Pago digital por moneda virtual, objetos o mejoras',
+                        'Multijugador': 'Función que permite jugar con otras personas'
+                    }
+                },
+                explanation: 'Tip: La Cuenta es tu identidad digital, mientras que el Servidor es el anfitrión que une a todos los jugadores.',
+                points: 12
+            },
+            {
+                text: 'Completa las frases con la palabra correcta.',
+                type: 'fill_blanks',
+                metadata: {
+                    sentence: 'Un videojuego en línea necesita conexión a [blank1] para permitir funciones conectadas. La [blank2] guarda progreso, amigos y configuraciones del jugador. El [blank3] ayuda a coordinar la partida y conectar a varios usuarios. Algunos juegos incluyen [blank4] dentro del juego. Cuando un juego permite interacción con personas que no conoces, pueden aparecer riesgos con [blank5].',
+                    bank: ['internet', 'cuenta', 'servidor', 'compras', 'desconocidos'],
+                    correctAnswer: {
+                        blank1: 'internet',
+                        blank2: 'cuenta',
+                        blank3: 'servidor',
+                        blank4: 'compras',
+                        blank5: 'desconocidos'
+                    }
+                },
+                explanation: 'Tip: Internet es el medio de transporte; la cuenta es quien viaja; el servidor el destino y los desconocidos el riesgo social.',
+                points: 12
+            },
+            {
+                text: 'Instrucción: Clasifica cada característica según la plataforma (Roblox o Minecraft) que mejor la describa.',
+                type: 'match_columns',
+                metadata: {
+                    left: ['Roblox', 'Minecraft'],
+                    right: [
+                        'Plataforma con múltiples experiencias creadas dentro del ecosistema',
+                        'Juego sandbox con modos como Creativo y Supervivencia',
+                        'Puede cambiar mucho según la experiencia específica',
+                        'Puede jugarse en solitario o en línea',
+                        'Suele requerir revisar experiencia, interacción social y gasto',
+                        'Suele requerir revisar edición, multijugador y tipo de mundo'
+                    ],
+                    correctAnswer: {
+                        'Roblox': [
+                            'Plataforma con múltiples experiencias creadas dentro del ecosistema',
+                            'Puede cambiar mucho según la experiencia específica',
+                            'Suele requerir revisar experiencia, interacción social y gasto'
+                        ],
+                        'Minecraft': [
+                            'Juego sandbox con modos como Creativo y Supervivencia',
+                            'Puede jugarse en solitario o en línea',
+                            'Suele requerir revisar edición, multijugador y tipo de mundo'
+                        ]
+                    }
+                },
+                explanation: 'Tip: Recuerda: Roblox es un MOTOR con muchos juegos; Minecraft es un JUEGO con muchos modos.',
+                points: 12
+            },
+            {
+                text: 'Ordena de forma básica cómo funciona un videojuego en línea (inicio a fin).',
+                type: 'order_sequence',
+                metadata: {
+                    items: [
+                        'Enciendo mi dispositivo local (consola, PC o móvil).',
+                        'Inicio sesión con mi cuenta personal de usuario.',
+                        'Mi información viaja de forma segura por Internet.',
+                        'El servidor central del juego recibe mis datos.',
+                        'Mi personaje aparece junto a otros jugadores en línea.'
+                    ],
+                    correctAnswer: [
+                        'Enciendo mi dispositivo local (consola, PC o móvil).',
+                        'Inicio sesión con mi cuenta personal de usuario.',
+                        'Mi información viaja de forma segura por Internet.',
+                        'El servidor central del juego recibe mis datos.',
+                        'Mi personaje aparece junto a otros jugadores en línea.'
+                    ]
+                },
+                explanation: 'Tip: El caminito es: Dispositivo -> Identidad (Cuenta) -> Viaje (Internet) -> Destino (Servidor).',
+                points: 8
+            },
+            {
+                text: 'Selecciona todas las opciones que una familia debería revisar antes de permitir el uso de un videojuego en línea.',
+                type: 'multiple_selection',
+                options: [
+                    { text: 'Si permite chat de texto o voz', isCorrect: true },
+                    { text: 'Si tiene compras dentro del juego', isCorrect: true },
+                    { text: 'Si necesita crear cuenta', isCorrect: true },
+                    { text: 'Si se puede jugar con otras personas', isCorrect: true },
+                    { text: 'Si tiene controles parentales', isCorrect: true },
+                    { text: 'Si permite interacción con desconocidos', isCorrect: true },
+                    { text: 'Si el color principal del juego le gusta al menor', isCorrect: false },
+                    { text: 'Si el avatar se puede cambiar de ropa', isCorrect: false }
+                ],
+                explanation: 'Tip: Enfócate en la comunicación, el gasto y la privacidad. La estética no es un factor de seguridad.',
+                points: 10
+            },
+            {
+                text: 'Completa correctamente cada idea comparativa.',
+                type: 'drop_down',
+                metadata: {
+                    sentence: 'Roblox se entiende mejor como una [blank1] con muchas experiencias. Minecraft es un juego [blank2]. En Roblox es clave revisar la [blank3] específica. En Minecraft es clave revisar el tipo de [blank4].',
+                    options: {
+                        blank1: ['plataforma', 'sandbox', 'consola'],
+                        blank2: ['plataforma', 'sandbox', 'social'],
+                        blank3: ['experiencia', 'versión', 'moneda'],
+                        blank4: ['mundo', 'chat', 'gasto']
+                    },
+                    correctAnswer: {
+                        blank1: 'plataforma',
+                        blank2: 'sandbox',
+                        blank3: 'experiencia',
+                        blank4: 'mundo'
+                    }
+                },
+                explanation: 'Tip: Minecraft es mundo libre (Sandbox) y Roblox es base de datos de juegos (Plataforma).',
+                points: 10
+            },
+            {
+                text: 'Instrucción: Asigna cada elemento a la categoría correcta (Roblox, Minecraft o Ambos).',
+                type: 'categorize',
+                metadata: {
+                    items: ['Robux', 'Minecoins', 'Experiencias dentro de la plataforma', 'Modos Creativo y Supervivencia', 'Juego en línea', 'Riesgos por interacción social', 'Compras digitales', 'Puede jugarse con otras personas'],
+                    categories: ['Roblox', 'Minecraft', 'Ambos'],
+                    correctAnswer: {
+                        'Roblox': ['Robux', 'Experiencias dentro de la plataforma'],
+                        'Minecraft': ['Minecoins', 'Modos Creativo y Supervivencia'],
+                        'Ambos': ['Juego en línea', 'Riesgos por interacción social', 'Compras digitales', 'Puede jugarse with otras personas']
+                    }
+                },
+                explanation: 'Tip: Casi todos los riesgos sociales y económicos (compras, desconocidos) aplican a AMBOS.',
+                points: 15
+            },
+            {
+                text: 'Caso: Una madre cree que Roblox y Minecraft son iguales y solo quiere revisar el tiempo. ¿Qué le falta considerar?',
+                type: 'case_study',
+                options: [
+                    { text: 'Auditar la presencia de chats, compras integradas, riesgos de interacción con desconocidos y las diferencias de diseño entre plataforma y juego.', isCorrect: true },
+                    { text: 'Establecer controles de tiempo de pantalla de forma exclusiva para evitar el sedentarismo y asegurar que el menor no use excesivamente la aplicación.', isCorrect: false },
+                    { text: 'Confirmar que los gráficos sean apropiados para su edad y que la clasificación en las tiendas de aplicaciones sea la correcta para menores.', isCorrect: false },
+                    { text: 'Supervisar las sesiones de juego de forma ocasional y realizar preguntas generales al menor sobre sus experiencias dentro de cada título.', isCorrect: false }
+                ],
+                explanation: 'El tiempo es importante, pero no suficiente. También conviene revisar interacción social, compras, cuenta, controles parentales y diferencias entre plataformas.',
+                points: 15
+            }
         ]);
         mod1.quizId = q1._id;
         await mod1.save();
 
-        // --- MODULE 2: Minecraft: Servidores y Reporte de Jugadores ---
+        // --- MODULE 2. Roblox: seguridad y control parental — 30 min ---
         const mod2 = await getOrCreateModule(courseGames._id, {
-            title: 'Minecraft: Servidores y Reporte de Jugadores',
-            description: 'Navegando de forma segura en mundos compartidos y privados.'
+            title: 'Módulo 2: Roblox: seguridad y control parental',
+            description: 'Configuración técnica y supervisión remota de alta precisión.',
+            duration: '30 min'
         });
         await Quiz.deleteMany({ refId: mod2._id, scope: 'module' });
 
         const l2_1 = await getOrCreateLesson(mod2._id, courseGames._id, {
-            title: 'Minecraft Realms: El Entorno más Seguro',
-            content: `# Diferenciando los tipos de Multijugador\n\n## Minecraft Realms\nSon servidores privados gestionados por Microsoft. Solo pueden entrar personas invitadas por el dueño por su nombre de usuario (Gamertag). Es ideal para niños pequeños.\n\n## Servidores Públicos (Third Party)\nServidores masivos con reglas propias. Si tu hijo los usa, asegúrate de que estén filtrados en la "Lista Oficial" de servidores verificados por Mojang.`,
-            type: 'article', duration: 6
+            title: 'Artículo 1: Vincular cuenta del padre/tutor y cuenta del menor',
+            content: `# Vinculación de Cuentas en Roblox: El Primer Paso para la Supervisión
+
+> **Perspectiva Estratégica**: En Roblox, supervisar no significa simplemente conocer la contraseña o usar la cuenta del menor. El modelo oficial se basa en poseer una cuenta adulta propia y enlazarla para administrar la experiencia de forma remota y segura desde otro dispositivo.
+
+## ¿Qué significa “vincular” una cuenta en Roblox?
+
+A diferencia de un control de acceso tradicional, la supervisión parental en esta plataforma no requiere que el adulto inicie sesión directamente en la cuenta del menor. Roblox indica que el tutor debe contar con su propia cuenta con privilegios parentales. Una vez realizado el enlace, es posible administrar todos los controles parentales desde el propio dispositivo del adulto (vía Roblox.com o la app móvil), facilitando un monitoreo constante sin interrumpir la actividad del usuario.
+
+---
+
+## ¿Qué es una cuenta con privilegios parentales?
+
+Roblox define la cuenta con privilegios parentales como un perfil de adulto que permite aprobar acciones específicas del menor y administrar configuraciones críticas de seguridad. Para activar estas funciones, la plataforma solicita:
+
+1. **Fecha de nacimiento del adulto**: Confirmando que la persona tiene 18 años o más.
+2. **Verificación de identidad**: Mediante una identificación oficial o una tarjeta de crédito válida.
+3. **Rol de tutor**: En la mayoría de las regiones, estos privilegios se habilitan para responsables de menores de 13 años que completen la verificación correspondiente.
+
+---
+
+> **Definición Clave**: Cuenta parental en Roblox: Perfil del adulto con privilegios verificados que permite la aprobación de acciones y la administración centralizada de los controles de seguridad del menor vinculado.
+
+## ¿Por qué el adulto necesita su propia cuenta?
+
+Roblox promueve el uso de cuentas separadas por tres motivos técnicos fundamentales:
+
+*   **Autonomía de Supervisión**: Permite controlar la experiencia infantil desde el dispositivo personal del adulto, sin necesidad de usar la cuenta del hijo directamente.
+*   **Seguridad de la Información**: Evita compartir credenciales. Cualquiera con acceso directo a una cuenta parental podría modificar ajustes sensibles; por ello, Roblox recomienda mantener perfiles aislados.
+*   **Colaboración Familiar**: La plataforma permite que múltiples adultos enlacen su propia cuenta con la misma cuenta infantil, eliminando la necesidad de compartir una sola contraseña entre tutores.
+
+---
+
+## ¿Cómo se enlaza la cuenta del adulto con la del menor?
+
+Existen dos rutas principales para establecer este vínculo técnico:
+
+**Ruta A: Solicitud por Correo Electrónico**
+El adulto recibe una notificación solicitando permiso para revisar o aprobar cambios. Al aceptar, puede crear una cuenta nueva o usar una existente (siempre que el correo coincida). Tras verificar la edad, el enlace se activa automáticamente.
+
+**Ruta B: Desde la Cuenta del Menor**
+Dentro de la aplicación del menor, se accede a *Settings > Parental Controls* y se selecciona la opción *Add parent*. Esto inicia el proceso de verificación del adulto y, tras la autorización mutua, el panel parental queda habilitado para el tutor.
+
+---
+
+## Paso a paso simplificado
+
+1. **Creación de Perfil**: El adulto debe contar con una cuenta propia de Roblox.
+2. **Verificación de Edades**: Realizar el proceso de validación mediante identificación oficial o tarjeta de crédito.
+3. **Aceptación del Vínculo**: Confirmar el enlace desde el correo electrónico o la configuración parental de la cuenta infantil.
+4. **Administración Activa**: Una vez vinculadas, el adulto ya puede modificar controles de tiempo, contenido, gasto y privacidad de forma remota.
+
+---
+
+> **Beneficios Técnicos de la Vinculación**:
+> * Administrar controles de seguridad desde su propio dispositivo personal.
+> * Acceso a métricas de tiempo diario de uso y conexiones en tiempo real.
+> * Preparar y blindar el acceso a contenido, privacidad y límites de gasto automáticos.
+
+---
+
+## Errores comunes que conviene evitar
+
+*   **Dependencia de la Contraseña**: Pensar que conocer la clave del menor es suficiente. El modelo de Roblox exige una cuenta parental enlazada para una gestión completa.
+*   **Omitir la Verificación de Identidad**: Este es un paso obligatorio para obtener los privilegios de administración. Sin él, el panel parental no estará activo.
+*   **Compartir la Cuenta Parental**: Roblox advierte que compartir el acceso del adulto puede comprometer la integridad de las configuraciones de seguridad del menor.
+
+---
+
+> **Síntesis del Módulo**: La vinculación de cuentas no es un detalle técnico opcional; es el punto de partida para una supervisión real. Sin este enlace, el adulto no puede gestionar los controles de seguridad que la plataforma pone a disposición de las familias. Antes de revisar chat o compras, asegúrese de que el vínculo sea correcto.
+
+## Checklist Final para Familias
+
+*   Tengo una cuenta propia de Roblox independiente.
+*   He completado la verificación de mi edad ante la plataforma.
+*   He aceptado o iniciado el vínculo con la cuenta del menor correctamente.
+*   Tengo acceso visible al panel de "Parental Controls" desde mi dispositivo.
+*   Estoy listo para configurar las restricciones avanzadas de seguridad.
+
+---
+
+## Microactividad de Refuerzo
+Actualice mentalmente el estado de su cuenta: ¿Ya cuenta con el perfil parental verificado y vinculado? Si falta alguno de estos pasos, es recomendable completarlos antes de proceder a la configuración de chat y límites de gasto mensual.`,
+            type: 'article', duration: 5
         });
 
         const l2_2 = await getOrCreateLesson(mod2._id, courseGames._id, {
-            title: 'Microsoft Family Safety y Reportes Humanos',
-            content: `# Supervisión en Microsoft\n\nMinecraft depende de tu cuenta de Microsoft/Xbox. Usa la Xbox Family App para:\n\n*   **Multiplayer**: Activar o desactivar la capacidad de unirse a mundos online.\n*   **Reportes de Chat**: Minecraft ahora permite denunciar mensajes de chat específicos. Estos son revisados por moderadores humanos que pueden banear al usuario de todo el ecosistema de Minecraft.\n*   **Whitelisting**: En servidores privados, asegúrate de tener una "lista blanca" para que nadie no deseado pueda entrar.`,
-            type: 'article', duration: 7
+            title: 'Video 1: Configuración paso a paso de controles parentales en Roblox',
+            content: 'Guía visual para activar las restricciones de seguridad.',
+            type: 'video', videoUrl: 'https://www.youtube.com/watch?v=placeholder3', duration: 6
         });
 
         const l2_3 = await getOrCreateLesson(mod2._id, courseGames._id, {
-            title: 'Peligros de los "Mods" no oficiales y Malware',
-            content: `# Especial Cuidado con las Modificaciones\n\nLos niños suelen querer "Mods" para cambiar el juego. Esto es un riesgo técnico alto.\n\n## Riesgos comunes\n*   **Malware**: Archivos .exe o .jar infectados descargados de sitios web desconocidos.\n*   **Robo de Cuentas**: Mods que "roban" el token de sesión.\n\n## Recomendación\nUsa solo fuentes confiables como **CurseForge** o el **Marketplace oficial** (Bedrock) y nunca descargues mods de enlaces que un desconocido envíe por chat o Discord.`,
-            type: 'article', duration: 8
+            title: 'Artículo 2: Privacidad, chat, madurez de contenido, tiempo y gasto',
+            content: `# Gestión Avanzada de Privacidad, Contenido y Consumo en Roblox
+
+> **Perspectiva Estratégica**: Supervisar en Roblox no es una acción binaria de "permitir" o "bloquear". El éxito de la seguridad parental reside en la combinación precisa de capas: qué contenido se consume, con quién se habla, cuánto tiempo se dedica y qué recursos económicos se utilizan.
+
+## ¿Qué conviene configurar primero?
+
+Para establecer una cultura de seguridad efectiva, se recomienda seguir un orden lógico de configuración: primero el contenido, luego la comunicación y, finalmente, la gestión de tiempo y gasto. Roblox organiza estos controles dentro de un panel parental centralizado que permite ajustar la madurez de las experiencias, filtrar el chat, limitar el acceso a servidores privados y fijar topes mensuales de consumo.
+
+---
+
+## 1. Madurez de contenido: El filtro de experiencias
+
+Roblox utiliza un sistema de etiquetas de contenido para que los tutores determinen el nivel de madurez adecuado para el menor. Desde el panel parental, es posible ajustar un selector de madurez que bloquea automáticamente cualquier experiencia que supere el rango permitido.
+
+*   **Niveles de Madurez**: Las categorías oficiales incluyen niveles como *Minimal* (violencia leve ocasional), *Mild* (violencia leve repetida), *Moderate* (violencia moderada o sangre ligera) y *Restricted* (contenido intenso para cuentas verificadas).
+*   **Comportamiento de Búsqueda**: Las experiencias restringidas pueden aparecer en resultados de búsqueda, pero la cuenta infantil no podrá ingresar a ellas, lo que previene el acceso accidental pero puede generar dudas en el usuario si no conoce el límite.
+*   **Bloqueo Individual**: Es posible bloquear experiencias específicas de forma manual, incluso si su clasificación oficial es baja, si el tutor considera que la temática no es apropiada para su familia.
+
+---
+
+## 2. Privacidad y chat: Ejes de comunicación segura
+
+La interacción social es el núcleo de Roblox, por lo que la gestión del chat es una de las tareas más críticas del tutor. La plataforma emplea un sistema de chat filtrado que bloquea automáticamente contenido inapropiado y el intercambio de datos personales.
+
+> **Reglas de Consentimiento**:
+> * Menores de 5 a 9 años: Requieren consentimiento parental explícito para activar el *Experience Chat*.
+> * Menores de 13 años: Requieren consentimiento parental para habilitar el *Direct Chat* (mensajes directos).
+> * Verificación de Edad: Actualmente, no es posible habilitar ciertas funciones de chat avanzado sin completar previamente la comprobación de identidad del adulto.
+
+---
+
+## 3. Privacidad extendida: Parties, servidores privados y conexiones
+
+La seguridad se extiende más allá del chat textual. El panel parental permite configurar el acceso a grupos (*Parties*) y servidores privados (*Private Servers*), limitando estas invitaciones únicamente a "Conexiones" (amigos mutuos) o desactivándolas por completo.
+
+Asimismo, la sección de conexiones permite al tutor revisar la lista de usuarios vinculados a la cuenta del menor. Desde este panel, es posible bloquear a cualquier usuario; una vez bloqueado, esa persona no podrá chatear con el menor ni volver a intentar una conexión sin autorización parental.
+
+---
+
+## 4. Tiempo en pantalla: Gestión de hábitos digitales
+
+El control de tiempo en Roblox va más allá de un simple límite horario; proporciona contexto sobre el uso:
+
+*   **Límites Diarios**: Al alcanzar el tope fijado, la plataforma cierra la sesión y muestra un aviso informativo.
+*   **Métricas de Uso**: El panel parental muestra un promedio de uso de los últimos 7 días y un listado de las 20 experiencias más utilizadas de la semana.
+*   **Perspectiva Pedagógica**: Estas métricas permiten a la familia distinguir entre un uso saludable y patrones de juego excesivos o repetitivos.
+
+---
+
+## 5. Gestión del gasto: Prevención de transacciones imprevistas
+
+Roblox permite fijar un límite mensual de gasto que se reinicia al finalizar el mes calendario. Este tope cubre la compra de moneda virtual (Robux) y suscripciones dentro de las experiencias.
+
+> **Consideraciones Importantes sobre el Gasto**:
+> * **Tarjetas de Regalo**: El límite mensual no suele afectar el canje de tarjetas de regalo físicas.
+> * **Dispositivos de Consola**: En algunos dispositivos, el límite de Roblox puede no ser efectivo al 100%, por lo que se recomienda configurar restricciones de pago también en la tienda de la consola (Xbox, PlayStation).
+
+---
+
+## Jerarquía de Revisión Recomendada
+
+1. **Madurez de Contenido**: Definir qué puede jugar.
+2. **Chat y Comunicación**: Definir con quién puede hablar.
+3. **Privacidad Extendida**: Controlar quién puede unirse a sus sesiones.
+4. **Tiempo en Pantalla**: Establecer rutinas predecibles.
+5. **Límite Mensual de Gasto**: Prevenir compras impulsivas.
+
+---
+
+> **Síntesis del Módulo**: La seguridad en Roblox no es un "candado" único, sino una combinación de capas de protección. Al entender esta lógica, la familia deja de ver los controles parentales como una restricción y empieza a verlos como una herramienta de acompañamiento precisa.
+
+## Checklist de Configuración Avanzada
+
+*   He ajustado el nivel de madurez de contenido (Minimal/Mild/Moderate).
+*   He configurado las restricciones de Experience Chat y Direct Chat.
+*   He revisado la lista de conexiones actuales del menor.
+*   He establecido un límite diario de tiempo razonable.
+*   He fijado un tope de gasto mensual y activado las notificaciones de compra.
+
+---
+
+## Microactividad de Refuerzo
+Identifique el ajuste que considera más prioritario para su situación familiar hoy: ¿Es la comunicación con desconocidos o el control del tiempo de juego? Comience por ajustar esa capa técnica antes de pasar a las demás.`,
+            type: 'article', duration: 5
         });
 
-        const l2_v = await getOrCreateLesson(mod2._id, courseGames._id, {
-            title: 'Video: Configuración de Familia Microsoft',
-            content: 'Cómo usar la Xbox Family App para proteger Minecraft.',
-            type: 'video', videoUrl: 'https://www.youtube.com/watch?v=6NB8NAFwis4', duration: 4
+        const l2_4 = await getOrCreateLesson(mod2._id, courseGames._id, {
+            title: 'Video 2: Cómo bloquear y reportar jugadores o experiencias',
+            content: 'Aprende a actuar ante comportamientos inapropiados.',
+            type: 'video', videoUrl: 'https://www.youtube.com/watch?v=placeholder4', duration: 6
         });
 
-        mod2.lessonOrder = [l2_1._id, l2_2._id, l2_3._id, l2_v._id];
+        mod2.lessonOrder = [l2_1._id, l2_2._id, l2_3._id, l2_4._id];
         await mod2.save();
 
         const q2 = await getOrCreateQuiz({
-            title: 'Examen Módulo 2: Seguridad Minecraft',
-            description: 'Prueba tus conocimientos sobre Realms, seguridad de mods y reportes en Bedrock/Java.',
+            title: 'Examen del Módulo 2: Roblox: seguridad y control parental',
+            description: 'Configuración técnica y supervisión remota de alta precisión.',
             scope: 'module',
             refId: mod2._id,
-            scopeModel: 'Module'
+            scopeModel: 'Module',
+            minPassing: 80
         }, [
-            { text: '¿Cuál es la diferencia fundamental de seguridad entre un "Realm" y un "Servidor Público" masivo?', options: [{ text: 'En los Realms solo entran usuarios invitados manualmente por el dueño de la cuenta.', isCorrect: true }, { text: 'Los Realms son gratuitos y los servidores públicos siempre son de pago.', isCorrect: false }, { text: 'Los servidores públicos no tienen chat y los Realms sí.', isCorrect: false }, { text: 'No hay ninguna diferencia técnica real.', isCorrect: false }] },
-            { text: 'En el nuevo sistema de seguridad de Microsoft/Xbox, ¿qué acción permite el "Player Reporting"?', options: [{ text: 'Seleccionar mensajes específicos del chat como evidencia para que moderadores humanos los revisen.', isCorrect: true }, { text: 'Borrar automáticamente la cuenta del otro jugador sin revisión.', isCorrect: false }, { text: 'Ver la ubicación física (GPS) del otro jugador.', isCorrect: false }, { text: 'Expulsar a un jugador solo si tienes el nivel de experiencia más alto.', isCorrect: false }] },
-            { text: '¿Por qué descargar "Mods" de enlaces enviados por extraños en Discord es un riesgo crítico?', options: [{ text: 'Pueden contener "Session Stealers" que roban el token de acceso a la cuenta de Minecraft sin necesidad de contraseña.', isCorrect: true }, { text: 'Porque ocupan mucho espacio en el disco duro.', isCorrect: false }, { text: 'Porque hacen que el juego sea más aburrido.', isCorrect: false }, { text: 'Porque Microsoft cobrará una multa por cada mod descargado.', isCorrect: false }] },
-            { text: '¿Qué ajuste en la Xbox Family App es vital para evitar que tu hijo hable con extraños en mundos multijugador?', options: [{ text: 'Desactivar "Communication with others" o limitarlo a "Friends only".', isCorrect: true }, { text: 'Bajar el volumen del juego a cero.', isCorrect: false }, { text: 'Cambiar el nombre del personaje (Gamertag).', isCorrect: false }, { text: 'Bloquear la descarga de actualizaciones del juego.', isCorrect: false }] }
+            {
+                text: 'Instrucción: Arrastra cada función al ajuste de Roblox que corresponde.',
+                type: 'drag_drop',
+                metadata: {
+                    pairs: [
+                        { key: 'Madurez de contenido', value: 'Ayuda a decidir qué experiencias puede abrir' },
+                        { key: 'Chat de experiencia', value: 'Controla parte de la comunicación dentro de experiencias' },
+                        { key: 'Tiempo de pantalla', value: 'Permite limitar cuánto tiempo diario usa Roblox' },
+                        { key: 'Límite mensual de gasto', value: 'Define cuánto puede gastar el menor en un mes' },
+                        { key: 'Conexiones', value: 'Permite revisar o actuar sobre personas vinculadas a la cuenta del menor' }
+                    ],
+                    correctAnswer: {
+                        'Madurez de contenido': 'Ayuda a decidir qué experiencias puede abrir',
+                        'Chat de experiencia': 'Controla parte de la comunicación dentro de experiencias',
+                        'Tiempo de pantalla': 'Permite limitar cuánto tiempo diario usa Roblox',
+                        'Límite mensual de gasto': 'Define cuánto puede gastar el menor en un mes',
+                        'Conexiones': 'Permite revisar o actuar sobre personas vinculadas a la cuenta del menor'
+                    }
+                },
+                explanation: 'Tip: La madurez filtra contenidos, el chat la comunicación, el tiempo el uso diario, el gasto la billetera y las conexiones los vínculos.',
+                points: 15,
+                platform: 'Roblox'
+            },
+            {
+                text: 'Completa las frases con la palabra correcta.',
+                type: 'fill_blanks',
+                metadata: {
+                    sentence: 'Para administrar controles parentales, la cuenta del adulto debe estar [blank1] con la del menor. Roblox pide verificar la [blank2] del adulto para activar privilegios parentales. La madurez de [blank3] ayuda a definir qué experiencias puede abrir el menor. El límite mensual de [blank4] ayuda a prevenir compras impulsivas. Si un usuario o experiencia viola reglas, la acción correcta es [blank5].',
+                    bank: ['enlazada', 'edad', 'contenido', 'gasto', 'reportar'],
+                    correctAnswer: {
+                        blank1: 'enlazada',
+                        blank2: 'edad',
+                        blank3: 'contenido',
+                        blank4: 'gasto',
+                        blank5: 'reportar'
+                    }
+                },
+                explanation: 'Tip: Sin cuenta enlazada y edad verificada no hay control real. Reportar es la herramienta oficial ante abusos.',
+                points: 10,
+                platform: 'Roblox'
+            },
+            {
+                text: 'Instrucción: Relaciona cada ajuste con el problema principal que ayuda a reducir.',
+                type: 'match_columns',
+                metadata: {
+                    left: ['Madurez de contenido', 'Chat directo / experiencia', 'Servidores privados / Party', 'Tiempo de pantalla', 'Límite mensual de gasto', 'Bloquear / Reportar'],
+                    right: [
+                        'Exposición a experiencias no adecuadas',
+                        'Comunicación no supervisada',
+                        'Invitaciones o interacción no deseada en espacios más cerrados',
+                        'Uso excesivo diario',
+                        'Compras frecuentes o acumuladas',
+                        'Conducta abusiva o incumplimiento de reglas'
+                    ],
+                    correctAnswer: {
+                        'Madurez de contenido': 'Exposición a experiencias no adecuadas',
+                        'Chat directo / experiencia': 'Comunicación no supervisada',
+                        'Servidores privados / Party': 'Invitaciones o interacción no deseada en espacios más cerrados',
+                        'Tiempo de pantalla': 'Uso excesivo diario',
+                        'Límite mensual de gasto': 'Compras frecuentes o acumuladas',
+                        'Bloquear / Reportar': 'Conducta abusiva o incumplimiento de reglas'
+                    }
+                },
+                explanation: 'Tip: Cada ajuste en Roblox tiene un "por qué": desde la seguridad social hasta la económica y de salud.',
+                points: 15,
+                platform: 'Roblox'
+            },
+            {
+                text: 'Ordena los pasos para preparar correctamente la supervisión parental en Roblox.',
+                type: 'order_sequence',
+                metadata: {
+                    items: [
+                        'Crear o usar una cuenta propia del adulto',
+                        'Verificar la edad del adulto',
+                        'Enlazar la cuenta del adulto con la del menor',
+                        'Ajustar contenido, chat, tiempo y gasto',
+                        'Revisar conexiones o reportes si aparece un problema'
+                    ],
+                    correctAnswer: [
+                        'Crear o usar una cuenta propia del adulto',
+                        'Verificar la edad del adulto',
+                        'Enlazar la cuenta del adulto con la del menor',
+                        'Ajustar contenido, chat, tiempo y gasto',
+                        'Revisar conexiones o reportes si aparece un problema'
+                    ]
+                },
+                explanation: 'Tip: Primero estableces tu identidad como tutor, luego el vínculo técnico y finalmente los límites operativos.',
+                points: 10,
+                platform: 'Roblox'
+            },
+            {
+                text: 'Selecciona todas las opciones que un padre o tutor debería revisar al configurar Roblox.',
+                type: 'multiple_selection',
+                options: [
+                    { text: 'Madurez de contenido', isCorrect: true },
+                    { text: 'Experience chat o comunicación', isCorrect: true },
+                    { text: 'Tiempo en pantalla', isCorrect: true },
+                    { text: 'Límite mensual de gasto', isCorrect: true },
+                    { text: 'Servidores privados o Party', isCorrect: true },
+                    { text: 'Conexiones del menor', isCorrect: true },
+                    { text: 'Color del avatar', isCorrect: false },
+                    { text: 'Marca del dispositivo', isCorrect: false }
+                ],
+                explanation: 'Tip: Los 6 pilares de seguridad en Roblox son: Contenido, Chat, Tiempo, Gasto, Privacidad de servidor y Amigos.',
+                points: 15,
+                platform: 'Roblox'
+            },
+            {
+                text: 'Completa correctamente cada idea aplicada.',
+                type: 'drop_down',
+                metadata: {
+                    sentence: 'Si el menor puede ver una experiencia, pero no abrirla por restricción, eso suele depender del control de [blank1]. Si el adulto quiere limitar compras del mes, debe usar [blank2]. Si aparece un usuario acosando o molestando, una acción válida es [blank3]. Si el menor alcanzó el uso permitido del día, el control implicado es [blank4].',
+                    options: {
+                        blank1: ['madurez de contenido', 'screen time', 'connections'],
+                        blank2: ['monthly spending limit', 'experience chat', 'parental pin'],
+                        blank3: ['bloquear o reportar', 'cambiar avatar', 'reiniciar router'],
+                        blank4: ['screen time', 'monthly spending limit', 'party settings']
+                    },
+                    correctAnswer: {
+                        blank1: 'madurez de contenido',
+                        blank2: 'monthly spending limit',
+                        blank3: 'bloquear o reportar',
+                        blank4: 'screen time'
+                    }
+                },
+                explanation: 'Tip: La visibilidad vs acceso depende de la madurez. El gasto del Monthly limit. La agresión del reporte. El uso del Screen time.',
+                points: 10,
+                platform: 'Roblox'
+            },
+            {
+                text: 'Instrucción: Arrastra cada acción a la categoría correcta.',
+                type: 'categorize',
+                metadata: {
+                    items: [
+                        'Poner límite mensual de gasto',
+                        'Revisar promedio semanal de uso',
+                        'Bloquear un usuario',
+                        'Ajustar madurez de contenido',
+                        'Reportar una experiencia',
+                        'Ver conexiones del menor',
+                        'Limitar Party o servidores privados',
+                        'Fijar screen time diario'
+                    ],
+                    categories: ['Prevención', 'Supervisión', 'Respuesta'],
+                    correctAnswer: {
+                        'Prevención': [
+                            'Poner límite mensual de gasto',
+                            'Ajustar madurez de contenido',
+                            'Limitar Party o servidores privados',
+                            'Fijar screen time diario'
+                        ],
+                        'Supervisión': [
+                            'Revisar promedio semanal de uso',
+                            'Ver conexiones del menor'
+                        ],
+                        'Respuesta': [
+                            'Bloquear un usuario',
+                            'Reportar una experiencia'
+                        ]
+                    }
+                },
+                explanation: 'Tip: Prevención es antes de jugar. Supervisión es durante el proceso. Respuesta es tras un incidente.',
+                points: 10,
+                platform: 'Roblox'
+            },
+            {
+                text: 'Caso: Un padre ya vinculó su cuenta con la de su hija. Nota que ella pasa muchas horas en Roblox, recibe invitaciones de otros usuarios y ha intentado comprar cosas varias veces en el mismo mes. ¿Cuál es la mejor respuesta integradora?',
+                type: 'case_study',
+                options: [
+                    { text: 'Activar screen time, revisar Party o servidores privados, revisar conexiones y fijar un límite mensual de gasto para un control equilibrado.', isCorrect: true },
+                    { text: 'Asegurar que el avatar tenga una apariencia más infantil para reducir el riesgo de contacto con usuarios malintencionados en el ecosistema.', isCorrect: false },
+                    { text: 'Proceder a la eliminación inmediata de la cuenta del menor para evitar cualquier riesgo futuro sin realizar configuraciones previas.', isCorrect: false },
+                    { text: 'Mantener un monitoreo pasivo y esperar a que ocurra un incidente real de seguridad antes de activar los controles de tiempo o gasto.', isCorrect: false }
+                ],
+                explanation: 'Tip: La opción ganadora combina tiempo, privacidad social y gasto sin recurrir a la prohibición total inmediata.',
+                points: 15,
+                platform: 'Roblox'
+            }
         ]);
         mod2.quizId = q2._id;
         await mod2.save();
 
-        // --- MODULE 3: Economía Digital y Estafas ---
+        // --- MODULE 3. Minecraft: cuentas familiares, multijugador y Realms — 30 min ---
         const mod3 = await getOrCreateModule(courseGames._id, {
-            title: 'Economy Digital: Compras y Estafas',
-            description: 'Gestión de Robux, transacciones y prevención de fraudes.'
+            title: 'Módulo 3: Minecraft: cuentas familiares, multijugador y Realms',
+            description: 'Navegando de forma segura en mundos compartidos y privados.',
+            duration: '30 min'
         });
         await Quiz.deleteMany({ refId: mod3._id, scope: 'module' });
 
         const l3_1 = await getOrCreateLesson(mod3._id, courseGames._id, {
-            title: 'La Psicología del "Gasto Hormiga" en juegos',
-            content: `# Entendiendo el Micro-gasto\n\nJuegos como Roblox y Minecraft usan monedas virtuales (Robux y Minecoins) para distanciar emocionalmente al usuario del dinero real.\n\n## Qué hacer\n*   **PIN de Compra**: Nunca dejes tu tarjeta vinculada sin contraseña. Configura siempre una solicitud de clave para cada compra.\n*   **Presupuesto mensual**: Pacta con tu hijo una cantidad fija y no la excedas. Enséñale que una vez agotada, no habrá más hasta el mes siguiente.`,
-            type: 'article', duration: 6
+            title: 'Artículo 1: Java vs Bedrock, servidores, Realms y niveles de riesgo',
+            content: `# Tipos de Minecraft\n\nNo todas las versiones de Minecraft son iguales. Los servidores públicos tienen riesgos distintos a los mundos privados.`,
+            type: 'article', duration: 5
         });
 
         const l3_2 = await getOrCreateLesson(mod3._id, courseGames._id, {
-            title: 'Identificando sitios de "Robux Gratis" (Phishing)',
-            content: `# Anatomía de una Estafa\n\nLos estafadores crean sitios que se parecen a Roblox para robar la contraseña.\n\n## Señales de Alerta\n1.  **Promesa de "Generadores"**: No existen sistemas para fabricar Robux gratis.\n2.  **Solicitud de Contraseña**: Ningún sorteo oficial te pedirá jamás tu contraseña.\n3.  **Encuestas infinitas**: Solo buscan recolectar datos personales o instalar malware.`,
-            type: 'article', duration: 7
+            title: 'Video 1: Cómo configurar Microsoft Family Safety para Minecraft',
+            content: 'Uso de la aplicación de seguridad de Microsoft.',
+            type: 'video', videoUrl: 'https://www.youtube.com/watch?v=placeholder5', duration: 6
         });
 
-        mod3.lessonOrder = [l3_1._id, l3_2._id];
+        const l3_3 = await getOrCreateLesson(mod3._id, courseGames._id, {
+            title: 'Artículo 2: Permisos de privacidad, amigos, chat y multijugador',
+            content: `# Privacidad en Xbox\n\nMinecraft utiliza el sistema de Xbox para la gestión de amigos y chat.`,
+            type: 'article', duration: 5
+        });
+
+        const l3_4 = await getOrCreateLesson(mod3._id, courseGames._id, {
+            title: 'Video 2: Cómo revisar seguridad en Realms y juego en línea',
+            content: 'Gestión de servidores privados y entornos seguros.',
+            type: 'video', videoUrl: 'https://www.youtube.com/watch?v=placeholder6', duration: 6
+        });
+
+        mod3.lessonOrder = [l3_1._id, l3_2._id, l3_3._id, l3_4._id];
         await mod3.save();
 
         const q3 = await getOrCreateQuiz({
-            title: 'Examen Módulo 3: Economía Digital',
-            description: 'Pon a prueba tu capacidad para identificar estafas de Robux gratis y gestionar el gasto impulsivo.',
+            title: 'Mini examen: Seguridad Minecraft',
+            description: 'Valida tus conocimientos sobre la protección en Minecraft.',
             scope: 'module',
             refId: mod3._id,
             scopeModel: 'Module'
         }, [
-            { text: '¿Qué técnica de diseño utilizan los juegos para fomentar el gasto impulsivo en menores?', options: [{ text: 'El distanciamiento emocional mediante monedas virtuales que ocultan el valor real del dinero.', isCorrect: true }, { text: 'Haciendo que los botones de compra sean invisibles.', isCorrect: false }, { text: 'Enviando facturas físicas a los niños por correo.', isCorrect: false }, { text: 'Regalando dinero real al principio para crear hábito.', isCorrect: false }] },
-            { text: 'Has detectado que tu hijo entró a un sitio web de "Robux Gratis" y puso su usuario. ¿Cuál es la primera acción de seguridad recomendada?', options: [{ text: 'Cambiar la contraseña inmediatamente y activar la Verificación en Dos Pasos (2FA) si no estaba activa.', isCorrect: true }, { text: 'Llamar a la policía para que cierren esa página web.', isCorrect: false }, { text: 'Borrar el juego del teléfono para siempre.', isCorrect: false }, { text: 'Comprar Robux reales para compensar la posible pérdida.', isCorrect: false }] },
-            { text: '¿Por qué la Verificación en Dos Pasos (2FA) es vital incluso si tu hijo usa una contraseña "segura"?', options: [{ text: 'Porque protege la cuenta incluso si la contraseña es robada mediante phishing o malware.', isCorrect: true }, { text: 'Porque hace que las compras de Robux sean un 10% más baratas.', isCorrect: false }, { text: 'Porque permite jugar a más de 30 FPS.', isCorrect: false }, { text: 'Porque es un requisito legal en todos los países.', isCorrect: false }] }
+            { text: '¿Cuál es la forma más segura de jugar multijugador en Minecraft?', options: [{ text: 'En un Realm privado con amigos conocidos.', isCorrect: true }, { text: 'En un servidor público masivo.', isCorrect: false }, { text: 'Sin conexión.', isCorrect: false }] }
         ]);
         mod3.quizId = q3._id;
         await mod3.save();
 
-        // --- MODULE 4: Bienestar Digital y Tiempo Saludable ---
+        // --- MODULE 4. Interacción social y señales de alerta — 29–30 min ---
         const mod4 = await getOrCreateModule(courseGames._id, {
-            title: 'Bienestar Digital y Tiempo Saludable',
-            description: 'Identificación de adicciones y salud física del jugador.'
+            title: 'Módulo 4: Interacción social y señales de alerta',
+            description: 'Identificación de riesgos en la comunicación con otros.',
+            duration: '30 min'
         });
         await Quiz.deleteMany({ refId: mod4._id, scope: 'module' });
 
         const l4_1 = await getOrCreateLesson(mod4._id, courseGames._id, {
-            title: 'Señales de Alerta de Adicción Digital',
-            content: `# ¿Cuándo deja de ser un hobby?\n\nObserva estos cambios de comportamiento en tu hijo:\n\n*   **Irritabilidad**: Cambios de humor agresivos cuando se le pide que deje de jugar.\n*   **Abandono de Intereses**: Deja de lado deportes, amigos reales o estudios.\n*   **Alteración del Sueño**: Juega a escondidas por la noche.\n*   **Uso como Evasión**: Juega compulsivamente cuando tiene problemas emocionales o escolares.`,
-            type: 'article', duration: 6
+            title: 'Artículo 1: Ciberacoso, grooming y datos personales: señales básicas',
+            content: `# Riesgos Sociales\n\nAprende a identificar las tácticas que usan los acosadores y cómo proteger los datos privados.`,
+            type: 'article', duration: 5
         });
 
         const l4_2 = await getOrCreateLesson(mod4._id, courseGames._id, {
-            title: 'Higiene Postural y Fatiga Visual',
-            content: `# El Cuerpo del Gamer\n\nPasar horas en la misma posición afecta al desarrollo físico.\n\n## Consejos de Oro\n*   **La Regla 20-20-20**: Cada 20 minutos, mirar algo a 20 pies (6 metros) de distancia durante 20 segundos para relajar la vista.\n*   **Ergonomía**: La pantalla debe estar a la altura de los ojos. Evita que jueguen en el suelo o en posiciones encorvadas por tiempo prolongado.\n*   **Luz Ambiental**: Nunca permitas que jueguen a oscuras; la fatiga visual aumenta drásticamente.`,
-            type: 'article', duration: 7
+            title: 'Video 1: Casos comunes de riesgo en chat y partidas',
+            content: 'Ejemplos reales de interacciones problemáticas.',
+            type: 'video', videoUrl: 'https://www.youtube.com/watch?v=placeholder7', duration: 5
         });
 
-        mod4.lessonOrder = [l4_1._id, l4_2._id];
+        const l4_3 = await getOrCreateLesson(mod4._id, courseGames._id, {
+            title: 'Artículo 2: Qué hacer si ya hubo una interacción de riesgo',
+            content: `# Protocolo de Actuación\n\nPasos a seguir si tu hijo ha estado en contacto con un perfil sospechoso.`,
+            type: 'article', duration: 5
+        });
+
+        const l4_4 = await getOrCreateLesson(mod4._id, courseGames._id, {
+            title: 'Video 2: Cómo conservar evidencia y cuándo reportar',
+            content: 'Guía sobre capturas de pantalla y denuncias legales.',
+            type: 'video', videoUrl: 'https://www.youtube.com/watch?v=placeholder8', duration: 6
+        });
+
+        mod4.lessonOrder = [l4_1._id, l4_2._id, l4_3._id, l4_4._id];
         await mod4.save();
 
         const q4 = await getOrCreateQuiz({
-            title: 'Examen Módulo 4: Tiempo y Salud',
-            description: 'Evalúa si sabes identificar señales de fatiga visual y patrones de dependencia digital.',
+            title: 'Mini examen: Riesgos Sociales',
+            description: 'Valida tu capacidad de respuesta ante riesgos sociales.',
             scope: 'module',
             refId: mod4._id,
             scopeModel: 'Module'
         }, [
-            { text: '¿Cuál es el indicador más significativo de que un niño está pasando de un uso recreativo a uno problemático/adicto?', options: [{ text: 'El abandono de actividades que antes disfrutaba (deportes, amigos) y la irritabilidad extrema si no puede jugar.', isCorrect: true }, { text: 'Jugar más de un juego diferente en la misma tarde.', isCorrect: false }, { text: 'Aprender términos técnicos sobre hardware de PC.', isCorrect: false }, { text: 'Ver videos de otros jugadores en YouTube.', isCorrect: false }] },
-            { text: 'La regla visual "20-20-20" tiene como objetivo principal prevenir:', options: [{ text: 'La fatiga visual y el síndrome del ojo seco causado por el parpadeo reducido ante pantallas.', isCorrect: true }, { text: 'Que el niño se quede dormido durante el día.', isCorrect: false }, { text: 'Que la batería de la tablet se descargue demasiado rápido.', isCorrect: false }, { text: 'El mareo causado por juegos de realidad virtual.', isCorrect: false }] },
-            { text: '¿Qué factor ambiental empeora drásticamente la salud visual de un niño mientras juega?', options: [{ text: 'Jugar en una habitación completamente a oscuras con el brillo de la pantalla al máximo.', isCorrect: true }, { text: 'Jugar con la ventana abierta para que entre aire.', isCorrect: false }, { text: 'Usar auriculares de buena calidad.', isCorrect: false }, { text: 'Tener una silla con respaldo ergonómico.', isCorrect: false }] }
+            { text: '¿Qué debes hacer si detectas una interacción de riesgo?', options: [{ text: 'Conservar evidencia (capturas) y reportar.', isCorrect: true }, { text: 'Borrar todo y no decir nada.', isCorrect: false }] }
         ]);
         mod4.quizId = q4._id;
         await mod4.save();
+
+        // --- MODULE 5. Compras digitales, estafas y descargas — 30 min ---
+        const mod5 = await getOrCreateModule(courseGames._id, {
+            title: 'Módulo 5: Compras digitales, estafas y descargas',
+            description: 'Gestión económica y prevención de malware.',
+            duration: '30 min'
+        });
+        await Quiz.deleteMany({ refId: mod5._id, scope: 'module' });
+
+        const l5_1 = await getOrCreateLesson(mod5._id, courseGames._id, {
+            title: 'Artículo 1: Robux, Minecoins y microtransacciones: cómo funcionan',
+            content: `# Economía del Juego\n\nEntiende el valor real de las monedas virtuales y cómo se compran.`,
+            type: 'article', duration: 5
+        });
+
+        const l5_2 = await getOrCreateLesson(mod5._id, courseGames._id, {
+            title: 'Video 1: Cómo detectar phishing, “Robux gratis” y enlaces falsos',
+            content: 'Evita que roben la cuenta de tu hijo con promesas falsas.',
+            type: 'video', videoUrl: 'https://www.youtube.com/watch?v=placeholder9', duration: 6
+        });
+
+        const l5_3 = await getOrCreateLesson(mod5._id, courseGames._id, {
+            title: 'Artículo 2: Mods, add-ons y Marketplace: qué es oficial y qué no',
+            content: `# Descargas Seguras\n\nDiferencia entre contenido verificado y archivos que pueden dañar tu dispositivo.`,
+            type: 'article', duration: 5
+        });
+
+        const l5_4 = await getOrCreateLesson(mod5._id, courseGames._id, {
+            title: 'Video 2: Checklist antes de comprar o descargar algo',
+            content: 'Pasos de seguridad antes de cualquier transacción o instalación.',
+            type: 'video', videoUrl: 'https://www.youtube.com/watch?v=placeholder10', duration: 6
+        });
+
+        mod5.lessonOrder = [l5_1._id, l5_2._id, l5_3._id, l5_4._id];
+        await mod5.save();
+
+        const q5 = await getOrCreateQuiz({
+            title: 'Mini examen: Economía y Descargas',
+            description: 'Protege tu bolsillo y tus dispositivos.',
+            scope: 'module',
+            refId: mod5._id,
+            scopeModel: 'Module'
+        }, [
+            { text: '¿Existen los generadores de Robux gratis?', options: [{ text: 'No, son estafas para robar datos o infectar equipos.', isCorrect: true }, { text: 'Sí, pero son difíciles de encontrar.', isCorrect: false }] }
+        ]);
+        mod5.quizId = q5._id;
+        await mod5.save();
+
+        // --- MODULE 6. Bienestar digital y acompañamiento parental — 30 min ---
+        const mod6 = await getOrCreateModule(courseGames._id, {
+            title: 'Módulo 6: Bienestar digital y acompañamiento parental',
+            description: 'Salud mental y relación familiar en el juego.',
+            duration: '30 min'
+        });
+        await Quiz.deleteMany({ refId: mod6._id, scope: 'module' });
+
+        const l6_1 = await getOrCreateLesson(mod6._id, courseGames._id, {
+            title: 'Artículo 1: Tiempo de juego, sueño, escuela y señales de uso problemático',
+            content: `# Equilibrio Digital\n\nAprende a balancear el tiempo de juego con las responsabilidades diarias y el descanso.`,
+            type: 'article', duration: 5
+        });
+
+        const l6_2 = await getOrCreateLesson(mod6._id, courseGames._id, {
+            title: 'Video 1: Cómo poner reglas claras sin pelear con el menor',
+            content: 'Estrategias de comunicación para límites saludables.',
+            type: 'video', videoUrl: 'https://www.youtube.com/watch?v=placeholder11', duration: 6
+        });
+
+        const l6_3 = await getOrCreateLesson(mod6._id, courseGames._id, {
+            title: 'Artículo 2: Cómo acompañar, conversar y jugar junto al hijo',
+            content: `# Juego Compartido\n\nLa mejor seguridad es el acompañamiento. Involúcrate en sus mundos digitales.`,
+            type: 'article', duration: 5
+        });
+
+        const l6_4 = await getOrCreateLesson(mod6._id, courseGames._id, {
+            title: 'Video 2: Cómo crear un acuerdo familiar de juego',
+            content: 'Crea un contrato de convivencia digital en familia.',
+            type: 'video', videoUrl: 'https://www.youtube.com/watch?v=placeholder12', duration: 6
+        });
+
+        mod6.lessonOrder = [l6_1._id, l6_2._id, l6_3._id, l6_4._id];
+        await mod6.save();
+
+        const q6 = await getOrCreateQuiz({
+            title: 'Mini examen: Bienestar',
+            description: 'Fomenta un ambiente saludable en el hogar.',
+            scope: 'module',
+            refId: mod6._id,
+            scopeModel: 'Module'
+        }, [
+            { text: '¿Cuál es la mejor forma de proteger a un menor en línea?', options: [{ text: 'El acompañamiento y la comunicación constante.', isCorrect: true }, { text: 'Prohibirle jugar.', isCorrect: false }] }
+        ]);
+        mod6.quizId = q6._id;
+        await mod6.save();
 
         // --- FINAL EXAM: COURSE 1 ---
         const finalQuizQuestions = [

@@ -13,8 +13,7 @@ const attemptSchema = mongoose.Schema(
             ref: 'Quiz',
         },
         answers: {
-            type: Map,
-            of: [String], // questionId -> array of selected option IDs or indices
+            type: mongoose.Schema.Types.Mixed,
         },
         score: {
             type: Number,

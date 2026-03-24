@@ -12,8 +12,23 @@ const questionSchema = mongoose.Schema(
         },
         type: {
             type: String,
-            enum: ['single_choice', 'multiple_choice'],
+            enum: [
+                'single_choice', 
+                'multiple_choice', 
+                'multiple_selection',
+                'drag_drop', 
+                'fill_blanks', 
+                'match_columns', 
+                'order_sequence', 
+                'categorize', 
+                'case_study',
+                'drop_down'
+            ],
             default: 'single_choice',
+        },
+        metadata: {
+            type: mongoose.Schema.Types.Mixed,
+            default: {},
         },
         options: [{
             text: String,
@@ -27,6 +42,10 @@ const questionSchema = mongoose.Schema(
         },
         explanation: {
             type: String, // Feedback for the answer
+        },
+        points: {
+            type: Number,
+            default: 10,
         },
     },
     {

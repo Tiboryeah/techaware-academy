@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import AuthContext from '../context/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, CheckCircle, Lock, Play, FileText, Trophy, ShieldCheck, Zap, ArrowLeft } from 'lucide-react';
+import { ChevronRight, CheckCircle, Lock, Play, FileText, Trophy, ShieldCheck, Zap, ArrowLeft, Clock } from 'lucide-react';
 
 const CourseDetail = () => {
     const { id } = useParams();
@@ -88,12 +88,17 @@ const CourseDetail = () => {
                             >
                                 {course.description}
                             </motion.p>
-                            <div className="flex flex-wrap gap-2 pt-2">
-                                {course.riskAreas.map((area, idx) => (
-                                    <span key={idx} className="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-[10px] font-bold uppercase tracking-wider">
-                                        {area}
-                                    </span>
-                                ))}
+                            <div className="flex flex-wrap items-center gap-4 pt-2">
+                                <div className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-indigo-400 text-xs font-black uppercase tracking-widest shadow-xl shadow-indigo-500/5 backdrop-blur-md">
+                                    <Clock className="w-4 h-4 text-indigo-400" /> {course.duration || '3 horas'}
+                                </div>
+                                <div className="flex gap-2">
+                                    {course.riskAreas.map((area, idx) => (
+                                        <span key={idx} className="px-3 py-1 rounded-full bg-gray-500/10 border border-gray-500/20 text-gray-500 dark:text-gray-400 text-[10px] font-bold uppercase tracking-wider">
+                                            {area}
+                                        </span>
+                                    ))}
+                                </div>
                             </div>
                         </div>
 
@@ -142,9 +147,14 @@ const CourseDetail = () => {
                                         <div className="flex justify-between items-start mb-6">
                                             <div className="space-y-1">
                                                 <p className="text-indigo-600 dark:text-indigo-500 text-xs font-black uppercase tracking-[0.2em]">Módulo {index + 1}</p>
-                                                <h3 className="text-2xl font-bold text-gray-900 dark:text-white transition-colors">
+                                                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white transition-colors">
                                                     {module.title}
                                                 </h3>
+                                                {module.duration && (
+                                                    <div className="flex items-center gap-1.5 text-indigo-500 dark:text-indigo-400 text-[10px] font-black uppercase tracking-widest mt-1">
+                                                        <Clock className="w-3 h-3" /> Duración estimada: {module.duration}
+                                                    </div>
+                                                )}
                                             </div>
                                             {isModuleCompleted && (
                                                 <div className="flex items-center gap-2 px-4 py-2 bg-green-500/10 border border-green-500/20 rounded-2xl text-green-600 dark:text-green-400 font-bold text-xs uppercase italic">
@@ -178,7 +188,15 @@ const CourseDetail = () => {
                                                             <p className={`text-sm font-bold ${isLessonCompleted ? 'text-gray-400 line-through decoration-green-500/50' : 'text-gray-800 dark:text-gray-200'}`}>
                                                                 {lesson.title}
                                                             </p>
-                                                            <p className="text-[10px] text-gray-500 uppercase font-black tracking-widest mt-1">{lesson.type}</p>
+                                                            <div className="flex items-center gap-2 mt-1">
+                                                                <p className="text-[10px] text-gray-500 uppercase font-black tracking-widest leading-none">{lesson.type}</p>
+                                                                {lesson.duration && (
+                                                                    <>
+                                                                        <span className="w-0.5 h-0.5 rounded-full bg-gray-400" />
+                                                                        <p className="text-[10px] text-indigo-500 dark:text-indigo-400 font-bold uppercase tracking-widest leading-none">{lesson.duration} min</p>
+                                                                    </>
+                                                                )}
+                                                            </div>
                                                         </div>
                                                         {isLessonCompleted && <CheckCircle className="w-5 h-5 text-green-500 ml-4" />}
                                                         {!isLessonCompleted && <ChevronRight className="w-5 h-5 text-gray-400 dark:text-gray-600 ml-4 group-hover:translate-x-1 transition-transform" />}
@@ -189,12 +207,16 @@ const CourseDetail = () => {
 
                                         {/* Module Exam Button */}
                                         {module.quizId && (
-                                            <div className="pt-4 mt-6 border-t border-gray-100 dark:border-gray-800 flex justify-end">
-                                                {isModuleCompleted ? (
-                                                    <div className="px-6 py-3 bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500 rounded-2xl font-black text-xs uppercase tracking-widest cursor-not-allowed">
-                                                        Examen Completado
-                                                    </div>
-                                                ) : (
+                                            <div className="pt-4 mt-6 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-4">
+                                                {isModuleCompleted && (
+                                                    <button
+                                                        onClick={() => navigate(`/quiz/${module.quizId}`)}
+                                                        className="px-6 py-3 bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-gray-200 dark:hover:bg-gray-700 transition-all font-inter"
+                                                    >
+                                                        Repetir Examen
+                                                    </button>
+                                                )}
+                                                {!isModuleCompleted && (
                                                     <button
                                                         onClick={() => navigate(`/quiz/${module.quizId}`)}
                                                         className="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs uppercase tracking-widest rounded-2xl transition-all shadow-xl shadow-indigo-600/20 active:scale-95"
@@ -223,20 +245,29 @@ const CourseDetail = () => {
                         </p>
 
                         {course.quizId ? (
-                            <button
-                                onClick={() => navigate(`/quiz/${course.quizId}`)}
-                                disabled={!allModulesCompleted && !isAdmin}
-                                className={`w-full py-6 rounded-3xl font-black text-sm uppercase tracking-[0.2em] transition-all transform flex items-center justify-center gap-3 ${allModulesCompleted || isAdmin
-                                    ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700 shadow-xl shadow-green-500/20 active:scale-95'
-                                    : 'bg-gray-50 dark:bg-gray-800 text-gray-400 dark:text-gray-600 border border-gray-100 dark:border-gray-700 cursor-not-allowed opacity-60'
-                                    }`}
-                            >
-                                {allModulesCompleted ? (
-                                    <>Comenzar Examen Final <Trophy className="w-5 h-5" /></>
-                                ) : (
-                                    <>Comenzar Examen {isAdmin ? '(Admin)' : <Lock className="w-5 h-5" />}</>
+                            <div className="space-y-4">
+                                <button
+                                    onClick={() => navigate(`/quiz/${course.quizId}`)}
+                                    disabled={!allModulesCompleted && !isAdmin}
+                                    className={`w-full py-6 rounded-3xl font-black text-sm uppercase tracking-[0.2em] transition-all transform flex items-center justify-center gap-3 ${allModulesCompleted || isAdmin
+                                        ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700 shadow-xl shadow-green-500/20 active:scale-95'
+                                        : 'bg-gray-50 dark:bg-gray-800 text-gray-400 dark:text-gray-600 border border-gray-100 dark:border-gray-700 cursor-not-allowed opacity-60'
+                                        }`}
+                                >
+                                    {progress?.isCourseCompleted ? (
+                                        <>Repetir Examen Final <Trophy className="w-5 h-5" /></>
+                                    ) : allModulesCompleted ? (
+                                        <>Comenzar Examen Final <Trophy className="w-5 h-5" /></>
+                                    ) : (
+                                        <>Comenzar Examen {isAdmin ? '(Admin)' : <Lock className="w-5 h-5" />}</>
+                                    )}
+                                </button>
+                                {progress?.isCourseCompleted && (
+                                    <div className="flex items-center justify-center gap-2 p-3 bg-green-500/10 rounded-2xl border border-green-500/20 text-green-600 text-[10px] font-black uppercase tracking-widest italic">
+                                        <Trophy className="w-3.5 h-3.5" /> Diplomado Obtenido
+                                    </div>
                                 )}
-                            </button>
+                            </div>
                         ) : (
                             <div className="text-red-500 text-center font-bold">Error: No hay examen final asignado.</div>
                         )}

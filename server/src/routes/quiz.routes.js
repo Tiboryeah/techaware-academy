@@ -66,41 +66,120 @@ router.post('/:id/submit', protect, async (req, res) => {
             return res.status(404).json({ message: 'Quiz not found' });
         }
 
-        let score = 0;
+        let weightedScore = 0;
+        let totalPossiblePoints = 0;
         let correctCount = 0;
         const totalQuestions = quiz.questions.length;
 
         // Analytical Counters (US08 / RF4)
         const errorsByArea = new Map();
         const errorsByPlatform = new Map();
+        const questionDetails = [];
 
         // Calculate score and analyze errors
         quiz.questions.forEach(question => {
+            const getCorrectAnswer = () => {
+                if (question.type === 'single_choice' || question.type === 'case_study' || question.type === 'multiple_selection') {
+                    const correctOptions = question.options.filter(o => o.isCorrect).map(o => o.text);
+                    return question.type === 'multiple_selection' ? correctOptions : (correctOptions[0] || "N/A");
+                }
+                return question.metadata?.correctAnswer || "Consultar guía";
+            };
             const userSelection = answers[question._id.toString()];
-            const correctOption = question.options.find(opt => opt.isCorrect);
-
             let isCorrect = false;
-            if (userSelection && correctOption && userSelection.toString() === correctOption._id.toString()) {
-                isCorrect = true;
-                correctCount++;
+            const questionPoints = question.points || 10;
+            totalPossiblePoints += questionPoints;
+
+            if (!userSelection) {
+                isCorrect = false;
+            } else if (question.type === 'single_choice' || question.type === 'case_study' || !question.type) {
+                const correctOption = question.options.find(opt => opt.isCorrect);
+                if (correctOption && userSelection.toString() === correctOption._id.toString()) {
+                    isCorrect = true;
+                }
+            } else if (question.type === 'multiple_selection') {
+                const correctOptions = question.options.filter(opt => opt.isCorrect).map(opt => opt._id.toString());
+                if (Array.isArray(userSelection)) {
+                    const userSelections = userSelection.map(s => s.toString());
+                    isCorrect = userSelections.length === correctOptions.length &&
+                                userSelections.every(s => correctOptions.includes(s));
+                }
+            } else {
+                const correctAnswer = question.metadata?.correctAnswer;
+                if (correctAnswer && userSelection) {
+                    if (question.type === 'order_sequence') {
+                        // Array Comparison (Order matters)
+                        isCorrect = Array.isArray(userSelection) && 
+                                    Array.isArray(correctAnswer) &&
+                                    userSelection.length === correctAnswer.length &&
+                                    userSelection.every((val, index) => val === correctAnswer[index]);
+                    } else if (question.type === 'match_columns' || question.type === 'categorize') {
+                        // Object of Arrays (Order does NOT matter within categories)
+                        const userKeys = Object.keys(userSelection);
+                        const correctKeys = Object.keys(correctAnswer);
+                        
+                        if (userKeys.length === correctKeys.length) {
+                            isCorrect = correctKeys.every(key => {
+                                const userArray = userSelection[key] || [];
+                                const correctArray = correctAnswer[key] || [];
+                                if (userArray.length !== correctArray.length) return false;
+                                return correctArray.every(item => userArray.includes(item));
+                            });
+                        }
+                    } else if (typeof correctAnswer === 'object') {
+                        // Simple Object Comparison (e.g., drag_drop, fill_blanks, drop_down)
+                        const userKeys = Object.keys(userSelection);
+                        const correctKeys = Object.keys(correctAnswer);
+                        if (userKeys.length === correctKeys.length) {
+                            isCorrect = correctKeys.every(key => userSelection[key] === correctAnswer[key]);
+                        }
+                    } else {
+                        // String/Primitives
+                        isCorrect = userSelection === correctAnswer;
+                    }
+                }
             }
 
-            if (!isCorrect) {
-                // Tracking Area weaknesses
+            if (isCorrect) {
+                weightedScore += questionPoints;
+                correctCount++;
+            } else {
                 if (question.riskArea) {
                     const currentAreaCount = errorsByArea.get(question.riskArea) || 0;
                     errorsByArea.set(question.riskArea, currentAreaCount + 1);
                 }
-                // Tracking Platform weaknesses
                 if (question.platform) {
                     const currentPlatformCount = errorsByPlatform.get(question.platform) || 0;
                     errorsByPlatform.set(question.platform, currentPlatformCount + 1);
                 }
             }
+
+            // Format userAnswer for display (Convert IDs to Text if necessary)
+            let displayAnswer = userSelection;
+            if (question.type === 'single_choice' || question.type === 'case_study' || !question.type) {
+                const selectedOption = question.options.find(opt => opt._id.toString() === userSelection.toString());
+                displayAnswer = selectedOption ? selectedOption.text : userSelection;
+            } else if (question.type === 'multiple_selection') {
+                if (Array.isArray(userSelection)) {
+                    displayAnswer = question.options
+                        .filter(opt => userSelection.some(s => s.toString() === opt._id.toString()))
+                        .map(opt => opt.text);
+                }
+            }
+
+            questionDetails.push({
+                questionId: question._id,
+                text: question.text,
+                type: question.type,
+                isCorrect,
+                userAnswer: displayAnswer,
+                correctAnswer: getCorrectAnswer(),
+                explanation: question.explanation || "Revisa los artículos de este módulo para reforzar este concepto."
+            });
         });
 
-        score = Math.round((correctCount / totalQuestions) * 100);
-        const passed = score >= 80;
+        score = totalPossiblePoints > 0 ? Math.round((weightedScore / totalPossiblePoints) * 100) : 0;
+        const passed = score >= (quiz.minPassing || 80);
 
         // Save analytic attempt
         const attempt = await Attempt.create({
@@ -128,10 +207,6 @@ router.post('/:id/submit', protect, async (req, res) => {
             if (quiz.scope === 'module') {
                 moduleId = quiz.refId;
                 // We need to find the course for this module. 
-                // Assuming we can pass courseId in body or look it up. 
-                // For now, let's assume we can look it up if we had the Module model imported.
-                // Or simpler: The frontend sends courseId, or we look it up.
-                // Let's try to look it up if we import Module.
                 const Module = require('../models/Module');
                 const moduleDoc = await Module.findById(moduleId);
                 if (moduleDoc) courseId = moduleDoc.courseId;
@@ -182,8 +257,10 @@ router.post('/:id/submit', protect, async (req, res) => {
             attemptId: attempt._id,
             score,
             passed,
+            correctCount,
             badgeEarned,
             riskLevel: attempt.riskLevel,
+            questionDetails
         });
 
     } catch (error) {

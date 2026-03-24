@@ -38,6 +38,9 @@ const lessonSchema = mongoose.Schema(
         riskAreas: [{
             type: String,
         }],
+        duration: {
+            type: Number, // duration in minutes
+        },
     },
     {
         timestamps: true,

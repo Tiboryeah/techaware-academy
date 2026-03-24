@@ -21,9 +21,11 @@ const Layout = () => {
 
     const isActive = (path) => location.pathname === path;
 
+    const isLessonPage = location.pathname.startsWith('/lessons/');
+
     return (
         <div className="min-h-screen bg-[#fafafb] dark:bg-[#0a0c10] flex flex-col transition-colors duration-500 font-sans">
-            <nav className="sticky top-0 z-50 bg-white/80 dark:bg-[#0a0c10]/80 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800 transition-colors duration-500">
+            <nav className={`${isLessonPage ? 'relative' : 'sticky top-0'} z-50 bg-white/80 dark:bg-[#0a0c10]/80 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800 transition-colors duration-500`}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-20">
                         <div className="flex items-center">

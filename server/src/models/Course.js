@@ -25,6 +25,9 @@ const courseSchema = mongoose.Schema(
             enum: ['draft', 'published', 'archived'],
             default: 'draft',
         },
+        duration: {
+            type: String, // e.g. '3 horas'
+        },
     },
 
     {

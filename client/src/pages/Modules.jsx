@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import api from '../services/api';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, Share2, Youtube, ArrowRight, Zap, Target, BookOpen } from 'lucide-react';
+import { Shield, Share2, Youtube, ArrowRight, Zap, Target, BookOpen, Clock } from 'lucide-react';
 
 const Modules = () => {
     const [courses, setCourses] = useState([]);
@@ -132,13 +132,18 @@ const Modules = () => {
                                                 <span className={`px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider ${theme.bgAccent} ${theme.accent}`}>
                                                     {course.category}
                                                 </span>
-                                                <div className="flex -space-x-2">
+                                                 <div className="flex -space-x-2">
                                                     {course.platforms?.map((p, i) => (
                                                         <div key={i} className="w-6 h-6 rounded-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 flex items-center justify-center text-[8px] font-bold text-gray-500 dark:text-gray-400 shadow-sm">
                                                             {p[0]}
                                                         </div>
                                                     ))}
                                                 </div>
+                                                {course.duration && (
+                                                    <div className="ml-auto flex items-center gap-1.5 px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800/50 text-gray-500 dark:text-gray-400 text-[10px] font-black uppercase tracking-widest border border-gray-200/50 dark:border-gray-700/50">
+                                                        <Clock className="w-3 h-3 text-indigo-500" /> {course.duration}
+                                                    </div>
+                                                )}
                                             </div>
 
                                             <h2 className="text-2xl font-black mb-4 leading-tight text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-white transition-colors">

@@ -22,6 +22,9 @@ const moduleSchema = mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Lesson',
         }],
+        duration: {
+            type: String, // e.g. '30 min'
+        },
     },
     {
         timestamps: true,
