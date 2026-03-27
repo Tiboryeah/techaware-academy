@@ -209,6 +209,9 @@ const LessonView = () => {
                                                 );
                                             }
                                             if (line.startsWith('# ')) return <motion.h1 key={idx} variants={itemVariants} className="text-3xl md:text-5xl font-black mb-10 text-gray-900 dark:text-white tracking-tight leading-tight">{line.replace('# ', '')}</motion.h1>;
+                                            if (line.startsWith('### ')) return <motion.h3 key={idx} variants={itemVariants} className="text-xl md:text-2xl font-black mt-12 mb-4 text-gray-900 dark:text-white tracking-tight flex items-center gap-3">
+                                                <span className="w-8 h-1 bg-indigo-500 rounded-full" /> {line.replace('### ', '')}
+                                            </motion.h3>;
                                             if (line.startsWith('## ')) return <motion.h2 key={idx} variants={itemVariants} className="text-2xl md:text-3xl font-black mt-16 mb-6 text-gray-900 dark:text-white tracking-tight flex items-center gap-3">
                                                 <span className="w-10 h-1 bg-indigo-600 rounded-full" /> {line.replace('## ', '')}
                                             </motion.h2>;

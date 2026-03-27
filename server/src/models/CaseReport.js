@@ -16,7 +16,7 @@ const CaseReportSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        enum: ['Ciberacoso', 'Grooming', 'Fraude', 'Otro'],
+        enum: ['Ciberacoso', 'Grooming', 'Fraudes', 'Privacidad', 'Otro'],
         default: 'Otro'
     },
     status: {

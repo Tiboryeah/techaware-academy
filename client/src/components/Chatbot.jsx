@@ -101,10 +101,10 @@ const Chatbot = () => {
                         initial={{ opacity: 0, y: 20, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                        className="bg-white dark:bg-[#0d1117] w-80 sm:w-[420px] h-[650px] rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.2)] flex flex-col border border-white/20 dark:border-gray-800 mb-6 overflow-hidden transition-all duration-500 backdrop-blur-xl"
+                        className="bg-white dark:bg-[#0d1117] w-80 sm:w-[420px] h-[650px] max-h-[calc(100vh-120px)] rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.2)] flex flex-col border border-white/20 dark:border-gray-800 mb-6 overflow-hidden transition-all duration-500 backdrop-blur-xl"
                     >
                         {/* Header */}
-                        <div className="bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700 p-5 flex justify-between items-center text-white relative overflow-hidden shadow-lg">
+                        <div className="bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700 p-5 flex justify-between items-center text-white relative overflow-hidden shadow-lg shrink-0">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 blur-3xl -mr-16 -mt-16 rounded-full" />
                             <div className="absolute bottom-0 left-0 w-24 h-24 bg-purple-400/20 blur-2xl -ml-12 -mb-12 rounded-full" />
 
@@ -152,13 +152,16 @@ const Chatbot = () => {
                                             ? 'bg-gradient-to-br from-indigo-600 to-violet-700 text-white rounded-tr-none shadow-indigo-200 dark:shadow-none'
                                             : 'bg-white dark:bg-gray-800/40 text-gray-800 dark:text-gray-100 border border-indigo-50/50 dark:border-gray-700/50 rounded-tl-none ring-1 ring-black/[0.02]'
                                             }`}>
-                                            {msg.text.split('\n').map((line, i) => (
-                                                <p key={i} className={i > 0 ? 'mt-2' : ''}>
-                                                    {line.split('**').map((part, j) =>
-                                                        j % 2 === 1 ? <strong key={j} className="font-black">{part}</strong> : part
-                                                    )}
-                                                </p>
-                                            ))}
+                                            {msg.text.split('\n').map((line, i) => {
+                                                const cleanLine = line.replace(/^#+\s*/, '');
+                                                return (
+                                                    <p key={i} className={i > 0 ? 'mt-2' : ''}>
+                                                        {cleanLine.split('**').map((part, j) =>
+                                                            j % 2 === 1 ? <strong key={j} className="font-black">{part}</strong> : part
+                                                        )}
+                                                    </p>
+                                                );
+                                            })}
                                             {msg.text.includes('[') && msg.text.includes('](') && (
                                                 <div className="mt-3 pt-3 border-t border-white/10">
                                                     <a
@@ -190,21 +193,37 @@ const Chatbot = () => {
                         {/* Input Area */}
                         <form onSubmit={handleSendMessage} className="p-6 bg-white dark:bg-[#0d1117] border-t border-gray-100 dark:border-gray-800/50 relative">
                             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent" />
-                            <div className="relative group">
-                                <input
-                                    type="text"
+                            <div className="relative group flex flex-col w-full bg-gray-50 dark:bg-[#0a0c10] border-2 border-transparent focus-within:border-indigo-500/50 focus-within:bg-white dark:focus-within:bg-black rounded-[1.5rem] transition-all duration-300 shadow-inner p-3 pb-2">
+                                <textarea
                                     value={inputText}
-                                    onChange={(e) => setInputText(e.target.value)}
+                                    onChange={(e) => {
+                                        setInputText(e.target.value);
+                                        e.target.style.height = 'auto';
+                                        e.target.style.height = Math.min(e.target.scrollHeight, 150) + 'px';
+                                    }}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter' && !e.shiftKey) {
+                                            e.preventDefault();
+                                            if (inputText.trim()) {
+                                                handleSendMessage(e);
+                                                // Reset height after send
+                                                e.target.style.height = 'auto';
+                                            }
+                                        }
+                                    }}
                                     placeholder="Escribe tu duda de seguridad..."
-                                    className="w-full pl-6 pr-14 py-4.5 bg-gray-50 dark:bg-[#0a0c10] border-2 border-transparent focus:border-indigo-500/50 focus:bg-white dark:focus:bg-black rounded-[1.5rem] text-sm outline-none transition-all duration-300 dark:text-white shadow-inner"
+                                    rows="1"
+                                    className="w-full px-3 py-1 bg-transparent text-sm outline-none transition-all duration-300 dark:text-white resize-none scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700 leading-relaxed min-h-[24px]"
                                 />
-                                <button
-                                    type="submit"
-                                    disabled={!inputText.trim()}
-                                    className="absolute right-2 top-2 bottom-2 px-5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-[1.2rem] hover:shadow-lg hover:shadow-indigo-500/30 transition-all duration-300 disabled:opacity-30 disabled:grayscale transform active:scale-90 group-hover:translate-x-0.5"
-                                >
-                                    <Send size={18} strokeWidth={2.5} />
-                                </button>
+                                <div className="flex justify-end items-center mt-2 pr-1">
+                                    <button
+                                        type="submit"
+                                        disabled={!inputText.trim()}
+                                        className="w-[38px] h-[38px] flex items-center justify-center bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-[1rem] hover:shadow-lg hover:shadow-indigo-500/30 transition-all duration-300 disabled:opacity-30 disabled:grayscale transform active:scale-90"
+                                    >
+                                        <Send size={16} strokeWidth={2.5} className="ml-0.5" />
+                                    </button>
+                                </div>
                             </div>
                             <div className="mt-5 space-y-2.5 px-2 text-center">
                                 <div className="flex items-center justify-center gap-1.5 group cursor-default">

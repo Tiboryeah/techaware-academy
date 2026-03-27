@@ -1,0 +1,56 @@
+[dotenv@17.2.3] injecting env (9) from .env -- tip: ✅ audit secrets and track compliance: https://dotenvx.com/ops
+MongoDB Connected: ac-00w6k34-shard-00-02.tgbudpw.mongodb.net
+Synchronizing Data (Clean State)...
+(.) Course Updated: Videojuegos en Línea: Roblox y Minecraft
+  (-) Old modules and Course Quiz for Course 1 wiped for clean expansion.
+  (+) Module Created: Módulo 1: Fundamentos de videojuegos en línea
+    (+) Lesson Created: Artículo 1: ¿Qué son los videojuegos en línea y cómo funcionan?
+    (+) Lesson Created: Video 1: Recorrido visual: qué es Roblox y qué es Minecraft
+    (+) Lesson Created: Artículo 2: Diferencias clave entre Roblox y Minecraft para una familia
+    (+) Lesson Created: Video 2: Qué debe revisar un padre antes de dejar jugar
+    (+) Quiz Created: Examen del Módulo 1: Fundamentos de videojuegos en línea
+  (+) Module Created: Módulo 2: Roblox: seguridad y control parental
+    (+) Lesson Created: Artículo 1: Vincular cuenta del padre/tutor y cuenta del menor
+    (+) Lesson Created: Video 1: Configuración paso a paso de controles parentales en Roblox
+    (+) Lesson Created: Artículo 2: Privacidad, chat, madurez de contenido, tiempo y gasto
+    (+) Lesson Created: Video 2: Cómo bloquear y reportar jugadores o experiencias
+    (+) Quiz Created: Examen del Módulo 2: Roblox: seguridad y control parental
+  (+) Module Created: Módulo 3: Minecraft: cuentas familiares, multijugador y Realms
+    (+) Lesson Created: Artículo 1: Java vs Bedrock, servidores, Realms y niveles de riesgo
+    (+) Lesson Created: Video 1: Cómo configurar Microsoft Family Safety para Minecraft
+    (+) Lesson Created: Artículo 2: Permisos de privacidad, amigos, chat y multijugador
+    (+) Lesson Created: Video 2: Cómo revisar seguridad en Realms y juego en línea
+    (+) Quiz Created: Examen de Módulo 3 — Minecraft: cuentas familiares y multijugador
+SEED ERROR: ValidationError: Question validation failed: type: `matching` is not a valid enum value for path `type`.
+    at Document.invalidate (C:\Users\USER\.gemini\antigravity\scratch\TT_Academia\server\node_modules\mongoose\lib\document.js:3365:32)
+    at validatePath (C:\Users\USER\.gemini\antigravity\scratch\TT_Academia\server\node_modules\mongoose\lib\document.js:3140:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async Promise.all (index 1)
+    at async model.$__validate (C:\Users\USER\.gemini\antigravity\scratch\TT_Academia\server\node_modules\mongoose\lib\document.js:3081:3)
+    at async model.validate (C:\Users\USER\.gemini\antigravity\scratch\TT_Academia\server\node_modules\mongoose\lib\document.js:2663:5)
+    at async model.validateBeforeSave (C:\Users\USER\.gemini\antigravity\scratch\TT_Academia\server\node_modules\mongoose\lib\plugins\validateBeforeSave.js:34:7)
+    at async Kareem.execPre (C:\Users\USER\.gemini\antigravity\scratch\TT_Academia\server\node_modules\kareem\index.js:65:24)
+    at async model.$__save (C:\Users\USER\.gemini\antigravity\scratch\TT_Academia\server\node_modules\mongoose\lib\model.js:369:5)
+    at async model.save (C:\Users\USER\.gemini\antigravity\scratch\TT_Academia\server\node_modules\mongoose\lib\model.js:609:5) {
+  errors: {
+    type: ValidatorError: `matching` is not a valid enum value for path `type`.
+        at SchemaString.doValidate (C:\Users\USER\.gemini\antigravity\scratch\TT_Academia\server\node_modules\mongoose\lib\schemaType.js:1425:13)
+        at validatePath (C:\Users\USER\.gemini\antigravity\scratch\TT_Academia\server\node_modules\mongoose\lib\document.js:3132:24)
+        at model.$__validate (C:\Users\USER\.gemini\antigravity\scratch\TT_Academia\server\node_modules\mongoose\lib\document.js:3078:21)
+        at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+        at async model.validate (C:\Users\USER\.gemini\antigravity\scratch\TT_Academia\server\node_modules\mongoose\lib\document.js:2663:5)
+        at async model.validateBeforeSave (C:\Users\USER\.gemini\antigravity\scratch\TT_Academia\server\node_modules\mongoose\lib\plugins\validateBeforeSave.js:34:7)
+        at async Kareem.execPre (C:\Users\USER\.gemini\antigravity\scratch\TT_Academia\server\node_modules\kareem\index.js:65:24)
+        at async model.$__save (C:\Users\USER\.gemini\antigravity\scratch\TT_Academia\server\node_modules\mongoose\lib\model.js:369:5)
+        at async model.save (C:\Users\USER\.gemini\antigravity\scratch\TT_Academia\server\node_modules\mongoose\lib\model.js:609:5)
+        at async C:\Users\USER\.gemini\antigravity\scratch\TT_Academia\server\node_modules\mongoose\lib\model.js:2722:9 {
+      properties: [Object],
+      kind: 'enum',
+      path: 'type',
+      value: 'matching',
+      reason: undefined,
+      [Symbol(mongoose#validatorError)]: true
+    }
+  },
+  _message: 'Question validation failed'
+}

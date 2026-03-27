@@ -57,19 +57,22 @@ const Home = () => {
     // Authenticated Home View
     if (user) {
         let continueLink = "/modules";
-        let continueText = "Continuar Aprendiendo";
+        let continueLabel = "Continuar Aprendiendo";
+        let subText = "";
 
         if (loadingNext) {
-            continueText = "Cargando...";
+            continueLabel = "Cargando...";
         } else if (nextItem) {
             if (nextItem.type === 'lesson') {
                 continueLink = `/lessons/${nextItem.id}`;
-                continueText = `Continuar: ${nextItem.title}`;
+                continueLabel = `Continuar Lección`;
+                subText = nextItem.title;
             } else if (nextItem.type === 'quiz') {
                 continueLink = `/quiz/${nextItem.id}`;
-                continueText = `Examen: ${nextItem.title}`;
+                continueLabel = `Presentar Examen`;
+                subText = nextItem.title;
             } else if (nextItem.type === 'complete') {
-                continueText = "¡Curso Completado!";
+                continueLabel = "¡Curso Completado!";
             }
         }
 
@@ -138,15 +141,22 @@ const Home = () => {
                                     </p>
                                 </div>
                             </div>
-                            <div className="flex-shrink-0">
+                            <div className="flex-shrink-0 flex-1 max-w-full lg:max-w-xs xl:max-w-sm w-full lg:w-auto mt-4 lg:mt-0 flex flex-col items-center lg:items-end gap-3">
                                 <Link
                                     to={continueLink}
-                                    className="px-12 py-6 bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs uppercase tracking-[0.2em] rounded-[2rem] shadow-2xl shadow-indigo-600/30 transition-all flex items-center gap-4 active:scale-95 group"
+                                    title={subText || continueLabel}
+                                    className="px-6 lg:px-8 py-5 bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs uppercase tracking-[0.2em] rounded-[2rem] shadow-2xl shadow-indigo-600/30 transition-all flex items-center justify-between lg:justify-center gap-4 active:scale-95 group w-full"
                                 >
-                                    <Play className="w-4 h-4 fill-current group-hover:rotate-12 transition-transform" />
-                                    {continueText}
-                                    <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                                    <Play className="w-5 h-5 flex-shrink-0 fill-current group-hover:rotate-12 transition-transform" />
+                                    <span className="flex-grow text-center">{continueLabel}</span>
+                                    <ArrowRight className="w-5 h-5 flex-shrink-0 group-hover:translate-x-2 transition-transform" />
                                 </Link>
+                                {subText && (
+                                    <div className="text-[10px] sm:text-xs font-bold text-gray-500 dark:text-gray-400 text-center lg:text-right w-full px-2 line-clamp-2 leading-tight flex flex-col items-center lg:items-end">
+                                        <span className="text-indigo-500 uppercase tracking-widest text-[9px] block mb-0.5">Siguiente Destino:</span>
+                                        {subText}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </motion.div>
