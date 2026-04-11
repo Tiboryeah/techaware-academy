@@ -10,16 +10,20 @@ const sendEmail = async (options) => {
         return;
     }
 
-    // 1. Create a transporter
+    // Fail fast in production if SMTP is unreachable instead of hanging auth flows.
     const transporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
         auth: {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS
-        }
+        },
+        connectionTimeout: 15000,
+        greetingTimeout: 15000,
+        socketTimeout: 20000,
     });
 
-    // 2. Define email options
     const mailOptions = {
         from: `Kuxipilli <${process.env.EMAIL_USER}>`,
         to: options.email,
@@ -27,7 +31,6 @@ const sendEmail = async (options) => {
         html: options.message // Using HTML for better formatting
     };
 
-    // 3. Send email
     await transporter.sendMail(mailOptions);
 };
 
