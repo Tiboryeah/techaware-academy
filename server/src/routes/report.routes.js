@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const CaseReport = require('../models/CaseReport');
 const { protect } = require('../middleware/authMiddleware');
-const nodemailer = require('nodemailer');
+const sendEmail = require('../utils/sendEmail');
 
 // @desc    Submit a case report
 // @route   POST /api/reports/submit
@@ -26,7 +26,6 @@ router.post('/submit', protect, async (req, res) => {
 
         // Send email notification using unified utility
         try {
-            const sendEmail = require('../utils/sendEmail');
             const message = `
                 <div style="font-family: sans-serif; padding: 20px; color: #333;">
                     <h2 style="color: #4f46e5;">Nuevo Caso Recibido</h2>
@@ -45,7 +44,7 @@ router.post('/submit', protect, async (req, res) => {
             `;
 
             await sendEmail({
-                email: process.env.EMAIL_USER, // Send to site admin
+                email: process.env.ADMIN_EMAIL || process.env.EMAIL_USER,
                 subject: `📢 NUEVO REPORTE: ${title}`,
                 message: message
             });
