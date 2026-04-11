@@ -105,7 +105,8 @@ const LessonView = () => {
             {/* Persistent Floating Back Button */}
             <div className="fixed top-6 left-6 z-[100] pointer-events-none">
                 <Link 
-                    to={`/courses/${lesson.courseId}`} 
+                    to={`/courses/${lesson.courseId}`}
+                    state={{ scrollToLessonId: location.state?.returnToLessonId || lesson._id }}
                     className="pointer-events-auto group inline-flex items-center gap-2 p-2 pr-4 rounded-2xl bg-white/80 dark:bg-[#161b22]/80 backdrop-blur-xl border border-gray-100 dark:border-white/5 text-indigo-600 dark:text-indigo-400 font-black text-[9px] tracking-[0.2em] uppercase hover:bg-indigo-600 hover:text-white transition-all shadow-xl active:scale-95"
                 >
                     <div className="p-2 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 group-hover:bg-indigo-600 group-hover:text-white transition-all">
@@ -275,7 +276,7 @@ const LessonView = () => {
                         <div className="flex flex-col sm:flex-row justify-between items-center pt-8 gap-6 pb-12">
                             {prevLesson ? (
                                 <button
-                                    onClick={() => navigate(`/lessons/${prevLesson._id}`, { state: { courseId: lesson.courseId } })}
+                                    onClick={() => navigate(`/lessons/${prevLesson._id}`, { state: { courseId: lesson.courseId, returnToLessonId: location.state?.returnToLessonId || lesson._id } })}
                                     className="w-full sm:w-auto group flex items-center justify-center gap-3 px-8 py-4 bg-white dark:bg-[#161b22] hover:bg-gray-50 dark:hover:bg-indigo-500/10 text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-white font-black text-[10px] uppercase tracking-[0.2em] rounded-xl transition-all border border-gray-100 dark:border-white/5 shadow-sm hover:shadow-md active:scale-95"
                                 >
                                     <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Anterior
@@ -284,7 +285,7 @@ const LessonView = () => {
 
                             {nextLesson ? (
                                 <button
-                                    onClick={() => navigate(`/lessons/${nextLesson._id}`, { state: { courseId: lesson.courseId } })}
+                                    onClick={() => navigate(`/lessons/${nextLesson._id}`, { state: { courseId: lesson.courseId, returnToLessonId: location.state?.returnToLessonId || lesson._id } })}
                                     className="w-full sm:w-auto group flex items-center justify-center gap-3 px-10 py-5 bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs uppercase tracking-[0.2em] rounded-xl transition-all shadow-lg active:scale-95 hover:translate-y-[-1px]"
                                 >
                                     Siguiente Lección <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -333,7 +334,7 @@ const LessonView = () => {
                                     return (
                                         <div
                                             key={item._id}
-                                            onClick={() => navigate(`/lessons/${item._id}`, { state: { courseId: lesson.courseId } })}
+                                            onClick={() => navigate(`/lessons/${item._id}`, { state: { courseId: lesson.courseId, returnToLessonId: location.state?.returnToLessonId || lesson._id } })}
                                             className={`group p-6 cursor-pointer flex items-center gap-5 transition-all border-b border-gray-50 dark:border-white/[0.01] ${isActive ? 'bg-indigo-600 scale-[1.02] shadow-xl z-10 relative rounded-xl mx-2 my-1' : 'hover:bg-indigo-500/5'
                                                 }`}
                                         >

@@ -1,8 +1,10 @@
 const express = require('express');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
+
 const Conversation = require('../models/Conversation');
 const Message = require('../models/Message');
-const { GoogleGenerativeAI } = require('@google/generative-ai');
 const { protect } = require('../middleware/authMiddleware');
+
 const router = express.Router();
 
 const GEMINI_MODELS = [
@@ -13,25 +15,34 @@ const GEMINI_MODELS = [
     'gemini-flash-latest',
 ].filter(Boolean);
 
-const SYSTEM_INSTRUCTION = `Eres "Kuxibot", el asistente experto de Kuxipilli. Tu misión es ser un experto en seguridad digital infantil y ciberacoso.
+const SYSTEM_INSTRUCTION = `Eres "Kuxibot", el asistente experto de Kuxipilli. Tu misión es orientar sobre seguridad digital infantil, ciberacoso y acompañamiento parental.
 
-REGLAS CRITICAS:
-1. REGLA RN-07: Solo puedes responder temas relacionados con ciberseguridad, alfabetización digital y acompañamiento parental. Si el usuario pregunta cosas fuera de estos temas (cocina, deportes, tareas escolares generales, etc.), redirígelo cordialmente a los objetivos del sistema.
-2. Tu tono es profesional, empático y experto.
+REGLAS CRÍTICAS:
+1. Solo puedes responder temas relacionados con ciberseguridad, alfabetización digital y acompañamiento parental. Si el usuario pregunta sobre otros temas, redirígelo con amabilidad a los objetivos del sistema.
+2. Tu tono debe ser profesional, empático y claro.
 3. Siempre prioriza la seguridad física y emocional del menor.
-4. Si detectas señales de Grooming o peligro inminente: Indica pasos legales y recomienda no hablar más con el sospechoso.
-5. Responde siempre en Español.
-6. Tus respuestas DEBEN ser breves y muy concisas (máximo 2 o 3 párrafos cortos en total). Sé completo en la información pero ve directo al grano, sin dar explicaciones excesivamente largas.
-7. ESTRICTAMENTE PROHIBIDO usar formato Markdown (como ###, **, *, _ o similares) para títulos o negritas. Escribe en texto completamente plano y limpio. Usa listas numeradas normales (ejemplo: "1. ", "2. ") si necesitas enlistar algo.
-8. NO te presentes ni saludes al inicio de tus mensajes (NUNCA digas "Hola, soy Kuxibot..."). Ve directo a la respuesta, asume que el usuario ya sabe quién eres y están en medio de una plática.`;
+4. Si detectas señales de grooming o peligro inminente, indica pasos de protección, recomienda no seguir interactuando con el sospechoso y sugiere buscar apoyo formal.
+5. Responde siempre en español.
+6. Tus respuestas deben ser breves y concisas: máximo 2 o 3 párrafos cortos.
+7. No uses formato Markdown para títulos o negritas. Escribe en texto plano. Si necesitas enumerar, usa listas normales como "1. ", "2. ".
+8. No te presentes ni saludes al inicio. Ve directo a la respuesta.`;
 
-// Simple rule-based logic (Fallback)
 const getFallbackResponse = (text) => {
     const lowerText = text.toLowerCase();
-    if (lowerText.includes('hola')) return 'Hola. Puedo ayudarte con seguridad digital, control parental y riesgos en linea.';
-    if (lowerText.includes('roblox')) return 'Para Roblox, activa el PIN parental, revisa restricciones de cuenta y confirma la edad configurada.';
-    if (lowerText.includes('grooming')) return 'El grooming es grave. No borres evidencia, bloquea el contacto y reporta a la plataforma y autoridades.';
-    return 'Puedo orientarte sobre ciberseguridad, control parental y proteccion digital para menores.';
+
+    if (lowerText.includes('hola')) {
+        return 'Puedo ayudarte con seguridad digital, control parental y prevención de riesgos en línea.';
+    }
+
+    if (lowerText.includes('roblox')) {
+        return 'En Roblox conviene activar el PIN parental, revisar la configuración de privacidad y supervisar compras, chat y contactos.';
+    }
+
+    if (lowerText.includes('grooming')) {
+        return 'Si hay señales de grooming, no borres evidencia, corta el contacto, reporta en la plataforma y busca apoyo formal si existe riesgo para el menor.';
+    }
+
+    return 'Puedo orientarte sobre ciberseguridad, control parental y protección digital para niñas, niños y adolescentes.';
 };
 
 const isRetryableGeminiError = (error) => {

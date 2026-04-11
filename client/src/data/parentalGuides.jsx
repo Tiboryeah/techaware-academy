@@ -1,152 +1,152 @@
 import React from 'react';
-import { Gamepad2, Users, Video, MessageCircle, Instagram, Youtube, Tv } from 'lucide-react';
+import { Gamepad2, Video, MessageCircle, Instagram, Youtube, Tv } from 'lucide-react';
 
 export const parentalGuides = [
     {
         id: 1,
-        platform: "Roblox",
-        title: "Control en el Metaverso",
-        description: "Protección integral para la plataforma de juegos más popular.",
+        platform: 'Roblox',
+        title: 'Control en el metaverso',
+        description: 'Protección integral para una de las plataformas de juego más usadas por menores.',
         icon: <Gamepad2 className="w-6 h-6 text-red-500" />,
-        color: "red",
+        color: 'red',
         steps: [
-            "Activa el PIN de Seguridad",
-            "Restricciones de Cuenta",
-            "Filtros de Chat Inteligentes",
-            "Visibilidad de Inventario Privada"
+            'Activa el PIN de seguridad',
+            'Revisa restricciones de cuenta',
+            'Configura filtros de chat',
+            'Mantén privado el inventario cuando aplique'
         ],
         details: {
-            fullContent: "Roblox es una plataforma expansiva donde los riesgos principales son el contacto con desconocidos a través de mensajes directos y la exposición a experiencias (juegos) con contenido no apto. El PIN parental es la barrera más importante, ya que sin él, un menor puede simplemente revertir cualquier cambio de privacidad que hayas configurado.",
-            setupPath: "Configuración > Seguridad > PIN de la cuenta / Privacidad.",
-            expertTip: "No te limites a activar los filtros; revisa periódicamente las 'Experiencias Recientes' en la página de inicio para ver a qué está jugando realmente tu hijo.",
-            riskAnalysis: "Reduce en un 95% la posibilidad de Grooming y fraudes por intercambio de objetos virtuales (Trading Scam).",
-            officialLink: "https://en.help.roblox.com/hc/es/articles/30428310121620-Resumen-de-los-controles-parentales"
+            fullContent: 'Roblox es una plataforma expansiva donde los riesgos principales son el contacto con desconocidos a través de mensajes directos y la exposición a experiencias con contenido no apto. El PIN parental es una de las barreras más importantes, porque evita que un menor revierta fácilmente la configuración de seguridad.',
+            setupPath: 'Configuración > Seguridad > PIN de la cuenta / Privacidad',
+            expertTip: "No te limites a activar los filtros: revisa periódicamente las experiencias recientes para entender qué está jugando realmente tu hijo.",
+            riskAnalysis: 'Reduce de forma importante el riesgo de grooming y fraudes por intercambio de objetos virtuales.',
+            officialLink: 'https://en.help.roblox.com/hc/es/articles/30428310121620-Resumen-de-los-controles-parentales'
         }
     },
     {
         id: 2,
-        platform: "Minecraft",
-        title: "Mundo Creativo Seguro",
-        description: "Gestiona servidores y multijugador desde Xbox Family Settings.",
+        platform: 'Minecraft',
+        title: 'Mundo creativo seguro',
+        description: 'Gestiona multijugador y privacidad desde Xbox Family Settings.',
         icon: <Gamepad2 className="w-6 h-6 text-green-600" />,
-        color: "green",
+        color: 'green',
         steps: [
-            "Usa la App Xbox Family Settings",
-            "Bloquea el Juego Multijugador",
-            "Filtro de Solicitudes de Amistad",
-            "Privacidad de Perfil en Xbox"
+            'Usa la app Xbox Family Settings',
+            'Bloquea o limita el juego multijugador',
+            'Controla solicitudes de amistad',
+            'Revisa la privacidad del perfil'
         ],
         details: {
-            fullContent: "Aunque Minecraft parece inofensivo, el modo multijugador en servidores públicos expone a los niños a chats sin moderar. La clave está en la cuenta de Microsoft vinculada. Si configuras la cuenta como 'Cuenta Infantil', Microsoft aplicará restricciones automáticas que tú puedes gestionar desde tu propio teléfono móvil.",
-            setupPath: "App Xbox Family Settings (Android/iOS) > Configuración de cuenta del menor.",
-            expertTip: "Si tu hijo quiere jugar con amigos reales, enséñale a crear un 'Realm' (servidor privado por suscripción) en lugar de unirse a servidores públicos masivos.",
-            riskAnalysis: "Previene la exposición a lenguaje abusivo en servidores 'GRIEF' y contactos no deseados a través de Xbox Live.",
-            officialLink: "https://www.minecraft.net/es-es/article/parental-controls"
+            fullContent: 'Aunque Minecraft parece inofensivo, el modo multijugador en servidores públicos expone a los niños a chats sin moderar. La clave está en la cuenta de Microsoft vinculada y en configurar correctamente la cuenta infantil.',
+            setupPath: 'App Xbox Family Settings > Configuración de cuenta del menor',
+            expertTip: 'Si tu hijo quiere jugar con amigos reales, considera un Realm privado antes que un servidor público masivo.',
+            riskAnalysis: 'Previene exposición a lenguaje abusivo y contactos no deseados a través de Xbox Live.',
+            officialLink: 'https://www.minecraft.net/es-es/article/parental-controls'
         }
     },
     {
         id: 3,
-        platform: "TikTok",
-        title: "Sincronización Familiar",
-        description: "Controla el algoritmo y el tiempo de exposición.",
+        platform: 'TikTok',
+        title: 'Sincronización familiar',
+        description: 'Controla tiempo de exposición, privacidad y búsquedas.',
         icon: <Video className="w-6 h-6 text-pink-500" />,
-        color: "pink",
+        color: 'pink',
         steps: [
-            "Vinculación por Código QR",
-            "Modo Restringido por IA",
-            "Gestión de Búsqueda Segura",
-            "Límite de Tiempo de Pantalla"
+            'Vincula cuentas por código QR',
+            'Activa el modo restringido',
+            'Gestiona búsquedas seguras',
+            'Establece límite de tiempo de pantalla'
         ],
         details: {
-            fullContent: "TikTok utiliza una 'Sincronización Familiar' que vincula directamente tu cuenta con la de tu hijo. Esto te permite gestionar desde tu teléfono quién puede enviarle mensajes, quién puede comentar sus videos y si su cuenta es pública o privada, todo sin quitarle el acceso a la plataforma.",
-            setupPath: "Perfil > Ajustes y Privacidad > Sincronización Familiar.",
-            expertTip: "Activa el filtrado de 'Palabras Clave'. Puedes añadir palabras específicas (nombres, direcciones o insultos locales) para que los videos que las contengan no aparezcan nunca en su feed.",
-            riskAnalysis: "Mitiga el riesgo de retos peligrosos (challenges), adicción al scroll infinito y exposición a contenido hipersexualizado.",
-            officialLink: "https://www.tiktok.com/safety/es/guardians-guide/"
+            fullContent: 'La sincronización familiar de TikTok permite gestionar desde tu cuenta quién puede enviar mensajes, comentar o ver ciertos contenidos del menor, sin quitarle por completo el acceso a la plataforma.',
+            setupPath: 'Perfil > Ajustes y privacidad > Sincronización familiar',
+            expertTip: 'Activa filtros de palabras clave para reducir la aparición de contenido no deseado en el feed.',
+            riskAnalysis: 'Ayuda a mitigar exposición a retos peligrosos, uso compulsivo y contenido hipersexualizado.',
+            officialLink: 'https://www.tiktok.com/safety/es/guardians-guide/'
         }
     },
     {
         id: 4,
-        platform: "Discord",
-        title: "Family Center y Privacidad",
-        description: "Protección en comunidades de chat y servidores.",
+        platform: 'Discord',
+        title: 'Family Center y privacidad',
+        description: 'Protección en comunidades de chat y servidores.',
         icon: <MessageCircle className="w-6 h-6 text-indigo-500" />,
-        color: "indigo",
+        color: 'indigo',
         steps: [
-            "Activa el Centro Familiar",
-            "Escaneo de Imágenes Seguras",
-            "Desactivación de MD de Desconocidos",
-            "Configuración de Visibilidad de Perfil"
+            'Activa Family Center',
+            'Revisa filtros de contenido e imágenes',
+            'Desactiva mensajes directos de desconocidos',
+            'Configura privacidad del perfil'
         ],
         details: {
-            fullContent: "Discord es la herramienta preferida para los gamers, pero también es propensa a servidores de comunidades radicales o estafas. El 'Centro Familiar' te da visibilidad sobre con quién habla tu hijo y a qué servidores se ha unido, sin violar su privacidad leyendo el contenido exacto de los mensajes (a menos que haya un reporte).",
-            setupPath: "Ajustes de Usuario > Centro Familiar / Privacidad y Seguridad.",
-            expertTip: "Lo más importante es desactivar 'Permitir mensajes directos de los miembros del servidor'. Esto obliga a que cualquier persona deba ser su 'Amigo' aceptado antes de poder escribirle.",
-            riskAnalysis: "Blindaje contra RAIDING de servidores, distribución de contenido explícito (NSFW) y estafas de 'Free Nitro'.",
-            officialLink: "https://support.discord.com/hc/es/articles/14155043715735-Centro-Familiar-para-Padres-Madres-y-Tutores"
+            fullContent: 'Discord puede ser muy útil para comunidades de juego, pero también es un entorno con riesgo de estafas, grooming y servidores tóxicos. El Centro Familiar ayuda a supervisar mejor con quién interactúa el menor.',
+            setupPath: 'Ajustes de usuario > Centro familiar / Privacidad y seguridad',
+            expertTip: "Desactiva 'Permitir mensajes directos de los miembros del servidor' para que no puedan escribirle personas no aprobadas.",
+            riskAnalysis: 'Reduce riesgo de estafas, contacto no deseado y exposición a contenido explícito.',
+            officialLink: 'https://support.discord.com/hc/es/articles/14155043715735-Centro-Familiar-para-Padres-Madres-y-Tutores'
         }
     },
     {
         id: 5,
-        platform: "Instagram",
-        title: "Supervisión de Perfil",
-        description: "Privacidad y salud mental en redes visuales.",
+        platform: 'Instagram',
+        title: 'Supervisión de perfil',
+        description: 'Privacidad y bienestar en redes visuales.',
         icon: <Instagram className="w-6 h-6 text-purple-600" />,
-        color: "purple",
+        color: 'purple',
         steps: [
-            "Configura la Supervisión de Meta",
-            "Cuenta Privada por Defecto",
-            "Filtro de Palabras Ocultas",
-            "Restricción de Etiquetas"
+            'Activa la supervisión de Meta',
+            'Mantén la cuenta privada',
+            'Usa filtro de palabras ocultas',
+            'Restringe etiquetas y menciones'
         ],
         details: {
-            fullContent: "Instagram para adolescentes incluye protecciones automáticas, pero la 'Supervisión' permite a los padres establecer límites de tiempo diarios y ver a quién sigue o quién sigue a su hijo. Las cuentas privadas son obligatorias para menores de 16 años en muchas regiones actuales.",
-            setupPath: "Configuración > Supervisión / Privacidad de la cuenta.",
-            expertTip: "Anima a tu hijo a usar el modo 'Mejores Amigos' para sus Stories. Esto crea un círculo más íntimo y reduce la presión social de publicar para una audiencia desconocida.",
-            riskAnalysis: "Protección contra 'Sextorsión' inicial, comparación social tóxica y acoso persistente a través de comentarios.",
-            officialLink: "https://about.instagram.com/es-la/community/parents"
+            fullContent: 'Instagram para adolescentes incorpora protecciones automáticas, pero la supervisión parental permite además revisar hábitos, tiempos y conexiones de la cuenta.',
+            setupPath: 'Configuración > Supervisión / Privacidad de la cuenta',
+            expertTip: "Anima a usar 'Mejores amigos' para stories si quiere compartir con un círculo más seguro.",
+            riskAnalysis: 'Ayuda a reducir riesgos de sextorsión inicial, comparación social tóxica y acoso.',
+            officialLink: 'https://about.instagram.com/es-la/community/parents'
         }
     },
     {
         id: 6,
-        platform: "YouTube",
-        title: "Cuentas Supervisadas",
-        description: "Navegación segura por el mayor catálogo de video.",
+        platform: 'YouTube',
+        title: 'Cuentas supervisadas',
+        description: 'Navegación más segura por el catálogo de video.',
         icon: <Youtube className="w-6 h-6 text-red-600" />,
-        color: "red",
+        color: 'red',
         steps: [
-            "Selección de Nivel de Contenido",
-            "Pausa del Historial de Búsqueda",
-            "Bloqueo Manual de Canales (Family Link)",
-            "Desactivación de Funciones Sociales"
+            'Selecciona nivel de contenido',
+            'Pausa historial si hace falta',
+            'Bloquea canales con Family Link',
+            'Desactiva funciones sociales cuando convenga'
         ],
         details: {
-            fullContent: "YouTube Kids es genial para niños pequeños, pero para pre-adolescents, la 'Experiencia Supervisada' en la app principal es mejor. Te permite elegir entre tres filtros de contenido basados en la madurez y desactiva automáticamente funciones como comentarios, compras y transmisiones en vivo.",
-            setupPath: "App Family Link > YouTube o Configuración de cuenta de Google.",
-            expertTip: "Configura un 'Recordatorio de descanso' cada 15 o 20 minutos. Esto ayuda a romper el ciclo de visualización compulsiva de 'Shorts'.",
-            riskAnalysis: "Reducción de exposición a desinformación, contenido violento y publicidad inapropiada.",
-            officialLink: "https://www.youtube.com/intl/es/myfamily/"
+            fullContent: 'Para preadolescentes, la experiencia supervisada en YouTube puede ser más útil que YouTube Kids, porque permite usar la app principal con filtros ajustados a la madurez del menor.',
+            setupPath: 'App Family Link > YouTube o configuración de cuenta de Google',
+            expertTip: 'Configura recordatorios de descanso para romper el ciclo de consumo compulsivo de shorts.',
+            riskAnalysis: 'Reduce exposición a desinformación, violencia y publicidad inapropiada.',
+            officialLink: 'https://www.youtube.com/intl/es/myfamily/'
         }
     },
     {
         id: 7,
-        platform: "Twitch",
-        title: "Seguridad de Stream",
-        description: "Prevención en las transmisiones en vivo y chats directos.",
+        platform: 'Twitch',
+        title: 'Seguridad de stream',
+        description: 'Prevención en transmisiones en vivo y chats directos.',
         icon: <Tv className="w-6 h-6 text-purple-700" />,
-        color: "purple",
+        color: 'purple',
         steps: [
-            "Bloqueo Global de Susurros",
-            "Filtros de Chat de Moderación Automática",
-            "Autenticación en Dos Pasos (2FA)",
-            "Gestión de Regalos de Sub"
+            'Bloquea susurros de desconocidos',
+            'Activa filtros de moderación automática',
+            'Usa autenticación en dos pasos',
+            'Revisa regalos, suscripciones y donaciones'
         ],
         details: {
-            fullContent: "En Twitch, el riesgo es la interacción en vivo y las donaciones monetarias. El modo de 'Chat Seguro' y el bloqueo de 'Susurros' (mensajes privados) de extraños son esenciales. Si el menor realiza streaming, la seguridad de la ubicación e identidad debe ser la prioridad absoluta.",
-            setupPath: "Configuración > Seguridad y Privacidad.",
-            expertTip: "Si tu hijo es espectador, asegúrate de que use el 'Chat Filtrado' para ocultar automáticamente insultos. Si hace streams, enséñale a nunca revelar su escuela, ciudad o mostrar su ventana por cámara.",
-            riskAnalysis: "Prevención de 'Doxxing' (revelación de datos privados), acoso en tiempo real y gastos no autorizados en donaciones.",
-            officialLink: "https://safety.twitch.tv/s/article/Guide-Parents-Educators?language=es"
+            fullContent: 'En Twitch, el riesgo está en la interacción en vivo, los mensajes privados y los gastos impulsivos. Si el menor hace streams, la protección de su identidad y ubicación es prioritaria.',
+            setupPath: 'Configuración > Seguridad y privacidad',
+            expertTip: 'Enséñale a no revelar escuela, ciudad ni detalles visuales de su entorno durante una transmisión.',
+            riskAnalysis: 'Ayuda a prevenir doxxing, acoso en tiempo real y gastos no autorizados.',
+            officialLink: 'https://safety.twitch.tv/s/article/Guide-Parents-Educators?language=es'
         }
     }
 ];

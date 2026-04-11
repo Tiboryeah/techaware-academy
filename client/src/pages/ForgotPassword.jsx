@@ -1,35 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, ArrowRight, ArrowLeft, Key, Lock, CheckCircle } from 'lucide-react';
+import { Mail, ArrowRight, ArrowLeft, Key, Lock, CheckCircle, Eye, EyeOff } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { ToastContext } from '../context/ToastContext';
-import { useContext } from 'react';
 import logo from '../assets/logo_v2.png';
 
 const ForgotPassword = () => {
     const navigate = useNavigate();
+    const { addToast } = useContext(ToastContext);
 
-    // Steps: 'request' (enter email) -> 'verify' (enter code & new pass) -> 'success'
     const [step, setStep] = useState('request');
-
-    // Form Data
     const [email, setEmail] = useState('');
     const [code, setCode] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-
-    // UI State
-    const { addToast } = useContext(ToastContext);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    // STEP 1: Send Code
     const handleRequestCode = async (e) => {
         e.preventDefault();
         setLoading(true);
 
         try {
-            await api.post('/api/auth/forgot-password', { email });
+            await api.post('/api/auth/forgot-password', { email: email.trim().toLowerCase() });
             addToast('Código enviado a tu correo', 'info');
             setStep('verify');
         } catch (err) {
@@ -39,7 +34,6 @@ const ForgotPassword = () => {
         }
     };
 
-    // STEP 2: Verify Code & Reset Password
     const handleResetPassword = async (e) => {
         e.preventDefault();
 
@@ -57,13 +51,12 @@ const ForgotPassword = () => {
 
         try {
             await api.post('/api/auth/reset-with-code', {
-                email,
-                code,
-                newPassword: password
+                email: email.trim().toLowerCase(),
+                code: code.trim(),
+                newPassword: password,
             });
             addToast('¡Contraseña restablecida correctamente!', 'success');
             setStep('success');
-            // Optional: Auto redirect after few seconds
             setTimeout(() => {
                 navigate('/login');
             }, 5000);
@@ -76,7 +69,6 @@ const ForgotPassword = () => {
 
     return (
         <div className="min-h-screen bg-[#fafafb] dark:bg-[#0a0c10] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-500">
-            {/* Background Orbs */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-500/5 dark:bg-indigo-500/10 rounded-full blur-[100px]" />
                 <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-500/5 dark:bg-purple-500/10 rounded-full blur-[100px]" />
@@ -87,7 +79,6 @@ const ForgotPassword = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 className="max-w-md w-full relative z-10"
             >
-                {/* Header */}
                 <div className="text-center mb-10">
                     <img src={logo} alt="Kuxipilli Logo" className="w-24 h-24 object-cover rounded-full mx-auto mb-4" />
                     <h1 className="text-3xl font-black text-gray-900 dark:text-white tracking-tighter">
@@ -101,12 +92,12 @@ const ForgotPassword = () => {
                 </div>
 
                 <div className="bg-white dark:bg-[#161b22] p-10 rounded-[2.5rem] shadow-2xl border border-gray-100 dark:border-gray-800 transition-colors">
-
-                    {/* STEP 1: REQUEST CODE */}
                     {step === 'request' && (
                         <form className="space-y-6" onSubmit={handleRequestCode}>
                             <div>
-                                <label className="block text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] mb-2 ml-1">Correo Electrónico</label>
+                                <label className="block text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] mb-2 ml-1">
+                                    Correo Electrónico
+                                </label>
                                 <div className="relative group">
                                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-indigo-600 transition-colors" />
                                     <input
@@ -116,11 +107,10 @@ const ForgotPassword = () => {
                                         placeholder="ejemplo@correo.com"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
+                                        onBlur={() => setEmail((prev) => prev.trim().toLowerCase())}
                                     />
                                 </div>
                             </div>
-
-                            {/* Error display removed for Toast */}
 
                             <button
                                 type="submit"
@@ -128,20 +118,17 @@ const ForgotPassword = () => {
                                 className="w-full flex items-center justify-center gap-3 py-5 bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs uppercase tracking-[0.2em] rounded-2xl shadow-xl shadow-indigo-600/20 transition-all transform active:scale-95 disabled:opacity-50"
                             >
                                 {loading ? 'Enviando...' : (
-                                    <>Enviar Código <ArrowRight className="w-4 h-4" /></>
+                                    <>
+                                        Enviar Código <ArrowRight className="w-4 h-4" />
+                                    </>
                                 )}
                             </button>
                         </form>
                     )}
 
-                    {/* STEP 2: VERIFY & RESET */}
                     {step === 'verify' && (
                         <form className="space-y-6" onSubmit={handleResetPassword}>
-                            <motion.div
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                className="space-y-4"
-                            >
+                            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-4">
                                 <div className="text-center mb-6">
                                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 rounded-full text-xs font-bold">
                                         <Mail className="w-3 h-3" /> Enviado a {email}
@@ -149,7 +136,9 @@ const ForgotPassword = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] mb-2 ml-1">Código de 6 Dígitos</label>
+                                    <label className="block text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] mb-2 ml-1">
+                                        Código de 6 Dígitos
+                                    </label>
                                     <div className="relative group">
                                         <Key className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-indigo-600 transition-colors" />
                                         <input
@@ -165,37 +154,55 @@ const ForgotPassword = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] mb-2 ml-1">Nueva Contraseña</label>
+                                    <label className="block text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] mb-2 ml-1">
+                                        Nueva Contraseña
+                                    </label>
                                     <div className="relative group">
                                         <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-indigo-600 transition-colors" />
                                         <input
-                                            type="password"
+                                            type={showPassword ? 'text' : 'password'}
                                             required
-                                            className="w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-[#0a0c10] border-2 border-gray-100 dark:border-gray-800 rounded-2xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:border-indigo-600 transition-all font-medium"
+                                            className="w-full pl-12 pr-14 py-4 bg-gray-50 dark:bg-[#0a0c10] border-2 border-gray-100 dark:border-gray-800 rounded-2xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:border-indigo-600 transition-all font-medium"
                                             placeholder="••••••••"
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
                                         />
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowPassword((prev) => !prev)}
+                                            className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                                            aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                                        >
+                                            {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                                        </button>
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label className="block text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] mb-2 ml-1">Confirmar Nueva</label>
+                                    <label className="block text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em] mb-2 ml-1">
+                                        Confirmar Nueva
+                                    </label>
                                     <div className="relative group">
                                         <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-indigo-600 transition-colors" />
                                         <input
-                                            type="password"
+                                            type={showConfirmPassword ? 'text' : 'password'}
                                             required
-                                            className="w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-[#0a0c10] border-2 border-gray-100 dark:border-gray-800 rounded-2xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:border-indigo-600 transition-all font-medium"
+                                            className="w-full pl-12 pr-14 py-4 bg-gray-50 dark:bg-[#0a0c10] border-2 border-gray-100 dark:border-gray-800 rounded-2xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:border-indigo-600 transition-all font-medium"
                                             placeholder="••••••••"
                                             value={confirmPassword}
                                             onChange={(e) => setConfirmPassword(e.target.value)}
                                         />
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowConfirmPassword((prev) => !prev)}
+                                            className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                                            aria-label={showConfirmPassword ? 'Ocultar confirmación de contraseña' : 'Mostrar confirmación de contraseña'}
+                                        >
+                                            {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                                        </button>
                                     </div>
                                 </div>
                             </motion.div>
-
-                            {/* Error display handled by Toast */}
 
                             <button
                                 type="submit"
@@ -203,19 +210,16 @@ const ForgotPassword = () => {
                                 className="w-full flex items-center justify-center gap-3 py-5 bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs uppercase tracking-[0.2em] rounded-2xl shadow-xl shadow-indigo-600/20 transition-all transform active:scale-95 disabled:opacity-50"
                             >
                                 {loading ? 'Verificando...' : (
-                                    <>Restablecer Contraseña <ArrowRight className="w-4 h-4" /></>
+                                    <>
+                                        Restablecer Contraseña <ArrowRight className="w-4 h-4" />
+                                    </>
                                 )}
                             </button>
                         </form>
                     )}
 
-                    {/* STEP 3: SUCCESS */}
                     {step === 'success' && (
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            className="text-center space-y-6"
-                        >
+                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center space-y-6">
                             <div className="w-20 h-20 bg-green-100 dark:bg-green-500/20 rounded-full flex items-center justify-center mx-auto">
                                 <CheckCircle className="w-10 h-10 text-green-600 dark:text-green-400" />
                             </div>
@@ -236,11 +240,17 @@ const ForgotPassword = () => {
 
                     <div className="mt-8 text-center border-t border-gray-100 dark:border-gray-800 pt-6">
                         {step === 'verify' ? (
-                            <button onClick={() => setStep('request')} className="inline-flex items-center gap-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 font-bold text-xs uppercase tracking-widest transition-colors">
+                            <button
+                                onClick={() => setStep('request')}
+                                className="inline-flex items-center gap-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 font-bold text-xs uppercase tracking-widest transition-colors"
+                            >
                                 <ArrowLeft className="w-4 h-4" /> Cambiar Correo
                             </button>
                         ) : (
-                            <Link to="/login" className="inline-flex items-center gap-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 font-bold text-xs uppercase tracking-widest transition-colors">
+                            <Link
+                                to="/login"
+                                className="inline-flex items-center gap-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 font-bold text-xs uppercase tracking-widest transition-colors"
+                            >
                                 <ArrowLeft className="w-4 h-4" /> Cancelar y Volver
                             </Link>
                         )}

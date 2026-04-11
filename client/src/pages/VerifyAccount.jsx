@@ -18,12 +18,15 @@ const VerifyAccount = () => {
     const [message, setMessage] = useState('');
     const [resendStatus, setResendStatus] = useState(''); // idle, loading, cooldown
     const [cooldown, setCooldown] = useState(0);
+    const normalizedEmail = email.trim().toLowerCase();
+    const normalizedCode = code.trim();
 
     const handleVerify = async (e) => {
         e.preventDefault();
         setStatus('loading');
+        setMessage('');
         try {
-            const response = await api.post('/api/auth/verify', { email, code });
+            const response = await api.post('/api/auth/verify', { email: normalizedEmail, code: normalizedCode });
             setStatus('success');
             setMessage(response.data.message || 'Cuenta verificada correctamente.');
         } catch (error) {
@@ -33,7 +36,7 @@ const VerifyAccount = () => {
     };
 
     const handleResend = async () => {
-        if (!email) {
+        if (!normalizedEmail) {
             setMessage('Por favor, ingresa tu correo para reenviar el código.');
             setStatus('error');
             return;
@@ -41,7 +44,7 @@ const VerifyAccount = () => {
 
         setResendStatus('loading');
         try {
-            await api.post('/api/auth/resend-verification', { email });
+            await api.post('/api/auth/resend-verification', { email: normalizedEmail });
             setMessage('Nuevo código enviado. Revisa tu bandeja de entrada.');
             setStatus('idle'); // Reset main error state to show success message
 
@@ -113,6 +116,7 @@ const VerifyAccount = () => {
                                         required
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
+                                        onBlur={() => setEmail((prev) => prev.trim().toLowerCase())}
                                         className="w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-[#0a0c10] border-2 border-gray-100 dark:border-gray-800 rounded-2xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:border-indigo-600 transition-all font-medium"
                                         placeholder="padre@ejemplo.com"
                                     />
@@ -142,7 +146,7 @@ const VerifyAccount = () => {
 
                             <button
                                 type="submit"
-                                disabled={status === 'loading' || code.length !== 6 || !email}
+                                disabled={status === 'loading' || normalizedCode.length !== 6 || !normalizedEmail}
                                 className="w-full py-5 bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs uppercase tracking-[0.2em] rounded-2xl shadow-xl shadow-indigo-600/20 transition-all active:scale-95 disabled:opacity-50 flex justify-center items-center gap-2"
                             >
                                 {status === 'loading' ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Verificar Código'}

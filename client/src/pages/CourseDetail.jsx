@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
 import api from '../services/api';
 import AuthContext from '../context/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -8,6 +8,7 @@ import { ChevronRight, CheckCircle, Lock, Play, FileText, Trophy, ShieldCheck, Z
 const CourseDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
+    const location = useLocation();
     const { user } = useContext(AuthContext);
     const [course, setCourse] = useState(null);
     const [progress, setProgress] = useState(null);
@@ -42,6 +43,19 @@ const CourseDetail = () => {
         window.addEventListener('focus', onFocus);
         return () => window.removeEventListener('focus', onFocus);
     }, [id]);
+
+    useEffect(() => {
+        if (!course || !location.state?.scrollToLessonId) return;
+
+        const timer = setTimeout(() => {
+            const lessonCard = document.getElementById(`lesson-card-${location.state.scrollToLessonId}`);
+            if (lessonCard) {
+                lessonCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }, 150);
+
+        return () => clearTimeout(timer);
+    }, [course, location.state]);
 
     if (loading) return (
         <div className="min-h-screen flex items-center justify-center bg-[#fafafb] dark:bg-[#0a0c10]">
@@ -174,7 +188,8 @@ const CourseDetail = () => {
                                                     <Link
                                                         key={lesson._id}
                                                         to={`/lessons/${lesson._id}`}
-                                                        state={{ courseId: course._id }}
+                                                        state={{ courseId: course._id, returnToLessonId: lesson._id }}
+                                                        id={`lesson-card-${lesson._id}`}
                                                         className={`flex items-center p-4 rounded-2xl transition-all border ${isLessonCompleted
                                                             ? 'bg-transparent border-green-500/10 hover:bg-green-500/5'
                                                             : 'bg-gray-50 dark:bg-[#0a0c10]/40 border-transparent hover:border-indigo-500/30'

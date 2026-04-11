@@ -4,6 +4,7 @@ const Module = require('../../models/Module');
 const Lesson = require('../../models/Lesson');
 const Quiz = require('../../models/Quiz');
 const Question = require('../../models/Question');
+const Resource = require('../../models/Resource');
 
 const syncAdminUser = async () => {
     let adminUser = await User.findOne({ email: 'admin@example.com' });
@@ -90,17 +91,32 @@ const getOrCreateQuiz = async (data, questionsData) => {
     return quiz;
 };
 
+const getOrCreateResource = async (data) => {
+    let resource = await Resource.findOne({ slug: data.slug });
+    if (!resource) {
+        resource = await Resource.create(data);
+        console.log(`(+) Resource Created: ${data.title}`);
+    } else {
+        Object.assign(resource, data);
+        await resource.save();
+        console.log(`(.) Resource Synced: ${data.title}`);
+    }
+    return resource;
+};
+
 module.exports = {
     syncAdminUser,
     getOrCreateCourse,
     getOrCreateModule,
     getOrCreateLesson,
     getOrCreateQuiz,
+    getOrCreateResource,
     models: {
         Course,
         Module,
         Lesson,
         Quiz,
         Question,
+        Resource,
     },
 };

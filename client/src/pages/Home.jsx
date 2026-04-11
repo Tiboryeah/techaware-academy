@@ -1,437 +1,298 @@
-import React, { useState, useEffect, useContext } from 'react';
+﻿import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import {
+  Shield,
+  Lock,
+  ArrowRight,
+  Play,
+  BookOpen,
+  Clock,
+  CheckCircle,
+  Youtube,
+  ShieldCheck,
+  MessageSquare,
+  Search,
+  Target,
+  BarChart3
+} from 'lucide-react';
 import AuthContext from '../context/AuthContext';
 import api from '../services/api';
 import { API_BASE_URL } from '../constants';
-import { motion } from 'framer-motion';
-import {
-    Shield,
-    Lock,
-    Eye,
-    ArrowRight,
-    Play,
-    BookOpen,
-    Clock,
-    CheckCircle,
-    Youtube,
-    Users,
-    Award,
-    Zap,
-    Target,
-    BarChart3,
-    ShieldCheck,
-    MessageSquare,
-    Search
-} from 'lucide-react';
 
 const Home = () => {
-    const { user } = useContext(AuthContext);
-    const [progress, setProgress] = useState({ completed: 0, total: 0 });
-    const [nextItem, setNextItem] = useState(null);
-    const [loadingNext, setLoadingNext] = useState(true);
+  const { user } = useContext(AuthContext);
+  const [progress, setProgress] = useState({ completed: 0, total: 0 });
+  const [nextItem, setNextItem] = useState(null);
+  const [loadingNext, setLoadingNext] = useState(true);
+  const [roadmapCourses, setRoadmapCourses] = useState([]);
 
-    useEffect(() => {
-        if (user) {
-            api.get('/api/progress/summary/all')
-                .then(res => {
-                    if (res.data) {
-                        const { completedLessons, totalLessons, percentage } = res.data;
-                        setProgress({ completed: completedLessons || 0, total: totalLessons || 0 });
-                    }
-                })
-                .catch(err => console.error("Error fetching progress:", err));
-
-            api.get('/api/progress/next-step')
-                .then(res => {
-                    setNextItem(res.data);
-                })
-                .catch(err => console.error("Error fetching next item:", err))
-                .finally(() => setLoadingNext(false));
-        } else {
-            setLoadingNext(false);
-        }
-    }, [user]);
-
-    const percentage = progress.total > 0 ? Math.round((progress.completed / progress.total) * 100) : 0;
-
-    // Authenticated Home View
-    if (user) {
-        let continueLink = "/modules";
-        let continueLabel = "Continuar Aprendiendo";
-        let subText = "";
-
-        if (loadingNext) {
-            continueLabel = "Cargando...";
-        } else if (nextItem) {
-            if (nextItem.type === 'lesson') {
-                continueLink = `/lessons/${nextItem.id}`;
-                continueLabel = `Continuar Lección`;
-                subText = nextItem.title;
-            } else if (nextItem.type === 'quiz') {
-                continueLink = `/quiz/${nextItem.id}`;
-                continueLabel = `Presentar Examen`;
-                subText = nextItem.title;
-            } else if (nextItem.type === 'complete') {
-                continueLabel = "¡Curso Completado!";
-            }
-        }
-
-        return (
-            <div className="min-h-screen bg-[#fafafb] dark:bg-[#0a0c10] transition-colors duration-500">
-                <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8 space-y-20">
-                    {/* Hero / Progress Section */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.98, y: 10 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        className="relative bg-white dark:bg-[#161b22] rounded-[3.5rem] p-12 shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-800 transition-all group"
-                    >
-                        <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-500/5 dark:bg-indigo-500/10 blur-[100px] -mr-40 -mt-40 transition-all group-hover:bg-indigo-500/15" />
-                        <div className="relative z-10 flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
-                            {/* Pro Avatar */}
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.5 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                className="flex-shrink-0 relative group"
-                            >
-                                <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500 to-purple-500 blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-500 rounded-full" />
-                                <div className="relative w-32 h-32 lg:w-40 lg:h-40 rounded-[2.5rem] rotate-3 group-hover:rotate-0 transition-all duration-500 border-[6px] border-white dark:border-[#0a0c10] shadow-2xl overflow-hidden bg-white dark:bg-gray-800">
-                                    {user.avatar ? (
-                                        <img
-                                            src={(user.avatar.startsWith('http') || user.avatar.startsWith('data:')) ? user.avatar : `${API_BASE_URL}${user.avatar}`}
-                                            alt="Profile"
-                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                        />
-                                    ) : (
-                                        <div className="w-full h-full flex items-center justify-center bg-indigo-50 dark:bg-indigo-900/50 text-5xl font-black text-indigo-500 dark:text-indigo-300 uppercase">
-                                            {user.name?.charAt(0)}
-                                        </div>
-                                    )}
-                                </div>
-                                <div className="absolute -bottom-2 -right-2 bg-white dark:bg-[#0a0c10] p-1.5 rounded-full">
-                                    <div className="w-6 h-6 bg-green-500 rounded-full animate-pulse ring-4 ring-green-500/30" />
-                                </div>
-                            </motion.div>
-
-                            <div className="flex-grow space-y-8 text-center lg:text-left">
-                                <div className="space-y-4">
-                                    <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-indigo-50 dark:bg-indigo-500/10 rounded-full text-[10px] font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-500/20">
-                                        <ShieldCheck className="w-3 h-3" /> Estado de Grado Académico
-                                    </div>
-                                    <h2 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white leading-tight tracking-tighter">
-                                        Bienvenido, {user?.name ? user.name.split(' ')[0] : 'Guardián'}<br />
-                                        <span className="text-indigo-600 dark:text-indigo-400 uppercase text-xs tracking-[0.4em] font-black opacity-60">Seguimiento de Metas Académicas</span>
-                                    </h2>
-                                </div>
-                                <div className="space-y-4 max-w-xl mx-auto lg:mx-0">
-                                    <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-gray-400">
-                                        <span>Indice de Protección</span>
-                                        <span className="text-indigo-600 dark:text-indigo-400">{percentage}%</span>
-                                    </div>
-                                    <div className="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-5 p-1 border border-gray-200 dark:border-gray-700">
-                                        <motion.div
-                                            initial={{ width: 0 }}
-                                            animate={{ width: `${percentage}%` }}
-                                            transition={{ duration: 1.5, ease: "circOut" }}
-                                            className="bg-indigo-600 h-full rounded-full shadow-[0_0_15px_rgba(79,70,229,0.4)]"
-                                        />
-                                    </div>
-                                    <p className="text-gray-500 dark:text-gray-400 text-sm flex items-center justify-center lg:justify-start gap-3 italic">
-                                        <CheckCircle className="w-5 h-5 text-green-500" />
-                                        Progreso: <span className="font-bold text-gray-900 dark:text-white">{progress.completed}</span> de {progress.total} lecciones dominadas.
-                                    </p>
-                                </div>
-                            </div>
-                            <div className="flex-shrink-0 flex-1 max-w-full lg:max-w-xs xl:max-w-sm w-full lg:w-auto mt-4 lg:mt-0 flex flex-col items-center lg:items-end gap-3">
-                                <Link
-                                    to={continueLink}
-                                    title={subText || continueLabel}
-                                    className="px-6 lg:px-8 py-5 bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs uppercase tracking-[0.2em] rounded-[2rem] shadow-2xl shadow-indigo-600/30 transition-all flex items-center justify-between lg:justify-center gap-4 active:scale-95 group w-full"
-                                >
-                                    <Play className="w-5 h-5 flex-shrink-0 fill-current group-hover:rotate-12 transition-transform" />
-                                    <span className="flex-grow text-center">{continueLabel}</span>
-                                    <ArrowRight className="w-5 h-5 flex-shrink-0 group-hover:translate-x-2 transition-transform" />
-                                </Link>
-                                {subText && (
-                                    <div className="text-[10px] sm:text-xs font-bold text-gray-500 dark:text-gray-400 text-center lg:text-right w-full px-2 line-clamp-2 leading-tight flex flex-col items-center lg:items-end">
-                                        <span className="text-indigo-500 uppercase tracking-widest text-[9px] block mb-0.5">Siguiente Destino:</span>
-                                        {subText}
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    </motion.div>
-
-                    {/* Academic Roadmap */}
-                    <div className="space-y-10">
-                        <div className="flex items-center gap-4">
-                            <div className="h-1 w-12 bg-indigo-600 rounded-full" />
-                            <h2 className="text-3xl font-black text-gray-900 dark:text-white uppercase tracking-tighter">Mapa de Formación Académica</h2>
-                        </div>
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                            {[
-                                { status: percentage >= 33 ? 'Completado' : 'En Progreso', title: "Eje I: Redes Sociales y Conectividad", desc: "Análisis de riesgos en plataformas como TikTok, Instagram y WhatsApp.", modules: 4 },
-                                { status: percentage >= 66 ? 'Completado' : 'Pendiente', title: "Eje II: Videojuegos y Metaveros", desc: "Seguridad técnica en Roblox, Fortnite y comunidades de gaming.", modules: 5 },
-                                { status: percentage >= 100 ? 'Completado' : 'Bloqueado', title: "Eje III: Ciberseguridad Avanzada", desc: "Protocolos de respuesta ante incidentes y protección de datos sensibles.", modules: 3 }
-                            ].map((eje, idx) => (
-                                <div key={idx} className="flex gap-6 p-8 bg-white dark:bg-[#161b22] rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-xl group hover:border-indigo-500/30 transition-all">
-                                    <div className={`flex-shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xl shadow-lg ${eje.status === 'Completado' ? 'bg-green-500 text-white' : 'bg-gray-100 dark:bg-gray-800 text-gray-400 group-hover:text-indigo-500'}`}>
-                                        {idx + 1}
-                                    </div>
-                                    <div className="space-y-2">
-                                        <div className="flex items-center gap-3">
-                                            <h3 className="text-xl font-black text-gray-900 dark:text-white leading-tight">{eje.title}</h3>
-                                            <span className={`text-[8px] font-black uppercase tracking-widest px-2 py-1 rounded-full border ${eje.status === 'Completado' ? 'bg-green-500/10 text-green-600 border-green-500/20' : 'bg-gray-500/10 text-gray-500 border-gray-500/20'}`}>
-                                                {eje.status}
-                                            </span>
-                                        </div>
-                                        <p className="text-sm text-gray-500 dark:text-gray-400 font-medium italic">{eje.desc}</p>
-                                        <div className="pt-4 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-indigo-500 opacity-60">
-                                            <ShieldCheck className="w-3 h-3" /> {eje.modules} Módulos Validados
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Quick Access Section */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {[
-                            { icon: <BarChart3 className="text-blue-500" />, title: "Mi Panel", desc: "Ver estadísticas detalladas de seguridad.", link: "/dashboard" },
-                            { icon: <Target className="text-purple-500" />, title: "Explorar Cursos", desc: "Aprende nuevas técnicas de protección.", link: "/modules" },
-                            { icon: <ShieldCheck className="text-indigo-500" />, title: "Casos Reales", desc: "Analiza incidentes cibernéticos verídicos.", link: "/cases" }
-                        ].map((card, i) => (
-                            <Link key={i} to={card.link}>
-                                <motion.div
-                                    whileHover={{ y: -5 }}
-                                    className="p-8 bg-white dark:bg-[#161b22] rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-xl hover:border-indigo-500/20 transition-all flex flex-col gap-4"
-                                >
-                                    <div className="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center">
-                                        {card.icon}
-                                    </div>
-                                    <h3 className="text-lg font-black text-gray-900 dark:text-white uppercase tracking-tight">{card.title}</h3>
-                                    <p className="text-sm text-gray-500 dark:text-gray-400 italic">{card.desc}</p>
-                                </motion.div>
-                            </Link>
-                        ))}
-                    </div>
-
-                    {/* Multimedia Section */}
-                    <div className="space-y-12">
-                        <div className="flex items-center gap-4">
-                            <div className="h-1 w-12 bg-indigo-600 rounded-full" />
-                            <h2 className="text-3xl font-black text-gray-900 dark:text-white uppercase tracking-tighter">Educación Multimedia</h2>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-                            {[
-                                { id: '4-V7vXkHkf0', title: 'Cómo ACTIVAR los CONTROLES PARENTALES en Roblox (2025)', channel: 'Resuelve En Un Click', time: '3min' },
-                                { id: '6NB8NAFwis4', title: '¡Cuida tus hijos de internet! - MICROSOFT FAMILY SAFETY-', channel: 'Entorno Simple', time: '4 min' },
-                                { id: 'tuoHAYJdetw', title: '¿Cómo CONFIGURAR YouTube PARA NIÑOS?', channel: 'Cómo hacer', time: '5 min' }
-                            ].map((video, idx) => (
-                                <motion.div
-                                    key={idx}
-                                    initial={{ opacity: 0, scale: 0.95 }}
-                                    whileInView={{ opacity: 1, scale: 1 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: 0.1 * idx }}
-                                    className="group bg-white dark:bg-[#161b22] rounded-[3rem] overflow-hidden border border-gray-100 dark:border-gray-800 shadow-2xl transition-all hover:border-indigo-500/30"
-                                >
-                                    <div className="relative aspect-video">
-                                        <iframe
-                                            className="w-full h-full object-cover"
-                                            src={`https://www.youtube.com/embed/${video.id}`}
-                                            title={video.title}
-                                            frameBorder="0"
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                            allowFullScreen
-                                        ></iframe>
-                                        <div className="absolute top-4 left-4 flex gap-2">
-                                            <div className="bg-indigo-600 px-3 py-1 rounded-full text-[8px] font-black text-white uppercase tracking-widest shadow-lg">Featured</div>
-                                        </div>
-                                        <div className="absolute bottom-4 right-4 bg-black/80 backdrop-blur-md px-3 py-1.5 rounded-xl text-[10px] font-black text-white flex items-center gap-2 border border-white/10">
-                                            <Clock className="w-3 h-3 text-indigo-400" /> {video.time}
-                                        </div>
-                                    </div>
-                                    <div className="p-8 space-y-4">
-                                        <h3 className="text-xl font-bold text-gray-900 dark:text-white leading-tight min-h-[3rem] group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{video.title}</h3>
-                                        <div className="flex items-center gap-3 text-[10px] text-gray-500 dark:text-gray-400 font-black uppercase tracking-widest border-t border-gray-100 dark:border-gray-800 pt-6">
-                                            <div className="p-2 bg-red-500/10 text-red-500 rounded-lg">
-                                                <Youtube className="w-4 h-4" />
-                                            </div>
-                                            {video.channel}
-                                        </div>
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
+  useEffect(() => {
+    if (!user) {
+      setLoadingNext(false);
+      setRoadmapCourses([]);
+      return;
     }
 
-    // Unauthenticated Landing Page
+    api.get('/api/progress/summary/all')
+      .then((res) => {
+        const { completedLessons, totalLessons } = res.data || {};
+        setProgress({ completed: completedLessons || 0, total: totalLessons || 0 });
+      })
+      .catch((err) => console.error('Error fetching progress:', err));
+
+    api.get('/api/progress/next-step')
+      .then((res) => setNextItem(res.data))
+      .catch((err) => console.error('Error fetching next item:', err))
+      .finally(() => setLoadingNext(false));
+
+    api.get('/api/content/courses')
+      .then(async (res) => {
+        const courses = Array.isArray(res.data) ? res.data : [];
+        const roadmapData = await Promise.all(
+          courses.map(async (course) => {
+            try {
+              const [detailsRes, progressRes] = await Promise.all([
+                api.get(`/api/content/courses/${course._id}`),
+                api.get(`/api/progress/course/${course._id}`)
+              ]);
+
+              const modules = Array.isArray(detailsRes.data?.modules) ? detailsRes.data.modules.length : 0;
+              const completedLessons = Array.isArray(progressRes.data?.completedLessons) ? progressRes.data.completedLessons.length : 0;
+              const completedModules = Array.isArray(progressRes.data?.completedModules) ? progressRes.data.completedModules.length : 0;
+
+              let status = 'Pendiente';
+              if (progressRes.data?.isCourseCompleted) status = 'Completado';
+              else if (completedLessons > 0 || completedModules > 0) status = 'En progreso';
+
+              return {
+                id: course._id,
+                title: course.title,
+                desc: course.description,
+                modules,
+                status
+              };
+            } catch (error) {
+              console.error(`Error fetching roadmap data for ${course._id}:`, error);
+              return {
+                id: course._id,
+                title: course.title,
+                desc: course.description,
+                modules: 0,
+                status: 'Pendiente'
+              };
+            }
+          })
+        );
+        setRoadmapCourses(roadmapData);
+      })
+      .catch((err) => {
+        console.error('Error fetching roadmap courses:', err);
+        setRoadmapCourses([]);
+      });
+  }, [user]);
+
+  const percentage = progress.total > 0 ? Math.round((progress.completed / progress.total) * 100) : 0;
+
+  if (user) {
+    let continueLink = '/modules';
+    let continueLabel = 'Continuar Aprendiendo';
+    let subText = '';
+
+    if (loadingNext) {
+      continueLabel = 'Cargando...';
+    } else if (nextItem) {
+      if (nextItem.type === 'lesson') {
+        continueLink = `/lessons/${nextItem.id}`;
+        continueLabel = 'Continuar Lección';
+        subText = nextItem.title;
+      } else if (nextItem.type === 'quiz') {
+        continueLink = `/quiz/${nextItem.id}`;
+        continueLabel = 'Presentar Examen';
+        subText = nextItem.title;
+      } else if (nextItem.type === 'complete') {
+        continueLabel = '¡Curso Completado!';
+      }
+    }
+
     return (
-        <div className="relative min-h-screen overflow-hidden bg-[#fafafb] dark:bg-[#0a0c10] transition-colors duration-500 pb-32">
-            {/* Ambient Lighting FX */}
-            <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
-                <div className="absolute top-[-20%] left-[-10%] w-[80%] h-[80%] bg-indigo-500/5 dark:bg-indigo-500/10 rounded-full blur-[150px] opacity-50" />
-                <div className="absolute bottom-[-20%] right-[-10%] w-[80%] h-[80%] bg-purple-500/5 dark:bg-purple-500/10 rounded-full blur-[150px] opacity-50" />
+      <div className="min-h-screen bg-[#fafafb] dark:bg-[#0a0c10] transition-colors duration-500">
+        <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8 space-y-16">
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-white dark:bg-[#161b22] rounded-[3rem] p-10 shadow-2xl border border-gray-100 dark:border-gray-800">
+            <div className="flex flex-col lg:flex-row items-center gap-8">
+              <div className="relative w-32 h-32 rounded-[2rem] overflow-hidden border-[6px] border-white dark:border-[#0a0c10] shadow-2xl bg-white dark:bg-gray-800 shrink-0">
+                {user.avatar ? (
+                  <img src={(user.avatar.startsWith('http') || user.avatar.startsWith('data:')) ? user.avatar : `${API_BASE_URL}${user.avatar}`} alt="Profile" className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-indigo-50 dark:bg-indigo-900/50 text-5xl font-black text-indigo-500 dark:text-indigo-300 uppercase">
+                    {user.name?.charAt(0)}
+                  </div>
+                )}
+              </div>
+
+              <div className="flex-grow space-y-5 text-center lg:text-left">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-indigo-50 dark:bg-indigo-500/10 rounded-full text-[10px] font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-500/20">
+                  <ShieldCheck className="w-3 h-3" /> Estado de avance
+                </div>
+                <h2 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white leading-tight tracking-tighter">
+                  Bienvenido, {user?.name ? user.name.split(' ')[0] : 'Guardián'}
+                </h2>
+                <div className="space-y-3 max-w-xl mx-auto lg:mx-0">
+                  <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-gray-400">
+                    <span>Índice de progreso</span>
+                    <span className="text-indigo-600 dark:text-indigo-400">{percentage}%</span>
+                  </div>
+                  <div className="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-5 p-1 border border-gray-200 dark:border-gray-700">
+                    <motion.div initial={{ width: 0 }} animate={{ width: `${percentage}%` }} transition={{ duration: 1.2, ease: 'circOut' }} className="bg-indigo-600 h-full rounded-full" />
+                  </div>
+                  <p className="text-gray-500 dark:text-gray-400 text-sm flex items-center justify-center lg:justify-start gap-3 italic">
+                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    Progreso: <span className="font-bold text-gray-900 dark:text-white">{progress.completed}</span> de {progress.total} lecciones dominadas.
+                  </p>
+                </div>
+              </div>
+
+              <div className="w-full lg:w-auto lg:max-w-xs flex flex-col gap-3">
+                <Link to={continueLink} title={subText || continueLabel} className="px-6 py-5 bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs uppercase tracking-[0.2em] rounded-[2rem] shadow-2xl shadow-indigo-600/30 transition-all flex items-center justify-between gap-4 active:scale-95 group w-full">
+                  <Play className="w-5 h-5 flex-shrink-0 fill-current group-hover:rotate-12 transition-transform" />
+                  <span className="flex-grow text-center">{continueLabel}</span>
+                  <ArrowRight className="w-5 h-5 flex-shrink-0 group-hover:translate-x-2 transition-transform" />
+                </Link>
+                {subText && (
+                  <div className="text-[10px] sm:text-xs font-bold text-gray-500 dark:text-gray-400 text-center lg:text-right w-full px-2 line-clamp-2 leading-tight">
+                    <span className="text-indigo-500 uppercase tracking-widest text-[9px] block mb-0.5">Siguiente destino:</span>
+                    {subText}
+                  </div>
+                )}
+              </div>
             </div>
+          </motion.div>
 
-            {/* Hero Section */}
-            <div className="relative z-10 max-w-7xl mx-auto px-4 pt-32 sm:px-6 lg:px-8">
-                <div className="text-center space-y-12">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="inline-flex items-center gap-3 px-8 py-2.5 rounded-full bg-indigo-500/5 dark:bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 font-black text-[10px] tracking-[0.3em] uppercase shadow-lg shadow-indigo-500/5"
-                    >
-                        <ShieldCheck className="w-4 h-4" /> Inteligencia Digital para Familias
-                    </motion.div>
-
-                    <div className="space-y-6">
-                        <motion.h1
-                            initial={{ opacity: 0, y: 40 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, ease: "circOut" }}
-                            className="text-7xl md:text-[10rem] font-black tracking-tighter text-gray-900 dark:text-white leading-[0.75]"
-                        >
-                            Kuxi<br />
-                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-800 via-indigo-600 to-indigo-400 dark:from-indigo-600 dark:via-indigo-400 dark:to-indigo-200">
-                                pilli
-                            </span>
-                        </motion.h1>
-
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.4 }}
-                            className="mt-12 max-w-2xl mx-auto text-xl text-gray-600 dark:text-gray-400 leading-relaxed italic font-medium"
-                        >
-                            La primera plataforma profesional diseñada para convertir a padres y educadores en expertos en ciberseguridad infantil.
-                        </motion.p>
-                    </div>
-
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.6 }}
-                        className="mt-16 flex flex-col sm:flex-row justify-center gap-8"
-                    >
-                        <Link to="/register" className="px-16 py-6 bg-indigo-600 text-white font-black text-xs uppercase tracking-[0.2em] rounded-[2rem] shadow-[0_20px_50px_rgba(79,70,229,0.3)] hover:bg-indigo-700 hover:-translate-y-2 transition-all active:scale-95">
-                            Comenzar Ahora
-                        </Link>
-                        <Link to="/modules" className="px-16 py-6 bg-white dark:bg-[#161b22] text-gray-900 dark:text-white font-black text-xs uppercase tracking-[0.2em] rounded-[2rem] border border-gray-100 dark:border-gray-800 shadow-xl hover:-translate-y-2 transition-all active:scale-95">
-                            Ver Programas
-                        </Link>
-                    </motion.div>
-                </div>
-
-                {/* Trust Stats Bar */}
-                <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="mt-40 grid grid-cols-2 lg:grid-cols-4 gap-8 py-16 px-12 bg-white/50 dark:bg-[#161b22]/50 backdrop-blur-xl rounded-[4rem] border border-white/20 dark:border-gray-800 shadow-2xl"
-                >
-                    {[
-                        { label: "Módulos de Formación", val: "3", icon: <BookOpen className="w-5 h-5" /> },
-                        { label: "Lecciones Teóricas", val: "34", icon: <ShieldCheck className="w-5 h-5" /> },
-                        { label: "Casos de Estudio", val: "3", icon: <Search className="w-5 h-5" /> },
-                        { label: "Privacidad de Datos", val: "SSL/TLS", icon: <Lock className="w-5 h-5" /> }
-                    ].map((stat, i) => (
-                        <div key={i} className="text-center space-y-2 group">
-                            <div className="mx-auto w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-600 transition-transform group-hover:scale-110">
-                                {stat.icon}
-                            </div>
-                            <div className="text-3xl font-black text-gray-900 dark:text-white tabular-nums tracking-tighter">{stat.val}</div>
-                            <div className="text-[10px] font-black uppercase tracking-widest text-gray-400">{stat.label}</div>
-                        </div>
-                    ))}
-                </motion.div>
-
-                {/* Main Pillars */}
-                <div className="mt-40 space-y-24">
-                    <div className="text-center space-y-4">
-                        <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-indigo-500">Metodología Kuxipilli</h2>
-                        <h3 className="text-5xl font-black text-gray-900 dark:text-white tracking-tighter uppercase">Los tres pilares del blindaje digital</h3>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-                        {[
-                            {
-                                icon: <Play className="w-10 h-10 text-indigo-500" />,
-                                title: 'Educación Proactiva',
-                                desc: 'Entrenamiento basado en escenarios reales para anticipar riesgos antes de que ocurran.',
-                                accent: "border-indigo-500/20"
-                            },
-                            {
-                                icon: <BarChart3 className="w-10 h-10 text-purple-500" />,
-                                title: 'Análisis de Riesgo',
-                                desc: 'Herramientas de diagnóstico avanzadas para entender el nivel de exposición de tus hijos.',
-                                accent: "border-purple-500/20"
-                            },
-                            {
-                                icon: <ShieldCheck className="w-10 h-10 text-cyan-500" />,
-                                title: 'Acción Inmediata',
-                                desc: 'Guías paso a paso para configurar dispositivos y responder ante incidentes digitales.',
-                                accent: "border-cyan-500/20"
-                            }
-                        ].map((feature, i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, y: 60 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: (i * 0.1) }}
-                                className={`bg-white dark:bg-[#161b22] p-12 rounded-[3.5rem] shadow-2xl border ${feature.accent} group hover:-translate-y-4 transition-all duration-500`}
-                            >
-                                <div className="mb-10 p-6 bg-gray-50 dark:bg-gray-800 w-fit rounded-[2rem] group-hover:bg-indigo-500 group-hover:text-white transition-all duration-500 shadow-xl group-hover:rotate-6">
-                                    {feature.icon}
-                                </div>
-                                <h3 className="text-2xl font-black text-gray-900 dark:text-white mb-6 uppercase tracking-tight">{feature.title}</h3>
-                                <p className="text-gray-500 dark:text-gray-400 text-lg leading-relaxed italic font-medium">{feature.desc}</p>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Final Call to Action */}
-                <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="mt-40 p-20 bg-gradient-to-br from-indigo-700 to-indigo-900 rounded-[5rem] text-center text-white space-y-10 shadow-[0_50px_100px_-20px_rgba(79,70,229,0.5)] relative overflow-hidden group"
-                >
-                    <div className="absolute top-0 right-0 p-20 opacity-10 group-hover:scale-125 transition-transform duration-[2s]">
-                        <Shield className="w-96 h-96 rotate-12" />
-                    </div>
-                    <div className="mx-auto w-24 h-24 bg-white/10 rounded-[2rem] flex items-center justify-center backdrop-blur-xl border border-white/20">
-                        <MessageSquare className="w-10 h-10" />
-                    </div>
-                    <div className="space-y-6 max-w-2xl mx-auto relative z-10">
-                        <h2 className="text-5xl font-black tracking-tighter leading-none">¿Líder en seguridad familiar?</h2>
-                        <p className="text-indigo-100/70 text-xl italic font-medium">Únete a la comunidad de padres proactivos y comienza a proteger el futuro hoy mismo.</p>
-                    </div>
-                    <div className="flex flex-col sm:flex-row justify-center gap-6 relative z-10">
-                        <Link to="/register" className="px-16 py-6 bg-white text-indigo-700 font-black text-xs uppercase tracking-[0.2em] rounded-[2rem] hover:scale-105 transition-all shadow-2xl active:scale-95">
-                            Obtener Acceso
-                        </Link>
-                    </div>
-                </motion.div>
-
-                {/* Small Footer Signature */}
-                <div className="mt-24 pt-12 border-t border-gray-100 dark:border-gray-800 flex flex-col md:flex-row justify-between items-center gap-8 opacity-50">
-                    <div className="flex items-center gap-2">
-                        <ShieldCheck className="w-5 h-5 text-indigo-600" />
-                        <span className="text-[10px] font-black uppercase tracking-widest text-gray-600 dark:text-gray-400">Kuxipilli Systems v2.4</span>
-                    </div>
-                    <div className="text-[10px] font-black uppercase tracking-widest text-gray-600 dark:text-gray-400">Educating for an open and safe web.</div>
-                </div>
+          <div className="space-y-10">
+            <div className="flex items-center gap-4">
+              <div className="h-1 w-12 bg-indigo-600 rounded-full" />
+              <h2 className="text-3xl font-black text-gray-900 dark:text-white uppercase tracking-tighter">Mapa de Formación Académica</h2>
             </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {roadmapCourses.map((course, idx) => (
+                <div key={course.id || idx} className="flex gap-6 p-8 bg-white dark:bg-[#161b22] rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-xl group hover:border-indigo-500/30 transition-all">
+                  <div className={`flex-shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xl shadow-lg ${course.status === 'Completado' ? 'bg-green-500 text-white' : course.status === 'En progreso' ? 'bg-indigo-500 text-white' : 'bg-gray-100 dark:bg-gray-800 text-gray-400 group-hover:text-indigo-500'}`}>
+                    {idx + 1}
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-3">
+                      <h3 className="text-xl font-black text-gray-900 dark:text-white leading-tight">{course.title}</h3>
+                      <span className={`text-[8px] font-black uppercase tracking-widest px-2 py-1 rounded-full border ${course.status === 'Completado' ? 'bg-green-500/10 text-green-600 border-green-500/20' : course.status === 'En progreso' ? 'bg-indigo-500/10 text-indigo-600 border-indigo-500/20' : 'bg-gray-500/10 text-gray-500 border-gray-500/20'}`}>
+                        {course.status}
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 font-medium italic">{course.desc}</p>
+                    <div className="pt-4 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-indigo-500 opacity-60">
+                      <ShieldCheck className="w-3 h-3" /> {course.modules} {course.modules === 1 ? 'Módulo' : 'Módulos'}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { icon: <BarChart3 className="text-blue-500" />, title: 'Mi Panel', desc: 'Ver estadísticas detalladas de seguridad.', link: '/dashboard' },
+              { icon: <Target className="text-purple-500" />, title: 'Explorar Cursos', desc: 'Aprende nuevas técnicas de protección.', link: '/modules' },
+              { icon: <ShieldCheck className="text-indigo-500" />, title: 'Casos Reales', desc: 'Analiza incidentes cibernéticos verídicos.', link: '/cases' }
+            ].map((card, i) => (
+              <Link key={i} to={card.link}>
+                <motion.div whileHover={{ y: -5 }} className="p-8 bg-white dark:bg-[#161b22] rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-xl hover:border-indigo-500/20 transition-all flex flex-col gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center">{card.icon}</div>
+                  <h3 className="text-lg font-black text-gray-900 dark:text-white uppercase tracking-tight">{card.title}</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 italic">{card.desc}</p>
+                </motion.div>
+              </Link>
+            ))}
+          </div>
+
+          <div className="space-y-12">
+            <div className="flex items-center gap-4">
+              <div className="h-1 w-12 bg-indigo-600 rounded-full" />
+              <h2 className="text-3xl font-black text-gray-900 dark:text-white uppercase tracking-tighter">Educación Multimedia</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+              {[
+                { id: '4-V7vXkHkf0', title: 'Cómo activar los controles parentales en Roblox', channel: 'Resuelve En Un Click', time: '3 min' },
+                { id: '6NB8NAFwis4', title: 'Cómo usar Microsoft Family Safety', channel: 'Entorno Simple', time: '4 min' },
+                { id: 'tuoHAYJdetw', title: 'Cómo configurar YouTube para niños', channel: 'Cómo hacer', time: '5 min' }
+              ].map((video, idx) => (
+                <motion.div key={idx} initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.1 * idx }} className="group bg-white dark:bg-[#161b22] rounded-[3rem] overflow-hidden border border-gray-100 dark:border-gray-800 shadow-2xl transition-all hover:border-indigo-500/30">
+                  <div className="relative aspect-video">
+                    <iframe className="w-full h-full object-cover" src={`https://www.youtube.com/embed/${video.id}`} title={video.title} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+                    <div className="absolute bottom-4 right-4 bg-black/80 backdrop-blur-md px-3 py-1.5 rounded-xl text-[10px] font-black text-white flex items-center gap-2 border border-white/10">
+                      <Clock className="w-3 h-3 text-indigo-400" /> {video.time}
+                    </div>
+                  </div>
+                  <div className="p-8 space-y-4">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white leading-tight min-h-[3rem] group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{video.title}</h3>
+                    <div className="flex items-center gap-3 text-[10px] text-gray-500 dark:text-gray-400 font-black uppercase tracking-widest border-t border-gray-100 dark:border-gray-800 pt-6">
+                      <div className="p-2 bg-red-500/10 text-red-500 rounded-lg"><Youtube className="w-4 h-4" /></div>
+                      {video.channel}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
+      </div>
     );
+  }
+
+  return (
+    <div className="relative min-h-screen overflow-hidden bg-[#fafafb] dark:bg-[#0a0c10] transition-colors duration-500 pb-32">
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+        <div className="absolute top-[-20%] left-[-10%] w-[80%] h-[80%] bg-indigo-500/5 dark:bg-indigo-500/10 rounded-full blur-[150px] opacity-50" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[80%] h-[80%] bg-purple-500/5 dark:bg-purple-500/10 rounded-full blur-[150px] opacity-50" />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 pt-32 sm:px-6 lg:px-8">
+        <div className="text-center space-y-12">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-3 px-8 py-2.5 rounded-full bg-indigo-500/5 dark:bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 font-black text-[10px] tracking-[0.3em] uppercase shadow-lg shadow-indigo-500/5">
+            <ShieldCheck className="w-4 h-4" /> Inteligencia digital para familias
+          </motion.div>
+
+          <div className="space-y-6">
+            <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: 'circOut' }} className="text-7xl md:text-[10rem] font-black tracking-tighter text-gray-900 dark:text-white leading-[0.75]">
+              Kuxi
+              <br />
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-800 via-indigo-600 to-indigo-400 dark:from-indigo-600 dark:via-indigo-400 dark:to-indigo-200">pilli</span>
+            </motion.h1>
+            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="mt-12 max-w-2xl mx-auto text-xl text-gray-600 dark:text-gray-400 leading-relaxed italic font-medium">
+              La primera plataforma diseñada para convertir a padres y educadores en aliados más fuertes para la seguridad digital infantil.
+            </motion.p>
+          </div>
+
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.6 }} className="mt-16 flex flex-col sm:flex-row justify-center gap-8">
+            <Link to="/register" className="px-16 py-6 bg-indigo-600 text-white font-black text-xs uppercase tracking-[0.2em] rounded-[2rem] shadow-[0_20px_50px_rgba(79,70,229,0.3)] hover:bg-indigo-700 hover:-translate-y-2 transition-all active:scale-95">Comenzar Ahora</Link>
+            <Link to="/modules" className="px-16 py-6 bg-white dark:bg-[#161b22] text-gray-900 dark:text-white font-black text-xs uppercase tracking-[0.2em] rounded-[2rem] border border-gray-100 dark:border-gray-800 shadow-xl hover:-translate-y-2 transition-all active:scale-95">Ver Programas</Link>
+          </motion.div>
+        </div>
+
+        <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-40 grid grid-cols-2 lg:grid-cols-4 gap-8 py-16 px-12 bg-white/50 dark:bg-[#161b22]/50 backdrop-blur-xl rounded-[4rem] border border-white/20 dark:border-gray-800 shadow-2xl">
+          {[
+            { label: 'Programas de formación', val: '3', icon: <BookOpen className="w-5 h-5" /> },
+            { label: 'Lecciones teóricas', val: '42', icon: <ShieldCheck className="w-5 h-5" /> },
+            { label: 'Casos de estudio', val: '3', icon: <Search className="w-5 h-5" /> },
+            { label: 'Privacidad de datos', val: 'SSL/TLS', icon: <Lock className="w-5 h-5" /> }
+          ].map((stat, i) => (
+            <div key={i} className="text-center space-y-2 group">
+              <div className="mx-auto w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-600 transition-transform group-hover:scale-110">{stat.icon}</div>
+              <div className="text-3xl font-black text-gray-900 dark:text-white tabular-nums tracking-tighter">{stat.val}</div>
+              <div className="text-[10px] font-black uppercase tracking-widest text-gray-400">{stat.label}</div>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+    </div>
+  );
 };
 
 export default Home;
