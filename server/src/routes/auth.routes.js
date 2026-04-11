@@ -15,7 +15,8 @@ const generateToken = (id) => {
 // @route   POST /api/auth/register
 // @access  Public
 router.post('/register', async (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, password } = req.body;
+    const email = req.body.email?.trim().toLowerCase();
 
     try {
         const userExists = await User.findOne({ email });
@@ -75,7 +76,8 @@ router.post('/register', async (req, res) => {
 // @route   POST /api/auth/verify
 // @access  Public
 router.post('/verify', async (req, res) => {
-    const { email, code } = req.body;
+    const { code } = req.body;
+    const email = req.body.email?.trim().toLowerCase();
     try {
         const user = await User.findOne({ email, verificationToken: code });
 
@@ -97,7 +99,7 @@ router.post('/verify', async (req, res) => {
 // @route   POST /api/auth/resend-verification
 // @access  Public
 router.post('/resend-verification', async (req, res) => {
-    const { email } = req.body;
+    const email = req.body.email?.trim().toLowerCase();
 
     try {
         const user = await User.findOne({ email });
@@ -147,7 +149,8 @@ router.post('/resend-verification', async (req, res) => {
 // @route   POST /api/auth/login
 // @access  Public
 router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
+    const { password } = req.body;
+    const email = req.body.email?.trim().toLowerCase();
 
     try {
         const user = await User.findOne({ email });
@@ -293,7 +296,7 @@ const sendEmail = require('../utils/sendEmail');
 // @route   POST /api/auth/forgot-password
 // @access  Public
 router.post('/forgot-password', async (req, res) => {
-    const { email } = req.body;
+    const email = req.body.email?.trim().toLowerCase();
 
     try {
         const user = await User.findOne({ email });
@@ -370,7 +373,8 @@ router.post('/forgot-password', async (req, res) => {
 // @route   POST /api/auth/reset-with-code
 // @access  Public
 router.post('/reset-with-code', async (req, res) => {
-    const { email, code, newPassword } = req.body;
+    const { code, newPassword } = req.body;
+    const email = req.body.email?.trim().toLowerCase();
 
     try {
         // Hash the code to compare with DB

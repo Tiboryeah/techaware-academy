@@ -22,7 +22,7 @@ const Login = () => {
             addToast('¡Bienvenido de nuevo!', 'success');
             navigate('/dashboard');
         } catch (err) {
-            addToast('Credenciales inválidas. Verifica tu correo y contraseña.', 'error');
+            addToast(err.response?.data?.message || 'Credenciales inválidas. Verifica tu correo y contraseña.', 'error');
         } finally {
             setLoading(false);
         }
