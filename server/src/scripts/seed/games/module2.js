@@ -94,7 +94,11 @@ Dentro de la aplicación del menor, se accede a *Settings > Parental Controls* y
 
 ## Microactividad de Refuerzo
 Actualice mentalmente el estado de su cuenta: ¿Ya cuenta con el perfil parental verificado y vinculado? Si falta alguno de estos pasos, es recomendable completarlos antes de proceder a la configuración de chat y límites de gasto mensual.`,
-            type: 'article', duration: 5
+            type: 'article',
+            duration: 5,
+            platforms: ['Roblox'],
+            riskAreas: ['Seguridad de Cuenta'],
+            teaches: ['cuenta adulta enlazada', 'cuenta parental', 'privilegios parentales', 'verificación de identidad', 'verificación de edad', 'add parent', 'parental controls']
         });
 
         const l2_2 = await getOrCreateLesson(mod2._id, courseGames._id, {
@@ -188,7 +192,11 @@ Roblox permite fijar un límite mensual de gasto que se reinicia al finalizar el
 
 ## Microactividad de Refuerzo
 Identifique el ajuste que considera más prioritario para su situación familiar hoy: ¿Es la comunicación con desconocidos o el control del tiempo de juego? Comience por ajustar esa capa técnica antes de pasar a las demás.`,
-            type: 'article', duration: 5
+            type: 'article',
+            duration: 5,
+            platforms: ['Roblox'],
+            riskAreas: ['Privacidad Avanzada', 'Gasto Controlado'],
+            teaches: ['madurez de contenido', 'experience chat', 'direct chat', 'party', 'private servers', 'conexiones', 'tiempo de pantalla', 'límite mensual de gasto', 'bloquear', 'reportar']
         });
 
         const l2_4 = await getOrCreateLesson(mod2._id, courseGames._id, {

@@ -221,7 +221,11 @@ El primer paso para proteger a un menor en un entorno de juego no es saberlo tod
 > **Recuerda**: En seguridad digital infantil, identificar una señal a tiempo vale más que reaccionar tarde.
 
 El siguiente contenido del módulo mostrará qué hacer cuando la interacción de riesgo ya ocurrió y cómo responder de forma útil, calmada y segura.`,
-            type: 'article', duration: 5
+            type: 'article',
+            duration: 5,
+            platforms: ['Roblox', 'Minecraft'],
+            riskAreas: ['Privacidad Avanzada'],
+            teaches: ['ciberacoso', 'grooming', 'enticement', 'dato personal', 'huella digital', 'secretos', 'datos personales', 'fotos personales']
         });
 
         const l4_2 = await getOrCreateLesson(mod4._id, courseGames._id, {
@@ -496,7 +500,11 @@ Cuando ya hubo una interacción de riesgo, la meta no es reaccionar con miedo, s
 > **Recuerda**: Escuchar sin culpar, guardar evidencia y escalar cuando la seguridad está en juego suele proteger más que cualquier reacción impulsiva.
 
 Por eso, la respuesta más útil combina calma, escucha, bloqueo o reporte cuando corresponde, y escalamiento a la escuela o a autoridades si la seguridad del menor está comprometida.`,
-            type: 'article', duration: 5
+            type: 'article',
+            duration: 5,
+            platforms: ['Roblox', 'Minecraft'],
+            riskAreas: ['Privacidad Avanzada'],
+            teaches: ['evidencia', 'bloquear', 'reportar', 'escuela', 'autoridades', 'sextorsión', 'escalamiento', 'capturas de pantalla']
         });
 
         const l4_4 = await getOrCreateLesson(mod4._id, courseGames._id, {

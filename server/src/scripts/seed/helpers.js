@@ -83,6 +83,7 @@ const getOrCreateQuiz = async (data, questionsData) => {
             metadata: qData.metadata || {},
             riskArea: qData.riskArea,
             explanation: qData.explanation,
+            points: qData.points,
         });
         quiz.questions.push(q._id);
     }

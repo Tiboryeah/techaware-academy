@@ -37,6 +37,8 @@ const QuizTaker = () => {
     const [loading, setLoading] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [showResolvedReview, setShowResolvedReview] = useState(false);
+    const [showReviewGuidance, setShowReviewGuidance] = useState(false);
     const navigate = useNavigate();
 
     const shuffleArray = (array) => {
@@ -166,7 +168,9 @@ const QuizTaker = () => {
         setAnswers({});
         setCurrentQuestionIndex(0);
         setResult(null);
-        setAttemptId(null);
+        setRecommendations(null);
+        setShowResolvedReview(false);
+        setShowReviewGuidance(false);
     };
 
     const formatAnswer = (ans) => {
@@ -184,6 +188,213 @@ const QuizTaker = () => {
                 .join(" | ");
         }
         return JSON.stringify(ans);
+    };
+
+    const normalizeSelectionValue = (value) => value?.toString?.() || String(value);
+
+    const arraysMatchUnordered = (left = [], right = []) =>
+        Array.isArray(left) &&
+        Array.isArray(right) &&
+        left.length === right.length &&
+        right.every((value) => left.includes(value));
+
+    const renderResolvedQuestionContent = (question, detail) => {
+        if (!question) {
+            return null;
+        }
+
+        const questionAnswer = answers[question._id];
+        const correctAnswer = detail?.correctAnswer;
+        const questionType = question.type || 'single_choice';
+
+        if (['single_choice', 'multiple_choice', 'case_study', 'multiple_selection'].includes(questionType)) {
+            const selectedValues = questionType === 'multiple_selection'
+                ? (Array.isArray(questionAnswer) ? questionAnswer : []).map(normalizeSelectionValue)
+                : questionAnswer ? [normalizeSelectionValue(questionAnswer)] : [];
+
+            return (
+                <div className="flex flex-col gap-4">
+                    {(question.options || []).map((opt, optIdx) => {
+                        const optionId = normalizeSelectionValue(opt._id);
+                        const isSelected = selectedValues.includes(optionId);
+                        const isCorrectOption = !!opt.isCorrect;
+                        const toneClasses = isCorrectOption
+                            ? 'border-green-300 dark:border-green-500/30 bg-green-50 dark:bg-green-500/10 text-green-900 dark:text-green-200'
+                            : isSelected
+                                ? 'border-red-300 dark:border-red-500/30 bg-red-50 dark:bg-red-500/10 text-red-900 dark:text-red-200'
+                                : 'border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-[#0a0c10]/40 text-gray-600 dark:text-gray-400';
+
+                        return (
+                            <div
+                                key={optIdx}
+                                className={`p-5 rounded-[1.5rem] border-2 ${toneClasses}`}
+                            >
+                                <div className="flex items-start justify-between gap-4">
+                                    <span className="font-bold pr-4 text-sm leading-relaxed">{opt.text}</span>
+                                    <div className="flex flex-wrap justify-end gap-2">
+                                        {isSelected && (
+                                            <span className="px-2.5 py-1 rounded-full bg-white/80 dark:bg-slate-950/50 text-[10px] font-black uppercase tracking-widest">
+                                                Tu respuesta
+                                            </span>
+                                        )}
+                                        {isCorrectOption && (
+                                            <span className="px-2.5 py-1 rounded-full bg-green-600 text-white text-[10px] font-black uppercase tracking-widest">
+                                                Correcta
+                                            </span>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+            );
+        }
+
+        if (questionType === 'fill_blanks' || questionType === 'drop_down') {
+            const expectedAnswers = typeof correctAnswer === 'object' && !Array.isArray(correctAnswer) ? correctAnswer : {};
+
+            return (
+                <div className="space-y-6">
+                    <div className="p-6 md:p-8 bg-gray-50 dark:bg-[#0a0c10]/40 rounded-[2rem] border border-gray-100 dark:border-gray-800 leading-relaxed font-medium">
+                        {question.metadata.sentence.split(/\[blank\d+\]/).map((part, i, arr) => {
+                            const blankId = `blank${i + 1}`;
+                            const userValue = questionAnswer?.[blankId] || '';
+                            const expectedValue = expectedAnswers?.[blankId] || '';
+                            const isBlankCorrect = userValue && userValue === expectedValue;
+
+                            return (
+                                <React.Fragment key={blankId}>
+                                    {part}
+                                    {i < arr.length - 1 && (
+                                        <span
+                                            className={`inline-flex items-center min-w-[100px] mx-2 px-3 py-1.5 rounded-xl border-2 text-sm font-bold translate-y-[-2px] ${isBlankCorrect
+                                                ? 'border-green-300 dark:border-green-500/30 bg-green-50 dark:bg-green-500/10 text-green-700 dark:text-green-300'
+                                                : 'border-red-300 dark:border-red-500/30 bg-red-50 dark:bg-red-500/10 text-red-700 dark:text-red-300'
+                                                }`}
+                                        >
+                                            {userValue || 'Sin respuesta'}
+                                        </span>
+                                    )}
+                                </React.Fragment>
+                            );
+                        })}
+                    </div>
+
+                    {questionType === 'fill_blanks' && question.metadata.bank?.length > 0 && (
+                        <div className="flex flex-wrap gap-2 justify-center">
+                            {question.metadata.bank.map((word, idx) => (
+                                <span key={idx} className="px-3 py-1 bg-gray-100 dark:bg-gray-800 rounded-full text-xs font-bold text-gray-500 select-none">
+                                    {word}
+                                </span>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        if (questionType === 'order_sequence') {
+            const userOrder = Array.isArray(questionAnswer) ? questionAnswer : [];
+            const expectedOrder = Array.isArray(correctAnswer) ? correctAnswer : [];
+
+            return (
+                <div className="space-y-3">
+                    {userOrder.map((item, index) => {
+                        const isPositionCorrect = expectedOrder[index] === item;
+
+                        return (
+                            <div
+                                key={`${item}-${index}`}
+                                className={`p-5 rounded-2xl border-2 flex items-center gap-4 ${isPositionCorrect
+                                    ? 'border-green-200 dark:border-green-500/20 bg-green-50 dark:bg-green-500/10'
+                                    : 'border-amber-200 dark:border-amber-500/20 bg-amber-50 dark:bg-amber-500/10'
+                                    }`}
+                            >
+                                <div className={`w-9 h-9 rounded-full flex items-center justify-center font-black text-sm ${isPositionCorrect
+                                    ? 'bg-green-600 text-white'
+                                    : 'bg-amber-500 text-white'
+                                    }`}>
+                                    {index + 1}
+                                </div>
+                                <span className="font-bold text-sm text-gray-800 dark:text-gray-200">{item}</span>
+                            </div>
+                        );
+                    })}
+                </div>
+            );
+        }
+
+        if (questionType === 'drag_drop') {
+            const expectedPairs = typeof correctAnswer === 'object' && !Array.isArray(correctAnswer) ? correctAnswer : {};
+
+            return (
+                <div className="grid grid-cols-1 gap-4">
+                    {question.metadata.pairs.map((pair, index) => {
+                        const userValue = questionAnswer?.[pair.key] || 'Sin respuesta';
+                        const isPairCorrect = userValue === expectedPairs[pair.key];
+
+                        return (
+                            <div
+                                key={`${pair.key}-${index}`}
+                                className={`p-5 rounded-[1.75rem] border-2 ${isPairCorrect
+                                    ? 'border-green-200 dark:border-green-500/20 bg-green-50 dark:bg-green-500/10'
+                                    : 'border-red-200 dark:border-red-500/20 bg-red-50 dark:bg-red-500/10'
+                                    }`}
+                            >
+                                <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">{pair.key}</p>
+                                <p className="text-sm font-bold text-gray-900 dark:text-white">{userValue}</p>
+                            </div>
+                        );
+                    })}
+                </div>
+            );
+        }
+
+        if (questionType === 'match_columns' || questionType === 'categorize') {
+            const categories = questionType === 'match_columns' ? question.metadata.left : question.metadata.categories;
+            const currentSelection = questionAnswer || {};
+            const expectedSelection = typeof correctAnswer === 'object' && !Array.isArray(correctAnswer) ? correctAnswer : {};
+
+            return (
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                    {categories.map((category) => {
+                        const userItems = currentSelection[category] || [];
+                        const expectedItems = expectedSelection[category] || [];
+                        const isCategoryCorrect = arraysMatchUnordered(userItems, expectedItems);
+
+                        return (
+                            <div
+                                key={category}
+                                className={`p-5 rounded-[2rem] border-2 min-h-[180px] ${isCategoryCorrect
+                                    ? 'border-green-200 dark:border-green-500/20 bg-green-50 dark:bg-green-500/10'
+                                    : 'border-amber-200 dark:border-amber-500/20 bg-amber-50 dark:bg-amber-500/10'
+                                    }`}
+                            >
+                                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-400 mb-4">
+                                    {category}
+                                </p>
+                                <div className="space-y-2">
+                                    {userItems.length > 0 ? userItems.map((item) => (
+                                        <div key={item} className="px-3 py-2 rounded-xl bg-white/80 dark:bg-slate-950/40 text-sm font-bold text-gray-700 dark:text-gray-200">
+                                            {item}
+                                        </div>
+                                    )) : (
+                                        <p className="text-sm italic text-gray-500 dark:text-gray-400">Sin elementos asignados.</p>
+                                    )}
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+            );
+        }
+
+        return (
+            <div className="p-5 rounded-2xl bg-gray-50 dark:bg-[#0a0c10]/40 border border-gray-100 dark:border-gray-800">
+                <p className="text-sm font-bold text-gray-700 dark:text-gray-200">{formatAnswer(questionAnswer)}</p>
+            </div>
+        );
     };
 
     const handleSubmit = async () => {
@@ -209,6 +420,23 @@ const QuizTaker = () => {
         }
     };
 
+    useEffect(() => {
+        if (!result) {
+            return;
+        }
+
+        const details = result.questionDetails || [];
+        const firstIncorrectIndex = details.findIndex((detail) => !detail.isCorrect);
+
+        setShowResolvedReview(false);
+        setCurrentQuestionIndex(firstIncorrectIndex >= 0 ? firstIncorrectIndex : 0);
+        setShowReviewGuidance(false);
+    }, [result]);
+
+    useEffect(() => {
+        setShowReviewGuidance(false);
+    }, [currentQuestionIndex, showResolvedReview]);
+
     if (loading) return (
         <div className="min-h-screen flex items-center justify-center bg-[#fafafb] dark:bg-[#0a0c10]">
             <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: "linear" }} className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full" />
@@ -227,6 +455,332 @@ const QuizTaker = () => {
 
     if (result) {
         const isDiagnostic = id === 'diagnostic';
+        const questionDetails = result.questionDetails || [];
+        const isAccreditationQuiz = quiz.scope === 'course';
+        const totalQuestions = quiz.questions?.length || questionDetails.length || 0;
+        const correctCount = typeof result.correctCount === 'number'
+            ? result.correctCount
+            : questionDetails.filter((detail) => detail.isCorrect).length;
+        const incorrectCount = questionDetails.length > 0
+            ? questionDetails.filter((detail) => !detail.isCorrect).length
+            : Math.max(totalQuestions - correctCount, 0);
+        const reviewAreas = recommendations?.areasToReview || [];
+        const reviewPlatforms = recommendations?.platformsToReview || [];
+        const canReviewResolvedExam = !isAccreditationQuiz && questionDetails.length > 0;
+        const currentReviewQuestion = quiz.questions[currentQuestionIndex];
+        const currentReviewDetail = questionDetails[currentQuestionIndex] || null;
+        const currentReviewLessons = currentReviewDetail?.guidedLessons || [];
+        const reviewProgress = totalQuestions > 0 ? ((currentQuestionIndex + 1) / totalQuestions) * 100 : 0;
+        const firstIncorrectDetail = questionDetails.find((detail) => !detail.isCorrect);
+        const minimumScore = quiz.minPassing || 80;
+        const performanceLevelMap = {
+            Alto: {
+                title: isDiagnostic ? 'Riesgo alto' : 'Requiere refuerzo',
+                description: isDiagnostic
+                    ? 'Hay varias areas sensibles por revisar.'
+                    : 'Tu puntaje quedo lejos de la meta actual.',
+            },
+            Medio: {
+                title: isDiagnostic ? 'Riesgo medio' : 'En progreso',
+                description: isDiagnostic
+                    ? 'Hay avances, pero aun conviene reforzar varios puntos.'
+                    : 'Vas avanzando, pero aun hay temas por consolidar.',
+            },
+            Bajo: {
+                title: isDiagnostic ? 'Riesgo bajo' : 'Buen dominio',
+                description: isDiagnostic
+                    ? 'El intento refleja una base de proteccion mas solida.'
+                    : 'Tu resultado muestra un manejo solido de los temas.',
+            },
+        };
+        const performanceLevel = performanceLevelMap[result.riskLevel] || {
+            title: result.riskLevel || 'Sin dato',
+            description: isDiagnostic
+                ? 'Lectura general del nivel de riesgo.'
+                : 'Lectura general del resultado.',
+        };
+        const resultStatusLabel = result.passed
+            ? (isAccreditationQuiz ? 'Acreditado' : 'Aprobada')
+            : (isAccreditationQuiz ? 'No acreditado' : 'Reforzar');
+        const resultStatusMessage = result.passed
+            ? incorrectCount === 0
+                ? 'Respondiste correctamente todos los reactivos de este intento.'
+                : `Superaste la meta de ${minimumScore}% y quedaron ${incorrectCount} reactivos que aun conviene revisar.`
+            : `Obtuviste ${result.score}% y la meta es ${minimumScore}%. Antes del siguiente intento conviene reforzar ${incorrectCount} reactivos.`;
+        const focusItems = [...reviewAreas, ...reviewPlatforms].slice(0, 4);
+        const compactNextStep = canReviewResolvedExam
+            ? 'Puedes abrir el examen resuelto para revisar cada reactivo.'
+            : isAccreditationQuiz
+                ? 'Este examen no muestra respuestas; usa las recomendaciones antes del siguiente intento.'
+                : 'Continua con las lecciones sugeridas antes del siguiente intento.';
+
+        if (showResolvedReview && canReviewResolvedExam && currentReviewQuestion && currentReviewDetail) {
+            return (
+                <div className="min-h-screen bg-[#fafafb] dark:bg-[#0a0c10] text-gray-900 dark:text-gray-100 py-8 md:py-10 xl:py-12 px-4 sm:px-6 xl:px-8 transition-colors duration-500">
+                    <div className="max-w-7xl 2xl:max-w-[1500px] mx-auto w-full space-y-6 lg:space-y-0 lg:grid lg:grid-cols-[minmax(0,1fr)_320px] xl:grid-cols-[minmax(0,1fr)_360px] lg:gap-6 xl:gap-8 lg:items-start">
+                        <div className="space-y-4 lg:col-span-2">
+                            <div className="flex flex-col xl:flex-row xl:justify-between xl:items-end gap-5 mb-4">
+                                <div className="flex-1 min-w-0 space-y-2">
+                                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-400">
+                                        Revision guiada
+                                    </p>
+                                    <h1 className="text-2xl md:text-3xl font-black text-slate-800 dark:text-white leading-tight max-w-4xl">
+                                        {quiz.title}
+                                    </h1>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400 italic max-w-3xl">
+                                        Vuelves a ver el examen ya resuelto. Las respuestas quedan bloqueadas y puedes navegar entre reactivos sin paneles cargados.
+                                    </p>
+                                </div>
+
+                                <div className="flex flex-wrap items-center gap-3 xl:justify-end">
+                                    <div className="px-4 py-3 rounded-2xl bg-white/70 dark:bg-slate-900/70 border border-gray-100 dark:border-gray-800 shadow-sm text-center min-w-[110px]">
+                                        <p className="text-[9px] font-black uppercase tracking-widest text-gray-400 mb-1">Reactivo</p>
+                                        <p className="text-lg font-black text-gray-900 dark:text-white">
+                                            {currentQuestionIndex + 1}
+                                            <span className="text-gray-400 dark:text-gray-600"> / {totalQuestions}</span>
+                                        </p>
+                                    </div>
+                                    <button
+                                        onClick={() => setShowResolvedReview(false)}
+                                        className="px-5 py-3 rounded-2xl bg-white dark:bg-[#161b22] border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 font-black text-[10px] uppercase tracking-widest hover:border-indigo-400 transition-all"
+                                    >
+                                        Volver al resumen
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div className="w-full bg-gray-200 dark:bg-gray-800 h-2 rounded-full overflow-hidden">
+                                <motion.div
+                                    initial={{ width: 0 }}
+                                    animate={{ width: `${reviewProgress}%` }}
+                                    className="h-full bg-indigo-600 dark:bg-indigo-500"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="bg-white/75 dark:bg-slate-900/75 backdrop-blur-xl rounded-[2rem] border border-gray-100 dark:border-gray-800 p-5 shadow-lg shadow-indigo-500/5 space-y-5 lg:col-start-2 lg:row-start-2 lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto">
+                            <div className="space-y-1">
+                                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-400">
+                                    Navegacion de revision
+                                </p>
+                                <p className="text-sm font-semibold text-gray-600 dark:text-gray-300">
+                                    Verde = correcta, rojo = por revisar
+                                </p>
+                            </div>
+
+                            <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-3 gap-2">
+                                {questionDetails.map((detail, index) => {
+                                    const isCurrent = index === currentQuestionIndex;
+
+                                    return (
+                                        <button
+                                            key={`${detail.questionId}-${index}`}
+                                            onClick={() => setCurrentQuestionIndex(index)}
+                                            aria-label={`Ir al reactivo ${index + 1}`}
+                                            className={`h-12 rounded-2xl border-2 flex items-center justify-center gap-2 font-black text-sm transition-all ${isCurrent
+                                                ? 'border-indigo-600 dark:border-indigo-400 bg-indigo-600 text-white shadow-lg shadow-indigo-600/20'
+                                                : detail.isCorrect
+                                                    ? 'border-green-200 dark:border-green-500/20 bg-green-50 dark:bg-green-500/10 text-green-700 dark:text-green-300 hover:border-green-400'
+                                                    : 'border-red-200 dark:border-red-500/20 bg-red-50 dark:bg-red-500/10 text-red-700 dark:text-red-300 hover:border-red-400'
+                                                }`}
+                                        >
+                                            <span>{index + 1}</span>
+                                            {detail.isCorrect ? (
+                                                <CheckCircle className={`w-3.5 h-3.5 ${isCurrent ? 'text-white' : 'text-green-500 dark:text-green-400'}`} />
+                                            ) : (
+                                                <ShieldAlert className={`w-3.5 h-3.5 ${isCurrent ? 'text-white' : 'text-red-500 dark:text-red-400'}`} />
+                                            )}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-3">
+                                <div className="p-4 rounded-2xl bg-green-50/70 dark:bg-green-500/10 border border-green-100 dark:border-green-500/20">
+                                    <p className="text-[9px] font-black uppercase tracking-widest text-green-600 dark:text-green-400 mb-1">Correctas</p>
+                                    <p className="text-xl font-black text-green-600 dark:text-green-300">{correctCount}</p>
+                                </div>
+                                <div className="p-4 rounded-2xl bg-red-50/70 dark:bg-red-500/10 border border-red-100 dark:border-red-500/20">
+                                    <p className="text-[9px] font-black uppercase tracking-widest text-red-600 dark:text-red-400 mb-1">Por revisar</p>
+                                    <p className="text-xl font-black text-red-600 dark:text-red-300">{incorrectCount}</p>
+                                </div>
+                            </div>
+
+                            <p className="text-[11px] text-gray-500 dark:text-gray-400 italic leading-relaxed">
+                                Esta vista se habilita para evaluaciones formativas. El examen final acreditable del curso no muestra este desglose.
+                            </p>
+                        </div>
+
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={`review-${currentQuestionIndex}`}
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -20 }}
+                                className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-[32px] xl:rounded-[40px] border border-gray-100 dark:border-gray-800 p-5 sm:p-6 xl:p-8 shadow-2xl shadow-indigo-500/5 min-h-[420px] xl:min-h-[calc(100vh-12rem)] flex flex-col lg:col-start-1 lg:row-start-2"
+                            >
+                                <div className="flex-1 flex-grow space-y-6">
+                                    <div className="space-y-3">
+                                        <div className="flex flex-wrap items-center gap-3">
+                                            {currentReviewQuestion.platform && (
+                                                <span className="px-3 py-1 bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-[10px] font-black uppercase tracking-widest rounded-lg">
+                                                    Topico: {currentReviewQuestion.platform}
+                                                </span>
+                                            )}
+                                            <span className={`px-3 py-1 rounded-lg border text-[10px] font-black uppercase tracking-widest ${currentReviewDetail.isCorrect
+                                                ? 'bg-green-50 dark:bg-green-500/10 border-green-100 dark:border-green-500/20 text-green-600 dark:text-green-400'
+                                                : 'bg-red-50 dark:bg-red-500/10 border-red-100 dark:border-red-500/20 text-red-600 dark:text-red-400'
+                                                }`}>
+                                                {currentReviewDetail.isCorrect ? 'Correcta' : 'Por revisar'}
+                                            </span>
+                                        </div>
+
+                                        <h3 className="text-xl font-bold leading-tight text-gray-900 dark:text-white">
+                                            {currentReviewQuestion.text}
+                                        </h3>
+                                    </div>
+
+                                    {renderResolvedQuestionContent(currentReviewQuestion, currentReviewDetail)}
+
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                        <div className={`p-5 rounded-2xl ${currentReviewDetail.isCorrect ? 'bg-green-50/60 dark:bg-green-500/5' : 'bg-red-50/60 dark:bg-red-500/5'}`}>
+                                            <span className="text-[9px] font-black uppercase tracking-widest text-gray-400 mb-2 block">Tu respuesta</span>
+                                            <p className={`text-sm font-bold leading-relaxed ${currentReviewDetail.isCorrect ? 'text-green-700 dark:text-green-300' : 'text-red-700 dark:text-red-300'}`}>
+                                                {formatAnswer(currentReviewDetail.userAnswer)}
+                                            </p>
+                                        </div>
+
+                                        <div className="p-5 rounded-2xl bg-gray-50 dark:bg-[#0a0c10]/40">
+                                            <span className="text-[9px] font-black uppercase tracking-widest text-gray-400 mb-2 block">
+                                                {currentReviewDetail.isCorrect ? 'Resultado' : 'Respuesta esperada'}
+                                            </span>
+                                            <p className={`text-sm font-bold leading-relaxed ${currentReviewDetail.isCorrect ? 'text-green-700 dark:text-green-300' : 'text-gray-800 dark:text-gray-200'}`}>
+                                                {currentReviewDetail.isCorrect
+                                                    ? 'Tu respuesta coincide con la solucion esperada.'
+                                                    : formatAnswer(currentReviewDetail.correctAnswer)}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-3">
+                                        <button
+                                            onClick={() => setShowReviewGuidance((prev) => !prev)}
+                                            className="w-full flex items-center justify-between gap-3 p-4 rounded-2xl border border-indigo-100 dark:border-indigo-500/10 bg-indigo-50/60 dark:bg-indigo-500/5 text-left hover:border-indigo-400 transition-all"
+                                        >
+                                            <div className="flex items-center gap-3 min-w-0">
+                                                <Zap className="w-4 h-4 text-indigo-500 flex-shrink-0" />
+                                                <div className="min-w-0">
+                                                    <p className="text-[10px] font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
+                                                        Guia de aprendizaje
+                                                    </p>
+                                                    <p className="text-sm text-gray-600 dark:text-gray-300">
+                                                        {showReviewGuidance ? 'Ocultar explicacion y repaso sugerido.' : 'Ver explicacion y lecciones para repasar.'}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <ChevronRight className={`w-4 h-4 text-indigo-500 transition-transform ${showReviewGuidance ? 'rotate-90' : ''}`} />
+                                        </button>
+
+                                        <AnimatePresence initial={false}>
+                                            {showReviewGuidance && (
+                                                <motion.div
+                                                    initial={{ opacity: 0, height: 0 }}
+                                                    animate={{ opacity: 1, height: 'auto' }}
+                                                    exit={{ opacity: 0, height: 0 }}
+                                                    className="overflow-hidden"
+                                                >
+                                                    <div className="p-5 bg-indigo-50/60 dark:bg-indigo-500/5 border border-indigo-100 dark:border-indigo-500/10 rounded-2xl space-y-5">
+                                                        <div>
+                                                            <p className="text-[9px] font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400 mb-2">
+                                                                Que aprender aqui
+                                                            </p>
+                                                            <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed italic">
+                                                                {currentReviewDetail.explanation || 'Esta respuesta no tiene comentarios adicionales.'}
+                                                            </p>
+                                                        </div>
+
+                                                        {(currentReviewDetail.riskArea || currentReviewDetail.platform) && (
+                                                            <div className="flex flex-wrap gap-2">
+                                                                {currentReviewDetail.riskArea && (
+                                                                    <span className="px-3 py-1 rounded-full bg-white/80 dark:bg-slate-950/40 text-indigo-600 dark:text-indigo-300 text-[10px] font-black uppercase tracking-widest border border-indigo-100 dark:border-indigo-500/10">
+                                                                        {currentReviewDetail.riskArea}
+                                                                    </span>
+                                                                )}
+                                                                {currentReviewDetail.platform && (
+                                                                    <span className="px-3 py-1 rounded-full bg-white/80 dark:bg-slate-950/40 text-gray-700 dark:text-gray-200 text-[10px] font-black uppercase tracking-widest border border-gray-100 dark:border-gray-700">
+                                                                        {currentReviewDetail.platform}
+                                                                    </span>
+                                                                )}
+                                                            </div>
+                                                        )}
+
+                                                        {currentReviewLessons.length > 0 ? (
+                                                            <div className="space-y-3">
+                                                                <p className="text-[9px] font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
+                                                                    Lecciones para repasar
+                                                                </p>
+                                                                <div className="space-y-2">
+                                                                    {currentReviewLessons.map((lesson) => (
+                                                                        <button
+                                                                            key={lesson._id}
+                                                                            onClick={() => navigate(`/lessons/${lesson._id}`)}
+                                                                            className="w-full p-4 rounded-2xl border border-indigo-100 dark:border-indigo-500/10 bg-white dark:bg-[#161b22] text-left hover:border-indigo-400 transition-all"
+                                                                        >
+                                                                            <div className="flex items-center justify-between gap-3">
+                                                                                <div className="min-w-0">
+                                                                                    <p className="text-sm font-bold text-gray-900 dark:text-white leading-snug">
+                                                                                        {lesson.title}
+                                                                                    </p>
+                                                                                    {lesson.duration ? (
+                                                                                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                                                                            {lesson.duration} min de repaso
+                                                                                        </p>
+                                                                                    ) : null}
+                                                                                </div>
+                                                                                <ChevronRight className="w-4 h-4 text-indigo-500 flex-shrink-0" />
+                                                                            </div>
+                                                                        </button>
+                                                                    ))}
+                                                                </div>
+                                                            </div>
+                                                        ) : (
+                                                            <div className="p-4 rounded-2xl bg-white/70 dark:bg-slate-950/30 border border-gray-100 dark:border-gray-800">
+                                                                <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                                                                    No hay una leccion vinculada directamente a este reactivo, pero puedes seguir con el repaso sugerido del intento.
+                                                                </p>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </div>
+                                </div>
+
+                                <div className="flex flex-col sm:flex-row justify-between items-center pt-10 mt-10 border-t border-gray-100 dark:border-gray-800 gap-6">
+                                    <button
+                                        onClick={() => setCurrentQuestionIndex((prev) => Math.max(0, prev - 1))}
+                                        disabled={currentQuestionIndex === 0}
+                                        className="flex items-center gap-2 text-gray-400 dark:text-gray-500 font-bold hover:text-gray-900 dark:hover:text-white transition-colors disabled:opacity-0"
+                                    >
+                                        <ChevronLeft className="w-5 h-5" /> Anterior
+                                    </button>
+
+                                    <button
+                                        onClick={() => setCurrentQuestionIndex((prev) => Math.min(totalQuestions - 1, prev + 1))}
+                                        disabled={currentQuestionIndex === totalQuestions - 1}
+                                        className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-5 bg-white dark:bg-gray-100 text-gray-900 border border-gray-200 dark:border-transparent font-black text-xs uppercase tracking-widest rounded-2xl hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-500 transition-all disabled:opacity-50"
+                                    >
+                                        Siguiente <ChevronRight className="w-5 h-5" />
+                                    </button>
+                                </div>
+                            </motion.div>
+                        </AnimatePresence>
+                    </div>
+                </div>
+            );
+        }
+
         return (
             <div className="min-h-screen bg-[#fafafb] dark:bg-[#0a0c10] text-gray-900 dark:text-gray-100 py-12 px-4 transition-colors duration-500">
                 <motion.div
@@ -265,7 +819,7 @@ const QuizTaker = () => {
                         <div className="grid grid-cols-2 gap-4 py-4 px-6 bg-gray-50 dark:bg-gray-800/40 rounded-3xl border border-gray-100 dark:border-white/5">
                             <div className="text-center">
                                 <p className="text-[10px] uppercase font-black tracking-widest text-gray-400">Aciertos</p>
-                                <p className="text-xl font-black text-green-500">{result.correctCount || 0}/{result.questionDetails?.length || 0}</p>
+                                <p className="text-xl font-black text-green-500">{correctCount}/{totalQuestions}</p>
                             </div>
                             <div className="text-center">
                                 <p className="text-[10px] uppercase font-black tracking-widest text-gray-400">Puntaje</p>
@@ -333,8 +887,117 @@ const QuizTaker = () => {
                                 </div>
                             )}
 
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
+                                <div className="p-5 rounded-[2rem] bg-green-50/60 dark:bg-green-500/5 border border-green-100 dark:border-green-500/10">
+                                    <p className="text-[9px] font-black uppercase tracking-widest text-green-600 dark:text-green-400 mb-2">Dominadas</p>
+                                    <p className="text-2xl font-black text-green-600 dark:text-green-400">{correctCount}</p>
+                                    <p className="text-xs text-gray-500 dark:text-gray-400 italic">Reactivos resueltos correctamente.</p>
+                                </div>
+                                <div className="p-5 rounded-[2rem] bg-red-50/60 dark:bg-red-500/5 border border-red-100 dark:border-red-500/10">
+                                    <p className="text-[9px] font-black uppercase tracking-widest text-red-600 dark:text-red-400 mb-2">Por Revisar</p>
+                                    <p className="text-2xl font-black text-red-600 dark:text-red-400">{incorrectCount}</p>
+                                    <p className="text-xs text-gray-500 dark:text-gray-400 italic">Reactivos que conviene revisar a detalle.</p>
+                                </div>
+                                <div className="p-5 rounded-[2rem] bg-indigo-50/60 dark:bg-indigo-500/5 border border-indigo-100 dark:border-indigo-500/10">
+                                    <p className="text-[9px] font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400 mb-2">
+                                        {isDiagnostic ? 'Nivel de riesgo' : 'Resultado general'}
+                                    </p>
+                                    <p className="text-2xl font-black text-indigo-600 dark:text-indigo-400">{performanceLevel.title}</p>
+                                    <p className="text-xs text-gray-500 dark:text-gray-400 italic">{performanceLevel.description}</p>
+                                </div>
+                            </div>
+
+                            <div className="p-6 md:p-8 bg-gray-50/80 dark:bg-[#0a0c10]/50 border border-gray-100 dark:border-gray-800 rounded-[2.5rem] space-y-6 text-left">
+                                <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_320px] gap-5">
+                                    <div className="space-y-5">
+                                        <div className="space-y-2">
+                                            <p className="text-[10px] font-black uppercase tracking-[0.25em] text-gray-400">Revision de resultados</p>
+                                            <h3 className="text-xl md:text-2xl font-black text-gray-900 dark:text-white">Resumen</h3>
+                                        </div>
+
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                            <div className="min-w-0 p-4 rounded-2xl border border-indigo-100 dark:border-indigo-500/10 bg-indigo-50/60 dark:bg-indigo-500/5">
+                                                <p className="text-[10px] font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400 mb-1">Estado</p>
+                                                <p className="text-lg font-black text-gray-900 dark:text-white leading-tight break-words">{resultStatusLabel}</p>
+                                            </div>
+                                            <div className="min-w-0 p-4 rounded-2xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-[#161b22]">
+                                                <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Meta</p>
+                                                <p className="text-lg font-black text-gray-900 dark:text-white leading-tight">{minimumScore}%</p>
+                                            </div>
+                                            <div className="min-w-0 p-4 rounded-2xl border border-red-100 dark:border-red-500/10 bg-red-50/60 dark:bg-red-500/5 sm:col-span-2">
+                                                <p className="text-[10px] font-black uppercase tracking-widest text-red-600 dark:text-red-400 mb-1">Pendientes</p>
+                                                <p className="text-lg font-black text-gray-900 dark:text-white leading-tight">{incorrectCount} por revisar</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="space-y-4">
+                                            <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                                                {resultStatusMessage}
+                                            </p>
+
+                                            {focusItems.length > 0 && (
+                                                <div className="flex flex-wrap gap-2">
+                                                    {focusItems.map((item) => (
+                                                        <span key={item} className="px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-300 text-[10px] font-black uppercase tracking-widest border border-indigo-100 dark:border-indigo-500/10">
+                                                            {item}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            )}
+
+                                            {recommendations?.message && incorrectCount > 0 && (
+                                                <p className="text-sm text-gray-500 dark:text-gray-400 italic leading-relaxed">
+                                                    {recommendations.message}
+                                                </p>
+                                            )}
+
+                                            <p className="text-sm font-bold text-gray-800 dark:text-gray-200 leading-relaxed break-words">
+                                                {compactNextStep}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="p-5 rounded-[2rem] bg-white dark:bg-[#161b22] border border-gray-100 dark:border-gray-800 space-y-4">
+                                        <div className="space-y-2">
+                                            <p className="text-[10px] font-black uppercase tracking-[0.25em] text-gray-400">Revision</p>
+                                            <h4 className="text-lg font-black text-gray-900 dark:text-white">
+                                                {canReviewResolvedExam ? 'Ver examen resuelto' : 'Acreditacion protegida'}
+                                            </h4>
+                                            <p className="text-sm text-gray-500 dark:text-gray-400 break-words">
+                                                {canReviewResolvedExam
+                                                    ? 'Navega por reactivos con tus respuestas bloqueadas.'
+                                                    : 'No se muestra desglose por reactivo en este examen.'}
+                                            </p>
+                                        </div>
+
+                                        {canReviewResolvedExam ? (
+                                            <>
+                                                <p className="text-sm font-bold text-gray-800 dark:text-gray-200 leading-relaxed break-words">
+                                                    {firstIncorrectDetail
+                                                        ? 'La revision abre en el primer reactivo pendiente.'
+                                                        : 'La revision abre el intento completo.'}
+                                                </p>
+
+                                                <button
+                                                    onClick={() => setShowResolvedReview(true)}
+                                                    className="w-full py-4 bg-indigo-600 text-white font-black text-[10px] uppercase tracking-widest rounded-2xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-500/20"
+                                                >
+                                                    Abrir examen resuelto
+                                                </button>
+                                            </>
+                                        ) : (
+                                            <div className="p-4 rounded-2xl bg-amber-50/80 dark:bg-amber-500/10 border border-amber-100 dark:border-amber-500/20">
+                                                <p className="text-sm font-bold text-amber-700 dark:text-amber-300 leading-relaxed">
+                                                    Solo mostramos resumen, puntaje y recomendaciones. No se habilita la revision reactivo por reactivo.
+                                                </p>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+
                             {/* Detailed Review Section */}
-                            <div className="space-y-6 text-left">
+                            <div className="hidden space-y-6 text-left">
                                 <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 text-center mb-6">Análisis Detallado Por Reactivo</h3>
                                 <div className="space-y-6">
                                     {(result.questionDetails || []).map((detail, idx) => (
@@ -414,25 +1077,54 @@ const QuizTaker = () => {
     const currentQuestion = quiz.questions[currentQuestionIndex];
     const isLastQuestion = currentQuestionIndex === quiz.questions.length - 1;
     const progress = ((currentQuestionIndex + 1) / quiz.questions.length) * 100;
+    const isCourseQuiz = quiz.scope === 'course';
+    const showQuestionNavigator = isAdmin || isCourseQuiz;
+    const answeredCount = quiz.questions.filter((question) =>
+        isQuestionAnswered(question, answers[question._id])
+    ).length;
+    const firstUnansweredIndex = quiz.questions.findIndex((question) =>
+        !isQuestionAnswered(question, answers[question._id])
+    );
+    const currentQuestionAnswered = isQuestionAnswered(currentQuestion, answers[currentQuestion._id]);
+
+    const navigateToQuestion = (targetIndex) => {
+        if (targetIndex < 0 || targetIndex >= quiz.questions.length) {
+            return;
+        }
+
+        setCurrentQuestionIndex(targetIndex);
+    };
 
     return (
-        <div className="min-h-screen bg-[#fafafb] dark:bg-[#0a0c10] text-gray-900 dark:text-gray-100 py-12 px-4 flex items-center justify-center transition-colors duration-500">
-            <div className="max-w-4xl w-full space-y-6">
+        <div className="min-h-screen bg-[#fafafb] dark:bg-[#0a0c10] text-gray-900 dark:text-gray-100 py-8 md:py-10 xl:py-12 px-4 sm:px-6 xl:px-8 transition-colors duration-500">
+            <div className={showQuestionNavigator
+                ? 'max-w-7xl 2xl:max-w-[1500px] mx-auto w-full space-y-6 lg:space-y-0 lg:grid lg:grid-cols-[minmax(0,1fr)_320px] xl:grid-cols-[minmax(0,1fr)_360px] lg:gap-6 xl:gap-8 lg:items-start'
+                : 'max-w-7xl 2xl:max-w-[1500px] mx-auto w-full space-y-6'
+            }>
                 {/* Progress Header */}
-                <div className="space-y-4">
-                    <div className="flex justify-between items-end gap-6 mb-4">
-                        <div className="flex-1">
+                <div className="space-y-4 lg:col-span-2">
+                    <div className="flex flex-col xl:flex-row xl:justify-between xl:items-end gap-5 mb-4">
+                        <div className="flex-1 min-w-0">
                             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-400 mb-1">Evaluación en progreso</p>
-                            <h1 className="text-xl md:text-2xl font-black text-slate-800 dark:text-white leading-tight">
+                            <h1 className="text-2xl md:text-3xl font-black text-slate-800 dark:text-white leading-tight max-w-4xl">
                                 {quiz.title}
                             </h1>
                         </div>
-                        <div className="text-right font-bold">
-                            <span className="text-2xl font-black text-gray-900 dark:text-white">{currentQuestionIndex + 1}</span>
-                            <span className="text-gray-400 dark:text-gray-600"> / {quiz.questions.length}</span>
+                        <div className="flex flex-wrap items-center gap-3 xl:justify-end">
+                            <div className="px-4 py-3 rounded-2xl bg-white/70 dark:bg-slate-900/70 border border-gray-100 dark:border-gray-800 shadow-sm text-center min-w-[110px]">
+                                <p className="text-[9px] font-black uppercase tracking-widest text-gray-400 mb-1">Pregunta</p>
+                                <p className="text-lg font-black text-gray-900 dark:text-white">
+                                    {currentQuestionIndex + 1}
+                                    <span className="text-gray-400 dark:text-gray-600"> / {quiz.questions.length}</span>
+                                </p>
+                            </div>
+                            <div className="px-4 py-3 rounded-2xl bg-white/70 dark:bg-slate-900/70 border border-gray-100 dark:border-gray-800 shadow-sm text-center min-w-[120px]">
+                                <p className="text-[9px] font-black uppercase tracking-widest text-gray-400 mb-1">Respondidas</p>
+                                <p className="text-lg font-black text-green-600 dark:text-green-400">{answeredCount}/{quiz.questions.length}</p>
+                            </div>
                         </div>
                     </div>
-                    <div className="w-full bg-gray-200 dark:bg-gray-800 h-1.5 rounded-full overflow-hidden">
+                    <div className="w-full bg-gray-200 dark:bg-gray-800 h-2 rounded-full overflow-hidden">
                         <motion.div
                             initial={{ width: 0 }}
                             animate={{ width: `${progress}%` }}
@@ -441,6 +1133,64 @@ const QuizTaker = () => {
                     </div>
                 </div>
 
+                {showQuestionNavigator && (
+                    <div className="bg-white/75 dark:bg-slate-900/75 backdrop-blur-xl rounded-[2rem] border border-gray-100 dark:border-gray-800 p-5 shadow-lg shadow-indigo-500/5 space-y-4 lg:col-start-2 lg:row-start-2 lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto">
+                        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                            <div className="space-y-1">
+                                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-400">
+                                    Navegacion del examen
+                                </p>
+                                <p className="text-sm font-semibold text-gray-600 dark:text-gray-300">
+                                    {answeredCount} de {quiz.questions.length} preguntas respondidas
+                                </p>
+                            </div>
+
+                            {firstUnansweredIndex >= 0 ? (
+                                <button
+                                    onClick={() => navigateToQuestion(firstUnansweredIndex)}
+                                    className="w-full md:w-auto px-4 py-2 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-100 dark:border-indigo-500/20 text-indigo-600 dark:text-indigo-300 font-black text-[10px] uppercase tracking-widest hover:bg-indigo-600 hover:text-white transition-all"
+                                >
+                                    Ir a la pendiente {firstUnansweredIndex + 1}
+                                </button>
+                            ) : (
+                                <div className="w-full md:w-auto px-4 py-2 rounded-xl bg-green-50 dark:bg-green-500/10 border border-green-100 dark:border-green-500/20 text-green-600 dark:text-green-300 font-black text-[10px] uppercase tracking-widest text-center">
+                                    Todas respondidas
+                                </div>
+                            )}
+                        </div>
+
+                        <div className="grid grid-cols-4 sm:grid-cols-5 lg:grid-cols-3 gap-2">
+                            {quiz.questions.map((question, index) => {
+                                const isCurrent = index === currentQuestionIndex;
+                                const isAnswered = isQuestionAnswered(question, answers[question._id]);
+
+                                return (
+                                    <button
+                                        key={question._id}
+                                        onClick={() => navigateToQuestion(index)}
+                                        aria-label={`Ir a la pregunta ${index + 1}`}
+                                        className={`h-12 rounded-2xl border-2 flex items-center justify-center gap-2 font-black text-sm transition-all ${isCurrent
+                                            ? 'border-indigo-600 dark:border-indigo-400 bg-indigo-600 text-white shadow-lg shadow-indigo-600/20'
+                                            : isAnswered
+                                                ? 'border-green-200 dark:border-green-500/20 bg-green-50 dark:bg-green-500/10 text-green-700 dark:text-green-300 hover:border-green-400'
+                                                : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-[#0a0c10]/60 text-gray-500 dark:text-gray-300 hover:border-indigo-300 dark:hover:border-indigo-500/40'
+                                            }`}
+                                    >
+                                        <span>{index + 1}</span>
+                                        {isAnswered && (
+                                            <CheckCircle className={`w-3.5 h-3.5 ${isCurrent ? 'text-white' : 'text-green-500 dark:text-green-400'}`} />
+                                        )}
+                                    </button>
+                                );
+                            })}
+                        </div>
+
+                        <p className="text-[11px] text-gray-500 dark:text-gray-400 italic leading-relaxed">
+                            En escritorio este panel permanece visible al costado derecho mientras haces scroll. El envio se habilita cuando todo el examen este contestado.
+                        </p>
+                    </div>
+                )}
+
                 {/* Question Card */}
                 <AnimatePresence mode="wait">
                     <motion.div
@@ -448,7 +1198,7 @@ const QuizTaker = () => {
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -20 }}
-                        className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-[40px] border border-gray-100 dark:border-gray-800 p-6 md:p-8 shadow-2xl shadow-indigo-500/5 min-h-[400px] flex flex-col"
+                        className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-[32px] xl:rounded-[40px] border border-gray-100 dark:border-gray-800 p-5 sm:p-6 xl:p-8 shadow-2xl shadow-indigo-500/5 min-h-[420px] xl:min-h-[calc(100vh-12rem)] flex flex-col lg:col-start-1 lg:row-start-2"
                     >
                         <div className="flex-1 flex-grow space-y-6">
                             <div className="space-y-2 relative">
@@ -819,8 +1569,8 @@ const QuizTaker = () => {
                                 </button>
                             ) : (
                                 <button
-                                    onClick={() => setCurrentQuestionIndex(prev => prev + 1)}
-                                    disabled={!isAdmin && !isQuestionAnswered(currentQuestion, answers[currentQuestion._id])}
+                                    onClick={() => navigateToQuestion(currentQuestionIndex + 1)}
+                                    disabled={!isAdmin && !isCourseQuiz && !currentQuestionAnswered}
                                     className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-5 bg-white dark:bg-gray-100 text-gray-900 border border-gray-200 dark:border-transparent font-black text-xs uppercase tracking-widest rounded-2xl hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-500 transition-all disabled:opacity-50"
                                 >
                                     Siguiente <ChevronRight className="w-5 h-5" />
@@ -830,7 +1580,7 @@ const QuizTaker = () => {
                     </motion.div>
                 </AnimatePresence>
 
-                <div className="flex flex-col sm:flex-row justify-center gap-8 md:gap-12 text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 dark:text-gray-600 text-center">
+                <div className="flex flex-col sm:flex-row justify-center xl:justify-start gap-8 md:gap-12 text-[10px] font-black uppercase tracking-[0.3em] text-gray-400 dark:text-gray-600 text-center lg:col-span-2">
                     <span className="flex items-center justify-center gap-2"><ShieldCheck className="w-3 h-3" /> Seguridad Certificada</span>
                     <span className="flex items-center justify-center gap-2"><Target className="w-3 h-3" /> Análisis de Riesgo</span>
                 </div>

@@ -30,3 +30,12 @@ server/uploads/
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+
+# Logs
+*.log
+
+# Temp Extract Files
+Reporte_Tecnico_extracted.txt
+Reporte_Tecnico_tmp.zip
+_docx_extract/
+

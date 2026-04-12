@@ -1,4 +1,5 @@
 const Quiz = require('../models/Quiz');
+require('../models/Question');
 const Attempt = require('../models/Attempt');
 const Module = require('../models/Module');
 const Progress = require('../models/Progress');
@@ -21,6 +22,60 @@ const SINGLE_SELECTION_TYPES = new Set([
 
 const DEFAULT_EXPLANATION = 'Revisa los artículos de este módulo para reforzar este concepto.';
 const DEFAULT_CORRECT_ANSWER = 'Consultar guía';
+const LESSON_TYPE_PRIORITY = {
+    guide: 4,
+    article: 3,
+    case_study: 2,
+    video: 1,
+};
+const COMMON_GUIDANCE_WORDS = new Set([
+    'ante',
+    'aqui',
+    'bien',
+    'cada',
+    'chat',
+    'como',
+    'con',
+    'correcta',
+    'curso',
+    'debe',
+    'deben',
+    'del',
+    'dentro',
+    'desde',
+    'donde',
+    'este',
+    'esta',
+    'estas',
+    'estos',
+    'explicacion',
+    'familia',
+    'forma',
+    'funcion',
+    'guia',
+    'juego',
+    'linea',
+    'mejor',
+    'menor',
+    'modulo',
+    'para',
+    'parte',
+    'porque',
+    'pregunta',
+    'reactivo',
+    'revisar',
+    'respuesta',
+    'riesgo',
+    'seguridad',
+    'sobre',
+    'solo',
+    'tiene',
+    'tip',
+    'todas',
+    'tutor',
+    'una',
+    'unos',
+]);
 
 const getQuizPayload = async (filter) => {
     const quiz = await Quiz.findOne(filter).populate('questions');
@@ -156,6 +211,112 @@ const formatUserAnswer = (question, userSelection) => {
     return userSelection;
 };
 
+const flattenForKeywordSearch = (value) => {
+    if (Array.isArray(value)) {
+        return value.map(flattenForKeywordSearch).join(' ');
+    }
+
+    if (value && typeof value === 'object') {
+        return Object.entries(value)
+            .map(([key, nestedValue]) => `${key} ${flattenForKeywordSearch(nestedValue)}`)
+            .join(' ');
+    }
+
+    return value ? value.toString() : '';
+};
+
+const normalizeForKeywordSearch = (value) =>
+    flattenForKeywordSearch(value)
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
+
+const extractKeywords = (...values) =>
+    [...new Set(
+        values
+            .map((value) => normalizeForKeywordSearch(value))
+            .join(' ')
+            .split(/[^a-z0-9]+/)
+            .filter((token) => token.length >= 4 && !COMMON_GUIDANCE_WORDS.has(token))
+    )];
+
+const rankGuidedLessonsForDetail = ({ detail, lessons = [], moduleId = null }) => {
+    const normalizedDetailHaystack = normalizeForKeywordSearch([
+        detail.text,
+        detail.explanation,
+        detail.correctAnswer,
+        detail.userAnswer,
+        detail.riskArea,
+        detail.platform,
+    ]);
+    const detailKeywords = extractKeywords(
+        detail.text,
+        detail.explanation,
+        detail.correctAnswer,
+        detail.userAnswer,
+        detail.riskArea,
+        detail.platform
+    );
+
+    return lessons
+        .map((lesson) => {
+            let score = 0;
+            const lessonKeywords = extractKeywords(
+                lesson.title,
+                lesson.teaches,
+                lesson.riskAreas,
+                lesson.platforms
+            );
+            const lessonPhrases = (lesson.teaches || [])
+                .map((entry) => normalizeForKeywordSearch(entry))
+                .filter(Boolean);
+            const exactPhraseMatches = lessonPhrases.filter((phrase) => normalizedDetailHaystack.includes(phrase)).length;
+            const keywordMatches = detailKeywords.filter((keyword) => lessonKeywords.includes(keyword)).length;
+
+            if (moduleId && lesson.moduleId && lesson.moduleId.toString() === moduleId.toString()) {
+                score += 30;
+            }
+
+            if (detail.riskArea && (lesson.riskAreas || []).includes(detail.riskArea)) {
+                score += 14;
+            }
+
+            if (detail.platform && (lesson.platforms || []).includes(detail.platform)) {
+                score += 12;
+            }
+
+            score += exactPhraseMatches * 10;
+            score += keywordMatches * 4;
+
+            if (score > 0) {
+                score += LESSON_TYPE_PRIORITY[lesson.type] || 0;
+            }
+
+            return {
+                lesson,
+                score,
+                exactPhraseMatches,
+                keywordMatches,
+            };
+        })
+        .filter((entry) => entry.score > 0)
+        .sort((left, right) => {
+            if (right.score !== left.score) {
+                return right.score - left.score;
+            }
+
+            if (right.exactPhraseMatches !== left.exactPhraseMatches) {
+                return right.exactPhraseMatches - left.exactPhraseMatches;
+            }
+
+            if (right.keywordMatches !== left.keywordMatches) {
+                return right.keywordMatches - left.keywordMatches;
+            }
+
+            return (right.lesson.duration || 0) - (left.lesson.duration || 0);
+        });
+};
+
 const evaluateQuizSubmission = (quiz, answers = {}) => {
     let weightedScore = 0;
     let totalPossiblePoints = 0;
@@ -193,6 +354,8 @@ const evaluateQuizSubmission = (quiz, answers = {}) => {
             userAnswer: formatUserAnswer(question, userSelection),
             correctAnswer: getCorrectAnswer(question),
             explanation: question.explanation || DEFAULT_EXPLANATION,
+            riskArea: question.riskArea || null,
+            platform: question.platform || null,
         });
     });
 
@@ -224,6 +387,61 @@ const saveAttempt = async ({ userId, quizId, answers, evaluation }) =>
         errorsByArea: evaluation.errorsByArea,
         errorsByPlatform: evaluation.errorsByPlatform,
     });
+
+const buildGuidedLessonsForQuestionDetails = async ({
+    questionDetails = [],
+    courseId = null,
+    moduleId = null,
+}) => {
+    const areas = [...new Set(questionDetails.map((detail) => detail.riskArea).filter(Boolean))];
+    const platforms = [...new Set(questionDetails.map((detail) => detail.platform).filter(Boolean))];
+
+    if (!courseId && !moduleId && areas.length === 0 && platforms.length === 0) {
+        return questionDetails.map((detail) => ({ ...detail, guidedLessons: [] }));
+    }
+
+    const lessonQuery = {};
+
+    if (courseId) {
+        lessonQuery.courseId = courseId;
+    } else if (moduleId) {
+        lessonQuery.moduleId = moduleId;
+    } else {
+        lessonQuery.$or = [
+            ...(areas.length > 0 ? [{ riskAreas: { $in: areas } }] : []),
+            ...(platforms.length > 0 ? [{ platforms: { $in: platforms } }] : []),
+        ];
+    }
+
+    const lessons = await Lesson.find(lessonQuery)
+        .select('title _id duration riskAreas platforms teaches type moduleId')
+        .lean();
+
+    return questionDetails.map((detail) => {
+        const rankedLessons = rankGuidedLessonsForDetail({
+            detail,
+            lessons,
+            moduleId,
+        });
+        const fallbackLessons = lessons
+            .filter((lesson) => !moduleId || lesson.moduleId?.toString() === moduleId.toString())
+            .sort((left, right) =>
+                (LESSON_TYPE_PRIORITY[right.type] || 0) - (LESSON_TYPE_PRIORITY[left.type] || 0)
+            )
+            .map((lesson) => ({ lesson }));
+
+        return {
+            ...detail,
+            guidedLessons: (rankedLessons.length > 0 ? rankedLessons : fallbackLessons)
+                .slice(0, 3)
+                .map(({ lesson }) => ({
+                    _id: lesson._id,
+                    title: lesson.title,
+                    duration: lesson.duration,
+                })),
+        };
+    });
+};
 
 const resolveQuizContext = async (quiz) => {
     let courseId = null;
@@ -293,6 +511,16 @@ const submitQuizAttempt = async ({ quizId, userId, answers = {} }) => {
     }
 
     const evaluation = evaluateQuizSubmission(quiz, answers);
+    const quizContext = await resolveQuizContext(quiz);
+    const isAccreditationQuiz = quiz.scope === 'course';
+    const questionDetails = isAccreditationQuiz
+        ? []
+        : await buildGuidedLessonsForQuestionDetails({
+            questionDetails: evaluation.questionDetails,
+            courseId: quizContext.courseId,
+            moduleId: quizContext.moduleId,
+        });
+
     const attempt = await saveAttempt({
         userId,
         quizId,
@@ -312,7 +540,7 @@ const submitQuizAttempt = async ({ quizId, userId, answers = {} }) => {
         correctCount: evaluation.correctCount,
         badgeEarned,
         riskLevel: evaluation.riskLevel,
-        questionDetails: evaluation.questionDetails,
+        questionDetails,
     };
 };
 

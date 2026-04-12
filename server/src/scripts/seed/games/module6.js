@@ -241,7 +241,11 @@ Si dos o más respuestas te preocupan, ya hay razones para revisar hábitos y re
 El bienestar digital no consiste en eliminar los videojuegos, sino en comprobar que siguen ocupando un lugar saludable dentro de la vida del menor. Cuando el sueño, la escuela, la actividad física, la convivencia y el estado de ánimo siguen en equilibrio, el juego puede formar parte de una rutina sana.
 
 > **Recuerda**: El problema no siempre es jugar mucho; el problema aparece cuando jugar empieza a desplazar lo que el menor necesita para estar bien.`,
-        type: 'article', duration: 5
+        type: 'article',
+        duration: 5,
+        platforms: ['Roblox', 'Minecraft'],
+        riskAreas: ['Salud Mental y Fisica'],
+        teaches: ['sueño suficiente', 'uso problemático', 'escuela', 'ejercicio', 'gaming disorder', 'family media plan', 'rutina']
     });
 
     const l6_2 = await getOrCreateLesson(mod6._id, courseGames._id, {
@@ -445,7 +449,11 @@ Si alguna respuesta es "no", ese puede ser tu siguiente paso para acompañar mej
 Acompañar a un hijo en los videojuegos no consiste en volverse experto ni en vigilar cada segundo. Consiste en interesarse, conversar, mirar de cerca, jugar a veces y usar esa cercanía para orientar mejor. Cuando una familia logra eso, las reglas dejan de sentirse como castigo y empiezan a tener más sentido para todos.
 
 > **Recuerda**: Acompañar mejor no empieza con saberlo todo sobre videojuegos; empieza con estar presente y abrir una conversación real.`,
-        type: 'article', duration: 5
+        type: 'article',
+        duration: 5,
+        platforms: ['Roblox', 'Minecraft'],
+        riskAreas: ['Salud Mental y Fisica'],
+        teaches: ['acompañamiento parental', 'conversación', 'preguntas abiertas', 'juego compartido', 'co-viewing', 'family media plan', 'reglas']
     });
 
     const l6_4 = await getOrCreateLesson(mod6._id, courseGames._id, {

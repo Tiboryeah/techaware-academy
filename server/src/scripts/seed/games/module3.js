@@ -59,7 +59,11 @@ No todas las formas de juego conllevan el mismo nivel de exposición. Podemos cl
 3. **Riesgo Alto (Rojo)**: Servidores públicos masivos. Aquí el menor interactúa con miles de usuarios desconocidos. Es vital tener configurados los filtros de chat y la privacidad de la cuenta.
 
 > **Regla de Oro**: Antes de permitir el multijugador, asegúrese de conocer si su hijo está en un mundo compartido solo con amigos o en un servidor abierto a todo el mundo.`,
-            type: 'article', duration: 5
+            type: 'article',
+            duration: 5,
+            platforms: ['Minecraft'],
+            riskAreas: ['Seguridad de Cuenta', 'Privacidad Avanzada'],
+            teaches: ['java edition', 'bedrock edition', 'realm', 'servidor público', 'microsoft family safety', 'multijugador local', 'riesgo bajo', 'riesgo moderado', 'riesgo alto']
         });
 
         const l3_2 = await getOrCreateLesson(mod3._id, courseGames._id, {
@@ -118,7 +122,11 @@ En versiones recientes (especialmente Bedrock), Minecraft ha incluido **Realms S
 4. **Lista de Amigos**: Supervisar periódicamente a quién agrega el menor mediante la **Xbox Family Settings app**.
 
 > **Recuerda**: Supervisar Minecraft no es solo elegir mundos; es configurar la llave maestra de la cuenta Microsoft que abre las puertas de la interacción social.`,
-            type: 'article', duration: 5
+            type: 'article',
+            duration: 5,
+            platforms: ['Minecraft'],
+            riskAreas: ['Seguridad de Cuenta', 'Privacidad Avanzada'],
+            teaches: ['join multiplayer games', 'can join realms', 'agregar amistades', 'chat de voz', 'chat de texto', 'realms stories', 'xbox family settings', 'microsoft family group']
         });
 
         const l3_4 = await getOrCreateLesson(mod3._id, courseGames._id, {
@@ -219,7 +227,7 @@ En versiones recientes (especialmente Bedrock), Minecraft ha incluido **Realms S
             },
             {
                 text: '¿Qué elementos debe revisar un tutor antes de permitir que un menor juegue Minecraft en línea?',
-                type: 'multiple_choice',
+                type: 'multiple_selection',
                 points: 15,
                 options: [
                     { text: 'La edición que usa (Java vs Bedrock).', isCorrect: true },

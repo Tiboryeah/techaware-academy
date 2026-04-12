@@ -8,7 +8,7 @@ const seedFinalQuiz = require('./games/finalQuiz');
 
 module.exports = async function seedModule(context) {
     const { getOrCreateCourse, models } = context;
-    const { Module, Quiz } = models;
+    const { Lesson, Module, Quiz } = models;
 
     const courseGames = await getOrCreateCourse({
         title: 'Videojuegos en Línea: Roblox y Minecraft',
@@ -20,9 +20,10 @@ module.exports = async function seedModule(context) {
         duration: '3 horas',
     });
 
+    await Lesson.deleteMany({ courseId: courseGames._id });
     await Module.deleteMany({ courseId: courseGames._id });
     await Quiz.deleteMany({ refId: courseGames._id, scope: 'course' });
-    console.log('  (-) Old modules and Course Quiz for Course 1 wiped for clean expansion.');
+    console.log('  (-) Old lessons, modules and Course Quiz for Course 1 wiped for clean expansion.');
 
     const gamesContext = {
         ...context,

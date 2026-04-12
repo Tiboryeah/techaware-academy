@@ -231,7 +231,11 @@ Entender cómo funcionan **Robux**, **Minecoins** y las **microtransacciones** a
 > **Recuerda**: Supervisar compras no es prohibir; es ayudar a que el menor entienda qué está comprando y cuánto cuesta realmente.
 
 Este conocimiento prepara el terreno para el siguiente contenido del módulo, centrado en fraudes, phishing y enlaces falsos relacionados con supuestas recompensas "gratis".`,
-        type: 'article', duration: 5
+        type: 'article',
+        duration: 5,
+        platforms: ['Roblox', 'Minecraft'],
+        riskAreas: ['Gasto Controlado'],
+        teaches: ['robux', 'minecoins', 'microtransacción', 'in-game purchases', 'marketplace', 'límite de gasto', 'moneda virtual']
     });
 
     const l5_2 = await getOrCreateLesson(mod5._id, courseGames._id, {
@@ -458,7 +462,11 @@ Si alguna respuesta es "no sé", ahí está el siguiente punto que conviene revi
 Cuando madres, padres y tutores distinguen entre **Marketplace oficial**, **add-ons de Bedrock** y **mods de Java sin soporte oficial**, pueden tomar decisiones más seguras y evitar compras o descargas que compliquen la experiencia del menor o del dispositivo.
 
 > **Recuerda**: En Minecraft, "oficial" no significa solo que algo sea conocido; significa que viene de un canal respaldado por Mojang.`,
-        type: 'article', duration: 5
+        type: 'article',
+        duration: 5,
+        platforms: ['Roblox', 'Minecraft'],
+        riskAreas: ['Gasto Controlado', 'Seguridad de Cuenta'],
+        teaches: ['add-on', 'marketplace', 'mod de java', 'descarga de terceros', 'phishing', 'robux gratis', 'oficial', 'no oficial']
     });
 
     const l5_4 = await getOrCreateLesson(mod5._id, courseGames._id, {

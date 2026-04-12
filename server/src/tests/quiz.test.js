@@ -12,8 +12,11 @@ const request = require('supertest');
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const express = require('express');
+const Course = require('../models/Course');
+const Module = require('../models/Module');
 const Quiz = require('../models/Quiz');
 const Question = require('../models/Question');
+const Lesson = require('../models/Lesson');
 const User = require('../models/User');
 const quizRoutes = require('../routes/quiz.routes');
 const jwt = require('jsonwebtoken');
@@ -91,5 +94,143 @@ describe('Quiz Analysis Engine (US08)', () => {
         expect(attempt.errorsByArea.get('Grooming')).toEqual(1);
         expect(attempt.errorsByPlatform.get('TikTok')).toEqual(1);
         expect(attempt.errorsByPlatform.get('Roblox')).toEqual(1);
+    });
+
+    it('Should hide per-question details for accreditation course quizzes', async () => {
+        const quiz = await Quiz.create({
+            title: 'Final Course Quiz',
+            scope: 'course'
+        });
+
+        const question = await Question.create({
+            quizId: quiz._id,
+            text: 'Q1',
+            riskArea: 'Privacidad',
+            platform: 'Minecraft',
+            options: [{ text: 'Correct', isCorrect: true }, { text: 'Wrong', isCorrect: false }]
+        });
+
+        quiz.questions = [question._id];
+        await quiz.save();
+
+        const res = await request(app)
+            .post(`/api/quiz/${quiz._id}/submit`)
+            .send({
+                answers: {
+                    [question._id]: question.options[0]._id,
+                }
+            });
+
+        expect(res.statusCode).toEqual(201);
+        expect(res.body.score).toEqual(100);
+        expect(res.body.correctCount).toEqual(1);
+        expect(res.body.questionDetails).toEqual([]);
+    });
+
+    it('Should attach guided lessons to per-question review details for non-course quizzes', async () => {
+        const quiz = await Quiz.create({
+            title: 'Diagnostic Guided Review',
+            scope: 'diagnostic'
+        });
+
+        const question = await Question.create({
+            quizId: quiz._id,
+            text: 'Q guided',
+            riskArea: 'Privacidad',
+            platform: 'Roblox',
+            explanation: 'Repasa privacidad y control parental.',
+            options: [{ text: 'Correct', isCorrect: true }, { text: 'Wrong', isCorrect: false }]
+        });
+
+        await Lesson.create({
+            moduleId: new mongoose.Types.ObjectId(),
+            courseId: new mongoose.Types.ObjectId(),
+            title: 'Privacidad en Roblox',
+            riskAreas: ['Privacidad'],
+            platforms: ['Roblox'],
+        });
+
+        quiz.questions = [question._id];
+        await quiz.save();
+
+        const res = await request(app)
+            .post(`/api/quiz/${quiz._id}/submit`)
+            .send({
+                answers: {
+                    [question._id]: question.options[1]._id,
+                }
+            });
+
+        expect(res.statusCode).toEqual(201);
+        expect(res.body.questionDetails).toHaveLength(1);
+        expect(res.body.questionDetails[0].riskArea).toEqual('Privacidad');
+        expect(res.body.questionDetails[0].platform).toEqual('Roblox');
+        expect(res.body.questionDetails[0].guidedLessons).toHaveLength(1);
+        expect(res.body.questionDetails[0].guidedLessons[0].title).toEqual('Privacidad en Roblox');
+    });
+
+    it('Should link module quiz review guidance to lessons from the same module using taught concepts', async () => {
+        const course = await Course.create({
+            title: 'Curso de Juegos',
+            description: 'Curso de prueba',
+            category: 'Videojuegos',
+        });
+        const moduleRecord = await Module.create({
+            courseId: course._id,
+            title: 'Fundamentos',
+        });
+        const quiz = await Quiz.create({
+            title: 'Module Guided Review',
+            scope: 'module',
+            refId: moduleRecord._id,
+        });
+
+        const question = await Question.create({
+            quizId: quiz._id,
+            text: 'Relaciona Cuenta y Servidor con su definición correcta.',
+            type: 'fill_blanks',
+            explanation: 'Repasa cuenta, servidor y chat.',
+            metadata: {
+                correctAnswer: {
+                    blank1: 'cuenta',
+                    blank2: 'servidor',
+                },
+            },
+        });
+
+        await Lesson.create({
+            moduleId: moduleRecord._id,
+            courseId: course._id,
+            title: 'Guía visual: cuenta, servidor y chat',
+            type: 'guide',
+            teaches: ['cuenta', 'servidor', 'chat'],
+        });
+
+        await Lesson.create({
+            moduleId: new mongoose.Types.ObjectId(),
+            courseId: course._id,
+            title: 'Otro módulo no relacionado',
+            type: 'article',
+            teaches: ['grooming'],
+        });
+
+        quiz.questions = [question._id];
+        await quiz.save();
+
+        const res = await request(app)
+            .post(`/api/quiz/${quiz._id}/submit`)
+            .send({
+                answers: {
+                    [question._id]: {
+                        blank1: 'perfil',
+                        blank2: 'internet',
+                    },
+                }
+            });
+
+        expect(res.statusCode).toEqual(201);
+        expect(res.body.questionDetails).toHaveLength(1);
+        expect(res.body.questionDetails[0].guidedLessons).toHaveLength(1);
+        expect(res.body.questionDetails[0].guidedLessons[0].title).toEqual('Guía visual: cuenta, servidor y chat');
     });
 });
