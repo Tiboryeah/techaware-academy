@@ -95,7 +95,7 @@ const Home = () => {
   const percentage = progress.total > 0 ? Math.round((progress.completed / progress.total) * 100) : 0;
 
   if (user) {
-    let continueLink = '/modules';
+    let continueLink = '/cursos';
     let continueLabel = 'Continuar Aprendiendo';
     let subText = '';
 
@@ -103,11 +103,12 @@ const Home = () => {
       continueLabel = 'Cargando...';
     } else if (nextItem) {
       if (nextItem.type === 'lesson') {
-        continueLink = `/lessons/${nextItem.id}`;
+        continueLink = `/lecciones/${nextItem.id}`;
         continueLabel = 'Continuar Lección';
         subText = nextItem.title;
       } else if (nextItem.type === 'quiz') {
-        continueLink = `/quiz/${nextItem.id}`;
+        const evaluationId = nextItem.id === 'diagnostic' ? 'diagnostico' : nextItem.id;
+        continueLink = `/evaluacion/${evaluationId}`;
         continueLabel = 'Presentar Examen';
         subText = nextItem.title;
       } else if (nextItem.type === 'complete') {
@@ -122,7 +123,7 @@ const Home = () => {
             <div className="flex flex-col lg:flex-row items-center gap-8">
               <div className="relative w-32 h-32 rounded-[2rem] overflow-hidden border-[6px] border-white dark:border-[#0a0c10] shadow-2xl bg-white dark:bg-gray-800 shrink-0">
                 {user.avatar ? (
-                  <img src={(user.avatar.startsWith('http') || user.avatar.startsWith('data:')) ? user.avatar : `${API_BASE_URL}${user.avatar}`} alt="Profile" className="w-full h-full object-cover" />
+                  <img src={(user.avatar.startsWith('http') || user.avatar.startsWith('data:')) ? user.avatar : `${API_BASE_URL}${user.avatar}`} alt="Perfil" className="w-full h-full object-cover" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center bg-indigo-50 dark:bg-indigo-900/50 text-5xl font-black text-indigo-500 dark:text-indigo-300 uppercase">
                     {user.name?.charAt(0)}
@@ -198,9 +199,9 @@ const Home = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { icon: <BarChart3 className="text-blue-500" />, title: 'Mi Panel', desc: 'Ver estadísticas detalladas de seguridad.', link: '/dashboard' },
-              { icon: <Target className="text-purple-500" />, title: 'Explorar Cursos', desc: 'Aprende nuevas técnicas de protección.', link: '/modules' },
-              { icon: <ShieldCheck className="text-indigo-500" />, title: 'Casos Reales', desc: 'Analiza incidentes cibernéticos verídicos.', link: '/cases' }
+              { icon: <BarChart3 className="text-blue-500" />, title: 'Mi Panel', desc: 'Ver estadísticas detalladas de seguridad.', link: '/panel' },
+              { icon: <Target className="text-purple-500" />, title: 'Explorar Cursos', desc: 'Aprende nuevas técnicas de protección.', link: '/cursos' },
+              { icon: <ShieldCheck className="text-indigo-500" />, title: 'Casos y guías', desc: 'Analiza incidentes reales y consulta guías prácticas.', link: '/casos-y-guias' }
             ].map((card, i) => (
               <Link key={i} to={card.link}>
                 <motion.div whileHover={{ y: -5 }} className="p-8 bg-white dark:bg-[#161b22] rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-xl hover:border-indigo-500/20 transition-all flex flex-col gap-4">
@@ -271,8 +272,8 @@ const Home = () => {
           </div>
 
           <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.6 }} className="mt-16 flex flex-col sm:flex-row justify-center gap-8">
-            <Link to="/register" className="px-16 py-6 bg-indigo-600 text-white font-black text-xs uppercase tracking-[0.2em] rounded-[2rem] shadow-[0_20px_50px_rgba(79,70,229,0.3)] hover:bg-indigo-700 hover:-translate-y-2 transition-all active:scale-95">Comenzar Ahora</Link>
-            <Link to="/modules" className="px-16 py-6 bg-white dark:bg-[#161b22] text-gray-900 dark:text-white font-black text-xs uppercase tracking-[0.2em] rounded-[2rem] border border-gray-100 dark:border-gray-800 shadow-xl hover:-translate-y-2 transition-all active:scale-95">Ver Programas</Link>
+            <Link to="/registro" className="px-16 py-6 bg-indigo-600 text-white font-black text-xs uppercase tracking-[0.2em] rounded-[2rem] shadow-[0_20px_50px_rgba(79,70,229,0.3)] hover:bg-indigo-700 hover:-translate-y-2 transition-all active:scale-95">Comenzar Ahora</Link>
+            <Link to="/cursos" className="px-16 py-6 bg-white dark:bg-[#161b22] text-gray-900 dark:text-white font-black text-xs uppercase tracking-[0.2em] rounded-[2rem] border border-gray-100 dark:border-gray-800 shadow-xl hover:-translate-y-2 transition-all active:scale-95">Ver Programas</Link>
           </motion.div>
         </div>
 

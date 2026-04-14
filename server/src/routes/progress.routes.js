@@ -3,7 +3,11 @@ const express = require('express');
 const router = express.Router();
 
 const Progress = require('../models/Progress');
+const Lesson = require('../models/Lesson');
+const Module = require('../models/Module');
+const Course = require('../models/Course');
 const { protect } = require('../middleware/authMiddleware');
+const { createActivityLog } = require('../services/activityLogService');
 const {
     findNextLearningStep,
     getOverallProgressSummary,
@@ -32,6 +36,11 @@ router.post('/lesson/:lessonId/complete', protect, async (req, res) => {
     const { courseId } = req.body;
 
     try {
+        const previousProgress = await Progress.findOne({ userId: req.user._id, courseId });
+        const wasAlreadyCompleted = previousProgress?.completedLessons?.some(
+            (completedLessonId) => completedLessonId.toString() === lessonId.toString()
+        );
+
         const progress = await Progress.findOneAndUpdate(
             { userId: req.user._id, courseId },
             {
@@ -44,6 +53,26 @@ router.post('/lesson/:lessonId/complete', protect, async (req, res) => {
             },
             { new: true, upsert: true }
         );
+
+        if (!wasAlreadyCompleted) {
+            const lesson = await Lesson.findById(lessonId).select('title moduleId courseId');
+            const [moduleDocument, courseDocument] = await Promise.all([
+                lesson?.moduleId ? Module.findById(lesson.moduleId).select('title') : null,
+                Course.findById(lesson?.courseId || courseId).select('title'),
+            ]);
+
+            await createActivityLog({
+                userId: req.user._id,
+                kind: 'lesson_completed',
+                uniqueKey: `lesson:${req.user._id}:${lessonId}`,
+                title: lesson?.title || 'Lección completada',
+                subtitle: moduleDocument?.title || courseDocument?.title || 'Lección completada',
+                courseId,
+                moduleId: lesson?.moduleId || undefined,
+                lessonId,
+                passed: true,
+            });
+        }
 
         res.json({ message: 'Lesson marked as complete', progress });
     } catch (error) {

@@ -54,7 +54,7 @@ const Register = () => {
             setSuccess(data.message || 'Registro exitoso. Te enviamos un código a tu correo para verificar tu cuenta.');
 
             setTimeout(() => {
-                navigate('/verify', { state: { email: normalizedEmail } });
+                navigate('/verificar', { state: { email: normalizedEmail } });
             }, 1500);
         } catch (err) {
             setError(err.response?.data?.message || 'Error al registrarse. Intente nuevamente.');
@@ -81,7 +81,7 @@ const Register = () => {
             >
                 <div className="text-center mb-10">
                     <div className="inline-flex items-center justify-center mb-6">
-                        <img src={logo} alt="Kuxipilli Logo" className="w-40 h-40 object-cover rounded-full" />
+                        <img src={logo} alt="Logo de Kuxipilli" className="w-40 h-40 object-cover rounded-full" />
                     </div>
                     <h1 className="text-4xl font-black text-gray-900 dark:text-white tracking-tighter">
                         Únete a <span className="text-indigo-600 dark:text-indigo-400">Kuxipilli</span>
@@ -94,7 +94,7 @@ const Register = () => {
                 <div className="bg-white dark:bg-[#161b22] p-10 rounded-[2.5rem] shadow-2xl border border-gray-100 dark:border-gray-800 transition-colors">
                     <div className="flex justify-center mb-10 p-1.5 bg-gray-50 dark:bg-[#0a0c10] rounded-2xl border border-gray-100 dark:border-gray-800">
                         <Link
-                            to="/login"
+                            to="/iniciar-sesion"
                             className="flex-1 py-3 px-6 text-gray-400 hover:text-gray-900 dark:hover:text-white rounded-xl font-black text-xs uppercase tracking-widest text-center transition-colors"
                         >
                             Entrar
@@ -257,7 +257,7 @@ const Register = () => {
 
                 <p className="mt-8 text-center text-gray-500 dark:text-gray-400 text-sm italic">
                     ¿Ya proteges a tu familia?{' '}
-                    <Link to="/login" className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">
+                    <Link to="/iniciar-sesion" className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">
                         Iniciar Sesión
                     </Link>
                 </p>

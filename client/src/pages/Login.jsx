@@ -23,7 +23,7 @@ const Login = () => {
         try {
             await login(email.trim().toLowerCase(), password);
             addToast('¡Bienvenido de nuevo!', 'success');
-            navigate('/dashboard');
+            navigate('/panel');
         } catch (err) {
             addToast(err.response?.data?.message || 'Credenciales inválidas. Verifica tu correo y contraseña.', 'error');
         } finally {
@@ -45,7 +45,7 @@ const Login = () => {
             >
                 <div className="text-center mb-10">
                     <div className="inline-flex items-center justify-center mb-6">
-                        <img src={logo} alt="Kuxipilli Logo" className="w-40 h-40 object-cover rounded-full" />
+                        <img src={logo} alt="Logo de Kuxipilli" className="w-40 h-40 object-cover rounded-full" />
                     </div>
                     <h2 className="text-4xl font-black text-gray-900 dark:text-white mb-2">¡Hola Guardián!</h2>
                     <p className="mt-2 text-gray-500 dark:text-gray-400 font-medium italic">
@@ -59,7 +59,7 @@ const Login = () => {
                             Entrar
                         </button>
                         <Link
-                            to="/register"
+                            to="/registro"
                             className="flex-1 py-3 px-6 text-gray-400 hover:text-gray-900 dark:hover:text-white rounded-xl font-black text-xs uppercase tracking-widest text-center transition-colors"
                         >
                             Registro
@@ -128,7 +128,7 @@ const Login = () => {
 
                 <p className="mt-8 text-center text-gray-500 dark:text-gray-400 text-sm italic">
                     ¿Problemas para entrar?{' '}
-                    <Link to="/forgot-password" className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">
+                    <Link to="/recuperar-contrasena" className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">
                         Recuperar acceso
                     </Link>
                 </p>

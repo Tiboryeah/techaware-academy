@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
 import api from '../services/api';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, FileText, ChevronLeft, ChevronRight, CheckCircle, List, ArrowLeft, Youtube, Zap } from 'lucide-react';
+import { getLessonDurationLabel, getLessonTypeLabel } from '../utils/lessonType';
 
 const LessonView = () => {
     const { id } = useParams();
@@ -105,7 +106,7 @@ const LessonView = () => {
             {/* Persistent Floating Back Button */}
             <div className="fixed top-6 left-6 z-[100] pointer-events-none">
                 <Link 
-                    to={`/courses/${lesson.courseId}`}
+                    to={`/cursos/${lesson.courseId}`}
                     state={{ scrollToLessonId: location.state?.returnToLessonId || lesson._id }}
                     className="pointer-events-auto group inline-flex items-center gap-2 p-2 pr-4 rounded-2xl bg-white/80 dark:bg-[#161b22]/80 backdrop-blur-xl border border-gray-100 dark:border-white/5 text-indigo-600 dark:text-indigo-400 font-black text-[9px] tracking-[0.2em] uppercase hover:bg-indigo-600 hover:text-white transition-all shadow-xl active:scale-95"
                 >
@@ -129,7 +130,7 @@ const LessonView = () => {
                         </h1>
                         <div className="flex items-center gap-3 text-indigo-600 dark:text-indigo-400 font-bold text-xs uppercase tracking-widest opacity-60">
                             <span className="w-8 h-0.5 bg-indigo-600 rounded-full" />
-                            {lesson.type} — {lesson.duration} minutos de lectura
+                            {getLessonTypeLabel(lesson.type)} — {getLessonDurationLabel(lesson.type, lesson.duration)}
                         </div>
                     </div>
                     
@@ -276,7 +277,7 @@ const LessonView = () => {
                         <div className="flex flex-col sm:flex-row justify-between items-center pt-8 gap-6 pb-12">
                             {prevLesson ? (
                                 <button
-                                    onClick={() => navigate(`/lessons/${prevLesson._id}`, { state: { courseId: lesson.courseId, returnToLessonId: location.state?.returnToLessonId || lesson._id } })}
+                                    onClick={() => navigate(`/lecciones/${prevLesson._id}`, { state: { courseId: lesson.courseId, returnToLessonId: location.state?.returnToLessonId || lesson._id } })}
                                     className="w-full sm:w-auto group flex items-center justify-center gap-3 px-8 py-4 bg-white dark:bg-[#161b22] hover:bg-gray-50 dark:hover:bg-indigo-500/10 text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-white font-black text-[10px] uppercase tracking-[0.2em] rounded-xl transition-all border border-gray-100 dark:border-white/5 shadow-sm hover:shadow-md active:scale-95"
                                 >
                                     <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Anterior
@@ -285,7 +286,7 @@ const LessonView = () => {
 
                             {nextLesson ? (
                                 <button
-                                    onClick={() => navigate(`/lessons/${nextLesson._id}`, { state: { courseId: lesson.courseId, returnToLessonId: location.state?.returnToLessonId || lesson._id } })}
+                                    onClick={() => navigate(`/lecciones/${nextLesson._id}`, { state: { courseId: lesson.courseId, returnToLessonId: location.state?.returnToLessonId || lesson._id } })}
                                     className="w-full sm:w-auto group flex items-center justify-center gap-3 px-10 py-5 bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs uppercase tracking-[0.2em] rounded-xl transition-all shadow-lg active:scale-95 hover:translate-y-[-1px]"
                                 >
                                     Siguiente Lección <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -293,7 +294,7 @@ const LessonView = () => {
                             ) : (
                                 moduleQuizId && (
                                     <button
-                                        onClick={() => navigate(`/quiz/${moduleQuizId}`)}
+                                        onClick={() => navigate(`/evaluacion/${moduleQuizId}`)}
                                         className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-black text-xs uppercase tracking-[0.2em] rounded-xl transition-all shadow-lg active:scale-95 hover:translate-y-[-1px]"
                                     >
                                         Comenzar Examen <CheckCircle className="w-5 h-5" />
@@ -334,7 +335,7 @@ const LessonView = () => {
                                     return (
                                         <div
                                             key={item._id}
-                                            onClick={() => navigate(`/lessons/${item._id}`, { state: { courseId: lesson.courseId, returnToLessonId: location.state?.returnToLessonId || lesson._id } })}
+                                            onClick={() => navigate(`/lecciones/${item._id}`, { state: { courseId: lesson.courseId, returnToLessonId: location.state?.returnToLessonId || lesson._id } })}
                                             className={`group p-6 cursor-pointer flex items-center gap-5 transition-all border-b border-gray-50 dark:border-white/[0.01] ${isActive ? 'bg-indigo-600 scale-[1.02] shadow-xl z-10 relative rounded-xl mx-2 my-1' : 'hover:bg-indigo-500/5'
                                                 }`}
                                         >
@@ -350,7 +351,7 @@ const LessonView = () => {
                                                     {item.title}
                                                 </p>
                                                 <div className="flex items-center gap-2 mt-1.5 opacity-70">
-                                                    <p className={`text-[8px] font-black uppercase tracking-[0.1em] leading-none ${isActive ? 'text-white' : 'text-gray-400 dark:text-gray-500'}`}>{item.type}</p>
+                                                    <p className={`text-[8px] font-black uppercase tracking-[0.1em] leading-none ${isActive ? 'text-white' : 'text-gray-400 dark:text-gray-500'}`}>{getLessonTypeLabel(item.type)}</p>
                                                     <span className={`w-0.5 h-0.5 rounded-full ${isActive ? 'bg-white' : 'bg-gray-300 dark:bg-gray-700'}`} />
                                                     <p className={`text-[8px] font-black uppercase tracking-[0.1em] leading-none ${isActive ? 'text-white' : 'text-indigo-600 dark:text-indigo-400'}`}>{item.duration} min</p>
                                                 </div>
@@ -367,7 +368,7 @@ const LessonView = () => {
                             {moduleQuizId && (
                                 <div className="p-8 bg-indigo-50/20 dark:bg-black/20 transition-colors">
                                     <button
-                                        onClick={() => navigate(`/quiz/${moduleQuizId}`)}
+                                        onClick={() => navigate(`/evaluacion/${moduleQuizId}`)}
                                         className="w-full py-5 bg-white dark:bg-[#161b22] border border-gray-100 dark:border-white/5 hover:border-indigo-600 text-gray-400 hover:text-indigo-600 transition-all rounded-2xl font-black text-[9px] uppercase tracking-[0.3em] flex items-center justify-center gap-3 group"
                                     >
                                         <Zap className="w-4 h-4" /> EXAMEN FINAL

@@ -44,11 +44,11 @@ const TermsModal = ({ isOpen, onClose }) => {
                     <p>
                         Para operar la cuenta, la plataforma puede tratar nombre, correo,
                         credenciales protegidas, progreso académico, resultados, conversaciones del
-                        chatbot y reportes enviados por el usuario. Esta información se gestiona
+                        asistente virtual y reportes enviados por el usuario. Esta información se gestiona
                         conforme a la política de privacidad.
                     </p>
 
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">4. Chatbot y recursos externos</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">4. Asistente virtual y recursos externos</h3>
                     <p>
                         Algunas funciones pueden apoyarse en servicios de terceros, como correo,
                         video o IA. Te recomendamos no compartir datos personales sensibles de

@@ -211,6 +211,7 @@ router.post('/login', async (req, res) => {
                 email: user.email,
                 avatar: user.avatar,
                 role: user.role,
+                isVerified: user.isVerified,
                 token: generateToken(user._id),
             });
         }
@@ -267,6 +268,7 @@ router.put('/update-profile', protect, memoryUpload.single('avatar'), async (req
             email: updatedUser.email,
             avatar: updatedUser.avatar,
             role: updatedUser.role,
+            isVerified: updatedUser.isVerified,
             token: generateToken(updatedUser._id),
         });
     } catch (error) {

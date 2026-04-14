@@ -2,9 +2,11 @@ const Quiz = require('../models/Quiz');
 require('../models/Question');
 const Attempt = require('../models/Attempt');
 const Module = require('../models/Module');
+const Course = require('../models/Course');
 const Progress = require('../models/Progress');
 const Accreditation = require('../models/Accreditation');
 const Lesson = require('../models/Lesson');
+const { createActivityLog } = require('./activityLogService');
 const shuffleArray = require('../utils/shuffle');
 
 const OPTION_BASED_TYPES = new Set([
@@ -463,11 +465,11 @@ const resolveQuizContext = async (quiz) => {
     };
 };
 
-const updateProgressForApprovedQuiz = async ({ userId, quiz }) => {
+const updateProgressForApprovedQuiz = async ({ userId, quiz, occurredAt }) => {
     const { courseId, moduleId } = await resolveQuizContext(quiz);
 
     if (!courseId) {
-        return false;
+        return { updated: false };
     }
 
     let progress = await Progress.findOne({ userId, courseId });
@@ -481,6 +483,8 @@ const updateProgressForApprovedQuiz = async ({ userId, quiz }) => {
         });
     }
 
+    let updated = false;
+
     if (quiz.scope === 'module' && moduleId) {
         const alreadyCompleted = progress.completedModules.some(
             (completedModuleId) => completedModuleId.toString() === moduleId.toString()
@@ -488,9 +492,12 @@ const updateProgressForApprovedQuiz = async ({ userId, quiz }) => {
 
         if (!alreadyCompleted) {
             progress.completedModules.push(moduleId);
+            updated = true;
         }
     } else if (quiz.scope === 'course') {
+        const alreadyCompleted = progress.isCourseCompleted;
         progress.isCourseCompleted = true;
+        updated = !alreadyCompleted;
 
         try {
             await Accreditation.create({ userId, courseId });
@@ -500,7 +507,43 @@ const updateProgressForApprovedQuiz = async ({ userId, quiz }) => {
     }
 
     await progress.save();
-    return true;
+
+    if (quiz.scope === 'module' && moduleId && updated) {
+        const [moduleDocument, courseDocument] = await Promise.all([
+            Module.findById(moduleId).select('title'),
+            Course.findById(courseId).select('title'),
+        ]);
+
+        await createActivityLog({
+            userId,
+            kind: 'module_accredited',
+            uniqueKey: `module:${userId}:${moduleId}`,
+            title: moduleDocument?.title || 'Módulo acreditado',
+            subtitle: courseDocument?.title || 'Acreditación de módulo',
+            courseId,
+            moduleId,
+            occurredAt,
+            passed: true,
+        });
+    }
+
+    if (quiz.scope === 'course' && updated) {
+        const courseDocument = await Course.findById(courseId).select('title');
+
+        await createActivityLog({
+            userId,
+            kind: 'course_completed',
+            uniqueKey: `course:${userId}:${courseId}`,
+            title: courseDocument?.title || 'Curso completado',
+            subtitle: 'Acreditación final del curso',
+            courseId,
+            quizId: quiz._id,
+            occurredAt,
+            passed: true,
+        });
+    }
+
+    return { updated };
 };
 
 const submitQuizAttempt = async ({ quizId, userId, answers = {} }) => {
@@ -528,9 +571,33 @@ const submitQuizAttempt = async ({ quizId, userId, answers = {} }) => {
         evaluation,
     });
 
+    await createActivityLog({
+        userId,
+        kind: quiz.scope === 'diagnostic' ? 'diagnostic_attempt' : 'quiz_attempt',
+        title: quiz.scope === 'diagnostic' ? 'Diagnóstico completado' : quiz.title || 'Evaluación presentada',
+        subtitle:
+            quiz.scope === 'diagnostic'
+                ? 'Evaluación inicial'
+                : quiz.scope === 'course'
+                    ? 'Examen final del curso'
+                    : 'Evaluación de módulo',
+        courseId: quizContext.courseId || undefined,
+        moduleId: quizContext.moduleId || undefined,
+        quizId: quiz._id,
+        attemptId: attempt._id,
+        score: evaluation.score,
+        passed: evaluation.passed,
+        occurredAt: attempt.createdAt,
+    });
+
     let badgeEarned = false;
     if (evaluation.passed) {
-        badgeEarned = await updateProgressForApprovedQuiz({ userId, quiz });
+        const progressUpdate = await updateProgressForApprovedQuiz({
+            userId,
+            quiz,
+            occurredAt: attempt.createdAt,
+        });
+        badgeEarned = progressUpdate.updated;
     }
 
     return {

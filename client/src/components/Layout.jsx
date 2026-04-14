@@ -16,12 +16,22 @@ const Layout = () => {
 
     const handleLogout = () => {
         logout();
-        navigate('/login');
+        navigate('/iniciar-sesion');
     };
 
-    const isActive = (path) => location.pathname === path;
+    const isActive = (path) => {
+        if (path === '/') {
+            return location.pathname === '/';
+        }
 
-    const isLessonPage = location.pathname.startsWith('/lessons/');
+        if (path === '/casos-y-guias') {
+            return location.pathname === '/casos-y-guias' || location.pathname.startsWith('/casos/');
+        }
+
+        return location.pathname === path || location.pathname.startsWith(`${path}/`);
+    };
+
+    const isLessonPage = location.pathname.startsWith('/lecciones/');
 
     return (
         <div className="min-h-screen bg-[#fafafb] dark:bg-[#0a0c10] flex flex-col transition-colors duration-500 font-sans">
@@ -41,8 +51,8 @@ const Layout = () => {
                             <div className="hidden md:ml-12 md:flex md:space-x-1">
                                 {[
                                     { name: 'Inicio', path: '/' },
-                                    { name: 'Cursos', path: '/modules', protected: true },
-                                    { name: 'Casos Reales', path: '/cases', protected: true },
+                                    { name: 'Cursos', path: '/cursos', protected: true },
+                                    { name: 'Casos y guías', path: '/casos-y-guias', protected: true },
                                 ].map((item) => (
                                     (!item.protected || user) && (
                                         <Link
@@ -65,7 +75,7 @@ const Layout = () => {
                                 whileTap={{ scale: 0.95 }}
                                 onClick={toggleTheme}
                                 className="p-2.5 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:ring-2 hover:ring-indigo-500/30 transition-all border border-gray-200 dark:border-gray-700"
-                                aria-label="Toggle Theme"
+                                aria-label="Cambiar tema"
                             >
                                 {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
                             </motion.button>
@@ -75,7 +85,7 @@ const Layout = () => {
                             {user ? (
                                 <div className="flex items-center gap-3">
                                     <Link
-                                        to="/dashboard"
+                                        to="/panel"
                                         className="flex items-center gap-2 p-1.5 pr-4 rounded-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-indigo-500/50 transition-all"
                                     >
                                         <div className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white overflow-hidden">
@@ -92,7 +102,7 @@ const Layout = () => {
                                         <span className="text-sm font-bold text-gray-700 dark:text-gray-200 hidden sm:inline">Mi Panel</span>
                                     </Link>
                                     <Link
-                                        to="/profile"
+                                        to="/perfil"
                                         className="p-2.5 rounded-xl text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-500/10 transition-all border border-transparent hover:border-gray-200 dark:hover:border-gray-700"
                                         title="Mi Perfil y Configuración"
                                     >
@@ -108,7 +118,7 @@ const Layout = () => {
                                 </div>
                             ) : (
                                 <Link
-                                    to="/login"
+                                    to="/iniciar-sesion"
                                     className="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold shadow-lg shadow-indigo-600/20 transition-all transform active:scale-95"
                                 >
                                     Iniciar Sesión
@@ -135,9 +145,9 @@ const Layout = () => {
                         &copy; 2026 Kuxipilli. Educando para un futuro digital más seguro.
                     </div>
                     <div className="flex gap-6">
-                        <Link to="/privacy" className="text-sm text-gray-400 hover:text-indigo-500 transition-colors uppercase tracking-widest font-bold text-[10px]">Política</Link>
-                        <Link to="/terms" className="text-sm text-gray-400 hover:text-indigo-500 transition-colors uppercase tracking-widest font-bold text-[10px]">Términos</Link>
-                        <Link to="/cases" className="text-sm text-gray-400 hover:text-indigo-500 transition-colors uppercase tracking-widest font-bold text-[10px]">Contacto</Link>
+                        <Link to="/privacidad" className="text-sm text-gray-400 hover:text-indigo-500 transition-colors uppercase tracking-widest font-bold text-[10px]">Política</Link>
+                        <Link to="/terminos" className="text-sm text-gray-400 hover:text-indigo-500 transition-colors uppercase tracking-widest font-bold text-[10px]">Términos</Link>
+                        <Link to="/contactanos" className="text-sm text-gray-400 hover:text-indigo-500 transition-colors uppercase tracking-widest font-bold text-[10px]">Contáctanos</Link>
                     </div>
                 </div>
             </footer>

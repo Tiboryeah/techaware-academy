@@ -4,6 +4,7 @@ import api from '../services/api';
 import AuthContext from '../context/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, CheckCircle, Lock, Play, FileText, Trophy, ShieldCheck, Zap, ArrowLeft, Clock } from 'lucide-react';
+import { getLessonTypeLabel } from '../utils/lessonType';
 
 const CourseDetail = () => {
     const { id } = useParams();
@@ -80,7 +81,7 @@ const CourseDetail = () => {
                         animate={{ opacity: 1, x: 0 }}
                         className="mb-6"
                     >
-                        <Link to="/modules" className="inline-flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-bold text-sm hover:text-indigo-500 dark:hover:text-indigo-300 transition-colors uppercase tracking-widest">
+                        <Link to="/cursos" className="inline-flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-bold text-sm hover:text-indigo-500 dark:hover:text-indigo-300 transition-colors uppercase tracking-widest">
                             <ArrowLeft className="w-4 h-4" /> Volver a cursos
                         </Link>
                     </motion.div>
@@ -187,7 +188,7 @@ const CourseDetail = () => {
                                                 return (
                                                     <Link
                                                         key={lesson._id}
-                                                        to={`/lessons/${lesson._id}`}
+                                                        to={`/lecciones/${lesson._id}`}
                                                         state={{ courseId: course._id, returnToLessonId: lesson._id }}
                                                         id={`lesson-card-${lesson._id}`}
                                                         className={`flex items-center p-4 rounded-2xl transition-all border ${isLessonCompleted
@@ -204,7 +205,7 @@ const CourseDetail = () => {
                                                                 {lesson.title}
                                                             </p>
                                                             <div className="flex items-center gap-2 mt-1">
-                                                                <p className="text-[10px] text-gray-500 uppercase font-black tracking-widest leading-none">{lesson.type}</p>
+                                                                <p className="text-[10px] text-gray-500 uppercase font-black tracking-widest leading-none">{getLessonTypeLabel(lesson.type)}</p>
                                                                 {lesson.duration && (
                                                                     <>
                                                                         <span className="w-0.5 h-0.5 rounded-full bg-gray-400" />
@@ -225,7 +226,7 @@ const CourseDetail = () => {
                                             <div className="pt-4 mt-6 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-4">
                                                 {isModuleCompleted && (
                                                     <button
-                                                        onClick={() => navigate(`/quiz/${module.quizId}`)}
+                                                        onClick={() => navigate(`/evaluacion/${module.quizId}`)}
                                                         className="px-6 py-3 bg-gray-100 dark:bg-gray-800 text-gray-400 dark:text-gray-500 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-gray-200 dark:hover:bg-gray-700 transition-all font-inter"
                                                     >
                                                         Repetir Examen
@@ -233,7 +234,7 @@ const CourseDetail = () => {
                                                 )}
                                                 {!isModuleCompleted && (
                                                     <button
-                                                        onClick={() => navigate(`/quiz/${module.quizId}`)}
+                                                        onClick={() => navigate(`/evaluacion/${module.quizId}`)}
                                                         className="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs uppercase tracking-widest rounded-2xl transition-all shadow-xl shadow-indigo-600/20 active:scale-95"
                                                     >
                                                         Realizar Examen del Módulo
@@ -262,7 +263,7 @@ const CourseDetail = () => {
                         {course.quizId ? (
                             <div className="space-y-4">
                                 <button
-                                    onClick={() => navigate(`/quiz/${course.quizId}`)}
+                                    onClick={() => navigate(`/evaluacion/${course.quizId}`)}
                                     disabled={!allModulesCompleted && !isAdmin}
                                     className={`w-full py-6 rounded-3xl font-black text-sm uppercase tracking-[0.2em] transition-all transform flex items-center justify-center gap-3 ${allModulesCompleted || isAdmin
                                         ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700 shadow-xl shadow-green-500/20 active:scale-95'
@@ -274,7 +275,7 @@ const CourseDetail = () => {
                                     ) : allModulesCompleted ? (
                                         <>Comenzar Examen Final <Trophy className="w-5 h-5" /></>
                                     ) : (
-                                        <>Comenzar Examen {isAdmin ? '(Admin)' : <Lock className="w-5 h-5" />}</>
+                                        <>Comenzar Examen {isAdmin ? '(Administrador)' : <Lock className="w-5 h-5" />}</>
                                     )}
                                 </button>
                                 {progress?.isCourseCompleted && (

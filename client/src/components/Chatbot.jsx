@@ -59,7 +59,7 @@ const Chatbot = () => {
             setTimeout(() => {
                 setMessages(prev => [...prev, {
                     id: Date.now() + 1,
-                    text: "Para interactuar con el **Guardián Virtual**, es necesario que inicies sesión en tu cuenta. Esto me permite recordar nuestras conversaciones y darte un seguimiento especializado. [Ir a Iniciar Sesión](/login)",
+                    text: "Para interactuar con el **Guardián Virtual**, es necesario que inicies sesión en tu cuenta. Esto me permite recordar nuestras conversaciones y darte un seguimiento especializado. [Ir a Iniciar Sesión](/iniciar-sesion)",
                     sender: 'bot'
                 }]);
                 setIsTyping(false);
@@ -146,7 +146,7 @@ const Chatbot = () => {
                                 >
                                     <div className={`flex gap-3 max-w-[88%] ${msg.sender === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
                                         <div className={`w-10 h-10 flex-shrink-0 flex items-center justify-center transition-transform duration-300 hover:scale-110 ${msg.sender === 'user' ? 'bg-gradient-to-tr from-indigo-600 to-violet-600 text-white rounded-2xl shadow-lg overflow-hidden' : ''}`}>
-                                            {msg.sender === 'user' ? <User size={20} /> : <img src={logo} alt="Bot" className="w-full h-full scale-[1.7] object-contain drop-shadow-md" />}
+                                            {msg.sender === 'user' ? <User size={20} /> : <img src={logo} alt="Asistente" className="w-full h-full scale-[1.7] object-contain drop-shadow-md" />}
                                         </div>
                                         <div className={`p-4 rounded-[1.5rem] text-sm leading-relaxed shadow-[0_4px_15px_rgba(0,0,0,0.05)] transition-all duration-300 ${msg.sender === 'user'
                                             ? 'bg-gradient-to-br from-indigo-600 to-violet-700 text-white rounded-tr-none shadow-indigo-200 dark:shadow-none'
@@ -229,7 +229,7 @@ const Chatbot = () => {
                                 <div className="flex items-center justify-center gap-1.5 group cursor-default">
                                     <div className="h-px w-8 bg-gray-200 dark:bg-gray-800" />
                                     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 flex items-center gap-1.5 transition-colors group-hover:text-indigo-500">
-                                        <Sparkles size={11} className="text-indigo-400 animate-pulse" /> IA Gemini Flash
+                                        <Sparkles size={11} className="text-indigo-400 animate-pulse" /> Asistencia con IA
                                     </p>
                                     <div className="h-px w-8 bg-gray-200 dark:bg-gray-800" />
                                 </div>

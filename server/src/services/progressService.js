@@ -7,6 +7,7 @@ const Module = require('../models/Module');
 const Course = require('../models/Course');
 const Quiz = require('../models/Quiz');
 const Attempt = require('../models/Attempt');
+const { getRecentActivity } = require('./activityLogService');
 
 const DEBUG_LOG_PATH = path.join(__dirname, '..', '..', 'api_debug.log');
 
@@ -53,8 +54,8 @@ const buildProgressLookup = (progressList) => {
     });
 
     return {
-        isLessonCompleted: (lessonId) => lessonId ? completedLessons.has(toIdString(lessonId)) : false,
-        isModuleCompleted: (moduleId) => moduleId ? completedModules.has(toIdString(moduleId)) : false,
+        isLessonCompleted: (lessonId) => (lessonId ? completedLessons.has(toIdString(lessonId)) : false),
+        isModuleCompleted: (moduleId) => (moduleId ? completedModules.has(toIdString(moduleId)) : false),
     };
 };
 
@@ -64,12 +65,9 @@ const findNextLearningStep = async (userId) => {
     const { isLessonCompleted, isModuleCompleted } = buildProgressLookup(progressList);
 
     for (const course of courses) {
-        console.log(`Checking Course: ${course.title}`);
-
         for (const module of course.modules) {
             for (const lesson of module.lessonOrder || []) {
                 if (!isLessonCompleted(lesson._id)) {
-                    console.log(`    FOUND NEXT: Lesson - ${lesson.title}`);
                     return {
                         type: 'lesson',
                         id: lesson._id,
@@ -80,7 +78,6 @@ const findNextLearningStep = async (userId) => {
             }
 
             if (!isModuleCompleted(module._id) && module.quizId) {
-                console.log(`    FOUND NEXT: Quiz - ${module.title}`);
                 return {
                     type: 'quiz',
                     id: module.quizId,
@@ -91,7 +88,6 @@ const findNextLearningStep = async (userId) => {
         }
     }
 
-    console.log('Nothing found. All Complete.');
     return { type: 'complete' };
 };
 
@@ -138,10 +134,7 @@ const summarizeProgress = (progresses, graph) => {
 
 const findBestDiagnosticAttempt = async (userId) => {
     const diagnosticQuizzes = await Quiz.find({
-        $or: [
-            { scope: 'diagnostic' },
-            { title: /diagnóstico/i },
-        ],
+        $or: [{ scope: 'diagnostic' }, { title: /diagn[oó]stico/i }],
     }).select('_id');
 
     const diagnosticQuizIds = diagnosticQuizzes.map((quiz) => quiz._id);
@@ -157,8 +150,10 @@ const findBestDiagnosticAttempt = async (userId) => {
             .populate('quizId')
             .sort({ score: -1, createdAt: -1 });
 
-        bestDiagnostic = allUserAttempts.find((attempt) =>
-            attempt.quizId && (attempt.quizId.scope === 'diagnostic' || attempt.quizId.title?.toLowerCase().includes('diagnóstico'))
+        bestDiagnostic = allUserAttempts.find(
+            (attempt) =>
+                attempt.quizId &&
+                (attempt.quizId.scope === 'diagnostic' || /diagn[oó]stico/i.test(attempt.quizId.title || ''))
         );
     }
 
@@ -170,18 +165,41 @@ const findBestDiagnosticAttempt = async (userId) => {
 };
 
 const buildRecentActivity = async (userObjectId) => {
+    const activityEntries = await getRecentActivity(userObjectId, 5);
+
+    if (activityEntries.length > 0) {
+        return activityEntries.map((entry) => ({
+            id: entry._id,
+            kind: entry.kind,
+            title: entry.title || 'Actividad reciente',
+            subtitle: entry.subtitle || '',
+            score: entry.score,
+            date: entry.occurredAt || entry.createdAt,
+            passed: entry.passed,
+        }));
+    }
+
     const recentAttempts = await Attempt.find({ userId: userObjectId })
         .populate({
             path: 'quizId',
-            select: 'title scope module',
+            select: 'title scope',
         })
         .sort({ createdAt: -1 })
         .limit(5);
 
     return recentAttempts.map((attempt) => ({
         id: attempt._id,
-        type: attempt.quizId?.scope === 'diagnostic' ? 'DIAGNOSTIC' : 'QUIZ',
-        title: attempt.quizId?.title || 'Evaluación',
+        kind: attempt.quizId?.scope === 'diagnostic' ? 'diagnostic_attempt' : 'quiz_attempt',
+        title:
+            attempt.quizId?.scope === 'diagnostic'
+                ? 'Diagnóstico completado'
+                : attempt.quizId?.title || 'Evaluación',
+        subtitle:
+            attempt.quizId?.scope === 'diagnostic'
+                ? 'Evaluación inicial'
+                : attempt.quizId?.scope === 'course'
+                    ? 'Examen final del curso'
+                    : 'Evaluación de módulo',
         score: attempt.score,
         date: attempt.createdAt,
         passed: attempt.passed,

@@ -38,7 +38,7 @@ const ResetPassword = () => {
             await api.put(`/api/auth/reset-password/${token}`, { password });
             setMessage('Contraseña actualizada exitosamente. Redirigiendo al login...');
             setTimeout(() => {
-                navigate('/login');
+                navigate('/iniciar-sesion');
             }, 3000);
         } catch (err) {
             setError(err.response?.data?.message || 'Error al restablecer la contraseña. El enlace puede haber expirado.');
@@ -60,7 +60,7 @@ const ResetPassword = () => {
                 className="max-w-md w-full relative z-10"
             >
                 <div className="text-center mb-10">
-                    <img src={logo} alt="Kuxipilli Logo" className="w-24 h-24 object-cover rounded-full mx-auto mb-4" />
+                    <img src={logo} alt="Logo de Kuxipilli" className="w-24 h-24 object-cover rounded-full mx-auto mb-4" />
                     <h1 className="text-3xl font-black text-gray-900 dark:text-white tracking-tighter">
                         Nueva Contraseña
                     </h1>

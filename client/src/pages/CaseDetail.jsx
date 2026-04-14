@@ -55,8 +55,8 @@ const CaseDetail = () => {
             <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-[#0a0c10]">
                 <div className="text-center space-y-4">
                     <h2 className="text-2xl font-black dark:text-white">Caso no encontrado</h2>
-                    <button onClick={() => navigate('/cases')} className="px-6 py-3 bg-indigo-600 text-white rounded-xl font-bold">
-                        Volver a Casos
+                    <button onClick={() => navigate('/casos-y-guias?seccion=casos')} className="px-6 py-3 bg-indigo-600 text-white rounded-xl font-bold">
+                        Volver a casos y guías
                     </button>
                 </div>
             </div>
@@ -67,9 +67,9 @@ const CaseDetail = () => {
         <div className="min-h-screen bg-[#fafafb] dark:bg-[#0a0c10] text-gray-900 dark:text-gray-100 pb-20 transition-colors duration-500">
             <div className="sticky top-0 z-50 bg-white/80 dark:bg-[#0a0c10]/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
                 <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-                    <button onClick={() => navigate('/cases')} className="flex items-center gap-2 text-sm font-black uppercase tracking-widest text-gray-500 hover:text-indigo-600 transition-colors group">
+                    <button onClick={() => navigate('/casos-y-guias?seccion=casos')} className="flex items-center gap-2 text-sm font-black uppercase tracking-widest text-gray-500 hover:text-indigo-600 transition-colors group">
                         <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-                        Volver a Casos
+                        Volver a casos y guías
                     </button>
                     <div className="hidden md:flex items-center gap-3">
                         <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">Analizando:</span>

@@ -90,7 +90,7 @@ const VerifyAccount = () => {
                             Tu cuenta ha sido verificada con éxito. Ya estás listo para comenzar tu camino como Guardián Digital.
                         </p>
                         <button
-                            onClick={() => navigate('/login')}
+                            onClick={() => navigate('/iniciar-sesion')}
                             className="mt-6 w-full flex items-center justify-center gap-3 px-8 py-5 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-black text-xs uppercase tracking-widest rounded-2xl transition-all shadow-xl shadow-indigo-500/20 active:scale-95"
                         >
                             Acceder a mi cuenta <ArrowRight className="w-4 h-4" />

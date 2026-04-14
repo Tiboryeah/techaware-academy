@@ -12,7 +12,7 @@ module.exports = async function seedModule(context) {
 
     const courseGames = await getOrCreateCourse({
         title: 'Videojuegos en Línea: Roblox y Minecraft',
-        description: 'Dominio total de la seguridad, economía y bienestar digital en los mundos virtuales de tus hijos.',
+        description: 'Curso práctico para acompañar el uso de Roblox y Minecraft, revisando cuentas, chat, compras y bienestar digital.',
         category: 'Videojuegos',
         platforms: ['Roblox', 'Minecraft'],
         riskAreas: ['Seguridad de Cuenta', 'Privacidad Avanzada', 'Gasto Controlado', 'Salud Mental y Física'],

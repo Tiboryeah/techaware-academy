@@ -5,7 +5,7 @@ module.exports = async function seedModule(context) {
         // --- COURSE 2: REDES SOCIALES ---
         const courseSocial = await getOrCreateCourse({
             title: 'Redes Sociales: TikTok, Discord e Instagram',
-            description: 'Guía profesional para proteger la privacidad y el bienestar emocional de los adolescentes en redes sociales.',
+            description: 'Curso práctico para entender mejor la privacidad, los retos virales y la convivencia en redes sociales.',
             category: 'Redes Sociales',
             platforms: ['TikTok', 'Discord', 'Instagram'],
             riskAreas: ['Privacidad Avanzada', 'Algoritmos y Challenges', 'Predadores Online', 'Salud Mental'],

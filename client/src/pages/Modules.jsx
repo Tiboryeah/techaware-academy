@@ -164,7 +164,7 @@ const Modules = () => {
                                             </div>
 
                                             <Link
-                                                to={`/courses/${course._id}`}
+                                                to={`/cursos/${course._id}`}
                                                 className={`mt-auto relative inline-flex items-center justify-center w-full px-6 py-4 font-black text-xs uppercase tracking-widest text-white transition-all duration-300 bg-gradient-to-r ${theme.gradient} rounded-2xl group shadow-lg shadow-indigo-600/20 active:scale-95`}
                                             >
                                                 <span className="relative flex items-center gap-2">

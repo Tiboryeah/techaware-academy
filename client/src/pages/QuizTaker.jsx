@@ -54,7 +54,8 @@ const QuizTaker = () => {
     useEffect(() => {
         const fetchQuiz = async () => {
             try {
-                const endpoint = id === 'diagnostic' ? '/api/quiz/diagnostic' : `/api/quiz/${id}`;
+                const isDiagnosticRoute = id === 'diagnostic' || id === 'diagnostico';
+                const endpoint = isDiagnosticRoute ? '/api/quiz/diagnostic' : `/api/quiz/${id}`;
                 const { data } = await api.get(endpoint);
                 
                 // US08: Ensure question items are NOT in a predictable order
@@ -448,13 +449,13 @@ const QuizTaker = () => {
             <div className="text-center space-y-4 px-4">
                 <AlertCircle className="w-16 h-16 text-red-500 mx-auto" />
                 <h2 className="text-2xl font-black">Examen no encontrado</h2>
-                <button onClick={() => navigate('/dashboard')} className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Volver al Panel</button>
+                <button onClick={() => navigate('/panel')} className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Volver al Panel</button>
             </div>
         </div>
     );
 
     if (result) {
-        const isDiagnostic = id === 'diagnostic';
+        const isDiagnostic = id === 'diagnostic' || id === 'diagnostico';
         const questionDetails = result.questionDetails || [];
         const isAccreditationQuiz = quiz.scope === 'course';
         const totalQuestions = quiz.questions?.length || questionDetails.length || 0;
@@ -723,7 +724,7 @@ const QuizTaker = () => {
                                                                     {currentReviewLessons.map((lesson) => (
                                                                         <button
                                                                             key={lesson._id}
-                                                                            onClick={() => navigate(`/lessons/${lesson._id}`)}
+                                                                            onClick={() => navigate(`/lecciones/${lesson._id}`)}
                                                                             className="w-full p-4 rounded-2xl border border-indigo-100 dark:border-indigo-500/10 bg-white dark:bg-[#161b22] text-left hover:border-indigo-400 transition-all"
                                                                         >
                                                                             <div className="flex items-center justify-between gap-3">
@@ -876,7 +877,7 @@ const QuizTaker = () => {
                                 <div className="space-y-3">
                                     <h3 className="text-[10px] font-black uppercase tracking-widest text-indigo-600 mb-2">Repaso sugerido</h3>
                                     {recommendations.recommendedLessons.map((lesson) => (
-                                        <div key={lesson._id} className="p-4 bg-gray-50 dark:bg-[#0a0c10]/40 rounded-2xl border border-gray-100 flex items-center justify-between group hover:border-indigo-500/30 transition-all cursor-pointer" onClick={() => navigate(`/lessons/${lesson._id}`)}>
+                                        <div key={lesson._id} className="p-4 bg-gray-50 dark:bg-[#0a0c10]/40 rounded-2xl border border-gray-100 flex items-center justify-between group hover:border-indigo-500/30 transition-all cursor-pointer" onClick={() => navigate(`/lecciones/${lesson._id}`)}>
                                             <div className="flex items-center gap-4 text-left">
                                                 <div className="p-2 bg-indigo-500/10 rounded-lg text-indigo-600 font-bold"><BookOpen className="w-4 h-4" /></div>
                                                 <p className="text-sm font-bold text-gray-800 dark:text-gray-200">{lesson.title}</p>
@@ -1062,7 +1063,7 @@ const QuizTaker = () => {
                                 Reiniciar Examen
                             </button>
                             <button
-                                onClick={() => navigate('/dashboard')}
+                                onClick={() => navigate('/panel')}
                                 className="flex-1 py-4 bg-indigo-600 text-white font-black text-[10px] uppercase tracking-widest rounded-2xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-500/20 font-inter"
                             >
                                 Continuar al Panel
@@ -1077,8 +1078,7 @@ const QuizTaker = () => {
     const currentQuestion = quiz.questions[currentQuestionIndex];
     const isLastQuestion = currentQuestionIndex === quiz.questions.length - 1;
     const progress = ((currentQuestionIndex + 1) / quiz.questions.length) * 100;
-    const isCourseQuiz = quiz.scope === 'course';
-    const showQuestionNavigator = isAdmin || isCourseQuiz;
+    const showQuestionNavigator = (quiz.questions?.length || 0) > 1;
     const answeredCount = quiz.questions.filter((question) =>
         isQuestionAnswered(question, answers[question._id])
     ).length;
@@ -1204,7 +1204,7 @@ const QuizTaker = () => {
                             <div className="space-y-2 relative">
                                 {isAdmin && (
                                     <div className="mb-4 px-3 py-1 w-fit bg-amber-500/10 border border-amber-500/20 text-amber-600 text-[10px] font-black uppercase tracking-[0.2em] rounded-full flex items-center gap-2 italic">
-                                        <ShieldAlert className="w-3.5 h-3.5" /> Modo Revisión Admin (Navegación Libre)
+                                        <ShieldAlert className="w-3.5 h-3.5" /> Modo de revisión del administrador
                                     </div>
                                 )}
                                 {currentQuestion.platform && (
@@ -1570,7 +1570,7 @@ const QuizTaker = () => {
                             ) : (
                                 <button
                                     onClick={() => navigateToQuestion(currentQuestionIndex + 1)}
-                                    disabled={!isAdmin && !isCourseQuiz && !currentQuestionAnswered}
+                                    disabled={isSubmitting}
                                     className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-5 bg-white dark:bg-gray-100 text-gray-900 border border-gray-200 dark:border-transparent font-black text-xs uppercase tracking-widest rounded-2xl hover:bg-indigo-600 hover:text-white dark:hover:bg-indigo-500 transition-all disabled:opacity-50"
                                 >
                                     Siguiente <ChevronRight className="w-5 h-5" />

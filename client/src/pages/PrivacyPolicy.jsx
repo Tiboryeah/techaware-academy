@@ -21,14 +21,14 @@ const sections = [
                     Kuxipilli está dirigida a madres, padres y tutores. Para operar la cuenta y
                     personalizar la experiencia, la plataforma puede almacenar datos como nombre,
                     correo electrónico, contraseña protegida mediante hash, progreso académico,
-                    resultados de evaluaciones, conversaciones del chatbot y reportes enviados por
+                    resultados de evaluaciones, conversaciones del asistente virtual y reportes enviados por
                     el usuario.
                 </p>
                 <p>
                     La aplicación no está diseñada para que niñas, niños o adolescentes creen una
                     cuenta propia ni para recopilar de forma sistemática datos personales de
                     menores. Si un usuario decide incluir información sensible de un menor en el
-                    chatbot o en un reporte, se recomienda omitir nombres completos, direcciones y
+                    asistente virtual o en un reporte, se recomienda omitir nombres completos, direcciones y
                     cualquier dato que permita identificarlo directamente.
                 </p>
             </>
@@ -45,7 +45,7 @@ const sections = [
                     <li>permitir inicio de sesión, verificación y recuperación de acceso,</li>
                     <li>guardar avance, calificaciones y acreditaciones,</li>
                     <li>mostrar rutas de repaso y recomendaciones dentro de la plataforma,</li>
-                    <li>mantener historial del chatbot y atender reportes enviados por familias.</li>
+                    <li>mantener historial del asistente virtual y atender reportes enviados por familias.</li>
                 </ul>
                 <p>
                     No usamos los datos para vender perfiles de usuario ni para una explotación
@@ -65,7 +65,7 @@ const sections = [
                     videos embebidos y el asistente conversacional basado en Gemini.
                 </p>
                 <p>
-                    Cuando el usuario utiliza el chatbot o interactúa con recursos audiovisuales,
+                    Cuando el usuario utiliza el asistente virtual o interactúa con recursos audiovisuales,
                     parte de la información necesaria para prestar ese servicio puede ser procesada
                     por proveedores tecnológicos vinculados a la operación de Kuxipilli. Ese uso se
                     limita al funcionamiento de la plataforma y al cumplimiento de sus fines

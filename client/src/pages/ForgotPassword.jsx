@@ -58,7 +58,7 @@ const ForgotPassword = () => {
             addToast('¡Contraseña restablecida correctamente!', 'success');
             setStep('success');
             setTimeout(() => {
-                navigate('/login');
+                navigate('/iniciar-sesion');
             }, 5000);
         } catch (err) {
             addToast(err.response?.data?.message || 'Código inválido o expirado.', 'error');
@@ -80,7 +80,7 @@ const ForgotPassword = () => {
                 className="max-w-md w-full relative z-10"
             >
                 <div className="text-center mb-10">
-                    <img src={logo} alt="Kuxipilli Logo" className="w-24 h-24 object-cover rounded-full mx-auto mb-4" />
+                    <img src={logo} alt="Logo de Kuxipilli" className="w-24 h-24 object-cover rounded-full mx-auto mb-4" />
                     <h1 className="text-3xl font-black text-gray-900 dark:text-white tracking-tighter">
                         Recuperar Acceso
                     </h1>
@@ -230,7 +230,7 @@ const ForgotPassword = () => {
                                 </p>
                             </div>
                             <Link
-                                to="/login"
+                                to="/iniciar-sesion"
                                 className="block w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs uppercase tracking-[0.2em] rounded-2xl shadow-xl shadow-indigo-600/20 transition-all transform active:scale-95"
                             >
                                 Iniciar Sesión Ahora
@@ -248,7 +248,7 @@ const ForgotPassword = () => {
                             </button>
                         ) : (
                             <Link
-                                to="/login"
+                                to="/iniciar-sesion"
                                 className="inline-flex items-center gap-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 font-bold text-xs uppercase tracking-widest transition-colors"
                             >
                                 <ArrowLeft className="w-4 h-4" /> Cancelar y Volver

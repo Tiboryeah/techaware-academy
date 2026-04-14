@@ -81,7 +81,7 @@ const TermsOfService = () => {
                             Finalidad del servicio
                         </h2>
                         <p className="text-gray-600 dark:text-gray-400 leading-relaxed font-medium italic">
-                            Kuxipilli ofrece cursos, evaluaciones, guías, casos reales, chatbot y
+                            Kuxipilli ofrece cursos, evaluaciones, guías, casos reales, asistente virtual y
                             recursos de acompañamiento digital para familias. Su propósito es
                             educativo y preventivo.
                         </p>
@@ -151,7 +151,7 @@ const TermsOfService = () => {
                     <div className="space-y-6 text-gray-600 dark:text-gray-400 leading-relaxed font-medium">
                         <p>
                             <strong>1. Uso permitido.</strong> El usuario puede acceder a cursos,
-                            exámenes, recursos, chatbot y herramientas de reporte con fines
+                            exámenes, recursos, asistente virtual y herramientas de reporte con fines
                             educativos y de acompañamiento familiar. No está permitido usar la
                             plataforma para fines ilícitos, fraudulentos o de acoso.
                         </p>
@@ -171,7 +171,7 @@ const TermsOfService = () => {
                         </p>
 
                         <p>
-                            <strong>4. Chatbot y servicios externos.</strong> El asistente digital
+                            <strong>4. Asistente virtual y servicios externos.</strong> El asistente digital
                             está orientado a temas de seguridad digital parental. Puede apoyarse en
                             servicios de terceros para generar respuestas o mostrar recursos, por lo
                             que el usuario debe evitar compartir datos personales sensibles de

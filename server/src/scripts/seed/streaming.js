@@ -5,7 +5,7 @@ module.exports = async function seedModule(context) {
         // --- COURSE 3: PLATAFORMAS DE STREAMING ---
         const courseStreaming = await getOrCreateCourse({
             title: 'Plataformas de Streaming: YouTube y Twitch',
-            description: 'Guía profesional para gestionar el consumo de video en vivo y pregrabado, evitando riesgos financieros y emocionales.',
+            description: 'Curso práctico para revisar contenido, transmisiones en vivo y riesgos comunes en YouTube y Twitch.',
             category: 'Streaming',
             platforms: ['YouTube', 'Twitch'],
             riskAreas: ['Moderación de Contenido', 'Donaciones y Estafas', 'Relaciones Parasociales', 'Privacidad en Vivo'],

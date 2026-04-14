@@ -53,9 +53,26 @@ const Dashboard = () => {
         fetchData();
     }, []);
 
+    useEffect(() => {
+        const syncDashboard = () => fetchData();
+        const handleVisibilityChange = () => {
+            if (document.visibilityState === 'visible') {
+                syncDashboard();
+            }
+        };
+
+        window.addEventListener('focus', syncDashboard);
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+
+        return () => {
+            window.removeEventListener('focus', syncDashboard);
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+        };
+    }, []);
+
     const onLogout = () => {
         logout();
-        navigate('/login');
+        navigate('/iniciar-sesion');
     };
 
     const generateCertificate = (courseName, category) => {
@@ -243,6 +260,35 @@ const Dashboard = () => {
 
     const rank = getRank(protectionIndex);
 
+    const timeAgo = (date) => {
+        const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+        if (seconds < 60) return 'Hace un momento';
+        const minutes = Math.floor(seconds / 60);
+        if (minutes < 24 * 60) {
+            if (minutes < 60) return `Hace ${minutes} min`;
+            return `Hace ${Math.floor(minutes / 60)} h`;
+        }
+        return new Date(date).toLocaleDateString([], { day: '2-digit', month: 'short' });
+    };
+
+    const getActivityConfig = (activity) => {
+        switch (activity?.kind) {
+            case 'lesson_completed':
+                return { dotClass: 'bg-cyan-500', detail: activity.subtitle || 'Lección completada' };
+            case 'module_accredited':
+                return { dotClass: 'bg-emerald-500', detail: activity.subtitle || 'Módulo acreditado' };
+            case 'course_completed':
+                return { dotClass: 'bg-purple-500', detail: activity.subtitle || 'Curso acreditado' };
+            case 'diagnostic_attempt':
+                return { dotClass: 'bg-indigo-500', detail: activity.subtitle || 'Evaluación inicial' };
+            default:
+                return {
+                    dotClass: activity?.passed ? 'bg-green-500' : 'bg-yellow-500',
+                    detail: activity?.subtitle || (typeof activity?.score === 'number' ? `Puntaje: ${activity.score}%` : 'Evaluación presentada'),
+                };
+        }
+    };
+
     const badges = courses.map(course => {
         const isCompleted = progressData?.completedCourseIds?.some(id => String(id) === String(course._id));
         let icon = <Trophy />;
@@ -273,7 +319,7 @@ const Dashboard = () => {
                                 {user.avatar ? (
                                     <img
                                         src={(user.avatar.startsWith('http') || user.avatar.startsWith('data:')) ? user.avatar : `${API_BASE_URL}${user.avatar}`}
-                                        alt="Profile"
+                                        alt="Perfil"
                                         className="w-full h-full object-cover"
                                     />
                                 ) : (
@@ -310,7 +356,7 @@ const Dashboard = () => {
                                 <motion.button
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    onClick={() => navigate('/quiz/diagnostic')}
+                                    onClick={() => navigate('/evaluacion/diagnostico')}
                                     className="flex items-center gap-2 px-4 py-3 bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-indigo-500 hover:text-white transition-all shadow-sm"
                                 >
                                     <Target className="w-3.5 h-3.5" /> Recalibrar
@@ -379,7 +425,7 @@ const Dashboard = () => {
                                     </p>
                                 </div>
                                 <button
-                                    onClick={() => navigate('/quiz/diagnostic')}
+                                    onClick={() => navigate('/evaluacion/diagnostico')}
                                     className="w-full md:w-auto px-10 py-5 bg-indigo-600 dark:bg-white text-white dark:text-black font-black text-xs uppercase tracking-[0.2em] rounded-2xl hover:bg-indigo-700 dark:hover:bg-indigo-500 dark:hover:text-white transition-all shadow-xl active:scale-95"
                                 >
                                     Iniciar Diagnóstico
@@ -419,16 +465,7 @@ const Dashboard = () => {
                             <div className="space-y-6">
                                 {progressData?.recentActivity && progressData.recentActivity.length > 0 ? (
                                     progressData.recentActivity.map((act, i) => {
-                                        const timeAgo = (date) => {
-                                            const seconds = Math.floor((new Date() - new Date(date)) / 1000);
-                                            if (seconds < 60) return 'Hace un momento';
-                                            const minutes = Math.floor(seconds / 60);
-                                            if (minutes < 24 * 60) {
-                                                if (minutes < 60) return `Hace ${minutes} min`;
-                                                return `Hace ${Math.floor(minutes / 60)} h`;
-                                            }
-                                            return new Date(date).toLocaleDateString([], { day: '2-digit', month: 'short' });
-                                        };
+                                        const activityConfig = getActivityConfig(act);
 
                                         return (
                                             <motion.div
@@ -439,13 +476,13 @@ const Dashboard = () => {
                                                 className="flex items-center justify-between p-4 bg-gray-50 dark:bg-[#0a0c10]/40 rounded-2xl border border-gray-100 dark:border-white/5 transition-colors group hover:border-indigo-500/30"
                                             >
                                                 <div className="flex items-center gap-4">
-                                                    <div className={`w-2 h-2 rounded-full ${act.type === 'DIAGNOSTIC' ? 'bg-indigo-500' : (act.passed ? 'bg-green-500' : 'bg-yellow-500')} shadow-lg`} />
+                                                    <div className={`w-2 h-2 rounded-full ${activityConfig.dotClass} shadow-lg`} />
                                                     <div>
                                                         <p className="text-sm font-bold text-gray-800 dark:text-white">
-                                                            {act.type === 'DIAGNOSTIC' ? 'Diagnóstico Realizado' : act.title}
+                                                            {act.title}
                                                         </p>
                                                         <p className="text-[10px] text-gray-500 uppercase font-black tracking-widest">
-                                                            {timeAgo(act.date)} • {act.type === 'DIAGNOSTIC' ? 'Evaluación Inicial' : `Puntaje: ${act.score}%`}
+                                                            {timeAgo(act.date)} � {activityConfig.detail}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -671,3 +708,5 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+
