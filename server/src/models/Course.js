@@ -28,6 +28,10 @@ const courseSchema = mongoose.Schema(
         duration: {
             type: String, // e.g. '3 horas'
         },
+        finalQuizId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Quiz',
+        },
     },
 
     {

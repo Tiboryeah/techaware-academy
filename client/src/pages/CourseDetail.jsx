@@ -285,7 +285,9 @@ const CourseDetail = () => {
                                 )}
                             </div>
                         ) : (
-                            <div className="text-red-500 text-center font-bold">Error: No hay examen final asignado.</div>
+                            <div className="text-center p-4 rounded-2xl bg-gray-50 dark:bg-gray-800/60 border border-gray-100 dark:border-gray-700 text-gray-500 dark:text-gray-400 text-sm">
+                                El examen final de este curso todavía está en preparación.
+                            </div>
                         )}
 
                         <div className="mt-10 space-y-6">
