@@ -207,6 +207,7 @@ const buildRecentActivity = async (userObjectId) => {
 };
 
 const writeDebugLog = (debugInfo) => {
+    if (process.env.NODE_ENV === 'production') return;
     try {
         fs.appendFileSync(DEBUG_LOG_PATH, `${JSON.stringify(debugInfo)}\n`);
     } catch (error) {

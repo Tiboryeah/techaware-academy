@@ -15,7 +15,7 @@ import {
     ZoomIn,
 } from 'lucide-react';
 import api from '../services/api';
-import { API_BASE_URL } from '../constants';
+import avatarUrl from '../utils/avatarUrl';
 import AuthContext from '../context/AuthContext';
 import { ToastContext } from '../context/ToastContext';
 import logo from '../assets/logo_v2.png';
@@ -76,10 +76,7 @@ const Profile = () => {
         if (!user) return;
         setName(user.name || '');
         if (user.avatar) {
-            const url = user.avatar.startsWith('http') || user.avatar.startsWith('data:')
-                ? user.avatar
-                : `${API_BASE_URL}${user.avatar}`;
-            setManagedPreview(url);
+            setManagedPreview(avatarUrl(user.avatar));
         } else {
             setManagedPreview(null);
         }
@@ -229,7 +226,7 @@ const Profile = () => {
     };
 
     return (
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-6xl mx-auto space-y-8">
                 <section className="relative overflow-hidden rounded-[2.75rem] bg-gradient-to-br from-indigo-700 via-indigo-800 to-slate-900 p-8 md:p-10 text-white shadow-2xl">
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.18),_transparent_42%)]" />
@@ -273,7 +270,7 @@ const Profile = () => {
 
                 <div className="grid gap-8 xl:grid-cols-[1.2fr_0.8fr]">
                     <div className="space-y-8">
-                        <section className="bg-white dark:bg-[#161b22] rounded-[2.5rem] p-8 border border-gray-200 dark:border-gray-800">
+                        <section className="bg-white dark:bg-[#161b22] rounded-[2rem] sm:rounded-[2.5rem] p-5 sm:p-8 border border-gray-200 dark:border-gray-800">
                             <div className="flex items-center gap-3 mb-6"><div className="p-3 bg-indigo-50 dark:bg-indigo-500/10 rounded-xl text-indigo-600 dark:text-indigo-400"><User className="w-6 h-6" /></div><div><h2 className="text-xl font-bold text-gray-900 dark:text-white">Información personal</h2><p className="text-sm text-gray-500 dark:text-gray-400">Puedes actualizar tu nombre y preparar una foto mejor encuadrada.</p></div></div>
                             <form onSubmit={handleInfoUpdate} className="space-y-6">
                                 <div className="grid gap-6 md:grid-cols-[1.1fr_0.9fr]">
@@ -296,7 +293,7 @@ const Profile = () => {
                             </form>
                         </section>
 
-                        <section className="bg-white dark:bg-[#161b22] rounded-[2.5rem] p-8 border border-gray-200 dark:border-gray-800">
+                        <section className="bg-white dark:bg-[#161b22] rounded-[2rem] sm:rounded-[2.5rem] p-5 sm:p-8 border border-gray-200 dark:border-gray-800">
                             <div className="flex items-center gap-3 mb-6"><div className="p-3 bg-indigo-50 dark:bg-indigo-500/10 rounded-xl text-indigo-600 dark:text-indigo-400"><Lock className="w-6 h-6" /></div><div><h2 className="text-xl font-bold text-gray-900 dark:text-white">Seguridad</h2><p className="text-sm text-gray-500 dark:text-gray-400">Cambia tu contraseña cuando necesites reforzar el acceso a tu cuenta.</p></div></div>
                             <form onSubmit={handlePasswordUpdate} className="space-y-6">
                                 <div><label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Contraseña actual</label><input type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} className="w-full px-4 py-3 bg-gray-50 dark:bg-[#0a0c10] border-2 border-gray-100 dark:border-gray-800 rounded-xl focus:border-indigo-500 focus:outline-none transition-colors dark:text-white" placeholder="••••••••" /></div>
@@ -310,7 +307,7 @@ const Profile = () => {
                     </div>
 
                     <aside className="space-y-8 xl:sticky xl:top-24 h-fit">
-                        <section className="bg-white dark:bg-[#161b22] rounded-[2.5rem] p-8 border border-gray-200 dark:border-gray-800">
+                        <section className="bg-white dark:bg-[#161b22] rounded-[2rem] sm:rounded-[2.5rem] p-5 sm:p-8 border border-gray-200 dark:border-gray-800">
                             <div className="flex items-center gap-3 mb-5"><div className="p-3 bg-indigo-50 dark:bg-indigo-500/10 rounded-xl text-indigo-600 dark:text-indigo-400"><ShieldCheck className="w-6 h-6" /></div><div><h3 className="text-lg font-bold text-gray-900 dark:text-white">Resumen de la cuenta</h3><p className="text-sm text-gray-500 dark:text-gray-400">Solo lo esencial para administrar tu acceso.</p></div></div>
                             <div className="space-y-4">
                                 {[
@@ -321,7 +318,7 @@ const Profile = () => {
                             </div>
                         </section>
 
-                        <section className="bg-white dark:bg-[#161b22] rounded-[2.5rem] p-8 border border-gray-200 dark:border-gray-800">
+                        <section className="bg-white dark:bg-[#161b22] rounded-[2rem] sm:rounded-[2.5rem] p-5 sm:p-8 border border-gray-200 dark:border-gray-800">
                             <div className="flex items-center gap-3 mb-5"><div className="p-3 bg-cyan-50 dark:bg-cyan-500/10 rounded-xl text-cyan-600 dark:text-cyan-400"><Sparkles className="w-6 h-6" /></div><div><h3 className="text-lg font-bold text-gray-900 dark:text-white">Privacidad mínima</h3><p className="text-sm text-gray-500 dark:text-gray-400">Diseñado para pedir la menor información posible.</p></div></div>
                             <div className="space-y-4 text-sm text-gray-600 dark:text-gray-300">
                                 <p>Kuxipilli conserva tu nombre, correo y foto opcional para que puedas identificar tu cuenta sin llenar un perfil extenso.</p>
@@ -339,32 +336,32 @@ const Profile = () => {
                 {cropSource ? (
                     <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 sm:p-6">
                         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 bg-gray-900/70 backdrop-blur-sm" onClick={closeCrop} />
-                        <motion.div initial={{ opacity: 0, scale: 0.95, y: 10 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 10 }} className="relative w-full max-w-4xl rounded-[2.5rem] border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#161b22] shadow-2xl overflow-hidden">
-                            <button type="button" onClick={closeCrop} className="absolute right-5 top-5 z-10 rounded-full border border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-[#0a0c10]/80 p-2 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-300"><X className="w-5 h-5" /></button>
+                        <motion.div initial={{ opacity: 0, scale: 0.95, y: 10 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 10 }} className="relative w-full max-w-4xl rounded-[2rem] sm:rounded-[2.5rem] border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#161b22] shadow-2xl overflow-y-auto max-h-[92vh]">
+                            <button type="button" onClick={closeCrop} className="absolute right-4 top-4 z-10 rounded-full border border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-[#0a0c10]/80 p-2 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-300"><X className="w-5 h-5" /></button>
                             <div className="grid lg:grid-cols-[1fr_0.95fr]">
-                                <div className="p-6 sm:p-8 bg-[#f6f8ff] dark:bg-[#10141c] border-b lg:border-b-0 lg:border-r border-gray-200 dark:border-gray-800">
-                                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-300 mb-3">Ajuste de imagen</p>
-                                    <h3 className="text-2xl font-black text-gray-900 dark:text-white tracking-tight">Ajusta tu foto antes de guardarla</h3>
-                                    <p className="mt-3 text-sm text-gray-500 dark:text-gray-400 leading-relaxed">Mueve y acerca la imagen hasta que el recorte te guste. Se guardará en formato cuadrado para que se vea bien en toda la plataforma.</p>
-                                    <div className="mt-8 flex justify-center">
-                                        <div className="relative h-72 w-72 sm:h-80 sm:w-80 rounded-[2.25rem] overflow-hidden border-4 border-white dark:border-[#161b22] shadow-2xl bg-[#0a0c10]">
+                                <div className="p-5 sm:p-8 bg-[#f6f8ff] dark:bg-[#10141c] border-b lg:border-b-0 lg:border-r border-gray-200 dark:border-gray-800">
+                                    <p className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-300 mb-2">Ajuste de imagen</p>
+                                    <h3 className="text-lg sm:text-2xl font-black text-gray-900 dark:text-white tracking-tight">Ajusta tu foto</h3>
+                                    <p className="mt-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400 leading-relaxed hidden sm:block">Mueve y acerca la imagen hasta que el recorte te guste. Se guardará en formato cuadrado.</p>
+                                    <div className="mt-4 sm:mt-8 flex justify-center">
+                                        <div className="relative h-52 w-52 sm:h-72 sm:w-72 rounded-[1.75rem] sm:rounded-[2.25rem] overflow-hidden border-4 border-white dark:border-[#161b22] shadow-2xl bg-[#0a0c10]">
                                             {cropMetrics ? <img src={cropSource} alt="Vista previa del recorte" className="pointer-events-none absolute top-1/2 left-1/2 max-w-none select-none" style={{ width: `${cropMetrics.width}px`, height: `${cropMetrics.height}px`, transform: `translate(calc(-50% + ${cropX}px), calc(-50% + ${cropY}px))` }} /> : null}
-                                            <div className="absolute inset-0 border-[10px] border-white/15 rounded-[2rem]" />
+                                            <div className="absolute inset-0 border-[10px] border-white/15 rounded-[1.5rem] sm:rounded-[2rem]" />
                                             <div className="absolute inset-x-0 top-1/2 h-px bg-white/20" />
                                             <div className="absolute inset-y-0 left-1/2 w-px bg-white/20" />
                                         </div>
                                     </div>
                                 </div>
-                                <div className="p-6 sm:p-8 space-y-6">
-                                    <div className="space-y-5">
-                                        <div><label className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400 mb-3"><ZoomIn className="w-4 h-4" /> Zoom</label><input type="range" min="1" max="2.8" step="0.01" value={cropZoom} onChange={(e) => setCropZoom(Number(e.target.value))} className="w-full accent-indigo-600" /></div>
-                                        <div><label className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400 mb-3"><Move className="w-4 h-4" /> Desplazamiento horizontal</label><input type="range" min={cropMetrics ? -cropMetrics.maxX : 0} max={cropMetrics ? cropMetrics.maxX : 0} step="1" value={cropX} onChange={(e) => setCropX(Number(e.target.value))} className="w-full accent-indigo-600" /></div>
-                                        <div><label className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400 mb-3"><Move className="w-4 h-4" /> Desplazamiento vertical</label><input type="range" min={cropMetrics ? -cropMetrics.maxY : 0} max={cropMetrics ? cropMetrics.maxY : 0} step="1" value={cropY} onChange={(e) => setCropY(Number(e.target.value))} className="w-full accent-indigo-600" /></div>
+                                <div className="p-5 sm:p-8 space-y-5">
+                                    <div className="space-y-4">
+                                        <div><label className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400 mb-2"><ZoomIn className="w-4 h-4" /> Zoom</label><input type="range" min="1" max="2.8" step="0.01" value={cropZoom} onChange={(e) => setCropZoom(Number(e.target.value))} className="w-full accent-indigo-600" /></div>
+                                        <div><label className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400 mb-2"><Move className="w-4 h-4" /> Horizontal</label><input type="range" min={cropMetrics ? -cropMetrics.maxX : 0} max={cropMetrics ? cropMetrics.maxX : 0} step="1" value={cropX} onChange={(e) => setCropX(Number(e.target.value))} className="w-full accent-indigo-600" /></div>
+                                        <div><label className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400 mb-2"><Move className="w-4 h-4" /> Vertical</label><input type="range" min={cropMetrics ? -cropMetrics.maxY : 0} max={cropMetrics ? cropMetrics.maxY : 0} step="1" value={cropY} onChange={(e) => setCropY(Number(e.target.value))} className="w-full accent-indigo-600" /></div>
                                     </div>
-                                    <div className="rounded-[1.75rem] border border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-[#0a0c10] p-5"><p className="text-[10px] font-black uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400">Consejo rápido</p><p className="mt-2 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">Procura que tu rostro o elemento principal quede al centro. Si la imagen se ve muy cerrada, baja un poco el zoom.</p></div>
-                                    <div className="flex flex-wrap justify-between gap-3 pt-2">
-                                        <button type="button" onClick={() => { setCropZoom(1); setCropX(0); setCropY(0); }} className="inline-flex items-center gap-2 px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 font-bold"><RotateCcw className="w-4 h-4" /> Recentrar</button>
-                                        <button type="button" onClick={applyCrop} disabled={isCropLoading} className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold shadow-lg shadow-indigo-600/20 disabled:opacity-50">{isCropLoading ? 'Procesando...' : <><CheckCircle2 className="w-4 h-4" /> Usar este encuadre</>}</button>
+                                    <div className="rounded-[1.5rem] border border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-[#0a0c10] p-4"><p className="text-[10px] font-black uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400">Consejo rápido</p><p className="mt-1.5 text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">Procura que tu rostro quede al centro. Si se ve muy cerrado, baja el zoom.</p></div>
+                                    <div className="flex flex-wrap justify-between gap-3">
+                                        <button type="button" onClick={() => { setCropZoom(1); setCropX(0); setCropY(0); }} className="inline-flex items-center gap-2 px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 font-bold text-sm"><RotateCcw className="w-4 h-4" /> Recentrar</button>
+                                        <button type="button" onClick={applyCrop} disabled={isCropLoading} className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-lg shadow-indigo-600/20 disabled:opacity-50">{isCropLoading ? 'Procesando...' : <><CheckCircle2 className="w-4 h-4" /> Usar este encuadre</>}</button>
                                     </div>
                                 </div>
                             </div>

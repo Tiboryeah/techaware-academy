@@ -147,7 +147,7 @@ const ContactPage = () => {
 
     return (
         <div className="min-h-screen bg-[#fafafb] dark:bg-[#0a0c10] text-gray-900 dark:text-gray-100 transition-colors duration-500 pb-20">
-            <div className="relative pt-24 pb-16 overflow-hidden">
+            <div className="relative pt-16 sm:pt-24 pb-10 sm:pb-16 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-b from-indigo-500/5 to-transparent pointer-events-none" />
                 <div className="max-w-6xl mx-auto px-4 relative z-10 text-center space-y-4">
                     <motion.div
@@ -161,7 +161,7 @@ const ContactPage = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="text-5xl md:text-6xl font-black tracking-tighter"
+                        className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tighter"
                     >
                         Contáctanos
                     </motion.h1>
@@ -191,7 +191,7 @@ const ContactPage = () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: index * 0.05 }}
                                 onClick={() => openFormFor(card.key)}
-                                className={`p-8 text-left bg-white dark:bg-[#161b22] rounded-[2.5rem] border shadow-xl space-y-4 transition-all ${
+                                className={`p-5 sm:p-8 text-left bg-white dark:bg-[#161b22] rounded-[2rem] sm:rounded-[2.5rem] border shadow-xl space-y-4 transition-all ${
                                     isActive
                                         ? 'border-indigo-500/40 ring-2 ring-indigo-500/10'
                                         : 'border-gray-100 dark:border-gray-800 hover:border-indigo-200 dark:hover:border-indigo-500/20'
@@ -213,7 +213,7 @@ const ContactPage = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="p-8 bg-white dark:bg-[#161b22] rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-xl space-y-4"
+                        className="p-5 sm:p-8 bg-white dark:bg-[#161b22] rounded-[2rem] sm:rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-xl space-y-4"
                     >
                         <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-600 flex items-center justify-center">
                             <BookOpen className="w-6 h-6" />
@@ -248,7 +248,7 @@ const ContactPage = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         onSubmit={handleSubmit}
-                        className="p-8 md:p-10 bg-white dark:bg-[#161b22] rounded-[3rem] border border-gray-100 dark:border-gray-800 shadow-2xl space-y-8"
+                        className="p-6 sm:p-8 md:p-10 bg-white dark:bg-[#161b22] rounded-[2rem] sm:rounded-[3rem] border border-gray-100 dark:border-gray-800 shadow-2xl space-y-8"
                     >
                         <div className="space-y-2">
                             <h2 className="text-3xl font-black text-gray-900 dark:text-white tracking-tight">Formulario de contacto</h2>
@@ -458,7 +458,7 @@ const ContactPage = () => {
                         <motion.aside
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
-                            className="p-8 bg-white dark:bg-[#161b22] rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-xl space-y-5"
+                            className="p-5 sm:p-8 bg-white dark:bg-[#161b22] rounded-[2rem] sm:rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-xl space-y-5"
                         >
                             <h3 className="text-lg font-black text-gray-900 dark:text-white">Qué nos ayuda a analizar mejor</h3>
                             <ul className="space-y-3 text-sm text-gray-500 dark:text-gray-400">
@@ -473,7 +473,7 @@ const ContactPage = () => {
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.05 }}
-                            className="p-8 bg-white dark:bg-[#161b22] rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-xl space-y-5"
+                            className="p-5 sm:p-8 bg-white dark:bg-[#161b22] rounded-[2rem] sm:rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-xl space-y-5"
                         >
                             <h3 className="text-lg font-black text-gray-900 dark:text-white">Te puede servir también</h3>
                             <div className="space-y-3">

@@ -24,6 +24,7 @@ import {
     GripVertical,
     Check
 } from 'lucide-react';
+import { getLessonDisplayTitle } from '../utils/lessonType';
 
 
 const QuizTaker = () => {
@@ -730,7 +731,7 @@ const QuizTaker = () => {
                                                                             <div className="flex items-center justify-between gap-3">
                                                                                 <div className="min-w-0">
                                                                                     <p className="text-sm font-bold text-gray-900 dark:text-white leading-snug">
-                                                                                        {lesson.title}
+                                                                                        {getLessonDisplayTitle(lesson.title, lesson.type)}
                                                                                     </p>
                                                                                     {lesson.duration ? (
                                                                                         <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
@@ -783,11 +784,11 @@ const QuizTaker = () => {
         }
 
         return (
-            <div className="min-h-screen bg-[#fafafb] dark:bg-[#0a0c10] text-gray-900 dark:text-gray-100 py-12 px-4 transition-colors duration-500">
+            <div className="min-h-screen bg-[#fafafb] dark:bg-[#0a0c10] text-gray-900 dark:text-gray-100 py-8 sm:py-12 px-4 transition-colors duration-500">
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="max-w-3xl mx-auto bg-white dark:bg-[#161b22] rounded-[3rem] border border-gray-100 dark:border-gray-800 p-8 md:p-12 shadow-2xl overflow-hidden relative"
+                    className="max-w-3xl mx-auto bg-white dark:bg-[#161b22] rounded-[2rem] sm:rounded-[3rem] border border-gray-100 dark:border-gray-800 p-6 sm:p-8 md:p-12 shadow-2xl overflow-hidden relative"
                 >
                     <div className="absolute top-0 left-0 w-full h-2 bg-indigo-500" />
 
@@ -880,7 +881,7 @@ const QuizTaker = () => {
                                         <div key={lesson._id} className="p-4 bg-gray-50 dark:bg-[#0a0c10]/40 rounded-2xl border border-gray-100 flex items-center justify-between group hover:border-indigo-500/30 transition-all cursor-pointer" onClick={() => navigate(`/lecciones/${lesson._id}`)}>
                                             <div className="flex items-center gap-4 text-left">
                                                 <div className="p-2 bg-indigo-500/10 rounded-lg text-indigo-600 font-bold"><BookOpen className="w-4 h-4" /></div>
-                                                <p className="text-sm font-bold text-gray-800 dark:text-gray-200">{lesson.title}</p>
+                                                <p className="text-sm font-bold text-gray-800 dark:text-gray-200">{getLessonDisplayTitle(lesson.title, lesson.type)}</p>
                                             </div>
                                             <ChevronRight className="w-4 h-4 text-gray-400 transition-colors" />
                                         </div>
@@ -1311,8 +1312,8 @@ const QuizTaker = () => {
                                         </div>
                                     </div>
                                 ) : currentQuestion.type === 'fill_blanks' ? (
-                                    <div className="space-y-8">
-                                        <div className="p-8 bg-gray-50 dark:bg-[#0a0c10]/40 rounded-[2rem] border border-gray-100 dark:border-gray-800 leading-relaxed font-medium">
+                                    <div className="space-y-4 sm:space-y-8">
+                                        <div className="p-5 sm:p-8 bg-gray-50 dark:bg-[#0a0c10]/40 rounded-[2rem] border border-gray-100 dark:border-gray-800 leading-relaxed font-medium">
                                             {currentQuestion.metadata.sentence.split(/\[blank\d+\]/).map((part, i, arr) => (
                                                 <React.Fragment key={i}>
                                                     {part}
@@ -1407,7 +1408,7 @@ const QuizTaker = () => {
 
                                             {/* Unassigned Items Pool */}
                                             {unassignedItems.length > 0 && (
-                                                <div className="mt-12 p-8 bg-gray-50 dark:bg-[#0a0c10]/40 border border-gray-100 dark:border-gray-800 rounded-[3rem]">
+                                                <div className="mt-6 sm:mt-12 p-5 sm:p-8 bg-gray-50 dark:bg-[#0a0c10]/40 border border-gray-100 dark:border-gray-800 rounded-[2rem] sm:rounded-[3rem]">
                                                     <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em] mb-6 text-center">Elementos Pendientes</h4>
                                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                                         {unassignedItems.map(item => (
@@ -1480,7 +1481,7 @@ const QuizTaker = () => {
                                         </div>
                                     </div>
                                 ) : currentQuestion.type === 'drop_down' ? (
-                                    <div className="p-8 bg-gray-50 dark:bg-[#0a0c10]/40 rounded-[2rem] border border-gray-100 dark:border-gray-800 leading-relaxed font-medium">
+                                    <div className="p-5 sm:p-8 bg-gray-50 dark:bg-[#0a0c10]/40 rounded-[2rem] border border-gray-100 dark:border-gray-800 leading-relaxed font-medium">
                                         {currentQuestion.metadata.sentence.split(/\[blank\d+\]/).map((part, i, arr) => (
                                             <React.Fragment key={i}>
                                                 {part}

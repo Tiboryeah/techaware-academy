@@ -12,8 +12,22 @@ router.get('/', async (req, res) => {
             filter.type = req.query.type;
         }
 
-        const resources = await Resource.find(filter).sort({ order: 1, createdAt: 1 });
-        res.json(resources);
+        const page  = Math.max(1, parseInt(req.query.page)  || 1);
+        const limit = Math.min(50, Math.max(1, parseInt(req.query.limit) || 9));
+        const skip  = (page - 1) * limit;
+
+        const [data, total] = await Promise.all([
+            Resource.find(filter).sort({ order: 1, createdAt: 1 }).skip(skip).limit(limit),
+            Resource.countDocuments(filter),
+        ]);
+
+        res.json({
+            data,
+            total,
+            page,
+            totalPages: Math.ceil(total / limit),
+            hasNextPage: skip + data.length < total,
+        });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

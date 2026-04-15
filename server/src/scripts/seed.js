@@ -9,9 +9,9 @@ const {
     getOrCreateResource,
     models,
 } = require('./seed/helpers');
-const seedGamesCourse = require('./seed/games');
-const seedSocialCourse = require('./seed/social');
-const seedStreamingCourse = require('./seed/streaming');
+const seedGamesCourse = require('./seed/courses/games');
+const seedSocialCourse = require('./seed/courses/social');
+const seedStreamingCourse = require('./seed/courses/streaming');
 const seedDiagnosticQuiz = require('./seed/diagnostic');
 const seedResources = require('./seed/resources');
 

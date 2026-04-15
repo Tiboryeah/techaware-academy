@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import api from '../services/api';
-import { API_BASE_URL } from '../constants';
+import avatarUrl from '../utils/avatarUrl';
 import { motion } from 'framer-motion';
 import jsPDF from 'jspdf';
 import {
@@ -310,15 +310,15 @@ const Dashboard = () => {
 
     return (
         <div className="min-h-screen bg-[#fafafb] dark:bg-[#0a0c10] text-gray-900 dark:text-gray-100 pb-20 transition-colors duration-500">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
                 {/* Header Area */}
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 sm:gap-6 mb-6 sm:mb-12">
                     <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
-                        <div className="flex items-center gap-4">
-                            <div className="w-16 h-16 rounded-2xl bg-indigo-50 dark:bg-gray-800 border-2 border-indigo-100 dark:border-gray-700 overflow-hidden shadow-lg flex-shrink-0">
+                        <div className="flex items-center gap-3 sm:gap-4">
+                            <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-indigo-50 dark:bg-gray-800 border-2 border-indigo-100 dark:border-gray-700 overflow-hidden shadow-lg flex-shrink-0">
                                 {user.avatar ? (
                                     <img
-                                        src={(user.avatar.startsWith('http') || user.avatar.startsWith('data:')) ? user.avatar : `${API_BASE_URL}${user.avatar}`}
+                                        src={avatarUrl(user.avatar)}
                                         alt="Perfil"
                                         className="w-full h-full object-cover"
                                     />
@@ -329,7 +329,7 @@ const Dashboard = () => {
                                 )}
                             </div>
                             <div>
-                                <h1 className="text-4xl font-black tracking-tight text-gray-900 dark:text-white flex items-center gap-3">
+                                <h1 className="text-xl sm:text-2xl md:text-4xl font-black tracking-tight text-gray-900 dark:text-white flex items-center gap-3">
                                     Mi Centro de Control
                                 </h1>
                                 <p className="text-gray-500 dark:text-gray-400 mt-1 font-medium italic">Bienvenido de nuevo, {user?.name || 'Guardián Digital'}</p>
@@ -378,16 +378,16 @@ const Dashboard = () => {
                 </div>
 
                 {/* Main Dashboard Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8">
 
                     {/* Left Column: Stats and Info */}
-                    <div className="lg:col-span-8 space-y-8">
+                    <div className="lg:col-span-8 space-y-5 sm:space-y-8">
 
                         {/* News Banner */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="relative group bg-white dark:bg-[#161b22] rounded-[2rem] p-8 border border-gray-100 dark:border-gray-800 overflow-hidden shadow-xl dark:shadow-2xl transition-all duration-500"
+                            className="relative group bg-white dark:bg-[#161b22] rounded-[1.5rem] sm:rounded-[2rem] p-5 sm:p-8 border border-gray-100 dark:border-gray-800 overflow-hidden shadow-xl dark:shadow-2xl transition-all duration-500"
                         >
                             <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 opacity-0 dark:opacity-100 transition-opacity duration-500" />
                             <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 dark:bg-white/5 blur-3xl -mr-16 -mt-16 group-hover:bg-indigo-500/10 dark:group-hover:bg-white/10 transition-all duration-500" />
@@ -413,7 +413,7 @@ const Dashboard = () => {
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                className="bg-white dark:bg-[#161b22] rounded-[2.5rem] p-10 border border-gray-100 dark:border-gray-800 shadow-xl dark:shadow-2xl flex flex-col md:flex-row justify-between items-center gap-10 transition-colors"
+                                className="bg-white dark:bg-[#161b22] rounded-[1.5rem] sm:rounded-[2.5rem] p-6 sm:p-10 border border-gray-100 dark:border-gray-800 shadow-xl dark:shadow-2xl flex flex-col md:flex-row justify-between items-center gap-6 sm:gap-10 transition-colors"
                             >
                                 <div className="space-y-4">
                                     <div className="w-12 h-12 bg-yellow-500/10 rounded-2xl flex items-center justify-center font-bold">
@@ -426,7 +426,7 @@ const Dashboard = () => {
                                 </div>
                                 <button
                                     onClick={() => navigate('/evaluacion/diagnostico')}
-                                    className="w-full md:w-auto px-10 py-5 bg-indigo-600 dark:bg-white text-white dark:text-black font-black text-xs uppercase tracking-[0.2em] rounded-2xl hover:bg-indigo-700 dark:hover:bg-indigo-500 dark:hover:text-white transition-all shadow-xl active:scale-95"
+                                    className="w-full md:w-auto px-6 sm:px-10 py-4 sm:py-5 bg-indigo-600 dark:bg-white text-white dark:text-black font-black text-xs uppercase tracking-[0.2em] rounded-2xl hover:bg-indigo-700 dark:hover:bg-indigo-500 dark:hover:text-white transition-all shadow-xl active:scale-95"
                                 >
                                     Iniciar Diagnóstico
                                 </button>
@@ -458,8 +458,8 @@ const Dashboard = () => {
                         </div>
 
                         {/* Activity Graph Placeholder or Recent Activity */}
-                        <div className="bg-white dark:bg-[#161b22] rounded-[2.5rem] p-8 border border-gray-100 dark:border-gray-800 shadow-xl dark:shadow-none transition-colors">
-                            <h3 className="text-lg font-black uppercase tracking-widest text-gray-900 dark:text-white mb-8 flex items-center gap-3">
+                        <div className="bg-white dark:bg-[#161b22] rounded-[1.5rem] sm:rounded-[2.5rem] p-5 sm:p-8 border border-gray-100 dark:border-gray-800 shadow-xl dark:shadow-none transition-colors">
+                            <h3 className="text-lg font-black uppercase tracking-widest text-gray-900 dark:text-white mb-5 sm:mb-8 flex items-center gap-3">
                                 <History className="w-5 h-5 text-indigo-500" /> Registro de Actividad
                             </h3>
                             <div className="space-y-6">
@@ -482,7 +482,7 @@ const Dashboard = () => {
                                                             {act.title}
                                                         </p>
                                                         <p className="text-[10px] text-gray-500 uppercase font-black tracking-widest">
-                                                            {timeAgo(act.date)} � {activityConfig.detail}
+                                                            {timeAgo(act.date)} � {activityConfig.detail}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -500,10 +500,10 @@ const Dashboard = () => {
                     </div>
 
                     {/* Right Column: Badges and Quick Links */}
-                    <div className="lg:col-span-4 space-y-8">
+                    <div className="lg:col-span-4 space-y-5 sm:space-y-8">
 
                         {/* Risk Level Premium Gauge (Dynamic Protection Index - RF4) */}
-                        <div className="bg-white dark:bg-[#161b22] rounded-[3rem] p-10 border border-gray-100 dark:border-gray-800 text-center space-y-6 shadow-xl dark:shadow-[0_0_50px_rgba(79,70,229,0.1)] relative overflow-hidden group">
+                        <div className="bg-white dark:bg-[#161b22] rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-10 border border-gray-100 dark:border-gray-800 text-center space-y-4 sm:space-y-6 shadow-xl dark:shadow-[0_0_50px_rgba(79,70,229,0.1)] relative overflow-hidden group">
                             <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-purple-500/5 opacity-0 dark:opacity-100" />
 
                             {(() => {
@@ -611,8 +611,8 @@ const Dashboard = () => {
                         </div>
 
                         {/* Badges Awarded (CU07) - Premium Redesign */}
-                        <div className="bg-white dark:bg-[#161b22] rounded-[3rem] p-10 border border-gray-100 dark:border-gray-800 shadow-xl dark:shadow-none transition-colors">
-                            <h3 className="text-xs font-black uppercase tracking-[0.3em] text-gray-900 dark:text-white mb-10 flex items-center gap-3">
+                        <div className="bg-white dark:bg-[#161b22] rounded-[2rem] sm:rounded-[3rem] p-6 sm:p-10 border border-gray-100 dark:border-gray-800 shadow-xl dark:shadow-none transition-colors">
+                            <h3 className="text-xs font-black uppercase tracking-[0.3em] text-gray-900 dark:text-white mb-6 sm:mb-10 flex items-center gap-3">
                                 <Award className="w-5 h-5 text-indigo-500" /> Mis Logros Digitales
                             </h3>
                             <div className="grid grid-cols-1 gap-6">
@@ -694,7 +694,7 @@ const Dashboard = () => {
                         </div>
 
                         {/* Quick Advice */}
-                        <div className="p-8 bg-indigo-600 rounded-[2.5rem] shadow-2xl shadow-indigo-600/20 text-white space-y-4">
+                        <div className="p-5 sm:p-8 bg-indigo-600 rounded-[1.5rem] sm:rounded-[2.5rem] shadow-2xl shadow-indigo-600/20 text-white space-y-3 sm:space-y-4">
                             <h4 className="font-black text-xs uppercase tracking-widest opacity-60">Consejo Pro</h4>
                             <p className="text-sm font-serif italic leading-relaxed">
                                 "La autenticación de dos factores (2FA) en Discord es la barrera más efectiva contra el robo de cuentas por 'regalos de Nitro' falsos."

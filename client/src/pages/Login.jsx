@@ -43,18 +43,18 @@ const Login = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 className="max-w-md w-full relative z-10"
             >
-                <div className="text-center mb-10">
-                    <div className="inline-flex items-center justify-center mb-6">
-                        <img src={logo} alt="Logo de Kuxipilli" className="w-40 h-40 object-cover rounded-full" />
+                <div className="text-center mb-6 sm:mb-10">
+                    <div className="inline-flex items-center justify-center mb-4 sm:mb-6">
+                        <img src={logo} alt="Logo de Kuxipilli" className="w-24 h-24 sm:w-40 sm:h-40 object-cover rounded-full" />
                     </div>
-                    <h2 className="text-4xl font-black text-gray-900 dark:text-white mb-2">¡Hola Guardián!</h2>
+                    <h2 className="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white mb-2">¡Hola Guardián!</h2>
                     <p className="mt-2 text-gray-500 dark:text-gray-400 font-medium italic">
                         Tu centro de seguridad digital parental
                     </p>
                 </div>
 
-                <div className="bg-white dark:bg-[#161b22] p-10 rounded-[2.5rem] shadow-2xl border border-gray-100 dark:border-gray-800 transition-colors">
-                    <div className="flex justify-center mb-10 p-1.5 bg-gray-50 dark:bg-[#0a0c10] rounded-2xl border border-gray-100 dark:border-gray-800">
+                <div className="bg-white dark:bg-[#161b22] p-6 sm:p-10 rounded-[1.5rem] sm:rounded-[2.5rem] shadow-2xl border border-gray-100 dark:border-gray-800 transition-colors">
+                    <div className="flex justify-center mb-6 sm:mb-10 p-1.5 bg-gray-50 dark:bg-[#0a0c10] rounded-2xl border border-gray-100 dark:border-gray-800">
                         <button className="flex-1 py-3 px-6 bg-white dark:bg-indigo-600 text-indigo-600 dark:text-white rounded-xl shadow-sm font-black text-xs uppercase tracking-widest">
                             Entrar
                         </button>

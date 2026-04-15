@@ -79,9 +79,9 @@ const ForgotPassword = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 className="max-w-md w-full relative z-10"
             >
-                <div className="text-center mb-10">
-                    <img src={logo} alt="Logo de Kuxipilli" className="w-24 h-24 object-cover rounded-full mx-auto mb-4" />
-                    <h1 className="text-3xl font-black text-gray-900 dark:text-white tracking-tighter">
+                <div className="text-center mb-6 sm:mb-10">
+                    <img src={logo} alt="Logo de Kuxipilli" className="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-full mx-auto mb-3 sm:mb-4" />
+                    <h1 className="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white tracking-tighter">
                         Recuperar Acceso
                     </h1>
                     <p className="mt-2 text-gray-500 dark:text-gray-400 font-medium">
@@ -91,7 +91,7 @@ const ForgotPassword = () => {
                     </p>
                 </div>
 
-                <div className="bg-white dark:bg-[#161b22] p-10 rounded-[2.5rem] shadow-2xl border border-gray-100 dark:border-gray-800 transition-colors">
+                <div className="bg-white dark:bg-[#161b22] p-6 sm:p-10 rounded-[1.5rem] sm:rounded-[2.5rem] shadow-2xl border border-gray-100 dark:border-gray-800 transition-colors">
                     {step === 'request' && (
                         <form className="space-y-6" onSubmit={handleRequestCode}>
                             <div>

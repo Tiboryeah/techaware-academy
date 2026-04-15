@@ -6,6 +6,11 @@
     "start": "node src/index.js",
     "dev": "node --watch src/index.js",
     "seed": "node src/scripts/seed.js",
+    "seed:target": "node src/scripts/seed-target.js",
+    "seed:games": "node src/scripts/seed-target.js games",
+    "seed:social": "node src/scripts/seed-target.js social",
+    "seed:streaming": "node src/scripts/seed-target.js streaming",
+    "seed:content": "node src/scripts/seed-target.js games social streaming",
     "test": "jest --watchAll --maxWorkers=1"
   },
   "keywords": [],

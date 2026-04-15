@@ -78,11 +78,11 @@ const CaseDetail = () => {
                 </div>
             </div>
 
-            <main className="max-w-7xl mx-auto px-4 pt-12">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+            <main className="max-w-7xl mx-auto px-4 pt-8 sm:pt-12">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-16">
                     <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="lg:col-span-4 space-y-8">
                         <div className="relative">
-                            <div className="relative p-10 bg-gradient-to-br from-indigo-600 to-indigo-900 rounded-[3rem] text-white shadow-2xl overflow-hidden">
+                            <div className="relative p-6 sm:p-10 bg-gradient-to-br from-indigo-600 to-indigo-900 rounded-[2rem] sm:rounded-[3rem] text-white shadow-2xl overflow-hidden">
                                 <div className="absolute top-0 right-0 p-8 opacity-10">
                                     <Shield className="w-32 h-32 rotate-12" />
                                 </div>
@@ -90,7 +90,7 @@ const CaseDetail = () => {
                                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-[10px] font-black uppercase tracking-widest border border-white/20">
                                         Nivel de riesgo: {caseItem.riskLevel}
                                     </div>
-                                    <h1 className="text-4xl font-black tracking-tighter leading-tight text-white">{caseItem.title}</h1>
+                                    <h1 className="text-2xl sm:text-4xl font-black tracking-tighter leading-tight text-white">{caseItem.title}</h1>
                                     <p className="text-indigo-100 text-lg italic leading-relaxed font-medium">"{caseItem.summary}"</p>
                                     <div className="pt-6 border-t border-white/10 flex items-center gap-4">
                                         <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center">
@@ -105,7 +105,7 @@ const CaseDetail = () => {
                             </div>
                         </div>
 
-                        <div className="p-8 bg-white dark:bg-[#161b22] rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-xl space-y-6">
+                        <div className="p-5 sm:p-8 bg-white dark:bg-[#161b22] rounded-[2rem] sm:rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-xl space-y-6">
                             <h3 className="text-sm font-black uppercase tracking-widest text-indigo-500 flex items-center gap-2">
                                 <Lightbulb className="w-4 h-4" /> Recomendaciones clave
                             </h3>
@@ -122,7 +122,7 @@ const CaseDetail = () => {
                         </div>
                     </motion.div>
 
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="lg:col-span-8 space-y-16">
+                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="lg:col-span-8 space-y-10 sm:space-y-16">
                         <section className="space-y-6">
                             <div className="flex items-center gap-3">
                                 <div className="w-8 h-1 bg-indigo-600 rounded-full" />
@@ -139,8 +139,8 @@ const CaseDetail = () => {
                                 <div className="w-8 h-1 bg-indigo-600 rounded-full" />
                                 <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">Cronología del incidente</h2>
                             </div>
-                            <div className="bg-white dark:bg-[#161b22] p-10 md:p-16 rounded-[4rem] border border-gray-100 dark:border-gray-800 shadow-2xl">
-                                <div className="space-y-12">
+                            <div className="bg-white dark:bg-[#161b22] p-5 sm:p-10 md:p-16 rounded-[2rem] sm:rounded-[3rem] md:rounded-[4rem] border border-gray-100 dark:border-gray-800 shadow-2xl">
+                                <div className="space-y-8 sm:space-y-12">
                                     {caseItem.timeline.map((step, idx) => (
                                         <div key={idx} className="flex flex-col md:flex-row gap-8 items-start">
                                             <div className="md:w-32 flex-shrink-0">
@@ -153,7 +153,7 @@ const CaseDetail = () => {
                                                     <div className="w-4 h-4 rounded-full border-4 border-indigo-600 bg-white dark:bg-[#0a0c10]" />
                                                     <div className="h-px bg-gray-100 dark:bg-gray-800 flex-grow" />
                                                 </div>
-                                                <p className="text-xl md:text-2xl font-black text-gray-900 dark:text-white leading-tight">{step.event}</p>
+                                                <p className="text-lg sm:text-xl md:text-2xl font-black text-gray-900 dark:text-white leading-tight">{step.event}</p>
                                             </div>
                                         </div>
                                     ))}
@@ -161,7 +161,7 @@ const CaseDetail = () => {
                             </div>
                         </section>
 
-                        <section className="p-12 bg-gradient-to-br from-indigo-600/5 to-purple-600/5 rounded-[3rem] border border-indigo-500/10 space-y-8">
+                        <section className="p-6 sm:p-12 bg-gradient-to-br from-indigo-600/5 to-purple-600/5 rounded-[2rem] sm:rounded-[3rem] border border-indigo-500/10 space-y-6 sm:space-y-8">
                             <div className="flex items-center gap-6">
                                 <div className="w-16 h-16 bg-white dark:bg-[#161b22] rounded-2xl flex items-center justify-center shadow-lg border border-indigo-500/10">
                                     <Zap className="w-8 h-8 text-indigo-500" />
@@ -171,8 +171,8 @@ const CaseDetail = () => {
                                     <p className="text-gray-500 dark:text-gray-400 text-sm font-medium">Qué podemos aprender para proteger mejor el futuro.</p>
                                 </div>
                             </div>
-                            <div className="p-10 bg-white dark:bg-[#161b22] rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-xl">
-                                <p className="text-2xl text-gray-700 dark:text-gray-200 font-bold italic leading-relaxed text-center">"{caseItem.lessons}"</p>
+                            <div className="p-6 sm:p-10 bg-white dark:bg-[#161b22] rounded-[2rem] sm:rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-xl">
+                                <p className="text-xl sm:text-2xl text-gray-700 dark:text-gray-200 font-bold italic leading-relaxed text-center">"{caseItem.lessons}"</p>
                             </div>
                         </section>
 

@@ -80,14 +80,14 @@ const Modules = () => {
     );
 
     return (
-        <div className="min-h-screen bg-[#fafafb] dark:bg-[#0a0c10] text-gray-900 dark:text-gray-100 py-16 px-4 sm:px-6 lg:px-8 transition-colors duration-500">
+        <div className="min-h-screen bg-[#fafafb] dark:bg-[#0a0c10] text-gray-900 dark:text-gray-100 py-10 sm:py-16 px-4 sm:px-6 lg:px-8 transition-colors duration-500">
             <div className="max-w-7xl mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-center mb-16"
+                    className="text-center mb-8 sm:mb-16"
                 >
-                    <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-4 text-gray-900 dark:text-white transition-colors">
+                    <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 text-gray-900 dark:text-white transition-colors">
                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-700 via-purple-600 to-pink-600 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400">
                             Cursos de Especialidad
                         </span>
@@ -100,7 +100,7 @@ const Modules = () => {
                 {courses.length === 0 ? (
                     <p className="text-center text-gray-500">No hay cursos disponibles en este momento.</p>
                 ) : (
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 sm:gap-8">
                         <AnimatePresence>
                             {courses.map((course, index) => {
                                 const theme = getCourseTheme(course.category);
@@ -127,7 +127,7 @@ const Modules = () => {
                                         </div>
 
                                         {/* Content Section */}
-                                        <div className="p-8 flex flex-col flex-grow">
+                                        <div className="p-5 sm:p-8 flex flex-col flex-grow">
                                             <div className="flex items-center gap-2 mb-4">
                                                 <span className={`px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider ${theme.bgAccent} ${theme.accent}`}>
                                                     {course.category}
@@ -150,11 +150,11 @@ const Modules = () => {
                                                 {course.title}
                                             </h2>
 
-                                            <p className="text-gray-600 dark:text-gray-400 text-sm mb-8 line-clamp-3 leading-relaxed italic">
+                                            <p className="text-gray-600 dark:text-gray-400 text-sm mb-5 sm:mb-8 line-clamp-3 leading-relaxed italic">
                                                 {course.description}
                                             </p>
 
-                                            <div className="space-y-4 mb-8">
+                                            <div className="space-y-4 mb-5 sm:mb-8">
                                                 {course.riskAreas?.slice(0, 2).map((area, i) => (
                                                     <div key={i} className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
                                                         <Zap className="w-3 h-3 text-yellow-600 dark:text-yellow-500" />

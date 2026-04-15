@@ -4,7 +4,7 @@ import api from '../services/api';
 import AuthContext from '../context/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, CheckCircle, Lock, Play, FileText, Trophy, ShieldCheck, Zap, ArrowLeft, Clock } from 'lucide-react';
-import { getLessonTypeLabel } from '../utils/lessonType';
+import { getLessonDisplayTitle, getLessonTypeLabel, getModuleDisplayTitle } from '../utils/lessonType';
 
 const CourseDetail = () => {
     const { id } = useParams();
@@ -14,6 +14,10 @@ const CourseDetail = () => {
     const [course, setCourse] = useState(null);
     const [progress, setProgress] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [compactBackButton, setCompactBackButton] = useState(false);
+    const [isChatbotOpen, setIsChatbotOpen] = useState(() => (
+        typeof document !== 'undefined' && document.body.classList.contains('kuxibot-open')
+    ));
 
     const fetchProgress = async () => {
         try {
@@ -58,6 +62,30 @@ const CourseDetail = () => {
         return () => clearTimeout(timer);
     }, [course, location.state]);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            setCompactBackButton(window.scrollY > 120);
+        };
+
+        handleScroll();
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    useEffect(() => {
+        const syncChatbotState = (event) => {
+            const nextOpenState = typeof event?.detail?.isOpen === 'boolean'
+                ? event.detail.isOpen
+                : document.body.classList.contains('kuxibot-open');
+
+            setIsChatbotOpen(nextOpenState);
+        };
+
+        syncChatbotState();
+        window.addEventListener('kuxibot:toggle', syncChatbotState);
+        return () => window.removeEventListener('kuxibot:toggle', syncChatbotState);
+    }, []);
+
     if (loading) return (
         <div className="min-h-screen flex items-center justify-center bg-[#fafafb] dark:bg-[#0a0c10]">
             <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: "linear" }} className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full" />
@@ -70,28 +98,35 @@ const CourseDetail = () => {
 
     return (
         <div className="min-h-screen bg-[#fafafb] dark:bg-[#0a0c10] text-[#1a1a1a] dark:text-gray-100 pb-20 transition-colors duration-500">
+            <div
+                className={`mobile-chatbot-sensitive fixed top-[5.55rem] sm:top-24 left-3 sm:left-5 lg:left-8 z-[100] pointer-events-none transition-opacity duration-200 ${
+                    isChatbotOpen ? 'opacity-0 pointer-events-none -translate-x-6 scale-95 sm:translate-x-0 sm:scale-100 sm:opacity-100 sm:pointer-events-auto' : 'opacity-100 translate-x-0 scale-100'
+                }`}
+            >
+                <Link
+                    to="/cursos"
+                    aria-label="Volver a cursos"
+                    className={`pointer-events-auto inline-flex items-center justify-center gap-0 text-gray-500 dark:text-gray-400 transition-colors duration-200 hover:text-indigo-600 dark:hover:text-indigo-400 sm:justify-start ${compactBackButton ? 'sm:gap-2' : 'sm:gap-2.5'} h-11 w-11 sm:h-auto sm:w-auto`}
+                >
+                    <ArrowLeft className={`${compactBackButton ? 'sm:w-[1.05rem] sm:h-[1.05rem]' : 'sm:w-[1.1rem] sm:h-[1.1rem]'} w-4 h-4`} />
+                    <span className={`hidden sm:inline whitespace-nowrap font-black uppercase transition-all duration-200 ${compactBackButton ? 'text-[10px] tracking-[0.2em]' : 'text-[11px] tracking-[0.22em]'}`}>
+                        Volver a cursos
+                    </span>
+                </Link>
+            </div>
+
             {/* Header / Hero */}
-            <div className="relative h-[400px] overflow-hidden">
+            <div className="relative min-h-[340px] sm:min-h-0 sm:h-[340px] md:h-[400px] overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-b from-indigo-600/20 to-transparent dark:to-[#0a0c10] z-10" />
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-5 dark:opacity-20" />
 
-                <div className="relative z-20 max-w-7xl mx-auto px-4 h-full flex flex-col justify-end pb-12">
-                    <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        className="mb-6"
-                    >
-                        <Link to="/cursos" className="inline-flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-bold text-sm hover:text-indigo-500 dark:hover:text-indigo-300 transition-colors uppercase tracking-widest">
-                            <ArrowLeft className="w-4 h-4" /> Volver a cursos
-                        </Link>
-                    </motion.div>
-
+                <div className="relative z-20 max-w-7xl mx-auto px-4 h-full flex flex-col justify-end pt-24 pb-7 sm:pt-0 sm:pb-12">
                     <div className="flex flex-col md:flex-row justify-between items-end gap-8">
-                        <div className="space-y-4 max-w-3xl">
+                        <div className="space-y-4 max-w-3xl pr-2 sm:pr-0">
                             <motion.h1
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="text-4xl md:text-5xl font-black leading-tight text-gray-900 dark:text-white"
+                                className="max-w-[16ch] text-[2rem] leading-[0.98] tracking-tight sm:max-w-none sm:text-4xl sm:leading-tight md:text-5xl font-black text-gray-900 dark:text-white"
                             >
                                 {course.title}
                             </motion.h1>
@@ -99,17 +134,17 @@ const CourseDetail = () => {
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.1 }}
-                                className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed italic"
+                                className="max-w-[34rem] text-sm leading-6 italic text-gray-600 dark:text-gray-400 sm:text-lg sm:leading-relaxed"
                             >
                                 {course.description}
                             </motion.p>
-                            <div className="flex flex-wrap items-center gap-4 pt-2">
+                            <div className="flex flex-col items-start gap-3 pt-1.5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4 sm:pt-2">
                                 <div className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-indigo-400 text-xs font-black uppercase tracking-widest shadow-xl shadow-indigo-500/5 backdrop-blur-md">
                                     <Clock className="w-4 h-4 text-indigo-400" /> {course.duration || '3 horas'}
                                 </div>
-                                <div className="flex gap-2">
+                                <div className="flex max-w-full flex-wrap gap-2">
                                     {course.riskAreas.map((area, idx) => (
-                                        <span key={idx} className="px-3 py-1 rounded-full bg-gray-500/10 border border-gray-500/20 text-gray-500 dark:text-gray-400 text-[10px] font-bold uppercase tracking-wider">
+                                        <span key={idx} className="px-2.5 py-1.5 sm:px-3 rounded-full bg-gray-500/10 border border-gray-500/20 text-gray-500 dark:text-gray-400 text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.18em] leading-none">
                                             {area}
                                         </span>
                                     ))}
@@ -139,7 +174,7 @@ const CourseDetail = () => {
             </div>
 
             {/* Content Section */}
-            <div className="max-w-7xl mx-auto px-4 mt-12 grid grid-cols-1 lg:grid-cols-12 gap-12">
+            <div className="max-w-7xl mx-auto px-4 mt-8 sm:mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12">
                 <div className="lg:col-span-8 space-y-8">
                     <h2 className="text-2xl font-black uppercase tracking-widest text-[#1a1a1a] dark:text-white flex items-center gap-3">
                         <Zap className="w-6 h-6 text-yellow-500" /> Plan de Estudios
@@ -158,12 +193,14 @@ const CourseDetail = () => {
                                     className={`group bg-white dark:bg-[#161b22] rounded-[2rem] border transition-all overflow-hidden ${isModuleCompleted ? 'border-green-500/30 shadow-lg shadow-green-500/5' : 'border-gray-100 dark:border-gray-800'
                                         }`}
                                 >
-                                    <div className="p-8">
-                                        <div className="flex justify-between items-start mb-6">
+                                    <div className="p-5 sm:p-8">
+                                        <div className="flex justify-between items-start mb-4 sm:mb-6">
                                             <div className="space-y-1">
-                                                <p className="text-indigo-600 dark:text-indigo-500 text-xs font-black uppercase tracking-[0.2em]">Módulo {index + 1}</p>
-                                                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white transition-colors">
-                                                    {module.title}
+                                                <p className="text-indigo-600 dark:text-indigo-500 text-xs font-black uppercase tracking-[0.2em]">
+                                                    Módulo {index + 1}
+                                                </p>
+                                                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white transition-colors">
+                                                    {getModuleDisplayTitle(module.title)}
                                                 </h3>
                                                 {module.duration && (
                                                     <div className="flex items-center gap-1.5 text-indigo-500 dark:text-indigo-400 text-[10px] font-black uppercase tracking-widest mt-1">
@@ -178,11 +215,11 @@ const CourseDetail = () => {
                                             )}
                                         </div>
 
-                                        <p className="text-gray-500 dark:text-gray-400 text-sm mb-8 leading-relaxed italic">
+                                        <p className="text-gray-500 dark:text-gray-400 text-sm mb-5 sm:mb-8 leading-relaxed italic">
                                             {module.description}
                                         </p>
 
-                                        <div className="space-y-3 mb-8">
+                                        <div className="space-y-3 mb-5 sm:mb-8">
                                             {module.lessonOrder.map((lesson, lIdx) => {
                                                 const isLessonCompleted = progress?.completedLessons.includes(lesson._id);
                                                 return (
@@ -202,7 +239,7 @@ const CourseDetail = () => {
                                                         </div>
                                                         <div className="flex-grow">
                                                             <p className={`text-sm font-bold ${isLessonCompleted ? 'text-gray-400 line-through decoration-green-500/50' : 'text-gray-800 dark:text-gray-200'}`}>
-                                                                {lesson.title}
+                                                                {getLessonDisplayTitle(lesson.title, lesson.type)}
                                                             </p>
                                                             <div className="flex items-center gap-2 mt-1">
                                                                 <p className="text-[10px] text-gray-500 uppercase font-black tracking-widest leading-none">{getLessonTypeLabel(lesson.type)}</p>
@@ -253,7 +290,7 @@ const CourseDetail = () => {
                     <motion.div
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className="bg-white dark:bg-[#161b22] p-10 rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-2xl transition-colors"
+                        className="bg-white dark:bg-[#161b22] p-6 sm:p-10 rounded-[1.5rem] sm:rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-2xl transition-colors"
                     >
                         <h3 className="text-xl font-black text-gray-900 dark:text-white mb-6 uppercase tracking-widest">Graduación</h3>
                         <p className="text-gray-600 dark:text-gray-400 text-sm mb-8 leading-relaxed italic">
@@ -265,7 +302,7 @@ const CourseDetail = () => {
                                 <button
                                     onClick={() => navigate(`/evaluacion/${course.quizId}`)}
                                     disabled={!allModulesCompleted && !isAdmin}
-                                    className={`w-full py-6 rounded-3xl font-black text-sm uppercase tracking-[0.2em] transition-all transform flex items-center justify-center gap-3 ${allModulesCompleted || isAdmin
+                                    className={`w-full py-4 sm:py-6 rounded-3xl font-black text-sm uppercase tracking-[0.2em] transition-all transform flex items-center justify-center gap-3 ${allModulesCompleted || isAdmin
                                         ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:from-green-600 hover:to-emerald-700 shadow-xl shadow-green-500/20 active:scale-95'
                                         : 'bg-gray-50 dark:bg-gray-800 text-gray-400 dark:text-gray-600 border border-gray-100 dark:border-gray-700 cursor-not-allowed opacity-60'
                                         }`}

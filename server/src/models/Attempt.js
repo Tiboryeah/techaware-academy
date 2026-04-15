@@ -40,6 +40,8 @@ const attemptSchema = mongoose.Schema(
     }
 );
 
+attemptSchema.index({ userId: 1, quizId: 1 });
+
 const Attempt = mongoose.model('Attempt', attemptSchema);
 
 module.exports = Attempt;

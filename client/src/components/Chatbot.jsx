@@ -45,6 +45,18 @@ const Chatbot = () => {
         }
     }, [isOpen]);
 
+    useEffect(() => {
+        document.body.classList.toggle('kuxibot-open', isOpen);
+        window.dispatchEvent(new CustomEvent('kuxibot:toggle', { detail: { isOpen } }));
+    }, [isOpen]);
+
+    useEffect(() => {
+        return () => {
+            document.body.classList.remove('kuxibot-open');
+            window.dispatchEvent(new CustomEvent('kuxibot:toggle', { detail: { isOpen: false } }));
+        };
+    }, []);
+
     const handleSendMessage = async (e) => {
         e.preventDefault();
         if (!inputText.trim()) return;
@@ -94,39 +106,38 @@ const Chatbot = () => {
     };
 
     return (
-        <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+        <div className="fixed bottom-3 left-3 right-3 z-[140] flex flex-col items-end sm:bottom-6 sm:left-auto sm:right-6">
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                        initial={{ opacity: 0, y: 24, scale: 0.98 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                        className="bg-white dark:bg-[#0d1117] w-80 sm:w-[420px] h-[650px] max-h-[calc(100vh-120px)] rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.2)] flex flex-col border border-white/20 dark:border-gray-800 mb-6 overflow-hidden transition-all duration-500 backdrop-blur-xl"
+                        exit={{ opacity: 0, y: 24, scale: 0.98 }}
+                        className="flex h-[calc(100vh-8.25rem)] max-h-[calc(100vh-8.25rem)] w-full flex-col overflow-hidden rounded-[1.5rem] border border-gray-200/70 bg-white/98 shadow-[0_24px_70px_-28px_rgba(2,6,23,0.8)] backdrop-blur-xl dark:border-white/10 dark:bg-[#0d1117]/98 sm:mb-6 sm:h-[650px] sm:max-h-[650px] sm:w-[420px] sm:rounded-[2.25rem]"
                     >
                         {/* Header */}
-                        <div className="bg-gradient-to-br from-indigo-600 via-violet-600 to-purple-700 p-5 flex justify-between items-center text-white relative overflow-hidden shadow-lg shrink-0">
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 blur-3xl -mr-16 -mt-16 rounded-full" />
-                            <div className="absolute bottom-0 left-0 w-24 h-24 bg-purple-400/20 blur-2xl -ml-12 -mb-12 rounded-full" />
+                        <div className="relative shrink-0 overflow-hidden border-b border-white/10 bg-[linear-gradient(135deg,#4f46e5_0%,#7c3aed_58%,#a21caf_100%)] px-4 py-3 text-white shadow-[inset_0_-1px_0_rgba(255,255,255,0.08)] sm:px-5 sm:py-4.5">
+                            <div className="absolute right-0 top-0 h-24 w-24 translate-x-8 -translate-y-8 rounded-full bg-white/15 blur-2xl" />
+                            <div className="absolute bottom-0 left-0 h-20 w-20 -translate-x-8 translate-y-6 rounded-full bg-fuchsia-300/20 blur-2xl" />
 
-                            <div className="flex items-center gap-4 relative z-10 pl-2">
-                                <div className="relative group w-12 h-12 flex items-center justify-center">
-                                    <div className="absolute -inset-2 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-                                    <img src={logo} alt="Kuxibot" className="relative w-full h-full object-contain scale-[1.8] drop-shadow-[0_0_8px_rgba(255,255,255,0.3)] transition-transform duration-500 group-hover:scale-[2]" />
+                            <div className="relative z-10 flex items-center gap-3">
+                                <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/15 bg-white/10 backdrop-blur-sm sm:h-12 sm:w-12">
+                                    <img src={logo} alt="Kuxibot" className="h-full w-full scale-[1.65] object-contain drop-shadow-[0_0_8px_rgba(255,255,255,0.28)]" />
                                 </div>
                                 <div className="flex flex-col">
-                                    <h3 className="font-black text-lg leading-tight tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-white to-indigo-100">KUXIBOT</h3>
-                                    <div className="flex items-center gap-2">
+                                    <h3 className="text-base font-black leading-tight tracking-tight text-white sm:text-lg">KUXIBOT</h3>
+                                    <div className="mt-1 flex items-center gap-2">
                                         <span className="relative flex h-2 w-2">
                                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                                             <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
                                         </span>
-                                        <span className="text-[9px] font-black text-indigo-50/80 uppercase tracking-[0.2em]">Sistema Experto</span>
+                                        <span className="text-[9px] font-black uppercase tracking-[0.18em] text-white/80">Sistema experto</span>
                                     </div>
                                 </div>
                             </div>
                             <button
                                 onClick={() => setIsOpen(false)}
-                                className="p-2.5 bg-white/10 hover:bg-white/20 rounded-2xl transition-all duration-300 border border-white/10 hover:scale-110 active:scale-95 relative z-10"
+                                className="absolute right-4 top-3 z-10 rounded-2xl border border-white/10 bg-white/10 p-2 transition-colors duration-200 hover:bg-white/20 active:scale-95 sm:right-5 sm:top-4 sm:p-2.5"
                             >
                                 <X size={20} strokeWidth={2.5} />
                             </button>
@@ -135,8 +146,9 @@ const Chatbot = () => {
                         {/* Messages Area */}
                         <div
                             ref={messagesContainerRef}
-                            className="flex-grow overflow-y-auto p-6 space-y-6 scrollbar-thin scrollbar-thumb-gray-200 dark:scrollbar-thumb-gray-800"
+                            className="flex-grow overflow-y-auto bg-[linear-gradient(180deg,rgba(79,70,229,0.02),transparent_18%)] px-3 py-3.5 scrollbar-thin scrollbar-thumb-gray-200 dark:scrollbar-thumb-gray-800 sm:px-5 sm:py-5"
                         >
+                            <div className="space-y-4 sm:space-y-5">
                             {messages.map((msg) => (
                                 <motion.div
                                     key={msg.id}
@@ -144,13 +156,13 @@ const Chatbot = () => {
                                     animate={{ opacity: 1, y: 0 }}
                                     className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'} message-item`}
                                 >
-                                    <div className={`flex gap-3 max-w-[88%] ${msg.sender === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
-                                        <div className={`w-10 h-10 flex-shrink-0 flex items-center justify-center transition-transform duration-300 hover:scale-110 ${msg.sender === 'user' ? 'bg-gradient-to-tr from-indigo-600 to-violet-600 text-white rounded-2xl shadow-lg overflow-hidden' : ''}`}>
-                                            {msg.sender === 'user' ? <User size={20} /> : <img src={logo} alt="Asistente" className="w-full h-full scale-[1.7] object-contain drop-shadow-md" />}
+                                    <div className={`flex max-w-[94%] gap-2.5 sm:max-w-[88%] sm:gap-3 ${msg.sender === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
+                                        <div className={`flex h-9 w-9 flex-shrink-0 items-center justify-center transition-transform duration-300 sm:h-10 sm:w-10 ${msg.sender === 'user' ? 'overflow-hidden rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-600 text-white shadow-lg' : 'rounded-2xl bg-white dark:bg-white/5 ring-1 ring-gray-200/80 dark:ring-white/10'}`}>
+                                            {msg.sender === 'user' ? <User size={18} /> : <img src={logo} alt="Asistente" className="h-full w-full scale-[1.55] object-contain drop-shadow-md" />}
                                         </div>
-                                        <div className={`p-4 rounded-[1.5rem] text-sm leading-relaxed shadow-[0_4px_15px_rgba(0,0,0,0.05)] transition-all duration-300 ${msg.sender === 'user'
-                                            ? 'bg-gradient-to-br from-indigo-600 to-violet-700 text-white rounded-tr-none shadow-indigo-200 dark:shadow-none'
-                                            : 'bg-white dark:bg-gray-800/40 text-gray-800 dark:text-gray-100 border border-indigo-50/50 dark:border-gray-700/50 rounded-tl-none ring-1 ring-black/[0.02]'
+                                        <div className={`p-4 rounded-[1.35rem] text-sm leading-relaxed shadow-[0_10px_30px_-25px_rgba(15,23,42,0.45)] transition-all duration-300 sm:rounded-[1.5rem] ${msg.sender === 'user'
+                                            ? 'rounded-tr-none bg-gradient-to-br from-indigo-600 to-violet-700 text-white'
+                                            : 'rounded-tl-none border border-slate-200/80 bg-slate-50 text-gray-800 dark:border-white/10 dark:bg-gray-800/40 dark:text-gray-100'
                                             }`}>
                                             {msg.text.split('\n').map((line, i) => {
                                                 const cleanLine = line.replace(/^#+\s*/, '');
@@ -178,7 +190,7 @@ const Chatbot = () => {
                             ))}
                             {isTyping && (
                                 <div className="flex justify-start">
-                                    <div className="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-2xl rounded-tl-none border border-gray-100 dark:border-gray-800">
+                                    <div className="rounded-2xl rounded-tl-none border border-gray-200/80 bg-gray-50 p-4 dark:border-white/10 dark:bg-gray-800/50">
                                         <div className="flex gap-1">
                                             <motion.div animate={{ opacity: [0.4, 1, 0.4] }} transition={{ repeat: Infinity, duration: 1 }} className="w-1.5 h-1.5 bg-indigo-500 rounded-full" />
                                             <motion.div animate={{ opacity: [0.4, 1, 0.4] }} transition={{ repeat: Infinity, duration: 1, delay: 0.2 }} className="w-1.5 h-1.5 bg-indigo-500 rounded-full" />
@@ -188,12 +200,12 @@ const Chatbot = () => {
                                 </div>
                             )}
                             <div ref={messagesEndRef} />
+                            </div>
                         </div>
 
                         {/* Input Area */}
-                        <form onSubmit={handleSendMessage} className="p-6 bg-white dark:bg-[#0d1117] border-t border-gray-100 dark:border-gray-800/50 relative">
-                            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500/20 to-transparent" />
-                            <div className="relative group flex flex-col w-full bg-gray-50 dark:bg-[#0a0c10] border-2 border-transparent focus-within:border-indigo-500/50 focus-within:bg-white dark:focus-within:bg-black rounded-[1.5rem] transition-all duration-300 shadow-inner p-3 pb-2">
+                        <form onSubmit={handleSendMessage} className="relative shrink-0 border-t border-gray-200/70 bg-white/95 px-3 pb-3 pt-3 dark:border-white/5 dark:bg-[#0d1117]/98 sm:px-5 sm:pb-5 sm:pt-4">
+                            <div className="relative group flex flex-col w-full rounded-[1.5rem] border border-gray-200/80 bg-gray-50 p-3 pb-2 shadow-inner transition-all duration-300 focus-within:border-indigo-400/50 focus-within:bg-white dark:border-white/10 dark:bg-[#0a0c10] dark:focus-within:bg-black">
                                 <textarea
                                     value={inputText}
                                     onChange={(e) => {
@@ -213,19 +225,19 @@ const Chatbot = () => {
                                     }}
                                     placeholder="Escribe tu duda de seguridad..."
                                     rows="1"
-                                    className="w-full px-3 py-1 bg-transparent text-sm outline-none transition-all duration-300 dark:text-white resize-none scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700 leading-relaxed min-h-[24px]"
+                                    className="min-h-[24px] w-full resize-none bg-transparent px-3 py-1 text-sm leading-relaxed outline-none transition-all duration-300 scrollbar-thin scrollbar-thumb-gray-300 dark:text-white dark:scrollbar-thumb-gray-700"
                                 />
                                 <div className="flex justify-end items-center mt-2 pr-1">
                                     <button
                                         type="submit"
                                         disabled={!inputText.trim()}
-                                        className="w-[38px] h-[38px] flex items-center justify-center bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-[1rem] hover:shadow-lg hover:shadow-indigo-500/30 transition-all duration-300 disabled:opacity-30 disabled:grayscale transform active:scale-90"
+                                        className="flex h-[38px] w-[38px] items-center justify-center rounded-[1rem] bg-gradient-to-r from-indigo-600 to-violet-600 text-white transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/30 active:scale-90 disabled:opacity-30 disabled:grayscale"
                                     >
                                         <Send size={16} strokeWidth={2.5} className="ml-0.5" />
                                     </button>
                                 </div>
                             </div>
-                            <div className="mt-5 space-y-2.5 px-2 text-center">
+                            <div className="mt-3 space-y-1.5 px-2 text-center sm:mt-4 sm:space-y-2">
                                 <div className="flex items-center justify-center gap-1.5 group cursor-default">
                                     <div className="h-px w-8 bg-gray-200 dark:bg-gray-800" />
                                     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 flex items-center gap-1.5 transition-colors group-hover:text-indigo-500">
@@ -243,23 +255,22 @@ const Chatbot = () => {
             </AnimatePresence>
 
             {/* Toggle Button */}
-            <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setIsOpen(!isOpen)}
-                className={`w-16 h-16 flex items-center justify-center transition-all duration-500 group relative active:scale-90 ${isOpen ? 'bg-gray-50 dark:bg-gray-800 text-gray-500 rotate-90 rounded-[1.8rem] shadow-xl' : 'bg-transparent'}`}
-            >
-                {isOpen ? (
-                    <X size={28} />
-                ) : (
-                    <>
-                        <img src={logo} alt="Abrir Kuxibot" className="w-full h-full scale-[1.3] object-contain drop-shadow-2xl group-hover:scale-[1.45] transition-transform duration-300" />
-                        {!isOpen && (
-                            <span className="absolute top-2 right-2 w-4 h-4 bg-red-500 border-2 border-white dark:border-gray-900 rounded-full animate-bounce shadow-lg" />
-                        )}
-                    </>
+            <AnimatePresence>
+                {!isOpen && (
+                    <motion.button
+                        initial={{ opacity: 0, scale: 0.92 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.92 }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => setIsOpen(true)}
+                        className="group relative flex h-16 w-16 items-center justify-center bg-transparent transition-all duration-500 active:scale-90"
+                    >
+                        <img src={logo} alt="Abrir Kuxibot" className="h-full w-full scale-[1.3] object-contain drop-shadow-2xl transition-transform duration-300 group-hover:scale-[1.45]" />
+                        <span className="absolute right-2 top-2 h-4 w-4 rounded-full border-2 border-white bg-red-500 shadow-lg dark:border-gray-900" />
+                    </motion.button>
                 )}
-            </motion.button>
+            </AnimatePresence>
         </div>
     );
 };

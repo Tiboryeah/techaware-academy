@@ -1,40 +1,12 @@
-module.exports = async function seedStreamingCourse(context) {
-    const { getOrCreateModule, getOrCreateLesson, getOrCreateQuiz, models } = context;
-    const { Course, Lesson, Module, Quiz, Question } = models;
-
-    const desiredCourseTitle = 'Curso 2: Plataformas de Streaming — YouTube y Twitch';
+const buildStreamingCatalog = () => {
+    const desiredCourseTitle = 'Plataformas de Streaming: YouTube y Twitch';
     const legacyCourseTitles = [
+        'Plataformas de Streaming — YouTube y Twitch',
+        'Curso 2: Plataformas de Streaming — YouTube y Twitch',
         'Plataformas de Streaming: YouTube y Twitch',
         'Streaming: YouTube y Twitch',
     ];
     const placeholderVideoUrl = 'https://www.youtube.com/watch?v=aqz-KE-bpKQ';
-
-    const purgeQuizArtifacts = async ({ refId, scope }) => {
-        const quizzes = await Quiz.find({ refId, scope }).select('_id');
-        const quizIds = quizzes.map((quiz) => quiz._id);
-
-        if (quizIds.length > 0) {
-            await Question.deleteMany({ quizId: { $in: quizIds } });
-            await Quiz.deleteMany({ _id: { $in: quizIds } });
-        }
-    };
-
-    const purgeModuleArtifacts = async (moduleId) => {
-        await Lesson.deleteMany({ moduleId });
-        await purgeQuizArtifacts({ refId: moduleId, scope: 'module' });
-    };
-
-    const purgeCourseArtifacts = async (courseId) => {
-        const modules = await Module.find({ courseId }).select('_id');
-
-        for (const moduleRecord of modules) {
-            await purgeModuleArtifacts(moduleRecord._id);
-        }
-
-        await Module.deleteMany({ courseId });
-        await Lesson.deleteMany({ courseId });
-        await purgeQuizArtifacts({ refId: courseId, scope: 'course' });
-    };
 
     const buildArticleContent = ({ moduleTitle, objective, lessonTitle }) => `# ${lessonTitle.replace(/^Artículo \d+: /, '')}
 
@@ -2724,7 +2696,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
 
     const courseDefinitions = [
         {
-            title: 'Módulo 1. Introducción al streaming y consumo infantil',
+            title: 'Introducción al streaming y consumo infantil',
             description: 'Objetivo: Que los padres entiendan qué son las plataformas y por qué los niños las usan tanto.',
             duration: '20 min',
             riskAreas: ['Consumo infantil', 'Algoritmos y recomendaciones'],
@@ -2764,7 +2736,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
             ],
         },
         {
-            title: 'Módulo 2. Tipos de contenido y su impacto en los niños',
+            title: 'Tipos de contenido y su impacto en los niños',
             description: 'Objetivo: Identificar qué ven los niños y cómo influye en su comportamiento.',
             duration: '22 min',
             riskAreas: ['Impacto del contenido', 'Conducta y emociones'],
@@ -2804,7 +2776,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
             ],
         },
         {
-            title: 'Módulo 3. Riesgos en plataformas de streaming',
+            title: 'Riesgos en plataformas de streaming',
             description: 'Objetivo: Detectar los principales peligros digitales.',
             duration: '22 min',
             riskAreas: ['Riesgos en streaming', 'Interacción con desconocidos'],
@@ -2844,7 +2816,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
             ],
         },
         {
-            title: 'Módulo 4. Monetización, publicidad y engaños',
+            title: 'Monetización, publicidad y engaños',
             description: 'Objetivo: Comprender cómo las plataformas generan dinero y los riesgos asociados.',
             duration: '20 min',
             riskAreas: ['Monetización', 'Publicidad engañosa'],
@@ -2884,7 +2856,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
             ],
         },
         {
-            title: 'Módulo 5. Tiempo de pantalla y uso problemático',
+            title: 'Tiempo de pantalla y uso problemático',
             description: 'Objetivo: Detectar adicción digital y establecer límites saludables.',
             duration: '20 min',
             riskAreas: ['Tiempo de pantalla', 'Uso problemático'],
@@ -2924,7 +2896,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
             ],
         },
         {
-            title: 'Módulo 6. Control parental y acompañamiento',
+            title: 'Control parental y acompañamiento',
             description: 'Objetivo: Dar herramientas prácticas para supervisión efectiva.',
             duration: '22 min',
             riskAreas: ['Control parental', 'Acompañamiento familiar'],
@@ -2992,7 +2964,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
             ],
         },
         {
-            title: 'Módulo 7. Uso positivo y educación digital',
+            title: 'Uso positivo y educación digital',
             description: 'Objetivo: Transformar el streaming en una herramienta educativa.',
             duration: '20 min',
             riskAreas: ['Uso positivo', 'Educación digital'],
@@ -3061,6 +3033,64 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
             ],
         },
     ];
+
+    const finalQuizDefinition = {
+        title: 'Examen Final Integrador: Plataformas de Streaming â€” YouTube y Twitch',
+        description: 'EvaluaciÃ³n final del curso con 12 reactivos mixtos y cobertura transversal de los 7 mÃ³dulos.',
+        minPassing: 80,
+        questions: finalQuizQuestions,
+    };
+
+    return {
+        desiredCourseTitle,
+        legacyCourseTitles,
+        placeholderVideoUrl,
+        buildArticleContent,
+        buildVideoContent,
+        courseDefinitions,
+        finalQuizDefinition,
+    };
+};
+
+async function seedStreamingCourse(context) {
+    const { getOrCreateModule, getOrCreateLesson, getOrCreateQuiz, models } = context;
+    const { Course, Lesson, Module, Quiz, Question } = models;
+    const {
+        desiredCourseTitle,
+        legacyCourseTitles,
+        placeholderVideoUrl,
+        buildArticleContent,
+        buildVideoContent,
+        courseDefinitions,
+        finalQuizDefinition,
+    } = buildStreamingCatalog();
+
+    const purgeQuizArtifacts = async ({ refId, scope }) => {
+        const quizzes = await Quiz.find({ refId, scope }).select('_id');
+        const quizIds = quizzes.map((quiz) => quiz._id);
+
+        if (quizIds.length > 0) {
+            await Question.deleteMany({ quizId: { $in: quizIds } });
+            await Quiz.deleteMany({ _id: { $in: quizIds } });
+        }
+    };
+
+    const purgeModuleArtifacts = async (moduleId) => {
+        await Lesson.deleteMany({ moduleId });
+        await purgeQuizArtifacts({ refId: moduleId, scope: 'module' });
+    };
+
+    const purgeCourseArtifacts = async (courseId) => {
+        const modules = await Module.find({ courseId }).select('_id');
+
+        for (const moduleRecord of modules) {
+            await purgeModuleArtifacts(moduleRecord._id);
+        }
+
+        await Module.deleteMany({ courseId });
+        await Lesson.deleteMany({ courseId });
+        await purgeQuizArtifacts({ refId: courseId, scope: 'course' });
+    };
 
     const matchingCourses = await Course.find({
         title: { $in: [desiredCourseTitle, ...legacyCourseTitles] },
@@ -3176,16 +3206,20 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
     }
 
     const finalQuiz = await getOrCreateQuiz({
-        title: 'Examen Final Integrador: Plataformas de Streaming — YouTube y Twitch',
-        description: 'Evaluación final del curso con 12 reactivos mixtos y cobertura transversal de los 7 módulos.',
+        title: finalQuizDefinition.title,
+        description: finalQuizDefinition.description,
         scope: 'course',
         refId: courseStreaming._id,
         scopeModel: 'Course',
-        minPassing: 80,
-    }, finalQuizQuestions);
+        minPassing: finalQuizDefinition.minPassing,
+    }, finalQuizDefinition.questions);
 
     courseStreaming.finalQuizId = finalQuiz._id;
     await courseStreaming.save();
 
     console.log('Curso 2 de streaming reestructurado con 7 módulos y 28 lecciones.');
-};
+}
+
+seedStreamingCourse.buildCatalog = buildStreamingCatalog;
+
+module.exports = seedStreamingCourse;

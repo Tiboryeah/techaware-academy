@@ -1,10 +1,10 @@
-const seedModule1 = require('./games/module1');
-const seedModule2 = require('./games/module2');
-const seedModule3 = require('./games/module3');
-const seedModule4 = require('./games/module4');
-const seedModule5 = require('./games/module5');
-const seedModule6 = require('./games/module6');
-const seedFinalQuiz = require('./games/finalQuiz');
+const seedModule1 = require('./module1');
+const seedModule2 = require('./module2');
+const seedModule3 = require('./module3');
+const seedModule4 = require('./module4');
+const seedModule5 = require('./module5');
+const seedModule6 = require('./module6');
+const seedFinalQuiz = require('./finalQuiz');
 
 module.exports = async function seedModule(context) {
     const { getOrCreateCourse, models } = context;

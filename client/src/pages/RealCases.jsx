@@ -62,55 +62,86 @@ const EmptyState = ({ message }) => (
     </div>
 );
 
+const PAGE_SIZE = 9;
+
+const usePaginatedResources = (type) => {
+    const [items, setItems]             = useState([]);
+    const [page, setPage]               = useState(1);
+    const [total, setTotal]             = useState(0);
+    const [hasNextPage, setHasNextPage] = useState(false);
+    const [loading, setLoading]         = useState(true);
+    const [loadingMore, setLoadingMore] = useState(false);
+    const [error, setError]             = useState('');
+
+    useEffect(() => {
+        let cancelled = false;
+        const fetchFirst = async () => {
+            try {
+                setLoading(true);
+                const res = await api.get(`/api/resources?type=${type}&page=1&limit=${PAGE_SIZE}`);
+                if (!cancelled) {
+                    setItems(res.data.data);
+                    setTotal(res.data.total);
+                    setHasNextPage(res.data.hasNextPage);
+                    setPage(1);
+                    setError('');
+                }
+            } catch {
+                if (!cancelled) setError('No fue posible cargar los recursos en este momento.');
+            } finally {
+                if (!cancelled) setLoading(false);
+            }
+        };
+        fetchFirst();
+        return () => { cancelled = true; };
+    }, [type]);
+
+    const loadMore = async () => {
+        if (loadingMore) return;
+        const nextPage = page + 1;
+        try {
+            setLoadingMore(true);
+            const res = await api.get(`/api/resources?type=${type}&page=${nextPage}&limit=${PAGE_SIZE}`);
+            setItems((prev) => [...prev, ...res.data.data]);
+            setTotal(res.data.total);
+            setHasNextPage(res.data.hasNextPage);
+            setPage(nextPage);
+        } catch {
+            // silently ignore — existing items remain visible
+        } finally {
+            setLoadingMore(false);
+        }
+    };
+
+    return { items, total, hasNextPage, loading, loadingMore, error, loadMore };
+};
+
 const RealCases = () => {
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
-    const [cases, setCases] = useState([]);
-    const [guides, setGuides] = useState([]);
     const [selectedGuide, setSelectedGuide] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [loadError, setLoadError] = useState('');
 
-    useEffect(() => {
-        const loadResources = async () => {
-            try {
-                setLoading(true);
-                const [casesRes, guidesRes] = await Promise.all([
-                    api.get('/api/resources?type=case'),
-                    api.get('/api/resources?type=guide'),
-                ]);
-                setCases(casesRes.data);
-                setGuides(guidesRes.data);
-                setLoadError('');
-            } catch (error) {
-                console.error('Error loading resources:', error);
-                setLoadError('No fue posible cargar los recursos en este momento.');
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        loadResources();
-    }, []);
+    const casesState  = usePaginatedResources('case');
+    const guidesState = usePaginatedResources('guide');
 
     const normalizedCases = useMemo(
         () =>
-            cases.map((item) => ({
+            casesState.items.map((item) => ({
                 ...item,
                 icon: caseIcons[item.category] || <Info className="w-5 h-5" />,
                 style: caseStyles[item.color] || caseStyles.indigo,
             })),
-        [cases]
+        [casesState.items]
     );
 
     const normalizedGuides = useMemo(
         () =>
-            guides.map((item) => ({
+            guidesState.items.map((item) => ({
                 ...item,
                 icon: guideIcons[item.platform] || <Info className="w-6 h-6 text-indigo-500" />,
                 dotClass: guideDots[item.color] || guideDots.indigo,
             })),
-        [guides]
+        [guidesState.items]
     );
 
     const activeSection = searchParams.get('seccion') === 'guias' ? 'guias' : 'casos';
@@ -126,14 +157,14 @@ const RealCases = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#fafafb] dark:bg-[#0a0c10] text-gray-900 dark:text-gray-100 py-16 px-4 sm:px-6 lg:px-8 transition-colors duration-500">
+        <div className="min-h-screen bg-[#fafafb] dark:bg-[#0a0c10] text-gray-900 dark:text-gray-100 py-10 sm:py-16 px-4 sm:px-6 lg:px-8 transition-colors duration-500">
             <div className="max-w-7xl mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-center mb-16"
+                    className="text-center mb-8 sm:mb-16"
                 >
-                    <h1 className="text-5xl md:text-6xl font-black tracking-tighter mb-4 text-gray-900 dark:text-white">
+                    <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tighter mb-4 text-gray-900 dark:text-white">
                         Casos y <span className="text-indigo-600 dark:text-indigo-400">guías</span>
                     </h1>
                     <p className="text-gray-600 dark:text-gray-400 text-lg max-w-3xl mx-auto italic font-medium">
@@ -141,11 +172,11 @@ const RealCases = () => {
                     </p>
                 </motion.div>
 
-                <div className="flex justify-center mb-14">
+                <div className="flex justify-center mb-8 sm:mb-14">
                     <div className="inline-flex flex-wrap items-center justify-center gap-3 p-2 bg-white dark:bg-[#161b22] border border-gray-100 dark:border-gray-800 rounded-[2rem] shadow-xl">
                         {sectionTabs.map((tab) => {
                             const isActive = activeSection === tab.key;
-                            const count = tab.key === 'casos' ? normalizedCases.length : normalizedGuides.length;
+                            const count = tab.key === 'casos' ? casesState.total : guidesState.total;
 
                             return (
                                 <button
@@ -167,11 +198,17 @@ const RealCases = () => {
                     </div>
                 </div>
 
-                {loading ? <div className="text-center py-20 text-gray-500 dark:text-gray-400">Cargando recursos...</div> : null}
-                {loadError ? <div className="text-center py-20 text-red-500">{loadError}</div> : null}
+                {(casesState.loading && activeSection === 'casos') || (guidesState.loading && activeSection === 'guias') ? (
+                    <div className="text-center py-20 text-gray-500 dark:text-gray-400">Cargando recursos...</div>
+                ) : null}
+                {(casesState.error && activeSection === 'casos') || (guidesState.error && activeSection === 'guias') ? (
+                    <div className="text-center py-20 text-red-500">
+                        {activeSection === 'casos' ? casesState.error : guidesState.error}
+                    </div>
+                ) : null}
 
-                {!loading && !loadError ? (
-                    <div className="space-y-24">
+                {!casesState.loading && !guidesState.loading && !casesState.error && !guidesState.error ? (
+                    <div className="space-y-12 sm:space-y-24">
                         <AnimatePresence mode="wait">
                             {activeSection === 'casos' ? (
                                 <motion.section
@@ -188,7 +225,7 @@ const RealCases = () => {
                                         </h2>
                                     </div>
 
-                                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 sm:gap-10">
                                         {normalizedCases.length === 0 ? (
                                             <div className="lg:col-span-3">
                                                 <EmptyState message="Aún no hay casos disponibles." />
@@ -203,7 +240,7 @@ const RealCases = () => {
                                                     transition={{ delay: idx * 0.08 }}
                                                     className="bg-white dark:bg-[#161b22] rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-xl overflow-hidden flex flex-col"
                                                 >
-                                                    <div className="p-8 flex-grow space-y-6">
+                                                    <div className="p-5 sm:p-8 flex-grow space-y-6">
                                                         <div className="flex justify-between items-center">
                                                             <div className={`p-3 rounded-2xl ${item.style}`}>{item.icon}</div>
                                                             <span className={`text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full border ${item.style}`}>
@@ -249,11 +286,23 @@ const RealCases = () => {
                                         )}
                                     </div>
 
+                                    {casesState.hasNextPage ? (
+                                        <div className="flex justify-center">
+                                            <button
+                                                onClick={casesState.loadMore}
+                                                disabled={casesState.loadingMore}
+                                                className="px-8 py-4 bg-white dark:bg-[#161b22] border border-gray-200 dark:border-gray-700 hover:border-indigo-400 dark:hover:border-indigo-500 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 font-black text-xs uppercase tracking-[0.2em] rounded-2xl shadow-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                            >
+                                                {casesState.loadingMore ? 'Cargando...' : 'Cargar más casos'}
+                                            </button>
+                                        </div>
+                                    ) : null}
+
                                     <motion.div
                                         initial={{ opacity: 0, y: 20 }}
                                         whileInView={{ opacity: 1, y: 0 }}
                                         viewport={{ once: true }}
-                                        className="p-8 md:p-10 bg-white dark:bg-[#161b22] rounded-[3rem] border border-gray-100 dark:border-gray-800 shadow-2xl flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8"
+                                        className="p-6 sm:p-8 md:p-10 bg-white dark:bg-[#161b22] rounded-[2rem] sm:rounded-[3rem] border border-gray-100 dark:border-gray-800 shadow-2xl flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 sm:gap-8"
                                     >
                                         <div className="space-y-3 max-w-2xl">
                                             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-500/20 text-[10px] font-black uppercase tracking-[0.2em]">
@@ -290,19 +339,20 @@ const RealCases = () => {
                                         </h2>
                                     </div>
 
-                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-10">
                                         {normalizedGuides.length === 0 ? (
                                             <div className="lg:col-span-3">
                                                 <EmptyState message="Aún no hay guías disponibles." />
                                             </div>
                                         ) : (
                                             normalizedGuides.map((guide) => (
+
                                                 <motion.div
                                                     key={guide.slug}
                                                     initial={{ opacity: 0, scale: 0.96 }}
                                                     whileInView={{ opacity: 1, scale: 1 }}
                                                     viewport={{ once: true }}
-                                                    className="bg-white dark:bg-[#161b22] p-8 rounded-[3rem] border border-gray-100 dark:border-gray-800 shadow-2xl flex flex-col"
+                                                    className="bg-white dark:bg-[#161b22] p-5 sm:p-8 rounded-[2rem] sm:rounded-[3rem] border border-gray-100 dark:border-gray-800 shadow-2xl flex flex-col"
                                                 >
                                                     <div className="flex-grow space-y-6">
                                                         <div className="flex justify-between items-start">
@@ -351,6 +401,18 @@ const RealCases = () => {
                                             ))
                                         )}
                                     </div>
+
+                                    {guidesState.hasNextPage ? (
+                                        <div className="flex justify-center">
+                                            <button
+                                                onClick={guidesState.loadMore}
+                                                disabled={guidesState.loadingMore}
+                                                className="px-8 py-4 bg-white dark:bg-[#161b22] border border-gray-200 dark:border-gray-700 hover:border-indigo-400 dark:hover:border-indigo-500 text-gray-600 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 font-black text-xs uppercase tracking-[0.2em] rounded-2xl shadow-sm transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                            >
+                                                {guidesState.loadingMore ? 'Cargando...' : 'Cargar más guías'}
+                                            </button>
+                                        </div>
+                                    ) : null}
                                 </motion.section>
                             )}
                         </AnimatePresence>
@@ -371,7 +433,7 @@ const RealCases = () => {
                                 initial={{ opacity: 0, scale: 0.95, y: 10 }}
                                 animate={{ opacity: 1, scale: 1, y: 0 }}
                                 exit={{ opacity: 0, scale: 0.95, y: 10 }}
-                                className="relative w-full max-w-3xl bg-white dark:bg-[#161b22] rounded-[3.5rem] shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-800 my-auto"
+                                className="relative w-full max-w-3xl bg-white dark:bg-[#161b22] rounded-[2rem] sm:rounded-[3.5rem] shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-800 my-auto"
                             >
                                 <button
                                     onClick={() => setSelectedGuide(null)}
@@ -379,7 +441,7 @@ const RealCases = () => {
                                 >
                                     <X className="w-6 h-6" />
                                 </button>
-                                <div className="p-8 sm:p-14 space-y-10">
+                                <div className="p-6 sm:p-14 space-y-8 sm:space-y-10">
                                     <div className="flex flex-col md:flex-row gap-8 items-start">
                                         <div className="p-6 bg-gray-50 dark:bg-[#0a0c10] rounded-3xl border border-gray-100 dark:border-gray-800">
                                             {selectedGuide.icon}
@@ -388,12 +450,12 @@ const RealCases = () => {
                                             <span className="text-[10px] font-black text-indigo-500 uppercase tracking-widest">
                                                 {selectedGuide.platform}
                                             </span>
-                                            <h3 className="text-4xl font-black text-gray-900 dark:text-white tracking-tighter leading-tight mt-2">
+                                            <h3 className="text-2xl sm:text-4xl font-black text-gray-900 dark:text-white tracking-tighter leading-tight mt-2">
                                                 {selectedGuide.title}
                                             </h3>
                                         </div>
                                     </div>
-                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10">
                                         <div className="space-y-8">
                                             <div>
                                                 <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-500 mb-4 flex items-center gap-2">
@@ -430,7 +492,7 @@ const RealCases = () => {
                                             </div>
                                         </div>
                                         <div className="space-y-8">
-                                            <div className="p-8 bg-gray-900 dark:bg-[#0a0c10] rounded-[2.5rem] border border-gray-800 space-y-4">
+                                            <div className="p-6 sm:p-8 bg-gray-900 dark:bg-[#0a0c10] rounded-[2rem] sm:rounded-[2.5rem] border border-gray-800 space-y-4">
                                                 <div className="flex items-center gap-3">
                                                     <div className="p-2 bg-yellow-500/20 rounded-lg">
                                                         <Lightbulb className="w-5 h-5 text-yellow-500" />
