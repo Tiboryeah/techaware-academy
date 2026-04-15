@@ -4,6 +4,7 @@ import api from '../services/api';
 import AuthContext from '../context/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, CheckCircle, Lock, Play, FileText, Trophy, ShieldCheck, Zap, ArrowLeft, Clock } from 'lucide-react';
+import NotFound from './NotFound';
 import { getLessonDisplayTitle, getLessonTypeLabel, getModuleDisplayTitle } from '../utils/lessonType';
 
 const CourseDetail = () => {
@@ -91,7 +92,7 @@ const CourseDetail = () => {
             <motion.div animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: "linear" }} className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full" />
         </div>
     );
-    if (!course) return <div className="text-center py-20 dark:text-white">Curso no encontrado.</div>;
+    if (!course) return <NotFound />;
 
     const allModulesCompleted = course.modules.every(m => progress?.completedModules.includes(m._id));
     const isAdmin = user?.role === 'Admin';

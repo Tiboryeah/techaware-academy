@@ -4,6 +4,7 @@ import api from '../services/api';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, FileText, ChevronLeft, ChevronRight, CheckCircle, List, ArrowLeft, Youtube, Zap } from 'lucide-react';
 import { getLessonDisplayTitle, getLessonDurationLabel, getLessonTypeLabel } from '../utils/lessonType';
+import NotFound from './NotFound';
 
 const LessonView = () => {
     const { id } = useParams();
@@ -96,7 +97,7 @@ const LessonView = () => {
             </motion.div>
         </div>
     );
-    if (!lesson) return <div className="text-center py-20 dark:text-white">Lección no encontrada.</div>;
+    if (!lesson) return <NotFound />;
 
     const currentIndex = moduleLessons.findIndex(l => l._id === lesson._id);
     const prevLesson = currentIndex > 0 ? moduleLessons[currentIndex - 1] : null;

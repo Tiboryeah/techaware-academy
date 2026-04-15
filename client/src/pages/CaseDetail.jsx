@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ShieldCheck, Zap, Lightbulb, Clock, Shield, Users, UserX, AlertTriangle, Info } from 'lucide-react';
+import NotFound from './NotFound';
 import api from '../services/api';
 
 const caseIcons = {
@@ -51,16 +52,7 @@ const CaseDetail = () => {
     }
 
     if (error || !caseItem) {
-        return (
-            <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-[#0a0c10]">
-                <div className="text-center space-y-4">
-                    <h2 className="text-2xl font-black dark:text-white">Caso no encontrado</h2>
-                    <button onClick={() => navigate('/casos-y-guias?seccion=casos')} className="px-6 py-3 bg-indigo-600 text-white rounded-xl font-bold">
-                        Volver a casos y guías
-                    </button>
-                </div>
-            </div>
-        );
+        return <NotFound />;
     }
 
     return (

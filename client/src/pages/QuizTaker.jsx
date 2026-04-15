@@ -25,6 +25,7 @@ import {
     Check
 } from 'lucide-react';
 import { getLessonDisplayTitle } from '../utils/lessonType';
+import NotFound from './NotFound';
 
 
 const QuizTaker = () => {
@@ -445,15 +446,7 @@ const QuizTaker = () => {
         </div>
     );
 
-    if (!quiz) return (
-        <div className="min-h-screen flex items-center justify-center bg-[#fafafb] dark:bg-[#0a0c10] text-gray-900 dark:text-white">
-            <div className="text-center space-y-4 px-4">
-                <AlertCircle className="w-16 h-16 text-red-500 mx-auto" />
-                <h2 className="text-2xl font-black">Examen no encontrado</h2>
-                <button onClick={() => navigate('/panel')} className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Volver al Panel</button>
-            </div>
-        </div>
-    );
+    if (!quiz) return <NotFound />;
 
     if (result) {
         const isDiagnostic = id === 'diagnostic' || id === 'diagnostico';
