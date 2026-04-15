@@ -27,6 +27,23 @@ router.get('/diagnostic', protect, async (req, res) => {
     }
 });
 
+// @desc    Get recommendations for an attempt (Expert System - RF4)
+// @route   GET /api/quiz/recommendations/:attemptId
+// @access  Private
+router.get('/recommendations/:attemptId', protect, async (req, res) => {
+    try {
+        const recommendations = await getAttemptRecommendations(req.params.attemptId);
+
+        if (!recommendations) {
+            return res.status(404).json({ message: 'Attempt not found' });
+        }
+
+        res.json(recommendations);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 // @desc    Get quiz by ID
 // @route   GET /api/quiz/:id
 // @access  Public
@@ -60,23 +77,6 @@ router.post('/:id/submit', protect, async (req, res) => {
         }
 
         res.status(201).json(result);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
-
-// @desc    Get recommendations for an attempt (Expert System - RF4)
-// @route   GET /api/quiz/recommendations/:attemptId
-// @access  Private
-router.get('/recommendations/:attemptId', protect, async (req, res) => {
-    try {
-        const recommendations = await getAttemptRecommendations(req.params.attemptId);
-
-        if (!recommendations) {
-            return res.status(404).json({ message: 'Attempt not found' });
-        }
-
-        res.json(recommendations);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

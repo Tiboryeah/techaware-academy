@@ -6,7 +6,7 @@ module.exports = async function seedGameModule(context) {
         const mod4 = await getOrCreateModule(courseGames._id, {
             title: 'Módulo 4: Interacción social y señales de alerta',
             description: 'Identificación de riesgos en la comunicación con otros.',
-            duration: '30 min'
+            duration: '28 min'
         });
         await Quiz.deleteMany({ refId: mod4._id, scope: 'module' });
 
@@ -222,7 +222,7 @@ El primer paso para proteger a un menor en un entorno de juego no es saberlo tod
 
 El siguiente contenido del módulo mostrará qué hacer cuando la interacción de riesgo ya ocurrió y cómo responder de forma útil, calmada y segura.`,
             type: 'article',
-            duration: 5,
+            duration: 12,
             platforms: ['Roblox', 'Minecraft'],
             riskAreas: ['Privacidad Avanzada'],
             teaches: ['ciberacoso', 'grooming', 'enticement', 'dato personal', 'huella digital', 'secretos', 'datos personales', 'fotos personales']
@@ -230,8 +230,20 @@ El siguiente contenido del módulo mostrará qué hacer cuando la interacción d
 
         const l4_2 = await getOrCreateLesson(mod4._id, courseGames._id, {
             title: 'Video 1: Casos comunes de riesgo en chat y partidas',
-            content: 'Ejemplos reales de interacciones problemáticas.',
-            type: 'video', videoUrl: 'https://www.youtube.com/watch?v=placeholder7', duration: 5
+            content: `# Casos comunes de riesgo en chat y partidas
+
+Este video aterriza el módulo en escenas típicas de chat y juego para que la familia aprenda a distinguir bromas de señales reales de ciberacoso, grooming o exposición de datos.
+
+## Qué conviene observar
+* Cómo aparecen secretos, presión o peticiones de datos personales.
+* Qué cambia cuando una interacción pasa de normal a invasiva.
+* Qué señales deberían activar una conversación inmediata con el menor.`,
+            type: 'video',
+            videoUrl: 'https://www.youtube.com/watch?v=placeholder7',
+            duration: 2,
+            platforms: ['Roblox', 'Minecraft'],
+            riskAreas: ['Privacidad Avanzada'],
+            teaches: ['ciberacoso', 'grooming', 'datos personales', 'secretos', 'pasar a otra app']
         });
 
         const l4_3 = await getOrCreateLesson(mod4._id, courseGames._id, {
@@ -501,7 +513,7 @@ Cuando ya hubo una interacción de riesgo, la meta no es reaccionar con miedo, s
 
 Por eso, la respuesta más útil combina calma, escucha, bloqueo o reporte cuando corresponde, y escalamiento a la escuela o a autoridades si la seguridad del menor está comprometida.`,
             type: 'article',
-            duration: 5,
+            duration: 12,
             platforms: ['Roblox', 'Minecraft'],
             riskAreas: ['Privacidad Avanzada'],
             teaches: ['evidencia', 'bloquear', 'reportar', 'escuela', 'autoridades', 'sextorsión', 'escalamiento', 'capturas de pantalla']
@@ -509,15 +521,27 @@ Por eso, la respuesta más útil combina calma, escucha, bloqueo o reporte cuand
 
         const l4_4 = await getOrCreateLesson(mod4._id, courseGames._id, {
             title: 'Video 2: Cómo conservar evidencia y cuándo reportar',
-            content: 'Guía sobre capturas de pantalla y denuncias legales.',
-            type: 'video', videoUrl: 'https://www.youtube.com/watch?v=placeholder8', duration: 6
+            content: `# Cómo conservar evidencia y cuándo reportar
+
+Este video ordena la respuesta familiar después de una interacción de riesgo para no perder evidencia y saber cuándo escalar el caso.
+
+## Qué conviene observar
+* Qué capturas o datos vale la pena guardar antes de borrar o bloquear.
+* En qué momento reportar dentro de la plataforma no es suficiente.
+* Cuándo conviene acudir a escuela, apoyo profesional o autoridades.`,
+            type: 'video',
+            videoUrl: 'https://www.youtube.com/watch?v=placeholder8',
+            duration: 2,
+            platforms: ['Roblox', 'Minecraft'],
+            riskAreas: ['Privacidad Avanzada'],
+            teaches: ['evidencia', 'capturas de pantalla', 'bloquear', 'reportar', 'autoridades']
         });
 
         mod4.lessonOrder = [l4_1._id, l4_2._id, l4_3._id, l4_4._id];
         await mod4.save();
 
         const q4 = await getOrCreateQuiz({
-            title: 'Mini examen / escenario — Módulo 4: Interacción social y señales de alerta',
+            title: 'Examen del Módulo 4: Interacción social y señales de alerta',
             description: 'Evalúa si puedes reconocer señales tempranas y responder con orden cuando ya ocurrió una interacción de riesgo.',
             scope: 'module',
             refId: mod4._id,

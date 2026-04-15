@@ -6,7 +6,7 @@ module.exports = async function seedGameModule(context) {
         const mod3 = await getOrCreateModule(courseGames._id, {
             title: 'Módulo 3: Minecraft: cuentas familiares, multijugador y Realms',
             description: 'Navegando de forma segura en mundos compartidos y privados.',
-            duration: '30 min'
+            duration: '28 min'
         });
         await Quiz.deleteMany({ refId: mod3._id, scope: 'module' });
 
@@ -60,7 +60,7 @@ No todas las formas de juego conllevan el mismo nivel de exposición. Podemos cl
 
 > **Regla de Oro**: Antes de permitir el multijugador, asegúrese de conocer si su hijo está en un mundo compartido solo con amigos o en un servidor abierto a todo el mundo.`,
             type: 'article',
-            duration: 5,
+            duration: 12,
             platforms: ['Minecraft'],
             riskAreas: ['Seguridad de Cuenta', 'Privacidad Avanzada'],
             teaches: ['java edition', 'bedrock edition', 'realm', 'servidor público', 'microsoft family safety', 'multijugador local', 'riesgo bajo', 'riesgo moderado', 'riesgo alto']
@@ -68,8 +68,20 @@ No todas las formas de juego conllevan el mismo nivel de exposición. Podemos cl
 
         const l3_2 = await getOrCreateLesson(mod3._id, courseGames._id, {
             title: 'Video 1: Cómo configurar Microsoft Family Safety para Minecraft',
-            content: 'Uso de la aplicación de seguridad de Microsoft.',
-            type: 'video', videoUrl: 'https://www.youtube.com/watch?v=placeholder5', duration: 6
+            content: `# Cómo configurar Microsoft Family Safety para Minecraft
+
+Este video muestra la ruta visual para revisar los permisos familiares que más cambian la seguridad del multijugador en Minecraft.
+
+## Qué conviene observar
+* Cómo entra la familia al panel correcto de Microsoft.
+* Qué ajustes afectan Join Multiplayer Games y Can join Realms.
+* Por qué la cuenta infantil debe estar dentro del grupo familiar.`,
+            type: 'video',
+            videoUrl: 'https://www.youtube.com/watch?v=placeholder5',
+            duration: 2,
+            platforms: ['Minecraft'],
+            riskAreas: ['Seguridad de Cuenta'],
+            teaches: ['microsoft family safety', 'join multiplayer games', 'can join realms', 'cuenta infantil', 'xbox family settings']
         });
 
         const l3_3 = await getOrCreateLesson(mod3._id, courseGames._id, {
@@ -123,7 +135,7 @@ En versiones recientes (especialmente Bedrock), Minecraft ha incluido **Realms S
 
 > **Recuerda**: Supervisar Minecraft no es solo elegir mundos; es configurar la llave maestra de la cuenta Microsoft que abre las puertas de la interacción social.`,
             type: 'article',
-            duration: 5,
+            duration: 12,
             platforms: ['Minecraft'],
             riskAreas: ['Seguridad de Cuenta', 'Privacidad Avanzada'],
             teaches: ['join multiplayer games', 'can join realms', 'agregar amistades', 'chat de voz', 'chat de texto', 'realms stories', 'xbox family settings', 'microsoft family group']
@@ -131,19 +143,32 @@ En versiones recientes (especialmente Bedrock), Minecraft ha incluido **Realms S
 
         const l3_4 = await getOrCreateLesson(mod3._id, courseGames._id, {
             title: 'Video 2: Cómo revisar seguridad en Realms y juego en línea',
-            content: 'Gestión de servidores privados y entornos seguros.',
-            type: 'video', videoUrl: 'https://www.youtube.com/watch?v=placeholder6', duration: 6
+            content: `# Cómo revisar seguridad en Realms y juego en línea
+
+Este video ayuda a distinguir un Realm privado, un servidor público y otros entornos multijugador para que la familia mida mejor el nivel de riesgo.
+
+## Qué conviene observar
+* Qué señales indican si el entorno es privado o abierto.
+* Dónde revisar permisos sociales, chat y amistades.
+* Qué decisiones conviene tomar antes de permitir juego en línea.`,
+            type: 'video',
+            videoUrl: 'https://www.youtube.com/watch?v=placeholder6',
+            duration: 2,
+            platforms: ['Minecraft'],
+            riskAreas: ['Privacidad Avanzada'],
+            teaches: ['realm', 'servidor público', 'chat de voz', 'chat de texto', 'xbox family settings']
         });
 
         mod3.lessonOrder = [l3_1._id, l3_2._id, l3_3._id, l3_4._id];
         await mod3.save();
 
         const q3 = await getOrCreateQuiz({
-            title: 'Examen de Módulo 3 — Minecraft: cuentas familiares y multijugador',
+            title: 'Examen del Módulo 3: Minecraft: cuentas familiares y multijugador',
             description: 'Valida tu capacidad para configurar un entorno seguro en Minecraft.',
             scope: 'module',
             refId: mod3._id,
-            scopeModel: 'Module'
+            scopeModel: 'Module',
+            minPassing: 80
         }, [
             {
                 text: 'Relaciona cada concepto técnico de Minecraft con su definición correcta.',

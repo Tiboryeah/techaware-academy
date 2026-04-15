@@ -20,7 +20,6 @@ const activityLogSchema = mongoose.Schema(
         },
         uniqueKey: {
             type: String,
-            default: null,
             index: true,
         },
         title: {
@@ -70,7 +69,15 @@ const activityLogSchema = mongoose.Schema(
 );
 
 activityLogSchema.index({ userId: 1, occurredAt: -1 });
-activityLogSchema.index({ userId: 1, uniqueKey: 1 }, { unique: true, sparse: true });
+activityLogSchema.index(
+    { userId: 1, uniqueKey: 1 },
+    {
+        unique: true,
+        partialFilterExpression: {
+            uniqueKey: { $exists: true, $type: 'string' },
+        },
+    }
+);
 
 const ActivityLog = mongoose.model('ActivityLog', activityLogSchema);
 

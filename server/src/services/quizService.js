@@ -78,6 +78,15 @@ const COMMON_GUIDANCE_WORDS = new Set([
     'una',
     'unos',
 ]);
+const PLATFORM_COURSE_MAP = {
+    Roblox: 'Videojuegos',
+    Minecraft: 'Videojuegos',
+    TikTok: 'Redes Sociales',
+    Discord: 'Redes Sociales',
+    Instagram: 'Redes Sociales',
+    YouTube: 'Streaming',
+    Twitch: 'Streaming',
+};
 
 const getQuizPayload = async (filter) => {
     const quiz = await Quiz.findOne(filter).populate('questions');
@@ -614,6 +623,45 @@ const submitQuizAttempt = async ({ quizId, userId, answers = {} }) => {
 const mapKeysToArray = (value) =>
     Array.from(value?.get ? value.keys() : Object.keys(value || {}));
 
+const mapCountEntries = (value) =>
+    Array.from(value?.entries ? value.entries() : Object.entries(value || {}))
+        .map(([label, count]) => ({
+            label,
+            count: Number(count) || 0,
+        }))
+        .filter((entry) => entry.label && entry.count > 0)
+        .sort((left, right) => {
+            if (right.count !== left.count) {
+                return right.count - left.count;
+            }
+
+            return left.label.localeCompare(right.label, 'es');
+        });
+
+const aggregateCourseBreakdown = (platformBreakdown = []) => {
+    const accumulator = new Map();
+
+    platformBreakdown.forEach((entry) => {
+        const courseLabel = PLATFORM_COURSE_MAP[entry.label];
+
+        if (!courseLabel) {
+            return;
+        }
+
+        accumulator.set(courseLabel, (accumulator.get(courseLabel) || 0) + entry.count);
+    });
+
+    return Array.from(accumulator.entries())
+        .map(([label, count]) => ({ label, count }))
+        .sort((left, right) => {
+            if (right.count !== left.count) {
+                return right.count - left.count;
+            }
+
+            return left.label.localeCompare(right.label, 'es');
+        });
+};
+
 const getAttemptRecommendations = async (attemptId) => {
     const attempt = await Attempt.findById(attemptId);
 
@@ -621,8 +669,11 @@ const getAttemptRecommendations = async (attemptId) => {
         return null;
     }
 
-    const areas = mapKeysToArray(attempt.errorsByArea);
-    const platforms = mapKeysToArray(attempt.errorsByPlatform);
+    const areaBreakdown = mapCountEntries(attempt.errorsByArea);
+    const platformBreakdown = mapCountEntries(attempt.errorsByPlatform);
+    const courseBreakdown = aggregateCourseBreakdown(platformBreakdown);
+    const areas = areaBreakdown.map((entry) => entry.label);
+    const platforms = platformBreakdown.map((entry) => entry.label);
 
     let recommendedLessons = [];
     if (areas.length > 0 || platforms.length > 0) {
@@ -639,6 +690,9 @@ const getAttemptRecommendations = async (attemptId) => {
     return {
         areasToReview: areas,
         platformsToReview: platforms,
+        areaBreakdown,
+        platformBreakdown,
+        courseBreakdown,
         recommendedLessons,
         message: attempt.score < 80
             ? 'Basado en tus resultados, te recomendamos priorizar el estudio de las lecciones mencionadas para fortalecer tu nivel de protección.'

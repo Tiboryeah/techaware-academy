@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -20,12 +20,61 @@ import AuthContext from '../context/AuthContext';
 import api from '../services/api';
 import avatarUrl from '../utils/avatarUrl';
 
+// Animated counter hook
+const useCountUp = (target, duration = 1200) => {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (target === 0) return;
+    let start = 0;
+    const step = Math.ceil(target / (duration / 16));
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) { setCount(target); clearInterval(timer); }
+      else setCount(start);
+    }, 16);
+    return () => clearInterval(timer);
+  }, [target, duration]);
+  return count;
+};
+
+// Individual animated stat item
+const StatItem = ({ icon, label, value, isText }) => {
+  const count = useCountUp(isText ? 0 : value);
+  return (
+    <div className="text-center space-y-2 group">
+      <div className="mx-auto w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-600 transition-transform group-hover:scale-110">
+        {icon}
+      </div>
+      <div className="text-3xl font-black text-gray-900 dark:text-white tabular-nums tracking-tighter">
+        {isText ? value : count}
+      </div>
+      <div className="text-[10px] font-black uppercase tracking-widest text-gray-400">{label}</div>
+    </div>
+  );
+};
+
+// Stats grid displayed on guest landing page with real data
+const StatsGrid = ({ stats }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    className="mt-16 sm:mt-24 md:mt-40 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 py-8 sm:py-12 md:py-16 px-4 sm:px-8 md:px-12 bg-white/50 dark:bg-[#161b22]/50 backdrop-blur-xl rounded-[2rem] sm:rounded-[3rem] md:rounded-[4rem] border border-white/20 dark:border-gray-800 shadow-2xl"
+  >
+    <StatItem icon={<BookOpen className="w-5 h-5" />} label="Programas de formación" value={stats.courses} />
+    <StatItem icon={<ShieldCheck className="w-5 h-5" />} label="Lecciones teóricas" value={stats.lessons} />
+    <StatItem icon={<Search className="w-5 h-5" />} label="Casos de estudio" value={stats.cases} />
+    <StatItem icon={<Lock className="w-5 h-5" />} label="Privacidad de datos" value="SSL/TLS" isText />
+  </motion.div>
+);
+
 const Home = () => {
   const { user } = useContext(AuthContext);
   const [progress, setProgress] = useState({ completed: 0, total: 0 });
   const [nextItem, setNextItem] = useState(null);
   const [loadingNext, setLoadingNext] = useState(true);
   const [roadmapCourses, setRoadmapCourses] = useState([]);
+  const [platformStats, setPlatformStats] = useState({ courses: 0, lessons: 0, cases: 0, loaded: false });
 
   useEffect(() => {
     if (!user) {
@@ -90,6 +139,17 @@ const Home = () => {
         console.error('Error fetching roadmap courses:', err);
         setRoadmapCourses([]);
       });
+  }, [user]);
+
+  // Fetch public stats for guest landing page
+  useEffect(() => {
+    if (user) return; // only needed on landing page
+    api.get('/api/content/stats')
+      .then((res) => {
+        const { courses = 0, lessons = 0, cases = 0 } = res.data || {};
+        setPlatformStats({ courses, lessons, cases, loaded: true });
+      })
+      .catch(() => setPlatformStats({ courses: 3, lessons: 42, cases: 3, loaded: true }));
   }, [user]);
 
   const percentage = progress.total > 0 ? Math.round((progress.completed / progress.total) * 100) : 0;
@@ -277,20 +337,7 @@ const Home = () => {
           </motion.div>
         </div>
 
-        <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mt-16 sm:mt-24 md:mt-40 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 py-8 sm:py-12 md:py-16 px-4 sm:px-8 md:px-12 bg-white/50 dark:bg-[#161b22]/50 backdrop-blur-xl rounded-[2rem] sm:rounded-[3rem] md:rounded-[4rem] border border-white/20 dark:border-gray-800 shadow-2xl">
-          {[
-            { label: 'Programas de formación', val: '3', icon: <BookOpen className="w-5 h-5" /> },
-            { label: 'Lecciones teóricas', val: '42', icon: <ShieldCheck className="w-5 h-5" /> },
-            { label: 'Casos de estudio', val: '3', icon: <Search className="w-5 h-5" /> },
-            { label: 'Privacidad de datos', val: 'SSL/TLS', icon: <Lock className="w-5 h-5" /> }
-          ].map((stat, i) => (
-            <div key={i} className="text-center space-y-2 group">
-              <div className="mx-auto w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-600 transition-transform group-hover:scale-110">{stat.icon}</div>
-              <div className="text-3xl font-black text-gray-900 dark:text-white tabular-nums tracking-tighter">{stat.val}</div>
-              <div className="text-[10px] font-black uppercase tracking-widest text-gray-400">{stat.label}</div>
-            </div>
-          ))}
-        </motion.div>
+        <StatsGrid stats={platformStats} />
       </div>
     </div>
   );

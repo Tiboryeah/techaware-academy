@@ -6,7 +6,7 @@ module.exports = async function seedGameModule(context) {
         const mod2 = await getOrCreateModule(courseGames._id, {
             title: 'Módulo 2: Roblox: seguridad y control parental',
             description: 'Configuración técnica y supervisión remota de alta precisión.',
-            duration: '30 min'
+            duration: '28 min'
         });
         await Quiz.deleteMany({ refId: mod2._id, scope: 'module' });
 
@@ -95,7 +95,7 @@ Dentro de la aplicación del menor, se accede a *Settings > Parental Controls* y
 ## Microactividad de Refuerzo
 Actualice mentalmente el estado de su cuenta: ¿Ya cuenta con el perfil parental verificado y vinculado? Si falta alguno de estos pasos, es recomendable completarlos antes de proceder a la configuración de chat y límites de gasto mensual.`,
             type: 'article',
-            duration: 5,
+            duration: 12,
             platforms: ['Roblox'],
             riskAreas: ['Seguridad de Cuenta'],
             teaches: ['cuenta adulta enlazada', 'cuenta parental', 'privilegios parentales', 'verificación de identidad', 'verificación de edad', 'add parent', 'parental controls']
@@ -103,8 +103,20 @@ Actualice mentalmente el estado de su cuenta: ¿Ya cuenta con el perfil parental
 
         const l2_2 = await getOrCreateLesson(mod2._id, courseGames._id, {
             title: 'Video 1: Configuración paso a paso de controles parentales en Roblox',
-            content: 'Guía visual para activar las restricciones de seguridad.',
-            type: 'video', videoUrl: 'https://www.youtube.com/watch?v=placeholder3', duration: 6
+            content: `# Configuración paso a paso de controles parentales en Roblox
+
+Este video acompaña la activación de la cuenta adulta enlazada y muestra dónde tocar para dejar configuradas las capas básicas de seguridad en Roblox.
+
+## Qué conviene observar
+* Cómo se conecta la cuenta del adulto con la del menor.
+* En qué parte del panel se ajustan edad, chat, tiempo y gasto.
+* Qué errores comunes conviene evitar al configurar el entorno.`,
+            type: 'video',
+            videoUrl: 'https://www.youtube.com/watch?v=placeholder3',
+            duration: 2,
+            platforms: ['Roblox'],
+            riskAreas: ['Seguridad de Cuenta'],
+            teaches: ['cuenta adulta enlazada', 'parental controls', 'verificación de edad', 'tiempo de pantalla', 'límite mensual de gasto']
         });
 
         const l2_3 = await getOrCreateLesson(mod2._id, courseGames._id, {
@@ -193,7 +205,7 @@ Roblox permite fijar un límite mensual de gasto que se reinicia al finalizar el
 ## Microactividad de Refuerzo
 Identifique el ajuste que considera más prioritario para su situación familiar hoy: ¿Es la comunicación con desconocidos o el control del tiempo de juego? Comience por ajustar esa capa técnica antes de pasar a las demás.`,
             type: 'article',
-            duration: 5,
+            duration: 12,
             platforms: ['Roblox'],
             riskAreas: ['Privacidad Avanzada', 'Gasto Controlado'],
             teaches: ['madurez de contenido', 'experience chat', 'direct chat', 'party', 'private servers', 'conexiones', 'tiempo de pantalla', 'límite mensual de gasto', 'bloquear', 'reportar']
@@ -201,8 +213,20 @@ Identifique el ajuste que considera más prioritario para su situación familiar
 
         const l2_4 = await getOrCreateLesson(mod2._id, courseGames._id, {
             title: 'Video 2: Cómo bloquear y reportar jugadores o experiencias',
-            content: 'Aprende a actuar ante comportamientos inapropiados.',
-            type: 'video', videoUrl: 'https://www.youtube.com/watch?v=placeholder4', duration: 6
+            content: `# Cómo bloquear y reportar jugadores o experiencias
+
+Este video muestra la respuesta práctica que una familia puede aplicar cuando aparece una experiencia inapropiada, una conexión problemática o una conducta que debe denunciarse.
+
+## Qué conviene observar
+* Dónde se bloquea una cuenta o experiencia.
+* Cómo se documenta el problema antes de reportarlo.
+* En qué casos bloquear y reportar deben hacerse de inmediato.`,
+            type: 'video',
+            videoUrl: 'https://www.youtube.com/watch?v=placeholder4',
+            duration: 2,
+            platforms: ['Roblox'],
+            riskAreas: ['Privacidad Avanzada', 'Gasto Controlado'],
+            teaches: ['bloquear', 'reportar', 'conexiones', 'experience chat', 'direct chat']
         });
 
         mod2.lessonOrder = [l2_1._id, l2_2._id, l2_3._id, l2_4._id];

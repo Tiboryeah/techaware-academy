@@ -3,12 +3,13 @@ import { AnimatePresence, motion } from 'framer-motion';
 import {
     Camera,
     CheckCircle2,
+    Eye,
+    EyeOff,
     Lock,
     Mail,
     Move,
     RotateCcw,
     Save,
-    ShieldCheck,
     Sparkles,
     User,
     X,
@@ -41,6 +42,9 @@ const loadImage = (src) =>
         image.src = src;
     });
 
+const getTouchDist = (t0, t1) =>
+    Math.hypot(t1.clientX - t0.clientX, t1.clientY - t0.clientY);
+
 const Profile = () => {
     const { user, updateUser } = useContext(AuthContext);
     const { addToast } = useContext(ToastContext);
@@ -55,6 +59,9 @@ const Profile = () => {
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [isPassLoading, setIsPassLoading] = useState(false);
+    const [showCurrent, setShowCurrent] = useState(false);
+    const [showNew, setShowNew] = useState(false);
+    const [showConfirm, setShowConfirm] = useState(false);
     const [cropSource, setCropSource] = useState(null);
     const [cropName, setCropName] = useState('avatar');
     const [cropSize, setCropSize] = useState({ width: 1, height: 1 });
@@ -62,6 +69,17 @@ const Profile = () => {
     const [cropX, setCropX] = useState(0);
     const [cropY, setCropY] = useState(0);
     const [isCropLoading, setIsCropLoading] = useState(false);
+
+    // Gesture state — stored in a ref so handlers don't become stale
+    const cropContainerRef = useRef(null);
+    const gestureRef = useRef({
+        isDragging: false,
+        lastX: 0,
+        lastY: 0,
+        isPinching: false,
+        pinchStartDist: 0,
+        pinchStartZoom: 1,
+    });
 
     const setManagedPreview = (value) => {
         if (previewUrlRef.current) {
@@ -105,13 +123,75 @@ const Profile = () => {
         setCropY((value) => clamp(value, -cropMetrics.maxY, cropMetrics.maxY));
     }, [cropMetrics]);
 
+    // ── Gesture handlers ──────────────────────────────────────────────────
+    // getViewportScale converts display-px deltas into VIEWPORT-px deltas
+    const getViewportScale = () => {
+        if (!cropContainerRef.current) return 1;
+        return VIEWPORT / cropContainerRef.current.getBoundingClientRect().width;
+    };
+
+    const applyDragDelta = (clientX, clientY, metrics) => {
+        const scale = getViewportScale();
+        const dx = (clientX - gestureRef.current.lastX) * scale;
+        const dy = (clientY - gestureRef.current.lastY) * scale;
+        gestureRef.current.lastX = clientX;
+        gestureRef.current.lastY = clientY;
+        if (metrics) {
+            setCropX((x) => clamp(x + dx, -metrics.maxX, metrics.maxX));
+            setCropY((y) => clamp(y + dy, -metrics.maxY, metrics.maxY));
+        }
+    };
+
+    // Mouse drag
+    const onMouseDown = (e) => {
+        e.preventDefault();
+        gestureRef.current.isDragging = true;
+        gestureRef.current.lastX = e.clientX;
+        gestureRef.current.lastY = e.clientY;
+    };
+    const onMouseMove = (e) => {
+        if (!gestureRef.current.isDragging) return;
+        applyDragDelta(e.clientX, e.clientY, cropMetrics);
+    };
+    const onMouseUp = () => { gestureRef.current.isDragging = false; };
+
+    // Touch drag + pinch-to-zoom
+    const onTouchStart = (e) => {
+        if (e.touches.length === 1) {
+            gestureRef.current.isDragging = true;
+            gestureRef.current.isPinching = false;
+            gestureRef.current.lastX = e.touches[0].clientX;
+            gestureRef.current.lastY = e.touches[0].clientY;
+        } else if (e.touches.length === 2) {
+            gestureRef.current.isDragging = false;
+            gestureRef.current.isPinching = true;
+            gestureRef.current.pinchStartDist = getTouchDist(e.touches[0], e.touches[1]);
+            gestureRef.current.pinchStartZoom = cropZoom;
+        }
+    };
+    const onTouchMove = (e) => {
+        if (e.touches.length === 1 && gestureRef.current.isDragging) {
+            applyDragDelta(e.touches[0].clientX, e.touches[0].clientY, cropMetrics);
+        } else if (e.touches.length === 2 && gestureRef.current.isPinching) {
+            const dist = getTouchDist(e.touches[0], e.touches[1]);
+            const ratio = dist / gestureRef.current.pinchStartDist;
+            setCropZoom(clamp(gestureRef.current.pinchStartZoom * ratio, 1, 2.8));
+        }
+    };
+    const onTouchEnd = (e) => {
+        if (e.touches.length === 0) {
+            gestureRef.current.isDragging = false;
+            gestureRef.current.isPinching = false;
+        } else if (e.touches.length === 1) {
+            // Transition from pinch back to single-finger drag
+            gestureRef.current.isPinching = false;
+            gestureRef.current.isDragging = true;
+            gestureRef.current.lastX = e.touches[0].clientX;
+            gestureRef.current.lastY = e.touches[0].clientY;
+        }
+    };
+
     const roleLabel = roleLabels[user?.role] || 'Usuario';
-    const accountStatus = user?.isVerified === false ? 'Correo pendiente' : 'Cuenta verificada';
-    const cards = [
-        ['Correo de acceso', user?.email || 'No disponible'],
-        ['Rol de cuenta', roleLabel],
-        ['Privacidad', 'Nombre, correo y foto opcional'],
-    ];
 
     const closeCrop = () => {
         setCropSource(null);
@@ -121,6 +201,7 @@ const Profile = () => {
         setCropX(0);
         setCropY(0);
         setIsCropLoading(false);
+        gestureRef.current = { isDragging: false, lastX: 0, lastY: 0, isPinching: false, pinchStartDist: 0, pinchStartZoom: 1 };
     };
 
     const pickAvatar = () => {
@@ -232,37 +313,21 @@ const Profile = () => {
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.18),_transparent_42%)]" />
                     <div className="absolute right-[-5rem] top-[-3rem] h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl" />
                     <img src={logo} alt="" aria-hidden="true" className="absolute right-6 bottom-0 w-48 md:w-64 opacity-[0.08] object-contain pointer-events-none" />
-                    <div className="relative z-10 space-y-8">
-                        <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
-                            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
-                                <div className="relative">
-                                    <div className="w-32 h-32 rounded-full border-4 border-white/25 overflow-hidden bg-indigo-950/50 flex items-center justify-center shadow-xl">
-                                        {avatarPreview ? <img src={avatarPreview} alt="Avatar" className="w-full h-full object-cover" /> : <span className="text-5xl font-black text-white/55">{user?.name?.charAt(0)?.toUpperCase() || 'K'}</span>}
-                                    </div>
-                                    <button type="button" onClick={pickAvatar} className="absolute bottom-1 right-1 p-2.5 bg-white text-indigo-700 hover:bg-indigo-50 rounded-full shadow-lg border border-indigo-100">
-                                        <Camera className="w-4 h-4" />
-                                    </button>
+                    <div className="relative z-10">
+                        <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
+                            <div className="relative shrink-0">
+                                <div className="w-28 h-28 rounded-full border-4 border-white/25 overflow-hidden bg-indigo-950/50 flex items-center justify-center shadow-xl">
+                                    {avatarPreview ? <img src={avatarPreview} alt="Avatar" className="w-full h-full object-cover" /> : <span className="text-5xl font-black text-white/55">{user?.name?.charAt(0)?.toUpperCase() || 'K'}</span>}
                                 </div>
-                                <div className="text-center sm:text-left space-y-3">
-                                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/15 text-[10px] font-black uppercase tracking-[0.2em] text-indigo-100"><Sparkles className="w-3.5 h-3.5" /> Perfil de cuenta</div>
-                                    <div>
-                                        <h1 className="text-3xl md:text-4xl font-black tracking-tight">{user?.name}</h1>
-                                        <p className="mt-2 text-indigo-100 flex items-center justify-center sm:justify-start gap-2 text-sm md:text-base"><Mail className="w-4 h-4" /> {user?.email}</p>
-                                    </div>
-                                    <div className="flex flex-wrap justify-center sm:justify-start gap-3">
-                                        <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/15 text-xs font-bold uppercase tracking-wider">{roleLabel}</span>
-                                        <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-400/10 border border-emerald-300/20 text-xs font-bold"><ShieldCheck className="w-3.5 h-3.5" /> {accountStatus}</span>
-                                        <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-400/10 border border-cyan-300/20 text-xs font-bold"><Camera className="w-3.5 h-3.5" /> Foto opcional</span>
-                                    </div>
-                                </div>
+                                <button type="button" onClick={pickAvatar} className="absolute bottom-1 right-1 p-2.5 bg-white text-indigo-700 hover:bg-indigo-50 rounded-full shadow-lg border border-indigo-100">
+                                    <Camera className="w-4 h-4" />
+                                </button>
                             </div>
-                            <div className="max-w-sm rounded-[1.75rem] border border-white/15 bg-white/10 backdrop-blur-md p-5">
-                                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-100">Enfoque de privacidad</p>
-                                <p className="mt-3 text-sm text-indigo-50 leading-relaxed">Este perfil solo muestra lo necesario para identificar la cuenta: nombre, correo y una foto opcional que puedes ajustar antes de guardarla.</p>
+                            <div className="text-center sm:text-left space-y-2">
+                                <h1 className="text-3xl md:text-4xl font-black tracking-tight">{user?.name}</h1>
+                                <p className="text-indigo-200 flex items-center justify-center sm:justify-start gap-2 text-sm"><Mail className="w-4 h-4" /> {user?.email}</p>
+                                <span className="inline-flex items-center px-3 py-1 rounded-full bg-white/10 border border-white/15 text-xs font-bold uppercase tracking-wider">{roleLabel}</span>
                             </div>
-                        </div>
-                        <div className="grid gap-4 md:grid-cols-3">
-                            {cards.map(([label, value]) => <div key={label} className="rounded-[1.75rem] border border-white/15 bg-white/10 backdrop-blur-md px-5 py-4"><p className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-100/80">{label}</p><p className="mt-2 text-sm font-bold break-all text-white">{value}</p></div>)}
                         </div>
                     </div>
                     <input type="file" ref={fileInputRef} onChange={handleFileChange} className="hidden" accept="image/*" />
@@ -274,9 +339,9 @@ const Profile = () => {
                             <div className="flex items-center gap-3 mb-6"><div className="p-3 bg-indigo-50 dark:bg-indigo-500/10 rounded-xl text-indigo-600 dark:text-indigo-400"><User className="w-6 h-6" /></div><div><h2 className="text-xl font-bold text-gray-900 dark:text-white">Información personal</h2><p className="text-sm text-gray-500 dark:text-gray-400">Puedes actualizar tu nombre y preparar una foto mejor encuadrada.</p></div></div>
                             <form onSubmit={handleInfoUpdate} className="space-y-6">
                                 <div className="grid gap-6 md:grid-cols-[1.1fr_0.9fr]">
-                                    <div className="space-y-5">
-                                        <div><label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Nombre visible</label><input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full px-4 py-3 bg-gray-50 dark:bg-[#0a0c10] border-2 border-gray-100 dark:border-gray-800 rounded-xl focus:border-indigo-500 focus:outline-none transition-colors dark:text-white font-medium" placeholder="Tu nombre" /></div>
-                                        <div><label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Correo de acceso</label><input type="text" value={user?.email || ''} readOnly className="w-full px-4 py-3 bg-gray-50 dark:bg-[#0a0c10] border-2 border-gray-100 dark:border-gray-800 rounded-xl text-gray-500 dark:text-gray-400 font-medium" /></div>
+                                    <div>
+                                        <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Nombre visible</label>
+                                        <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full px-4 py-3 bg-gray-50 dark:bg-[#0a0c10] border-2 border-gray-100 dark:border-gray-800 rounded-xl focus:border-indigo-500 focus:outline-none transition-colors dark:text-white font-medium" placeholder="Tu nombre" />
                                     </div>
                                     <div className="rounded-[2rem] border border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-[#0a0c10] p-5 space-y-4">
                                         <div className="flex items-center gap-4">
@@ -296,10 +361,28 @@ const Profile = () => {
                         <section className="bg-white dark:bg-[#161b22] rounded-[2rem] sm:rounded-[2.5rem] p-5 sm:p-8 border border-gray-200 dark:border-gray-800">
                             <div className="flex items-center gap-3 mb-6"><div className="p-3 bg-indigo-50 dark:bg-indigo-500/10 rounded-xl text-indigo-600 dark:text-indigo-400"><Lock className="w-6 h-6" /></div><div><h2 className="text-xl font-bold text-gray-900 dark:text-white">Seguridad</h2><p className="text-sm text-gray-500 dark:text-gray-400">Cambia tu contraseña cuando necesites reforzar el acceso a tu cuenta.</p></div></div>
                             <form onSubmit={handlePasswordUpdate} className="space-y-6">
-                                <div><label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Contraseña actual</label><input type="password" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} className="w-full px-4 py-3 bg-gray-50 dark:bg-[#0a0c10] border-2 border-gray-100 dark:border-gray-800 rounded-xl focus:border-indigo-500 focus:outline-none transition-colors dark:text-white" placeholder="••••••••" /></div>
+                                <div>
+                                    <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Contraseña actual</label>
+                                    <div className="relative">
+                                        <input type={showCurrent ? 'text' : 'password'} value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} className="w-full px-4 py-3 pr-11 bg-gray-50 dark:bg-[#0a0c10] border-2 border-gray-100 dark:border-gray-800 rounded-xl focus:border-indigo-500 focus:outline-none transition-colors dark:text-white" placeholder="••••••••" />
+                                        <button type="button" onClick={() => setShowCurrent((v) => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-indigo-500 transition-colors">{showCurrent ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}</button>
+                                    </div>
+                                </div>
                                 <div className="grid md:grid-cols-2 gap-6">
-                                    <div><label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Nueva contraseña</label><input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className="w-full px-4 py-3 bg-gray-50 dark:bg-[#0a0c10] border-2 border-gray-100 dark:border-gray-800 rounded-xl focus:border-indigo-500 focus:outline-none transition-colors dark:text-white" placeholder="••••••••" /></div>
-                                    <div><label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Confirmar nueva</label><input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="w-full px-4 py-3 bg-gray-50 dark:bg-[#0a0c10] border-2 border-gray-100 dark:border-gray-800 rounded-xl focus:border-indigo-500 focus:outline-none transition-colors dark:text-white" placeholder="••••••••" /></div>
+                                    <div>
+                                        <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Nueva contraseña</label>
+                                        <div className="relative">
+                                            <input type={showNew ? 'text' : 'password'} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className="w-full px-4 py-3 pr-11 bg-gray-50 dark:bg-[#0a0c10] border-2 border-gray-100 dark:border-gray-800 rounded-xl focus:border-indigo-500 focus:outline-none transition-colors dark:text-white" placeholder="••••••••" />
+                                            <button type="button" onClick={() => setShowNew((v) => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-indigo-500 transition-colors">{showNew ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}</button>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Confirmar nueva</label>
+                                        <div className="relative">
+                                            <input type={showConfirm ? 'text' : 'password'} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="w-full px-4 py-3 pr-11 bg-gray-50 dark:bg-[#0a0c10] border-2 border-gray-100 dark:border-gray-800 rounded-xl focus:border-indigo-500 focus:outline-none transition-colors dark:text-white" placeholder="••••••••" />
+                                            <button type="button" onClick={() => setShowConfirm((v) => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-indigo-500 transition-colors">{showConfirm ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}</button>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="flex justify-end pt-4 border-t border-gray-100 dark:border-gray-800"><button type="submit" disabled={isPassLoading} className="flex items-center gap-2 px-6 py-3 bg-gray-900 dark:bg-indigo-600 hover:bg-gray-800 dark:hover:bg-indigo-700 text-white rounded-xl font-bold shadow-lg transition-all hover:scale-[1.02] active:scale-95 disabled:opacity-50 disabled:scale-100">{isPassLoading ? 'Actualizando...' : <><Lock className="w-4 h-4" /> Actualizar clave</>}</button></div>
                             </form>
@@ -307,17 +390,6 @@ const Profile = () => {
                     </div>
 
                     <aside className="space-y-8 xl:sticky xl:top-24 h-fit">
-                        <section className="bg-white dark:bg-[#161b22] rounded-[2rem] sm:rounded-[2.5rem] p-5 sm:p-8 border border-gray-200 dark:border-gray-800">
-                            <div className="flex items-center gap-3 mb-5"><div className="p-3 bg-indigo-50 dark:bg-indigo-500/10 rounded-xl text-indigo-600 dark:text-indigo-400"><ShieldCheck className="w-6 h-6" /></div><div><h3 className="text-lg font-bold text-gray-900 dark:text-white">Resumen de la cuenta</h3><p className="text-sm text-gray-500 dark:text-gray-400">Solo lo esencial para administrar tu acceso.</p></div></div>
-                            <div className="space-y-4">
-                                {[
-                                    ['Rol visible', roleLabel],
-                                    ['Estado del correo', accountStatus],
-                                    ['Foto de perfil', avatarPreview ? 'Configurada' : 'Opcional'],
-                                ].map(([label, value]) => <div key={label} className="rounded-[1.5rem] border border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-[#0a0c10] px-4 py-4"><p className="text-[10px] font-black uppercase tracking-[0.18em] text-gray-400 dark:text-gray-500">{label}</p><p className="mt-2 text-sm font-bold text-gray-800 dark:text-gray-200">{value}</p></div>)}
-                            </div>
-                        </section>
-
                         <section className="bg-white dark:bg-[#161b22] rounded-[2rem] sm:rounded-[2.5rem] p-5 sm:p-8 border border-gray-200 dark:border-gray-800">
                             <div className="flex items-center gap-3 mb-5"><div className="p-3 bg-cyan-50 dark:bg-cyan-500/10 rounded-xl text-cyan-600 dark:text-cyan-400"><Sparkles className="w-6 h-6" /></div><div><h3 className="text-lg font-bold text-gray-900 dark:text-white">Privacidad mínima</h3><p className="text-sm text-gray-500 dark:text-gray-400">Diseñado para pedir la menor información posible.</p></div></div>
                             <div className="space-y-4 text-sm text-gray-600 dark:text-gray-300">
@@ -339,26 +411,50 @@ const Profile = () => {
                         <motion.div initial={{ opacity: 0, scale: 0.95, y: 10 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.95, y: 10 }} className="relative w-full max-w-4xl rounded-[2rem] sm:rounded-[2.5rem] border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#161b22] shadow-2xl overflow-y-auto max-h-[92vh]">
                             <button type="button" onClick={closeCrop} className="absolute right-4 top-4 z-10 rounded-full border border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-[#0a0c10]/80 p-2 text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-300"><X className="w-5 h-5" /></button>
                             <div className="grid lg:grid-cols-[1fr_0.95fr]">
+                                {/* ── Left: preview ── */}
                                 <div className="p-5 sm:p-8 bg-[#f6f8ff] dark:bg-[#10141c] border-b lg:border-b-0 lg:border-r border-gray-200 dark:border-gray-800">
                                     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-300 mb-2">Ajuste de imagen</p>
                                     <h3 className="text-lg sm:text-2xl font-black text-gray-900 dark:text-white tracking-tight">Ajusta tu foto</h3>
                                     <p className="mt-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400 leading-relaxed hidden sm:block">Mueve y acerca la imagen hasta que el recorte te guste. Se guardará en formato cuadrado.</p>
                                     <div className="mt-4 sm:mt-8 flex justify-center">
-                                        <div className="relative h-52 w-52 sm:h-72 sm:w-72 rounded-[1.75rem] sm:rounded-[2.25rem] overflow-hidden border-4 border-white dark:border-[#161b22] shadow-2xl bg-[#0a0c10]">
-                                            {cropMetrics ? <img src={cropSource} alt="Vista previa del recorte" className="pointer-events-none absolute top-1/2 left-1/2 max-w-none select-none" style={{ width: `${cropMetrics.width}px`, height: `${cropMetrics.height}px`, transform: `translate(calc(-50% + ${cropX}px), calc(-50% + ${cropY}px))` }} /> : null}
-                                            <div className="absolute inset-0 border-[10px] border-white/15 rounded-[1.5rem] sm:rounded-[2rem]" />
-                                            <div className="absolute inset-x-0 top-1/2 h-px bg-white/20" />
-                                            <div className="absolute inset-y-0 left-1/2 w-px bg-white/20" />
+                                        {/* Interactive preview — drag to move, pinch to zoom */}
+                                        <div
+                                            ref={cropContainerRef}
+                                            className="relative h-64 w-64 sm:h-72 sm:w-72 rounded-[1.75rem] sm:rounded-[2.25rem] overflow-hidden border-4 border-white dark:border-[#161b22] shadow-2xl bg-[#0a0c10] cursor-grab active:cursor-grabbing select-none"
+                                            style={{ touchAction: 'none' }}
+                                            onMouseDown={onMouseDown}
+                                            onMouseMove={onMouseMove}
+                                            onMouseUp={onMouseUp}
+                                            onMouseLeave={onMouseUp}
+                                            onTouchStart={onTouchStart}
+                                            onTouchMove={onTouchMove}
+                                            onTouchEnd={onTouchEnd}
+                                        >
+                                            {cropMetrics ? <img src={cropSource} alt="Vista previa del recorte" draggable={false} className="pointer-events-none absolute top-1/2 left-1/2 max-w-none select-none" style={{ width: `${cropMetrics.width}px`, height: `${cropMetrics.height}px`, transform: `translate(calc(-50% + ${cropX}px), calc(-50% + ${cropY}px))` }} /> : null}
+                                            <div className="absolute inset-0 border-[10px] border-white/15 rounded-[1.5rem] sm:rounded-[2rem] pointer-events-none" />
+                                            <div className="absolute inset-x-0 top-1/2 h-px bg-white/20 pointer-events-none" />
+                                            <div className="absolute inset-y-0 left-1/2 w-px bg-white/20 pointer-events-none" />
+                                        </div>
+                                    </div>
+                                    {/* Touch hint — visible only on small/tablet screens */}
+                                    <div className="mt-4 flex justify-center lg:hidden">
+                                        <div className="inline-flex items-center gap-3 px-4 py-2.5 rounded-2xl bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-100 dark:border-indigo-500/20 text-xs text-indigo-700 dark:text-indigo-300">
+                                            <Move className="w-3.5 h-3.5 shrink-0" /><span>Arrastra para mover</span>
+                                            <span className="w-px h-3.5 bg-indigo-200 dark:bg-indigo-500/30" />
+                                            <ZoomIn className="w-3.5 h-3.5 shrink-0" /><span>Pellizca para zoom</span>
                                         </div>
                                     </div>
                                 </div>
+
+                                {/* ── Right: controls ── */}
                                 <div className="p-5 sm:p-8 space-y-5">
-                                    <div className="space-y-4">
+                                    {/* Sliders — shown on desktop, hidden on mobile/tablet where gestures suffice */}
+                                    <div className="hidden lg:block space-y-4">
                                         <div><label className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400 mb-2"><ZoomIn className="w-4 h-4" /> Zoom</label><input type="range" min="1" max="2.8" step="0.01" value={cropZoom} onChange={(e) => setCropZoom(Number(e.target.value))} className="w-full accent-indigo-600" /></div>
                                         <div><label className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400 mb-2"><Move className="w-4 h-4" /> Horizontal</label><input type="range" min={cropMetrics ? -cropMetrics.maxX : 0} max={cropMetrics ? cropMetrics.maxX : 0} step="1" value={cropX} onChange={(e) => setCropX(Number(e.target.value))} className="w-full accent-indigo-600" /></div>
                                         <div><label className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400 mb-2"><Move className="w-4 h-4" /> Vertical</label><input type="range" min={cropMetrics ? -cropMetrics.maxY : 0} max={cropMetrics ? cropMetrics.maxY : 0} step="1" value={cropY} onChange={(e) => setCropY(Number(e.target.value))} className="w-full accent-indigo-600" /></div>
                                     </div>
-                                    <div className="rounded-[1.5rem] border border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-[#0a0c10] p-4"><p className="text-[10px] font-black uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400">Consejo rápido</p><p className="mt-1.5 text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">Procura que tu rostro quede al centro. Si se ve muy cerrado, baja el zoom.</p></div>
+                                    <div className="rounded-[1.5rem] border border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-[#0a0c10] p-4"><p className="text-[10px] font-black uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400">Consejo rápido</p><p className="mt-1.5 text-xs sm:text-sm text-gray-600 dark:text-gray-300 leading-relaxed">Procura que tu rostro quede al centro. Si se ve muy cerrado, aleja los dedos para reducir el zoom.</p></div>
                                     <div className="flex flex-wrap justify-between gap-3">
                                         <button type="button" onClick={() => { setCropZoom(1); setCropX(0); setCropY(0); }} className="inline-flex items-center gap-2 px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 font-bold text-sm"><RotateCcw className="w-4 h-4" /> Recentrar</button>
                                         <button type="button" onClick={applyCrop} disabled={isCropLoading} className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-lg shadow-indigo-600/20 disabled:opacity-50">{isCropLoading ? 'Procesando...' : <><CheckCircle2 className="w-4 h-4" /> Usar este encuadre</>}</button>

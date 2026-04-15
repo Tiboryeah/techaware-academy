@@ -6,7 +6,7 @@ module.exports = async function seedGameModule(context) {
     const mod5 = await getOrCreateModule(courseGames._id, {
         title: 'Módulo 5: Compras digitales, estafas y descargas',
         description: 'Gestión económica y prevención de malware.',
-        duration: '30 min'
+        duration: '28 min'
     });
     await Quiz.deleteMany({ refId: mod5._id, scope: 'module' });
 
@@ -232,7 +232,7 @@ Entender cómo funcionan **Robux**, **Minecoins** y las **microtransacciones** a
 
 Este conocimiento prepara el terreno para el siguiente contenido del módulo, centrado en fraudes, phishing y enlaces falsos relacionados con supuestas recompensas "gratis".`,
         type: 'article',
-        duration: 5,
+        duration: 12,
         platforms: ['Roblox', 'Minecraft'],
         riskAreas: ['Gasto Controlado'],
         teaches: ['robux', 'minecoins', 'microtransacción', 'in-game purchases', 'marketplace', 'límite de gasto', 'moneda virtual']
@@ -240,8 +240,20 @@ Este conocimiento prepara el terreno para el siguiente contenido del módulo, ce
 
     const l5_2 = await getOrCreateLesson(mod5._id, courseGames._id, {
         title: 'Video 1: Cómo detectar phishing, "Robux gratis" y enlaces falsos',
-        content: 'Evita que roben la cuenta de tu hijo con promesas falsas.',
-        type: 'video', videoUrl: 'https://www.youtube.com/watch?v=placeholder9', duration: 6
+        content: `# Cómo detectar phishing, "Robux gratis" y enlaces falsos
+
+Este video muestra cómo se ve una promesa falsa antes de que termine en robo de cuenta, descarga peligrosa o pérdida de dinero.
+
+## Qué conviene observar
+* Qué señales suelen repetirse en páginas y mensajes fraudulentos.
+* Por qué las promesas de moneda gratis suelen buscar credenciales o pagos.
+* Qué respuesta rápida debe seguir una familia ante un enlace dudoso.`,
+        type: 'video',
+        videoUrl: 'https://www.youtube.com/watch?v=placeholder9',
+        duration: 2,
+        platforms: ['Roblox', 'Minecraft'],
+        riskAreas: ['Gasto Controlado'],
+        teaches: ['phishing', 'robux gratis', 'enlace falso', 'cuenta', 'descarga de terceros']
     });
 
     const l5_3 = await getOrCreateLesson(mod5._id, courseGames._id, {
@@ -463,7 +475,7 @@ Cuando madres, padres y tutores distinguen entre **Marketplace oficial**, **add-
 
 > **Recuerda**: En Minecraft, "oficial" no significa solo que algo sea conocido; significa que viene de un canal respaldado por Mojang.`,
         type: 'article',
-        duration: 5,
+        duration: 12,
         platforms: ['Roblox', 'Minecraft'],
         riskAreas: ['Gasto Controlado', 'Seguridad de Cuenta'],
         teaches: ['add-on', 'marketplace', 'mod de java', 'descarga de terceros', 'phishing', 'robux gratis', 'oficial', 'no oficial']
@@ -471,15 +483,27 @@ Cuando madres, padres y tutores distinguen entre **Marketplace oficial**, **add-
 
     const l5_4 = await getOrCreateLesson(mod5._id, courseGames._id, {
         title: 'Video 2: Checklist antes de comprar o descargar algo',
-        content: 'Pasos de seguridad antes de cualquier transacción o instalación.',
-        type: 'video', videoUrl: 'https://www.youtube.com/watch?v=placeholder10', duration: 6
+        content: `# Checklist antes de comprar o descargar algo
+
+Este video convierte el módulo en una revisión corta antes de gastar, instalar o aceptar contenido nuevo dentro del juego.
+
+## Qué conviene observar
+* Cómo distinguir una ruta oficial de una descarga de terceros.
+* Qué preguntas hacer antes de pagar con moneda virtual.
+* Qué señales indican que una instalación o compra no es segura.`,
+        type: 'video',
+        videoUrl: 'https://www.youtube.com/watch?v=placeholder10',
+        duration: 2,
+        platforms: ['Roblox', 'Minecraft'],
+        riskAreas: ['Gasto Controlado'],
+        teaches: ['marketplace', 'mod de java', 'oficial', 'no oficial', 'transacción segura']
     });
 
     mod5.lessonOrder = [l5_1._id, l5_2._id, l5_3._id, l5_4._id];
     await mod5.save();
 
     const q5 = await getOrCreateQuiz({
-        title: 'Mini examen / validación — Módulo 5: Compras digitales, estafas y descargas',
+        title: 'Examen del Módulo 5: Compras digitales, estafas y descargas',
         description: 'Evalúa si puedes distinguir compras oficiales, señales de estafa y descargas que requieren más revisión antes de autorizar algo.',
         scope: 'module',
         refId: mod5._id,

@@ -460,6 +460,9 @@ const QuizTaker = () => {
             : Math.max(totalQuestions - correctCount, 0);
         const reviewAreas = recommendations?.areasToReview || [];
         const reviewPlatforms = recommendations?.platformsToReview || [];
+        const recommendationAreaBreakdown = recommendations?.areaBreakdown || [];
+        const recommendationPlatformBreakdown = recommendations?.platformBreakdown || [];
+        const recommendationCourseBreakdown = recommendations?.courseBreakdown || [];
         const canReviewResolvedExam = !isAccreditationQuiz && questionDetails.length > 0;
         const currentReviewQuestion = quiz.questions[currentQuestionIndex];
         const currentReviewDetail = questionDetails[currentQuestionIndex] || null;
@@ -501,6 +504,49 @@ const QuizTaker = () => {
                 ? 'Respondiste correctamente todos los reactivos de este intento.'
                 : `Superaste la meta de ${minimumScore}% y quedaron ${incorrectCount} reactivos que aun conviene revisar.`
             : `Obtuviste ${result.score}% y la meta es ${minimumScore}%. Antes del siguiente intento conviene reforzar ${incorrectCount} reactivos.`;
+        const buildCountBreakdown = (labels = []) => {
+            const counts = labels.reduce((accumulator, label) => {
+                if (!label) return accumulator;
+                accumulator[label] = (accumulator[label] || 0) + 1;
+                return accumulator;
+            }, {});
+
+            return Object.entries(counts)
+                .map(([label, count]) => ({ label, count }))
+                .sort((left, right) => {
+                    if (right.count !== left.count) return right.count - left.count;
+                    return left.label.localeCompare(right.label);
+                });
+        };
+        const platformCourseMap = {
+            Roblox: 'Videojuegos',
+            Minecraft: 'Videojuegos',
+            TikTok: 'Redes Sociales',
+            Discord: 'Redes Sociales',
+            Instagram: 'Redes Sociales',
+            YouTube: 'Streaming',
+            Twitch: 'Streaming',
+        };
+        const masteredCourseBreakdown = buildCountBreakdown(
+            questionDetails
+                .filter((detail) => detail.isCorrect && detail.platform)
+                .map((detail) => platformCourseMap[detail.platform] || detail.platform)
+        );
+        const masteredAreaBreakdown = buildCountBreakdown(
+            questionDetails
+                .filter((detail) => detail.isCorrect && detail.riskArea)
+                .map((detail) => detail.riskArea)
+        );
+        const diagnosticWeaknessItems = (
+            recommendationCourseBreakdown.length > 0
+                ? recommendationCourseBreakdown
+                : (recommendationAreaBreakdown.length > 0 ? recommendationAreaBreakdown : recommendationPlatformBreakdown)
+        ).slice(0, 4);
+        const diagnosticStrengthItems = (
+            masteredCourseBreakdown.length > 0
+                ? masteredCourseBreakdown
+                : masteredAreaBreakdown
+        ).slice(0, 4);
         const focusItems = [...reviewAreas, ...reviewPlatforms].slice(0, 4);
         const compactNextStep = canReviewResolvedExam
             ? 'Puedes abrir el examen resuelto para revisar cada reactivo.'
@@ -823,44 +869,50 @@ const QuizTaker = () => {
 
                         {/* Diagnostic Feedback (Vulnerabilities or Mastery) */}
                         {isDiagnostic && (
-                            /* ... diagnostic logic ... */
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-                                {result.score >= 90 ? (
-                                    <div className="p-8 bg-indigo-500/5 border border-indigo-500/10 rounded-[2rem] space-y-4 col-span-2 text-center">
-                                        <div className="w-16 h-16 bg-indigo-500 rounded-full flex items-center justify-center mx-auto shadow-lg shadow-indigo-500/30">
-                                            <Trophy className="text-white w-8 h-8" />
-                                        </div>
-                                        <div className="space-y-2">
-                                            <p className="text-xs font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400">Blindaje Total Detectado</p>
-                                            <p className="text-base text-gray-700 dark:text-gray-300 font-medium leading-relaxed italic">
-                                                ¡Excelente desempeño! Has demostrado un dominio superior de la seguridad digital.
-                                            </p>
-                                        </div>
+                                <div className="p-6 bg-red-500/5 border border-red-500/10 rounded-2xl space-y-3">
+                                    <div className="flex items-center gap-2 mb-1">
+                                        <ShieldAlert className="w-4 h-4 text-red-500" />
+                                        <p className="text-[10px] font-black uppercase tracking-widest text-red-600 dark:text-red-400">Dónde conviene reforzar</p>
                                     </div>
-                                ) : (
-                                    <>
-                                        <div className="p-6 bg-red-500/5 border border-red-500/10 rounded-2xl space-y-2">
-                                            <div className="flex items-center gap-2 mb-1">
-                                                <ShieldAlert className="w-4 h-4 text-red-500" />
-                                                <p className="text-[10px] font-black uppercase tracking-widest text-red-600 dark:text-red-400">Vulnerabilidades</p>
-                                            </div>
-                                            <ul className="text-[11px] text-gray-600 dark:text-gray-400 space-y-1 italic list-disc pl-4 font-serif">
-                                                <li>Configuración de Privacidad</li>
-                                                <li>Gestión de Identidad Digital</li>
-                                            </ul>
-                                        </div>
-                                        <div className="p-6 bg-green-500/5 border border-green-500/10 rounded-2xl space-y-2">
-                                            <div className="flex items-center gap-2 mb-1">
-                                                <ShieldCheck className="w-4 h-4 text-green-500" />
-                                                <p className="text-[10px] font-black uppercase tracking-widest text-green-600 dark:text-green-400">Estrategias Dominadas</p>
-                                            </div>
-                                            <ul className="text-[11px] text-gray-600 dark:text-gray-400 space-y-1 italic list-disc pl-4 font-serif">
-                                                <li>Detección de Enlaces</li>
-                                                <li>Conciencia de Riesgos</li>
-                                            </ul>
-                                        </div>
-                                    </>
-                                )}
+
+                                    {diagnosticWeaknessItems.length > 0 ? (
+                                        <ul className="text-[11px] text-gray-600 dark:text-gray-400 space-y-2 italic list-disc pl-4 font-serif">
+                                            {diagnosticWeaknessItems.map((item) => (
+                                                <li key={`weak-${item.label}`}>
+                                                    <span className="font-semibold text-gray-800 dark:text-gray-200 not-italic">{item.label}</span>{' '}
+                                                    <span>({item.count} error{item.count === 1 ? '' : 'es'})</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        <p className="text-[11px] text-gray-600 dark:text-gray-400 italic leading-relaxed">
+                                            No se detectó un foco dominante de error en este intento. Aun así, conviene revisar el examen resuelto para afinar detalles.
+                                        </p>
+                                    )}
+                                </div>
+
+                                <div className="p-6 bg-green-500/5 border border-green-500/10 rounded-2xl space-y-3">
+                                    <div className="flex items-center gap-2 mb-1">
+                                        <ShieldCheck className="w-4 h-4 text-green-500" />
+                                        <p className="text-[10px] font-black uppercase tracking-widest text-green-600 dark:text-green-400">Base ya presente</p>
+                                    </div>
+
+                                    {diagnosticStrengthItems.length > 0 ? (
+                                        <ul className="text-[11px] text-gray-600 dark:text-gray-400 space-y-2 italic list-disc pl-4 font-serif">
+                                            {diagnosticStrengthItems.map((item) => (
+                                                <li key={`strong-${item.label}`}>
+                                                    <span className="font-semibold text-gray-800 dark:text-gray-200 not-italic">{item.label}</span>{' '}
+                                                    <span>({item.count} acierto{item.count === 1 ? '' : 's'})</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        <p className="text-[11px] text-gray-600 dark:text-gray-400 italic leading-relaxed">
+                                            Todavía no hay una fortaleza clara marcada en este intento. Las lecciones sugeridas te ayudarán a construir esa base.
+                                        </p>
+                                    )}
+                                </div>
                             </div>
                         )}
 

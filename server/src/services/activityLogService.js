@@ -16,10 +16,16 @@ const createActivityLog = async (payload) => {
         }
     }
 
-    return ActivityLog.create({
+    const activityPayload = {
         ...payload,
         occurredAt: payload.occurredAt || new Date(),
-    });
+    };
+
+    if (!activityPayload.uniqueKey) {
+        delete activityPayload.uniqueKey;
+    }
+
+    return ActivityLog.create(activityPayload);
 };
 
 const getRecentActivity = async (userId, limit = 5) =>

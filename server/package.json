@@ -10,6 +10,7 @@
     "seed:games": "node src/scripts/seed-target.js games",
     "seed:social": "node src/scripts/seed-target.js social",
     "seed:streaming": "node src/scripts/seed-target.js streaming",
+    "seed:diagnostic": "node src/scripts/seed-target.js diagnostic",
     "seed:content": "node src/scripts/seed-target.js games social streaming",
     "test": "jest --watchAll --maxWorkers=1"
   },
@@ -24,6 +25,7 @@
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "express-rate-limit": "^8.2.1",
+    "groq-sdk": "^1.1.2",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^9.0.0",

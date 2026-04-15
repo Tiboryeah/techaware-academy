@@ -5,7 +5,7 @@ module.exports = async function seedGameModule(context) {
     const mod1 = await getOrCreateModule(courseGames._id, {
         title: 'Módulo 1: Fundamentos de videojuegos en línea',
         description: 'Entendiendo el panorama general de los mundos digitales.',
-        duration: '30 min'
+        duration: '40 min'
     });
     await Quiz.deleteMany({ refId: mod1._id, scope: 'module' });
 
@@ -57,7 +57,7 @@ Antes de permitir el acceso a una nueva plataforma, conviene revisar:
 
 > **Actividad breve:** Piensa en el juego que usa tu hijo o hija. ¿Ya sabes si lo más importante que debes revisar ahí es la cuenta, el chat, el multijugador o las compras?`,
         type: 'article',
-        duration: 5,
+        duration: 12,
         platforms: ['Roblox', 'Minecraft'],
         riskAreas: ['Seguridad de Cuenta', 'Privacidad Avanzada', 'Gasto Controlado'],
         teaches: ['internet', 'cuenta', 'servidor', 'chat', 'multijugador', 'compra dentro del juego', 'compras', 'desconocidos', 'controles parentales']
@@ -92,7 +92,7 @@ Esta guía existe para que los conceptos del examen salgan exactamente de algo q
 
 Si una familia entiende estos cinco conceptos, ya tiene el vocabulario básico para interpretar el resto del curso y responder el examen con lógica.`,
         type: 'guide',
-        duration: 4,
+        duration: 12,
         platforms: ['Roblox', 'Minecraft'],
         riskAreas: ['Seguridad de Cuenta', 'Privacidad Avanzada', 'Gasto Controlado'],
         teaches: ['cuenta', 'servidor', 'chat', 'compra dentro del juego', 'multijugador', 'internet']
@@ -100,10 +100,20 @@ Si una familia entiende estos cinco conceptos, ya tiene el vocabulario básico p
 
     const l1_3 = await getOrCreateLesson(mod1._id, courseGames._id, {
         title: 'Video 1: Recorrido visual: qué es Roblox y qué es Minecraft',
-        content: 'Observa las diferencias visuales y mecánicas entre estas dos plataformas masivas.',
+        content: `# Recorrido visual: qué es Roblox y qué es Minecraft
+
+Este video muestra cómo se ven y cómo se sienten Roblox y Minecraft cuando un menor entra por primera vez, para que la familia distinga mejor qué está supervisando.
+
+## Qué conviene observar
+* Cómo cambia la experiencia entre una plataforma con muchas experiencias y un juego sandbox.
+* Qué señales visuales muestran si el menor está entrando a mundos, servidores o experiencias concretas.
+* Qué preguntas conviene hacer antes de dejar jugar.`,
         type: 'video',
         videoUrl: 'https://www.youtube.com/watch?v=placeholder1',
-        duration: 6
+        duration: 2,
+        platforms: ['Roblox', 'Minecraft'],
+        riskAreas: ['Seguridad de Cuenta', 'Privacidad Avanzada', 'Gasto Controlado'],
+        teaches: ['roblox', 'minecraft', 'plataforma', 'sandbox', 'experiencia', 'mundo']
     });
 
     const l1_4 = await getOrCreateLesson(mod1._id, courseGames._id, {
@@ -146,7 +156,7 @@ En **Minecraft** conviene revisar:
 
 > **Conclusión:** No existe una plataforma "idéntica" a la otra. Cada una pide una lógica de revisión distinta, y por eso el examen compara ambas.`,
         type: 'article',
-        duration: 5,
+        duration: 12,
         platforms: ['Roblox', 'Minecraft'],
         riskAreas: ['Seguridad de Cuenta', 'Privacidad Avanzada', 'Gasto Controlado'],
         teaches: ['roblox', 'minecraft', 'plataforma', 'sandbox', 'experiencia', 'mundo', 'creativo', 'supervivencia', 'robux', 'minecoins']
@@ -154,10 +164,20 @@ En **Minecraft** conviene revisar:
 
     const l1_5 = await getOrCreateLesson(mod1._id, courseGames._id, {
         title: 'Video 2: Qué debe revisar un padre antes de dejar jugar',
-        content: 'Checklist visual de configuración inicial y señales de alerta.',
+        content: `# Qué debe revisar un padre antes de dejar jugar
+
+Este video convierte el módulo en una lista visual de revisión inicial para que la familia identifique cuenta, chat, multijugador, compras y señales tempranas de riesgo.
+
+## Qué conviene observar
+* Si el juego exige cuenta propia o permite jugar con otras personas.
+* Dónde aparecen el chat, las compras y los controles parentales.
+* Qué indicadores muestran si puede haber contacto con desconocidos.`,
         type: 'video',
         videoUrl: 'https://www.youtube.com/watch?v=placeholder2',
-        duration: 6
+        duration: 2,
+        platforms: ['Roblox', 'Minecraft'],
+        riskAreas: ['Seguridad de Cuenta', 'Privacidad Avanzada', 'Gasto Controlado'],
+        teaches: ['cuenta', 'chat', 'multijugador', 'compras', 'controles parentales', 'desconocidos']
     });
 
     mod1.lessonOrder = [l1_1._id, l1_2._id, l1_3._id, l1_4._id, l1_5._id];

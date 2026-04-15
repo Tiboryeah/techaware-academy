@@ -19,16 +19,20 @@ Este artículo forma parte de **${moduleTitle}** y presenta el tema con un lengu
 
 > ${objective}`;
 
-    const buildVideoContent = ({ moduleTitle, objective, lessonTitle }) => `# ${lessonTitle.replace(/^Video \d+: /, '')}
+const buildVideoContent = ({ moduleTitle, objective, lessonTitle }) => `# ${lessonTitle.replace(/^Video \d+: /, '')}
 
-Este video acompaña visualmente el módulo **${moduleTitle}** y resume sus ideas principales de forma sencilla.
+Este recurso visual se centra en **${lessonTitle.replace(/^Video \d+: /, '')}** dentro de **${moduleTitle}** para que una familia ubique con más facilidad lo importante antes de revisar la plataforma con el menor.
 
-## Qué vas a observar
-* Ejemplos rápidos para ubicar el tema.
-* Situaciones que suelen vivir niños, adolescentes y familias.
-* Pistas prácticas para conectar el contenido con la vida diaria.
+## Qué conviene observar
+* Dónde aparece la función, riesgo o dinámica principal en pantalla.
+* Qué señales debería reconocer una familia en una situación real.
+* Qué conversación o ajuste práctico conviene revisar después de verlo.
 
+## Para conectar el video con el módulo
 > ${objective}
+
+## Sugerencia de acompañamiento
+Después de verlo, conviene pedir al menor que muestre esa misma función o situación dentro de YouTube o Twitch para reforzar lo aprendido.
 
 Nota: Este video usa un enlace temporal mientras se integra el material audiovisual definitivo del curso.`;
 
@@ -2698,7 +2702,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
         {
             title: 'Introducción al streaming y consumo infantil',
             description: 'Objetivo: Que los padres entiendan qué son las plataformas y por qué los niños las usan tanto.',
-            duration: '20 min',
+            duration: '26 min',
             riskAreas: ['Consumo infantil', 'Algoritmos y recomendaciones'],
             quiz: {
                 title: 'Examen del Módulo 1: Introducción al streaming y consumo infantil',
@@ -2710,27 +2714,27 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                 {
                     title: 'Artículo 1: ¿Qué son YouTube y Twitch y cómo funcionan?',
                     type: 'article',
-                    duration: 6,
+                    duration: 11,
                     content: module1Article1Content,
                     teaches: ['youtube', 'twitch', 'streaming', 'algoritmo', 'reproducción automática', 'chat en vivo', 'contenido inapropiado', 'consumo excesivo', 'rol de los padres'],
                 },
                 {
                     title: 'Video 1: Explicación visual de YouTube vs Twitch (cómo consumen contenido los niños)',
                     type: 'video',
-                    duration: 4,
+                    duration: 2,
                     teaches: ['youtube', 'twitch', 'consumo infantil', 'videos', 'directos'],
                 },
                 {
                     title: 'Artículo 2: ¿Por qué el streaming es tan atractivo para niños y adolescentes?',
                     type: 'article',
-                    duration: 6,
+                    duration: 11,
                     content: module1Article2Content,
                     teaches: ['recompensa inmediata', 'dopamina', 'contenido infinito', 'algoritmo', 'personalización', 'creadores', 'chat en vivo', 'límites', 'uso problemático'],
                 },
                 {
                     title: 'Video 2: Cómo los algoritmos mantienen a los niños viendo contenido',
                     type: 'video',
-                    duration: 5,
+                    duration: 2,
                     teaches: ['algoritmo', 'recomendaciones', 'autoplay', 'atención'],
                 },
             ],
@@ -2738,7 +2742,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
         {
             title: 'Tipos de contenido y su impacto en los niños',
             description: 'Objetivo: Identificar qué ven los niños y cómo influye en su comportamiento.',
-            duration: '22 min',
+            duration: '26 min',
             riskAreas: ['Impacto del contenido', 'Conducta y emociones'],
             quiz: {
                 title: 'Examen del Módulo 2: Tipos de contenido y su impacto en los niños',
@@ -2750,27 +2754,27 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                 {
                     title: 'Artículo 1: Tipos de contenido en YouTube y Twitch (gameplays, retos, reacciones, vlogs)',
                     type: 'article',
-                    duration: 6,
+                    duration: 11,
                     content: module2Article1Content,
                     teaches: ['gameplays', 'retos y bromas', 'reacciones', 'vlogs', 'tutoriales', 'directos en vivo', 'lenguaje agresivo', 'imitación', 'comparación', 'consumismo', 'contenido educativo', 'supervisión del contenido'],
                 },
                 {
                     title: 'Video 1: Ejemplos visuales de contenido popular entre niños',
                     type: 'video',
-                    duration: 4,
+                    duration: 2,
                     teaches: ['contenido popular', 'niños', 'youtube', 'twitch'],
                 },
                 {
                     title: 'Artículo 2: Influencia del contenido en emociones, conducta y desarrollo',
                     type: 'article',
-                    duration: 6,
+                    duration: 11,
                     content: module2Article2Content,
                     teaches: ['emociones', 'conducta', 'autoimagen', 'rutina diaria', 'imitación', 'comparación', 'autoestima', 'sueño', 'convivencia', 'calidad del contenido', 'señales de alerta', 'acompañamiento adulto'],
                 },
                 {
                     title: 'Video 2: Cómo el contenido afecta el comportamiento infantil',
                     type: 'video',
-                    duration: 5,
+                    duration: 2,
                     teaches: ['comportamiento infantil', 'influencia', 'emociones'],
                 },
             ],
@@ -2778,7 +2782,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
         {
             title: 'Riesgos en plataformas de streaming',
             description: 'Objetivo: Detectar los principales peligros digitales.',
-            duration: '22 min',
+            duration: '26 min',
             riskAreas: ['Riesgos en streaming', 'Interacción con desconocidos'],
             quiz: {
                 title: 'Examen del Módulo 3: Riesgos en plataformas de streaming',
@@ -2790,27 +2794,27 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                 {
                     title: 'Artículo 1: Exposición a contenido inapropiado y algoritmos sin control',
                     type: 'article',
-                    duration: 6,
+                    duration: 11,
                     content: module3Article1Content,
                     teaches: ['contenido inapropiado', 'recomendaciones automáticas', 'autoplay', 'contenido en vivo', 'exposición accidental', 'violencia', 'lenguaje ofensivo', 'retos peligrosos', 'desinformación', 'youtube kids', 'cuentas supervisadas', 'supervisión adulta'],
                 },
                 {
                     title: 'Video 1: Cómo un video lleva a otro (efecto cadena del algoritmo)',
                     type: 'video',
-                    duration: 4,
+                    duration: 2,
                     teaches: ['efecto cadena', 'algoritmo', 'recomendaciones'],
                 },
                 {
                     title: 'Artículo 2: Interacción con desconocidos y riesgos en transmisiones en vivo',
                     type: 'article',
-                    duration: 6,
+                    duration: 11,
                     content: module3Article2Content,
                     teaches: ['desconocidos', 'chat en vivo', 'comentarios', 'mensajes fuera de la plataforma', 'cercanía digital', 'grooming', 'sextorsión', 'datos personales', 'secretismo', 'supervisión en directos', 'pedir ayuda', 'límites seguros'],
                 },
                 {
                     title: 'Video 2: Casos reales de riesgos en chats y streaming',
                     type: 'video',
-                    duration: 5,
+                    duration: 2,
                     teaches: ['chat', 'streaming', 'riesgos reales'],
                 },
             ],
@@ -2818,7 +2822,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
         {
             title: 'Monetización, publicidad y engaños',
             description: 'Objetivo: Comprender cómo las plataformas generan dinero y los riesgos asociados.',
-            duration: '20 min',
+            duration: '26 min',
             riskAreas: ['Monetización', 'Publicidad engañosa'],
             quiz: {
                 title: 'Examen del Módulo 4: Monetización, publicidad y engaños',
@@ -2830,27 +2834,27 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                 {
                     title: 'Artículo 1: Donaciones, suscripciones y gastos dentro de YouTube y Twitch',
                     type: 'article',
-                    duration: 6,
+                    duration: 11,
                     content: module4Article1Content,
                     teaches: ['super chat', 'super stickers', 'membresías', 'suscripciones', 'gift subs', 'bits', 'pagos recurrentes', 'moneda digital', 'tarjeta vinculada', 'aprobación de compras', 'compras impulsivas', 'dinero real'],
                 },
                 {
                     title: 'Video 1: Cómo funcionan los pagos en streaming (Superchat, Bits, suscripciones)',
                     type: 'video',
-                    duration: 4,
+                    duration: 2,
                     teaches: ['superchat', 'bits', 'suscripciones', 'pagos'],
                 },
                 {
                     title: 'Artículo 2: Publicidad engañosa, influencers y contenido patrocinado',
                     type: 'article',
-                    duration: 6,
+                    duration: 11,
                     content: module4Article2Content,
                     teaches: ['publicidad integrada', 'influencers', 'promoción pagada', 'productos etiquetados', 'gameplay patrocinado', 'unboxing patrocinado', 'enlaces afiliados', 'contenido de marca', 'divulgación clara', 'intención comercial', 'pensamiento crítico', 'compra impulsiva'],
                 },
                 {
                     title: 'Video 2: Cómo identificar publicidad oculta en videos',
                     type: 'video',
-                    duration: 5,
+                    duration: 2,
                     teaches: ['publicidad oculta', 'videos', 'patrocinio'],
                 },
             ],
@@ -2858,7 +2862,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
         {
             title: 'Tiempo de pantalla y uso problemático',
             description: 'Objetivo: Detectar adicción digital y establecer límites saludables.',
-            duration: '20 min',
+            duration: '26 min',
             riskAreas: ['Tiempo de pantalla', 'Uso problemático'],
             quiz: {
                 title: 'Examen del Módulo 5: Tiempo de pantalla y uso problemático',
@@ -2870,27 +2874,27 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                 {
                     title: 'Artículo 1: Cómo el streaming puede generar adicción y dependencia',
                     type: 'article',
-                    duration: 6,
+                    duration: 11,
                     content: module5Article1Content,
                     teaches: ['uso problemático', 'autoplay', 'scroll infinito', 'alertas nocturnas', 'recompensa rápida', 'sueño', 'irritabilidad', 'autorregulación', 'desplazamiento de actividades', 'dispositivos fuera del cuarto', 'horarios claros', 'rutina'],
                 },
                 {
                     title: 'Video 1: Señales de alerta de uso excesivo en niños',
                     type: 'video',
-                    duration: 4,
+                    duration: 2,
                     teaches: ['uso excesivo', 'señales de alerta', 'niños'],
                 },
                 {
                     title: 'Artículo 2: Estrategias para establecer límites sin conflicto',
                     type: 'article',
-                    duration: 6,
+                    duration: 11,
                     content: module5Article2Content,
                     teaches: ['reglas claras', 'horarios fijos', 'zonas sin pantallas', 'autoplay', 'notificaciones', 'avisar antes', 'rutinas', 'ejemplo adulto', 'reglas de sí', 'plan familiar de pantallas', 'alternativas fuera de pantalla', 'consistencia'],
                 },
                 {
                     title: 'Video 2: Cómo crear reglas familiares de uso digital',
                     type: 'video',
-                    duration: 5,
+                    duration: 2,
                     teaches: ['reglas familiares', 'uso digital', 'límites'],
                 },
             ],
@@ -2898,7 +2902,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
         {
             title: 'Control parental y acompañamiento',
             description: 'Objetivo: Dar herramientas prácticas para supervisión efectiva.',
-            duration: '22 min',
+            duration: '26 min',
             riskAreas: ['Control parental', 'Acompañamiento familiar'],
             quiz: {
                 title: 'Examen del Módulo 6: Control parental y acompañamiento',
@@ -2910,7 +2914,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                 {
                     title: 'Artículo 1: Controles parentales en YouTube y Twitch (configuración y uso)',
                     type: 'article',
-                    duration: 6,
+                    duration: 11,
                     content: module6Article1Content,
                     teaches: [
                         'controles parentales',
@@ -2932,13 +2936,13 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                 {
                     title: 'Video 1: Paso a paso para activar controles parentales',
                     type: 'video',
-                    duration: 4,
+                    duration: 2,
                     teaches: ['activar controles parentales', 'configuración', 'familia'],
                 },
                 {
                     title: 'Artículo 2: Supervisión activa: cómo acompañar sin invadir',
                     type: 'article',
-                    duration: 6,
+                    duration: 11,
                     content: module6Article2Content,
                     teaches: [
                         'supervisión activa',
@@ -2958,7 +2962,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                 {
                     title: 'Video 2: Cómo hablar con tus hijos sobre lo que ven en internet',
                     type: 'video',
-                    duration: 5,
+                    duration: 2,
                     teaches: ['conversación familiar', 'internet', 'acompañamiento'],
                 },
             ],
@@ -2966,7 +2970,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
         {
             title: 'Uso positivo y educación digital',
             description: 'Objetivo: Transformar el streaming en una herramienta educativa.',
-            duration: '20 min',
+            duration: '24 min',
             riskAreas: ['Uso positivo', 'Educación digital'],
             quiz: {
                 title: 'Examen del Módulo 7: Uso positivo y educación digital',
@@ -2978,7 +2982,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                 {
                     title: 'Artículo 1: Cómo usar YouTube y Twitch para aprender (contenido educativo)',
                     type: 'article',
-                    duration: 6,
+                    duration: 10,
                     content: module7Article1Content,
                     teaches: [
                         'aprendizaje guiado',
@@ -3000,13 +3004,13 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                 {
                     title: 'Video 1: Ejemplos de canales educativos recomendados',
                     type: 'video',
-                    duration: 4,
+                    duration: 2,
                     teaches: ['canales educativos', 'aprendizaje', 'recomendaciones'],
                 },
                 {
                     title: 'Artículo 2: Fomentar pensamiento crítico en niños frente al contenido digital',
                     type: 'article',
-                    duration: 6,
+                    duration: 10,
                     content: module7Article2Content,
                     teaches: [
                         'pensamiento crítico',
@@ -3027,7 +3031,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                 {
                     title: 'Video 2: Cómo enseñar a los niños a cuestionar lo que ven',
                     type: 'video',
-                    duration: 5,
+                    duration: 2,
                     teaches: ['preguntar', 'cuestionar contenido', 'educación digital'],
                 },
             ],
@@ -3035,8 +3039,8 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
     ];
 
     const finalQuizDefinition = {
-        title: 'Examen Final Integrador: Plataformas de Streaming â€” YouTube y Twitch',
-        description: 'EvaluaciÃ³n final del curso con 12 reactivos mixtos y cobertura transversal de los 7 mÃ³dulos.',
+        title: 'Examen Final Integrador: Plataformas de Streaming: YouTube y Twitch',
+        description: 'Evaluación final del curso con 12 reactivos mixtos y cobertura transversal de los 7 módulos.',
         minPassing: 80,
         questions: finalQuizQuestions,
     };
@@ -3114,7 +3118,7 @@ async function seedStreamingCourse(context) {
                 'Educación digital',
             ],
             status: 'published',
-            duration: '7 módulos',
+            duration: '3 horas',
         });
         console.log(`(+) Course Created: ${desiredCourseTitle}`);
     } else {
@@ -3132,7 +3136,7 @@ async function seedStreamingCourse(context) {
             'Educación digital',
         ];
         courseStreaming.status = 'published';
-        courseStreaming.duration = '7 módulos';
+        courseStreaming.duration = '3 horas';
         await courseStreaming.save();
         console.log(`(.) Course Updated: ${desiredCourseTitle}`);
     }

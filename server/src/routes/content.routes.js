@@ -5,6 +5,33 @@ const Lesson = require('../models/Lesson');
 const { protect } = require('../middleware/authMiddleware');
 const router = express.Router();
 
+// @desc    Get public platform stats (no auth required)
+// @route   GET /api/content/stats
+// @access  Public
+router.get('/stats', async (req, res) => {
+    try {
+        const Resource = require('../models/Resource');
+
+        // Count lessons the same way the progress summary does:
+        // only lessons referenced in modules of published courses
+        const publishedCourses = await Course.find({ status: 'published' }).select('_id');
+        const publishedCourseIds = publishedCourses.map((c) => c._id);
+        const publishedModules = await Module.find({ courseId: { $in: publishedCourseIds } }).select('lessonOrder');
+        const uniqueLessonIds = new Set(
+            publishedModules.flatMap((m) => (m.lessonOrder || []).map((id) => id.toString()))
+        );
+
+        const [courses, cases] = await Promise.all([
+            Course.countDocuments({ status: 'published' }),
+            Resource.countDocuments({ type: 'case', isPublished: true })
+        ]);
+
+        res.json({ courses, lessons: uniqueLessonIds.size, cases });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 // @desc    Get all courses
 // @route   GET /api/content/courses
 // @access  Public

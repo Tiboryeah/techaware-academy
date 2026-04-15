@@ -12,6 +12,7 @@ const reportLimiter = rateLimit({
     windowMs: 60 * 60 * 1000,
     max: 3,
     keyGenerator: (req) => req.user?._id?.toString() || req.ip,
+    validate: { keyGeneratorIpFallback: false },
     handler: (req, res) => {
         res.status(429).json({
             message: 'Has enviado demasiados mensajes en poco tiempo. Espera un momento antes de intentarlo de nuevo.',

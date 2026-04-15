@@ -6,7 +6,7 @@ module.exports = async function seedGameModule(context) {
     const mod6 = await getOrCreateModule(courseGames._id, {
         title: 'Módulo 6: Bienestar digital y acompañamiento parental',
         description: 'Salud mental y relación familiar en el juego.',
-        duration: '30 min'
+        duration: '28 min'
     });
     await Quiz.deleteMany({ refId: mod6._id, scope: 'module' });
 
@@ -242,7 +242,7 @@ El bienestar digital no consiste en eliminar los videojuegos, sino en comprobar 
 
 > **Recuerda**: El problema no siempre es jugar mucho; el problema aparece cuando jugar empieza a desplazar lo que el menor necesita para estar bien.`,
         type: 'article',
-        duration: 5,
+        duration: 12,
         platforms: ['Roblox', 'Minecraft'],
         riskAreas: ['Salud Mental y Fisica'],
         teaches: ['sueño suficiente', 'uso problemático', 'escuela', 'ejercicio', 'gaming disorder', 'family media plan', 'rutina']
@@ -250,8 +250,20 @@ El bienestar digital no consiste en eliminar los videojuegos, sino en comprobar 
 
     const l6_2 = await getOrCreateLesson(mod6._id, courseGames._id, {
         title: 'Video 1: Cómo poner reglas claras sin pelear con el menor',
-        content: 'Estrategias de comunicación para límites saludables.',
-        type: 'video', videoUrl: 'https://www.youtube.com/watch?v=placeholder11', duration: 6
+        content: `# Cómo poner reglas claras sin pelear con el menor
+
+Este video traduce el módulo en ejemplos de conversación y estructura familiar para que los límites no dependan solo del enojo del momento.
+
+## Qué conviene observar
+* Cómo anticipar horarios y cierres sin entrar en discusión constante.
+* Qué frases ayudan más que los castigos improvisados.
+* Qué señales muestran que el juego ya está desplazando sueño, escuela o ejercicio.`,
+        type: 'video',
+        videoUrl: 'https://www.youtube.com/watch?v=placeholder11',
+        duration: 2,
+        platforms: ['Roblox', 'Minecraft'],
+        riskAreas: ['Salud Mental y Fisica'],
+        teaches: ['reglas claras', 'preguntas abiertas', 'uso problemático', 'rutina', 'acompañamiento parental']
     });
 
     const l6_3 = await getOrCreateLesson(mod6._id, courseGames._id, {
@@ -450,7 +462,7 @@ Acompañar a un hijo en los videojuegos no consiste en volverse experto ni en vi
 
 > **Recuerda**: Acompañar mejor no empieza con saberlo todo sobre videojuegos; empieza con estar presente y abrir una conversación real.`,
         type: 'article',
-        duration: 5,
+        duration: 12,
         platforms: ['Roblox', 'Minecraft'],
         riskAreas: ['Salud Mental y Fisica'],
         teaches: ['acompañamiento parental', 'conversación', 'preguntas abiertas', 'juego compartido', 'co-viewing', 'family media plan', 'reglas']
@@ -458,15 +470,27 @@ Acompañar a un hijo en los videojuegos no consiste en volverse experto ni en vi
 
     const l6_4 = await getOrCreateLesson(mod6._id, courseGames._id, {
         title: 'Video 2: Cómo crear un acuerdo familiar de juego',
-        content: 'Crea un contrato de convivencia digital en familia.',
-        type: 'video', videoUrl: 'https://www.youtube.com/watch?v=placeholder12', duration: 6
+        content: `# Cómo crear un acuerdo familiar de juego
+
+Este video muestra cómo convertir las reglas del módulo en un acuerdo visible, simple y realista para toda la familia.
+
+## Qué conviene observar
+* Qué puntos vale la pena dejar por escrito en casa.
+* Cómo combinar tiempo, descanso, escuela y juego compartido.
+* Por qué un acuerdo funciona mejor cuando también compromete a los adultos.`,
+        type: 'video',
+        videoUrl: 'https://www.youtube.com/watch?v=placeholder12',
+        duration: 2,
+        platforms: ['Roblox', 'Minecraft'],
+        riskAreas: ['Salud Mental y Fisica'],
+        teaches: ['family media plan', 'acuerdo familiar', 'juego compartido', 'rutinas', 'límites']
     });
 
     mod6.lessonOrder = [l6_1._id, l6_2._id, l6_3._id, l6_4._id];
     await mod6.save();
 
     const q6 = await getOrCreateQuiz({
-        title: 'Mini examen / plan familiar breve — Módulo 6: Bienestar digital y acompañamiento parental',
+        title: 'Examen del Módulo 6: Bienestar digital y acompañamiento parental',
         description: 'Evalúa si puedes reconocer señales de uso problemático y responder con acompañamiento, reglas claras y seguimiento.',
         scope: 'module',
         refId: mod6._id,
