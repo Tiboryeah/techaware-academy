@@ -7,16 +7,24 @@ const Question = require('../../models/Question');
 const Resource = require('../../models/Resource');
 
 const syncAdminUser = async () => {
-    let adminUser = await User.findOne({ email: 'admin@example.com' });
+    const adminEmail = process.env.ADMIN_SEED_EMAIL || 'admin@example.com';
+    const adminPassword = process.env.ADMIN_SEED_PASSWORD;
+
+    if (!adminPassword) {
+        console.warn('[seed] ADMIN_SEED_PASSWORD not set — skipping admin user sync.');
+        return null;
+    }
+
+    let adminUser = await User.findOne({ email: adminEmail });
     if (!adminUser) {
         adminUser = await User.create({
-            name: 'Admin User',
-            email: 'admin@example.com',
-            passHash: '123456',
+            name: 'Admin',
+            email: adminEmail,
+            passHash: adminPassword,
             role: 'Admin',
             isVerified: true,
         });
-        console.log('(+) Admin User Created');
+        console.log(`(+) Admin User Created: ${adminEmail}`);
     }
 
     return adminUser;

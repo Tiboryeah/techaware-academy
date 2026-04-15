@@ -7,7 +7,6 @@ import {
     ChevronRight,
     ChevronLeft,
     CheckCircle,
-    AlertCircle,
     ShieldCheck,
     Target,
     Zap,

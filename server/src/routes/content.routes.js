@@ -2,12 +2,13 @@ const express = require('express');
 const Course = require('../models/Course');
 const Module = require('../models/Module');
 const Lesson = require('../models/Lesson');
+const { protect } = require('../middleware/authMiddleware');
 const router = express.Router();
 
 // @desc    Get all courses
 // @route   GET /api/content/courses
 // @access  Public
-router.get('/courses', async (req, res) => {
+router.get('/courses', protect, async (req, res) => {
     try {
         const courses = await Course.find({ status: 'published' });
         res.json(courses);
@@ -19,7 +20,7 @@ router.get('/courses', async (req, res) => {
 // @desc    Get single course with modules
 // @route   GET /api/content/courses/:id
 // @access  Public
-router.get('/courses/:id', async (req, res) => {
+router.get('/courses/:id', protect, async (req, res) => {
     try {
         const course = await Course.findById(req.params.id);
         if (course) {
@@ -61,7 +62,7 @@ router.get('/courses/:id', async (req, res) => {
 // @desc    Get single lesson
 // @route   GET /api/content/lessons/:id
 // @access  Public
-router.get('/lessons/:id', async (req, res) => {
+router.get('/lessons/:id', protect, async (req, res) => {
     try {
         const lesson = await Lesson.findById(req.params.id);
         if (lesson) {

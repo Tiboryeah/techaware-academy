@@ -1,10 +1,11 @@
 const express = require('express');
 
 const Resource = require('../models/Resource');
+const { protect } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/', protect, async (req, res) => {
     try {
         const filter = { isPublished: true };
 
@@ -33,7 +34,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:slug', async (req, res) => {
+router.get('/:slug', protect, async (req, res) => {
     try {
         const resource = await Resource.findOne({
             slug: req.params.slug,

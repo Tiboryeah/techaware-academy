@@ -4,12 +4,24 @@ const crypto = require('crypto');
 const multer = require('multer');
 const path = require('path');
 const sharp = require('sharp');
+const rateLimit = require('express-rate-limit');
 
 const User = require('../models/User');
 const { protect } = require('../middleware/authMiddleware');
 const sendEmail = require('../utils/sendEmail');
 
 const router = express.Router();
+
+// 10 attempts per 15 min per IP — brute force protection for login and verify
+const authLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 10,
+    handler: (req, res) => {
+        res.status(429).json({
+            message: 'Demasiados intentos. Espera 15 minutos antes de intentarlo de nuevo.',
+        });
+    },
+});
 
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -89,6 +101,14 @@ router.post('/register', async (req, res) => {
     const email = req.body.email?.trim().toLowerCase();
 
     try {
+        if (!name || !email || !password) {
+            return res.status(400).json({ message: 'Todos los campos son obligatorios.' });
+        }
+
+        if (password.length < 8) {
+            return res.status(400).json({ message: 'La contraseña debe tener al menos 8 caracteres.' });
+        }
+
         const userExists = await User.findOne({ email });
 
         if (userExists) {
@@ -131,7 +151,7 @@ router.post('/register', async (req, res) => {
     }
 });
 
-router.post('/verify', async (req, res) => {
+router.post('/verify', authLimiter, async (req, res) => {
     const { code } = req.body;
     const email = req.body.email?.trim().toLowerCase();
 
@@ -193,7 +213,7 @@ router.post('/resend-verification', async (req, res) => {
     }
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login', authLimiter, async (req, res) => {
     const { password } = req.body;
     const email = req.body.email?.trim().toLowerCase();
 
@@ -293,7 +313,7 @@ router.get('/profile', protect, async (req, res) => {
     });
 });
 
-router.post('/forgot-password', async (req, res) => {
+router.post('/forgot-password', authLimiter, async (req, res) => {
     const email = req.body.email?.trim().toLowerCase();
 
     try {
@@ -339,7 +359,7 @@ router.post('/forgot-password', async (req, res) => {
     }
 });
 
-router.post('/reset-with-code', async (req, res) => {
+router.post('/reset-with-code', authLimiter, async (req, res) => {
     const { code, newPassword } = req.body;
     const email = req.body.email?.trim().toLowerCase();
 

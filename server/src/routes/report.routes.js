@@ -1,4 +1,5 @@
 const express = require('express');
+const rateLimit = require('express-rate-limit');
 
 const CaseReport = require('../models/CaseReport');
 const { protect } = require('../middleware/authMiddleware');
@@ -6,7 +7,20 @@ const sendEmail = require('../utils/sendEmail');
 
 const router = express.Router();
 
-router.post('/submit', protect, async (req, res) => {
+// Max 3 submissions per user per hour
+const reportLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000,
+    max: 3,
+    keyGenerator: (req) => req.user?._id?.toString() || req.ip,
+    handler: (req, res) => {
+        res.status(429).json({
+            message: 'Has enviado demasiados mensajes en poco tiempo. Espera un momento antes de intentarlo de nuevo.',
+        });
+    },
+    skipSuccessfulRequests: false,
+});
+
+router.post('/submit', protect, reportLimiter, async (req, res) => {
     try {
         const {
             messageType,
@@ -28,6 +42,17 @@ router.post('/submit', protect, async (req, res) => {
 
         if (!title || !description) {
             return res.status(400).json({ message: 'Por favor, completa los campos requeridos.' });
+        }
+
+        const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000);
+        const recentReport = await CaseReport.findOne({
+            userId: req.user._id,
+            createdAt: { $gte: tenMinutesAgo },
+        });
+        if (recentReport) {
+            return res.status(429).json({
+                message: 'Ya enviaste un mensaje recientemente. Espera unos minutos antes de enviar otro.',
+            });
         }
 
         if (isCaseReport && (!platform || !actionsTaken)) {

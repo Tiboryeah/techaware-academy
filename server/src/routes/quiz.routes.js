@@ -13,7 +13,7 @@ const router = express.Router();
 // @desc    Get diagnostic quiz
 // @route   GET /api/quiz/diagnostic
 // @access  Public (or Private)
-router.get('/diagnostic', async (req, res) => {
+router.get('/diagnostic', protect, async (req, res) => {
     try {
         const quiz = await getDiagnosticQuizPayload();
 
@@ -30,7 +30,7 @@ router.get('/diagnostic', async (req, res) => {
 // @desc    Get quiz by ID
 // @route   GET /api/quiz/:id
 // @access  Public
-router.get('/:id', async (req, res) => {
+router.get('/:id', protect, async (req, res) => {
     try {
         const quiz = await getQuizPayloadById(req.params.id);
 

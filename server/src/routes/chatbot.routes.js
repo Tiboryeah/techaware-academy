@@ -85,6 +85,14 @@ router.post('/message', protect, async (req, res) => {
     const { text, conversationId } = req.body;
     const userId = req.user._id;
 
+    if (!text || typeof text !== 'string' || text.trim().length === 0) {
+        return res.status(400).json({ message: 'El mensaje no puede estar vacío.' });
+    }
+
+    if (text.length > 1000) {
+        return res.status(400).json({ message: 'El mensaje no puede superar los 1000 caracteres.' });
+    }
+
     const currentApiKey = (process.env.GEMINI_API_KEY || '').trim();
     const isMock = process.env.USE_MOCK_AI === 'true' || !currentApiKey || currentApiKey === 'your_gemini_api_key';
 
