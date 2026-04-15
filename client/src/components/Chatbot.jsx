@@ -113,7 +113,7 @@ const Chatbot = () => {
                         initial={{ opacity: 0, y: 24, scale: 0.98 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 24, scale: 0.98 }}
-                        className="flex h-[calc(100vh-8.25rem)] max-h-[calc(100vh-8.25rem)] w-full flex-col overflow-hidden rounded-[1.5rem] border border-gray-200/70 bg-white/98 shadow-[0_24px_70px_-28px_rgba(2,6,23,0.8)] backdrop-blur-xl dark:border-white/10 dark:bg-[#0d1117]/98 sm:mb-6 sm:h-[650px] sm:max-h-[650px] sm:w-[420px] sm:rounded-[2.25rem]"
+                        className="flex h-[calc(100vh-8.25rem)] max-h-[calc(100vh-8.25rem)] w-full flex-col overflow-hidden rounded-[1.5rem] border border-gray-200/70 bg-white/98 shadow-[0_24px_70px_-28px_rgba(2,6,23,0.8)] backdrop-blur-xl dark:border-white/10 dark:bg-[#0d1117]/98 sm:mb-6 sm:h-[580px] sm:max-h-[calc(100vh-6rem)] sm:w-[420px] sm:rounded-[2.25rem]"
                     >
                         {/* Header */}
                         <div className="relative shrink-0 overflow-hidden border-b border-white/10 bg-[linear-gradient(135deg,#4f46e5_0%,#7c3aed_58%,#a21caf_100%)] px-4 py-3 text-white shadow-[inset_0_-1px_0_rgba(255,255,255,0.08)] sm:px-5 sm:py-4.5">
