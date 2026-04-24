@@ -22,26 +22,30 @@ import {
     RotateCw,
     Download,
     Award,
-    ShieldCheck
+    ShieldCheck,
+    BookOpen
 } from 'lucide-react';
 
 const Dashboard = () => {
     const { user, logout } = useContext(AuthContext);
     const [progressData, setProgressData] = useState(null);
     const [courses, setCourses] = useState([]);
+    const [recommendations, setRecommendations] = useState(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     const fetchData = async () => {
         try {
             const timestamp = Date.now();
-            const [progressRes, coursesRes] = await Promise.all([
+            const [progressRes, coursesRes, recRes] = await Promise.all([
                 api.get(`/api/progress/summary/all?t=${timestamp}`),
-                api.get(`/api/content/courses?t=${timestamp}`)
+                api.get(`/api/content/courses?t=${timestamp}`),
+                api.get('/api/quiz/my-recommendations').catch(() => ({ data: null })),
             ]);
             console.log("[Dashboard] Summary Data:", progressRes.data);
             setProgressData(progressRes.data);
             setCourses(coursesRes.data);
+            setRecommendations(recRes.data);
         } catch (error) {
             console.error("Error fetching dashboard data:", error);
         } finally {
@@ -456,6 +460,42 @@ const Dashboard = () => {
                                 </motion.div>
                             ))}
                         </div>
+
+                        {/* Recommended Lessons (RF4) */}
+                        {recommendations?.suggestedLessons?.length > 0 && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="bg-white dark:bg-[#161b22] rounded-[1.5rem] sm:rounded-[2.5rem] p-5 sm:p-8 border border-indigo-100 dark:border-indigo-900/40 shadow-xl dark:shadow-none transition-colors"
+                            >
+                                <h3 className="text-lg font-black uppercase tracking-widest text-gray-900 dark:text-white mb-2 flex items-center gap-3">
+                                    <BookOpen className="w-5 h-5 text-indigo-500" /> Lecciones Recomendadas
+                                </h3>
+                                {recommendations.reason && (
+                                    <p className="text-xs text-gray-500 dark:text-gray-400 italic mb-5">{recommendations.reason}</p>
+                                )}
+                                <div className="space-y-3">
+                                    {recommendations.suggestedLessons.map((lesson, i) => (
+                                        <motion.button
+                                            key={lesson._id}
+                                            initial={{ opacity: 0, x: -10 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            transition={{ delay: 0.05 * i }}
+                                            onClick={() => navigate(`/lecciones/${lesson._id}`)}
+                                            className="w-full flex items-center justify-between gap-4 p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-2xl border border-indigo-100 dark:border-indigo-800/30 hover:border-indigo-400 dark:hover:border-indigo-500 transition-all group text-left"
+                                        >
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-7 h-7 rounded-xl bg-indigo-500/10 flex items-center justify-center flex-shrink-0">
+                                                    <BookOpen className="w-3.5 h-3.5 text-indigo-500" />
+                                                </div>
+                                                <span className="text-sm font-bold text-gray-800 dark:text-gray-100">{lesson.title}</span>
+                                            </div>
+                                            <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-indigo-500 flex-shrink-0 transition-colors" />
+                                        </motion.button>
+                                    ))}
+                                </div>
+                            </motion.div>
+                        )}
 
                         {/* Activity Graph Placeholder or Recent Activity */}
                         <div className="bg-white dark:bg-[#161b22] rounded-[1.5rem] sm:rounded-[2.5rem] p-5 sm:p-8 border border-gray-100 dark:border-gray-800 shadow-xl dark:shadow-none transition-colors">

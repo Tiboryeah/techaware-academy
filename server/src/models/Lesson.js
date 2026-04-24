@@ -18,7 +18,7 @@ const lessonSchema = mongoose.Schema(
         },
         type: {
             type: String,
-            enum: ['article', 'video', 'guide', 'case_study'],
+            enum: ['article', 'video', 'guide'],
             default: 'article',
         },
         content: {

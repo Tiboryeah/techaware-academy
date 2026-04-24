@@ -6,6 +6,7 @@ const {
     getQuizPayloadById,
     submitQuizAttempt,
     getAttemptRecommendations,
+    getLatestRecommendation,
 } = require('../services/quizService');
 
 const router = express.Router();
@@ -39,6 +40,18 @@ router.get('/recommendations/:attemptId', protect, async (req, res) => {
         }
 
         res.json(recommendations);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+// @desc    Get latest recommendation for current user
+// @route   GET /api/quiz/my-recommendations
+// @access  Private
+router.get('/my-recommendations', protect, async (req, res) => {
+    try {
+        const rec = await getLatestRecommendation(req.user._id);
+        res.json(rec || null);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

@@ -291,7 +291,7 @@ const Profile = () => {
     const handlePasswordUpdate = async (e) => {
         e.preventDefault();
         if (newPassword !== confirmPassword) return addToast('Las nuevas contraseñas no coinciden.', 'error');
-        if (newPassword.length < 6) return addToast('La nueva contraseña debe tener al menos 6 caracteres.', 'error');
+        if (newPassword.length < 8) return addToast('La nueva contraseña debe tener al menos 8 caracteres.', 'error');
         setIsPassLoading(true);
         try {
             await api.put('/api/auth/update-password', { currentPassword, newPassword });

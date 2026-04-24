@@ -244,7 +244,7 @@ El bienestar digital no consiste en eliminar los videojuegos, sino en comprobar 
         type: 'article',
         duration: 12,
         platforms: ['Roblox', 'Minecraft'],
-        riskAreas: ['Salud Mental y Fisica'],
+        riskAreas: ['Salud Mental y Física'],
         teaches: ['sueño suficiente', 'uso problemático', 'escuela', 'ejercicio', 'gaming disorder', 'family media plan', 'rutina']
     });
 
@@ -262,7 +262,7 @@ Este video traduce el módulo en ejemplos de conversación y estructura familiar
         videoUrl: 'https://www.youtube.com/watch?v=placeholder11',
         duration: 2,
         platforms: ['Roblox', 'Minecraft'],
-        riskAreas: ['Salud Mental y Fisica'],
+        riskAreas: ['Salud Mental y Física'],
         teaches: ['reglas claras', 'preguntas abiertas', 'uso problemático', 'rutina', 'acompañamiento parental']
     });
 
@@ -464,7 +464,7 @@ Acompañar a un hijo en los videojuegos no consiste en volverse experto ni en vi
         type: 'article',
         duration: 12,
         platforms: ['Roblox', 'Minecraft'],
-        riskAreas: ['Salud Mental y Fisica'],
+        riskAreas: ['Salud Mental y Física'],
         teaches: ['acompañamiento parental', 'conversación', 'preguntas abiertas', 'juego compartido', 'co-viewing', 'family media plan', 'reglas']
     });
 
@@ -482,7 +482,7 @@ Este video muestra cómo convertir las reglas del módulo en un acuerdo visible,
         videoUrl: 'https://www.youtube.com/watch?v=placeholder12',
         duration: 2,
         platforms: ['Roblox', 'Minecraft'],
-        riskAreas: ['Salud Mental y Fisica'],
+        riskAreas: ['Salud Mental y Física'],
         teaches: ['family media plan', 'acuerdo familiar', 'juego compartido', 'rutinas', 'límites']
     });
 

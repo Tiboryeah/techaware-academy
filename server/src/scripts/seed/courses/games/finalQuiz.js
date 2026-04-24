@@ -237,7 +237,7 @@ module.exports = async function seedGamesFinalQuiz(context) {
                 }
             },
             explanation: 'Este reactivo sale del modulo 6: sueno, Family Media Plan, preguntas abiertas y juego compartido.',
-            riskArea: 'Salud Mental y Fisica',
+            riskArea: 'Salud Mental y Física',
             points: 10
         },
         {
@@ -250,7 +250,7 @@ module.exports = async function seedGamesFinalQuiz(context) {
                 { text: 'Permitir que juegue de madrugada si promete acabar tareas despues.', isCorrect: false }
             ],
             explanation: 'El modulo 6 propone observar desplazamientos reales, conversar, acordar reglas y acompanar, no solo castigar.',
-            riskArea: 'Salud Mental y Fisica',
+            riskArea: 'Salud Mental y Física',
             points: 10
         }
     ];
