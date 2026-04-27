@@ -4,6 +4,7 @@ import api from '../services/api';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, FileText, ChevronLeft, ChevronRight, CheckCircle, List, ArrowLeft, Youtube, Zap } from 'lucide-react';
 import { getLessonDisplayTitle, getLessonDurationLabel, getLessonTypeLabel } from '../utils/lessonType';
+import { getLessonTheme } from '../utils/lessonBanner';
 import NotFound from './NotFound';
 
 const LessonView = () => {
@@ -395,8 +396,33 @@ const LessonView = () => {
                                     </div>
                                 </div>
                             ) : (
-                                <div className="p-5 sm:p-8 md:p-12 prose dark:prose-invert prose-indigo max-w-none transition-colors">
-                                    {lesson.content ? renderLessonContent(lesson.content) : <p className="text-center text-gray-500 py-20 uppercase tracking-widest font-black text-xs">Contenido no disponible.</p>}
+                                <div>
+                                    {/* Visual banner for article/guide lessons */}
+                                    {(() => {
+                                        const theme = getLessonTheme(lesson.platforms || [], lesson.riskAreas || []);
+                                        return (
+                                            <div className={`relative overflow-hidden bg-gradient-to-br ${theme.gradient} h-40 sm:h-52 flex items-end`}>
+                                                {/* decorative circles */}
+                                                <div className="absolute top-[-30%] right-[-5%] w-64 h-64 rounded-full bg-white/10 blur-2xl" />
+                                                <div className="absolute bottom-[-40%] left-[-5%] w-48 h-48 rounded-full bg-black/10 blur-2xl" />
+                                                {/* emoji icon */}
+                                                <span className="absolute top-1/2 right-8 -translate-y-1/2 text-7xl sm:text-8xl opacity-20 select-none pointer-events-none">
+                                                    {theme.icon}
+                                                </span>
+                                                <div className="relative z-10 p-5 sm:p-8 space-y-1">
+                                                    <span className="inline-block px-3 py-1 rounded-full bg-white/20 text-white text-[10px] font-black uppercase tracking-widest border border-white/20">
+                                                        {theme.label}
+                                                    </span>
+                                                    <p className="text-white/80 text-xs font-bold uppercase tracking-widest">
+                                                        {getLessonTypeLabel(lesson.type)} — {lesson.duration ? `${lesson.duration} min de lectura` : 'Lectura'}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        );
+                                    })()}
+                                    <div className="p-5 sm:p-8 md:p-12 prose dark:prose-invert prose-indigo max-w-none transition-colors">
+                                        {lesson.content ? renderLessonContent(lesson.content) : <p className="text-center text-gray-500 py-20 uppercase tracking-widest font-black text-xs">Contenido no disponible.</p>}
+                                    </div>
                                 </div>
                             )}
                         </div>
