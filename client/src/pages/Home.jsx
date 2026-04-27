@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import logo from '../assets/logo_v2.png';
 import {
   Shield,
   Lock,
@@ -70,6 +71,28 @@ const StatsGrid = ({ stats }) => (
     <StatItem icon={<Search className="w-5 h-5" />} label="Casos de estudio" value={stats.cases} />
     <StatItem icon={<Lock className="w-5 h-5" />} label="Privacidad de datos" value="SSL/TLS" isText />
   </motion.div>
+);
+
+const FloatingLogo = ({ src, top, left, size, duration, delay, yRange, xRange, rotate }) => (
+  <motion.img
+    src={src}
+    alt=""
+    draggable={false}
+    style={{ top, left, width: size, height: size }}
+    className="absolute opacity-[0.045] dark:opacity-[0.06] pointer-events-none select-none object-contain"
+    animate={{
+      y: [0, yRange, 0],
+      x: [0, xRange, 0],
+      rotate: [0, rotate, 0],
+    }}
+    transition={{
+      duration,
+      delay,
+      repeat: Infinity,
+      repeatType: 'loop',
+      ease: 'easeInOut',
+    }}
+  />
 );
 
 const Home = () => {
@@ -405,6 +428,24 @@ const Home = () => {
 
       {/* ── HERO ── */}
       <div className="relative overflow-hidden">
+        {/* Logos flotantes de fondo */}
+        {[
+          { top: '5%',  left: '2%',   size: 70, duration: 9,  delay: 0,   yRange: -18, xRange: 8,  rotate: 3  },
+          { top: '10%', left: '30%',  size: 54, duration: 11, delay: 1.5, yRange: -22, xRange: -6, rotate: -4 },
+          { top: '3%',  left: '62%',  size: 78, duration: 8,  delay: 0.8, yRange: -14, xRange: 10, rotate: 5  },
+          { top: '7%',  left: '88%',  size: 50, duration: 13, delay: 2.2, yRange: -20, xRange: -8, rotate: -3 },
+          { top: '40%', left: '-1%',  size: 62, duration: 10, delay: 0.4, yRange: -16, xRange: 7,  rotate: 4  },
+          { top: '45%', left: '22%',  size: 46, duration: 12, delay: 3,   yRange: -24, xRange: -5, rotate: -5 },
+          { top: '38%', left: '48%',  size: 86, duration: 7,  delay: 1,   yRange: -12, xRange: 9,  rotate: 3  },
+          { top: '42%', left: '74%',  size: 58, duration: 14, delay: 2,   yRange: -18, xRange: -7, rotate: -2 },
+          { top: '36%', left: '93%',  size: 52, duration: 9,  delay: 0.6, yRange: -20, xRange: 6,  rotate: 5  },
+          { top: '72%', left: '5%',   size: 68, duration: 11, delay: 1.8, yRange: -16, xRange: -9, rotate: -4 },
+          { top: '75%', left: '35%',  size: 56, duration: 8,  delay: 2.5, yRange: -22, xRange: 8,  rotate: 3  },
+          { top: '68%', left: '58%',  size: 80, duration: 13, delay: 0.2, yRange: -14, xRange: -6, rotate: -5 },
+          { top: '80%', left: '82%',  size: 48, duration: 10, delay: 1.2, yRange: -20, xRange: 7,  rotate: 4  },
+        ].map((item, i) => (
+          <FloatingLogo key={i} src={logo} {...item} />
+        ))}
         <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
           <div className="absolute top-[-20%] left-[-10%] w-[80%] h-[80%] bg-indigo-500/5 dark:bg-indigo-500/10 rounded-full blur-[150px] opacity-50" />
           <div className="absolute bottom-[-20%] right-[-10%] w-[80%] h-[80%] bg-purple-500/5 dark:bg-purple-500/10 rounded-full blur-[150px] opacity-50" />
@@ -419,12 +460,12 @@ const Home = () => {
               Kuxi<span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-700 via-indigo-500 to-violet-400 dark:from-indigo-400 dark:via-indigo-300 dark:to-violet-200">pilli</span>
             </motion.h1>
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
-              className="max-w-xl mx-auto text-lg sm:text-2xl font-black text-gray-900 dark:text-white tracking-tight">
+              className="max-w-xl mx-auto text-lg sm:text-2xl font-black text-gray-900 dark:text-white tracking-tight mt-6 sm:mt-10">
               Protege a tu hijo/a en internet.
             </motion.p>
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }}
               className="max-w-2xl mx-auto text-base text-gray-500 dark:text-gray-400 leading-relaxed">
-              La plataforma educativa para madres, padres y tutores que quieren entender los riesgos reales de los videojuegos, redes sociales y streaming — y actuar con criterio.
+              La plataforma educativa para madres, padres y tutores que quieren entender los riesgos reales de los videojuegos, redes sociales y streaming, para actuar con criterio.
             </motion.p>
           </div>
           <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.6 }}
@@ -451,49 +492,99 @@ const Home = () => {
             Datos respaldados por fuentes públicas y estudios académicos sobre riesgos digitales que enfrentan niñas, niños y adolescentes.
           </p>
         </motion.div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            {
-              icon: <Shield className="w-6 h-6 text-red-600 dark:text-red-400" />,
-              stat: 'Riesgos documentados',
-              desc: 'Una investigación de Revealing Reality difundida por The Guardian documentó que menores podían encontrar contenido sexualizado e interactuar con adultos en Roblox, pese a los controles de seguridad existentes.',
-              source: 'The Guardian, "Risks to children playing Roblox \'deeply disturbing\', say researchers", 14 abril 2025. Investigación basada en Revealing Reality.',
-              color: 'from-red-500/8 to-orange-500/8 border-red-500/20',
-              badge: 'Roblox · 2025',
-              badgeColor: 'bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20',
-            },
-            {
-              icon: <Lock className="w-6 h-6 text-amber-600 dark:text-amber-400" />,
-              stat: '79.7%',
-              desc: 'de las niñas y niños de 6 a 11 años en México usó internet en 2024, según la ENDUTIH. En el grupo de 12 a 17 años, la proporción fue de 95.1%.',
-              source: 'INEGI, ENDUTIH 2024. Resultados presentados el 6 de mayo de 2025.',
-              color: 'from-amber-500/8 to-yellow-500/8 border-amber-500/20',
-              badge: 'México · 2025',
-              badgeColor: 'bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-500/20',
-            },
-            {
-              icon: <Play className="w-6 h-6 text-violet-600 dark:text-violet-400" />,
-              stat: 'Exposición documentada',
-              desc: 'Un estudio académico con personas sintéticas de Brasil y Estados Unidos encontró que perfiles menores de edad fueron expuestos a juegos para adultos, títulos sexualizados y mensajes tóxicos en chats de Twitch.',
-              source: 'Gonçalves, Soriano, Marques-Neto y Almeida, "Potential Exposure of Kids to Age-Inappropriate Content on Twitch: A Comparative Cross-Country Study", Springer, 11 diciembre 2025.',
-              color: 'from-violet-500/8 to-purple-500/8 border-violet-500/20',
-              badge: 'Twitch · 2025',
-              badgeColor: 'bg-violet-500/10 text-violet-700 dark:text-violet-400 border-violet-500/20',
-            },
-          ].map((item, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-              className={`bg-gradient-to-br ${item.color} border rounded-[2rem] p-7 space-y-4`}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:grid-rows-1">
+
+          {/* Tarjeta 1 — Roblox */}
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0 }}
+            className="bg-white dark:bg-[#161b22] border border-red-200/60 dark:border-red-900/40 rounded-[2rem] overflow-hidden shadow-lg flex flex-col h-full">
+            <div className="h-1.5 bg-gradient-to-r from-red-500 to-orange-400" />
+            <div className="p-7 space-y-5 flex flex-col flex-1">
               <div className="flex items-center justify-between">
-                <div className="w-12 h-12 rounded-2xl bg-white dark:bg-[#161b22] border border-gray-100 dark:border-gray-800 flex items-center justify-center shadow-sm">
-                  {item.icon}
+                <div className="w-10 h-10 rounded-xl bg-red-50 dark:bg-red-900/20 flex items-center justify-center">
+                  <Shield className="w-5 h-5 text-red-600 dark:text-red-400" />
                 </div>
-                <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-full border ${item.badgeColor}`}>{item.badge}</span>
+                <span className="text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-full bg-red-500/10 text-red-600 dark:text-red-400 border border-red-500/20">Roblox · 2025</span>
               </div>
-              <p className="text-xl sm:text-2xl font-black text-gray-900 dark:text-white leading-tight">{item.stat}</p>
-              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{item.desc}</p>
-              <p className="text-[10px] text-gray-400 dark:text-gray-500 italic border-t border-gray-200 dark:border-gray-700 pt-3">{item.source}</p>
-            </motion.div>
-          ))}
+              <div className="space-y-2">
+                <p className="text-[10px] font-black uppercase tracking-widest text-red-500">Riesgo confirmado</p>
+                <p className="text-lg font-black text-gray-900 dark:text-white leading-snug">Contenido inapropiado accesible para menores dentro de Roblox</p>
+              </div>
+              <div className="bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30 rounded-xl p-4">
+                <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                  Investigadores documentaron que niños y niñas podían encontrar contenido sexualizado e interactuar con adultos en Roblox, pese a los controles de seguridad existentes.
+                </p>
+              </div>
+              <p className="text-[10px] text-gray-400 italic leading-relaxed mt-auto pt-3 border-t border-gray-100 dark:border-gray-800">The Guardian, "Risks to children playing Roblox 'deeply disturbing', say researchers", 14 abril 2025. Basado en investigación de Revealing Reality.</p>
+            </div>
+          </motion.div>
+
+          {/* Tarjeta 2 — México INEGI (visual destacada) */}
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
+            className="bg-white dark:bg-[#161b22] border border-amber-200/60 dark:border-amber-900/40 rounded-[2rem] overflow-hidden shadow-lg flex flex-col h-full">
+            <div className="h-1.5 bg-gradient-to-r from-amber-400 to-yellow-400" />
+            <div className="p-7 space-y-5 flex flex-col flex-1">
+              <div className="flex items-center justify-between">
+                <div className="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-900/20 flex items-center justify-center">
+                  <Lock className="w-5 h-5 text-amber-600 dark:text-amber-400" />
+                </div>
+                <span className="text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20">México · 2025</span>
+              </div>
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-widest text-amber-500 mb-2">Acceso a internet · Menores en México</p>
+                <div className="space-y-3">
+                  <div>
+                    <div className="flex justify-between items-baseline mb-1">
+                      <span className="text-xs text-gray-500 dark:text-gray-400">6 a 11 años</span>
+                      <span className="text-2xl font-black text-gray-900 dark:text-white">79.7%</span>
+                    </div>
+                    <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+                      <motion.div initial={{ width: 0 }} whileInView={{ width: '79.7%' }} viewport={{ once: true }} transition={{ duration: 1.2, ease: 'easeOut', delay: 0.3 }}
+                        className="h-full bg-gradient-to-r from-amber-400 to-yellow-400 rounded-full" />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex justify-between items-baseline mb-1">
+                      <span className="text-xs text-gray-500 dark:text-gray-400">12 a 17 años</span>
+                      <span className="text-2xl font-black text-gray-900 dark:text-white">95.1%</span>
+                    </div>
+                    <div className="h-2 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+                      <motion.div initial={{ width: 0 }} whileInView={{ width: '95.1%' }} viewport={{ once: true }} transition={{ duration: 1.2, ease: 'easeOut', delay: 0.5 }}
+                        className="h-full bg-gradient-to-r from-orange-400 to-amber-500 rounded-full" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                Casi 8 de cada 10 niños en edad escolar ya usan internet. En la adolescencia, la cobertura es prácticamente total.
+              </p>
+              <p className="text-[10px] text-gray-400 italic leading-relaxed mt-auto pt-3 border-t border-gray-100 dark:border-gray-800">INEGI, ENDUTIH 2024. Resultados presentados el 6 de mayo de 2025.</p>
+            </div>
+          </motion.div>
+
+          {/* Tarjeta 3 — Twitch */}
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
+            className="bg-white dark:bg-[#161b22] border border-violet-200/60 dark:border-violet-900/40 rounded-[2rem] overflow-hidden shadow-lg flex flex-col h-full">
+            <div className="h-1.5 bg-gradient-to-r from-violet-500 to-purple-500" />
+            <div className="p-7 space-y-5 flex flex-col flex-1">
+              <div className="flex items-center justify-between">
+                <div className="w-10 h-10 rounded-xl bg-violet-50 dark:bg-violet-900/20 flex items-center justify-center">
+                  <Play className="w-5 h-5 text-violet-600 dark:text-violet-400" />
+                </div>
+                <span className="text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-full bg-violet-500/10 text-violet-700 dark:text-violet-400 border border-violet-500/20">Twitch · 2025</span>
+              </div>
+              <div className="space-y-2">
+                <p className="text-[10px] font-black uppercase tracking-widest text-violet-500">Exposición en streaming</p>
+                <p className="text-lg font-black text-gray-900 dark:text-white leading-snug">Menores expuestos a contenido para adultos en Twitch sin restricción efectiva</p>
+              </div>
+              <div className="bg-violet-50 dark:bg-violet-900/10 border border-violet-100 dark:border-violet-900/30 rounded-xl p-4">
+                <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                  Un estudio comparativo entre Brasil y Estados Unidos encontró que perfiles de menores de edad fueron expuestos a contenido sexualizado y mensajes tóxicos en chats de Twitch.
+                </p>
+              </div>
+              <p className="text-[10px] text-gray-400 italic leading-relaxed mt-auto pt-3 border-t border-gray-100 dark:border-gray-800">Gonçalves, Soriano, Marques-Neto y Almeida, "Potential Exposure of Kids to Age-Inappropriate Content on Twitch", Springer, diciembre 2025.</p>
+            </div>
+          </motion.div>
+
         </div>
       </div>
 
@@ -535,34 +626,101 @@ const Home = () => {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 dark:text-white tracking-tight">3 rutas de aprendizaje</h2>
           <p className="max-w-xl mx-auto text-gray-500 dark:text-gray-400 text-sm leading-relaxed">Cada programa cubre las plataformas que más usan los niños de 6 a 12 años en México.</p>
         </motion.div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
           {[
-            { icon: <ShieldCheck className="w-8 h-8 text-white" />, title: 'Videojuegos', platforms: 'Roblox · Minecraft', modules: 6, topics: ['Seguridad de cuenta', 'Compras digitales', 'Grooming en chats', 'Bienestar digital'], gradient: 'from-red-500 to-orange-500', border: 'border-red-500/20 hover:border-red-500/40' },
-            { icon: <MessageSquare className="w-8 h-8 text-white" />, title: 'Redes Sociales', platforms: 'TikTok · Discord · Instagram', modules: 7, topics: ['Privacidad y huella digital', 'Ciberacoso', 'Contacto con desconocidos', 'Desinformación'], gradient: 'from-pink-500 to-violet-500', border: 'border-pink-500/20 hover:border-pink-500/40' },
-            { icon: <Play className="w-8 h-8 text-white" />, title: 'Streaming', platforms: 'YouTube · Twitch', modules: 7, topics: ['Consumo infantil seguro', 'Monetización engañosa', 'Tiempo de pantalla', 'Control parental'], gradient: 'from-purple-500 to-indigo-500', border: 'border-purple-500/20 hover:border-purple-500/40' },
+            {
+              icon: <ShieldCheck className="w-7 h-7 text-red-400" />,
+              title: 'Videojuegos',
+              platforms: ['Roblox', 'Minecraft'],
+              modules: 6,
+              topics: ['Seguridad de cuenta', 'Compras digitales', 'Grooming en chats', 'Bienestar digital'],
+              gradient: 'from-[#1c0e0e] to-[#1a1014]',
+              accent: 'bg-red-500/80',
+              iconBg: 'bg-red-500/15',
+              chipColor: 'bg-red-500/15 text-red-300 border-red-500/20',
+              moduleBg: 'bg-red-500/10 text-red-300',
+              checkColor: 'text-red-400',
+              btnClass: 'bg-red-500/10 text-red-300 border border-red-500/30 hover:bg-red-500 hover:text-white hover:border-red-500',
+            },
+            {
+              icon: <MessageSquare className="w-7 h-7 text-violet-400" />,
+              title: 'Redes Sociales',
+              platforms: ['TikTok', 'Discord', 'Instagram'],
+              modules: 7,
+              topics: ['Privacidad y huella digital', 'Ciberacoso', 'Contacto con desconocidos', 'Desinformación'],
+              gradient: 'from-[#130e1c] to-[#0f0e1a]',
+              accent: 'bg-violet-500/80',
+              iconBg: 'bg-violet-500/15',
+              chipColor: 'bg-violet-500/15 text-violet-300 border-violet-500/20',
+              moduleBg: 'bg-violet-500/10 text-violet-300',
+              checkColor: 'text-violet-400',
+              btnClass: 'bg-violet-500/10 text-violet-300 border border-violet-500/30 hover:bg-violet-600 hover:text-white hover:border-violet-600',
+            },
+            {
+              icon: <Play className="w-7 h-7 text-indigo-400" />,
+              title: 'Streaming',
+              platforms: ['YouTube', 'Twitch'],
+              modules: 7,
+              topics: ['Consumo infantil seguro', 'Monetización engañosa', 'Tiempo de pantalla', 'Control parental'],
+              gradient: 'from-[#0e0e1c] to-[#0d0f1a]',
+              accent: 'bg-indigo-500/80',
+              iconBg: 'bg-indigo-500/15',
+              chipColor: 'bg-indigo-500/15 text-indigo-300 border-indigo-500/20',
+              moduleBg: 'bg-indigo-500/10 text-indigo-300',
+              checkColor: 'text-indigo-400',
+              btnClass: 'bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 hover:bg-indigo-600 hover:text-white hover:border-indigo-600',
+            },
           ].map((prog, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-              className={`bg-white dark:bg-[#161b22] border ${prog.border} rounded-[2rem] overflow-hidden shadow-xl transition-all group`}>
-              <div className={`bg-gradient-to-br ${prog.gradient} p-8 flex items-center justify-between`}>
-                <div className="w-14 h-14 rounded-2xl bg-white/15 flex items-center justify-center">{prog.icon}</div>
-                <span className="text-white/80 text-[10px] font-black uppercase tracking-widest bg-white/10 px-3 py-1.5 rounded-full">{prog.modules} módulos</span>
-              </div>
-              <div className="p-7 space-y-5">
-                <div>
-                  <h3 className="text-xl font-black text-gray-900 dark:text-white">{prog.title}</h3>
-                  <p className="text-xs text-gray-400 font-bold mt-1">{prog.platforms}</p>
+            <motion.div key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ y: -6 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="bg-[#111318] border border-white/5 rounded-[2rem] overflow-hidden shadow-xl flex flex-col">
+
+              {/* Header oscuro con acento de color */}
+              <div className={`relative bg-gradient-to-br ${prog.gradient} p-8 pb-10`}>
+                <div className="absolute inset-0 bg-black/40" />
+                <div className="absolute bottom-[-30%] right-[-10%] w-48 h-48 rounded-full bg-white/5 blur-3xl pointer-events-none" />
+                <div className="relative z-10 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className={`w-12 h-12 rounded-2xl ${prog.iconBg} border border-white/10 flex items-center justify-center`}>
+                      {prog.icon}
+                    </div>
+                    <span className={`text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full ${prog.moduleBg}`}>
+                      {prog.modules} módulos
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-black text-white leading-tight">{prog.title}</h3>
+                    <div className="flex flex-wrap gap-1.5 mt-2">
+                      {prog.platforms.map(p => (
+                        <span key={p} className={`text-[10px] font-black px-2.5 py-1 rounded-full border ${prog.chipColor}`}>
+                          {p}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-                <ul className="space-y-2">
+              </div>
+
+              {/* Cuerpo */}
+              <div className="flex flex-col flex-1 p-7 space-y-5">
+                <ul className="space-y-2.5 flex-1">
                   {prog.topics.map((t, ti) => (
-                    <li key={ti} className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                      <CheckCircle className="w-3.5 h-3.5 text-indigo-500 flex-shrink-0" /> {t}
+                    <li key={ti} className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300">
+                      <CheckCircle className={`w-4 h-4 flex-shrink-0 ${prog.checkColor}`} />
+                      {t}
                     </li>
                   ))}
                 </ul>
-                <Link to="/registro" className="block text-center py-3 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white font-black text-xs uppercase tracking-widest hover:bg-indigo-600 hover:text-white transition-all">
-                  Ver programa →
+                <Link to="/registro"
+                  className={`block text-center py-3.5 rounded-xl ${prog.btnClass} font-black text-xs uppercase tracking-widest transition-all active:scale-95`}>
+                  Comenzar programa
                 </Link>
               </div>
+
             </motion.div>
           ))}
         </div>
@@ -602,12 +760,12 @@ const Home = () => {
                     <p className="text-violet-500 text-[10px] font-black uppercase tracking-widest">Lengua náhuatl</p>
                     <p className="text-2xl font-black text-gray-900 dark:text-white">Pilli</p>
                     <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                      Del náhuatl <em className="text-violet-600 dark:text-violet-400">pilli</em>, "niño" o "hijo". Referencia directa al sujeto que se busca proteger: los niños y niñas de 6 a 12 años.
+                      Del náhuatl <em className="text-violet-600 dark:text-violet-400">pilli</em>, "niño" o "hijo". Para las niñas y niños de 6 a 12 años que ya están conectados, porque merecen crecer seguros.
                     </p>
                   </div>
                 </div>
                 <p className="text-gray-500 dark:text-gray-400 text-sm italic leading-relaxed max-w-xl border-l-4 border-indigo-300 dark:border-indigo-700 pl-4">
-                  "Kuxipilli" significa, en esencia, <span className="text-gray-900 dark:text-white font-bold">"la vida del niño"</span> — un recordatorio de que detrás de cada pantalla hay una infancia que merece ser protegida.
+                  "Kuxipilli" significa, en esencia, <span className="text-gray-900 dark:text-white font-bold">"la vida del niño"</span>. Detrás de cada pantalla hay una infancia que merece ser protegida y acompañada.
                 </p>
               </div>
             </div>
@@ -623,7 +781,7 @@ const Home = () => {
             <span className="text-indigo-600">¿Estás preparado/a?</span>
           </h2>
           <p className="max-w-xl mx-auto text-gray-500 dark:text-gray-400 text-base leading-relaxed">
-            Únete gratis y comienza con el diagnóstico inicial — en menos de 10 minutos sabrás exactamente dónde fortalecer tu conocimiento.
+            Únete gratis y comienza con el diagnóstico inicial. En menos de 10 minutos sabrás exactamente dónde fortalecer tu conocimiento.
           </p>
         </motion.div>
         <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
