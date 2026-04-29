@@ -645,16 +645,14 @@ Este video ordena la respuesta familiar después de una interacción de riesgo p
                 text: 'Selecciona todas las señales que justifican una revisión inmediata por parte de un adulto.',
                 type: 'multiple_selection',
                 options: [
-                    { text: 'Alguien insiste en hablar fuera del juego', isCorrect: true },
-                    { text: 'Le piden al menor guardar un secreto', isCorrect: true },
-                    { text: 'Hay burlas o humillación repetida en chat', isCorrect: true },
+                    { text: 'Le piden al menor guardar un secreto con alguien del juego', isCorrect: true },
                     { text: 'Le preguntan por su escuela o dirección', isCorrect: true },
-                    { text: 'Cambió el color del avatar', isCorrect: false },
-                    { text: 'Le piden una foto “para saber que es real”', isCorrect: true },
-                    { text: 'Quiere probar un mapa nuevo', isCorrect: false },
-                    { text: 'Alguien amenaza con publicar algo si no obedece', isCorrect: true }
+                    { text: 'Alguien amenaza con publicar algo si no obedece', isCorrect: true },
+                    { text: 'Cambió el color de su avatar', isCorrect: false },
+                    { text: 'Le cuenta a sus padres con quién juega', isCorrect: false },
+                    { text: 'Quiere desbloquear un logro nuevo en el juego', isCorrect: false }
                 ],
-                explanation: 'Tip: Paso a otra app, secretos, humillación, datos, fotos y amenazas son señales de revisión inmediata.',
+                explanation: 'Tip: Secretos, petición de datos personales y amenazas son señales claras de manipulación o acoso que requieren revisión inmediata.',
                 points: 15
             },
             {

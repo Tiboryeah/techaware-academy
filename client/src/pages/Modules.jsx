@@ -119,7 +119,7 @@ const Modules = () => {
                                             <motion.img
                                                 src={theme.image}
                                                 alt={course.title}
-                                                className="w-full h-full object-cover object-[50%_15%] group-hover:scale-110 transition-transform duration-500"
+                                                className="w-full h-full object-cover object-[50%_14%] group-hover:scale-110 transition-transform duration-500"
                                             />
                                             <div className={`absolute top-4 left-4 z-20 p-2 rounded-xl bg-white/60 dark:bg-black/40 backdrop-blur-md border border-gray-100 dark:border-white/10 ${theme.accent}`}>
                                                 {theme.icon}
@@ -132,7 +132,7 @@ const Modules = () => {
                                                 <span className={`px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider ${theme.bgAccent} ${theme.accent}`}>
                                                     {course.category}
                                                 </span>
-                                                 <div className="flex -space-x-2">
+                                                <div className="flex -space-x-2">
                                                     {course.platforms?.map((p, i) => (
                                                         <div key={i} className="w-6 h-6 rounded-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 flex items-center justify-center text-[8px] font-bold text-gray-500 dark:text-gray-400 shadow-sm">
                                                             {p[0]}

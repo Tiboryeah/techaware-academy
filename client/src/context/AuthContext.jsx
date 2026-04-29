@@ -12,18 +12,15 @@ export const AuthProvider = ({ children }) => {
             const token = localStorage.getItem('token');
             if (token) {
                 try {
-                    // Verify token and get user data
-                    // We need to implement this endpoint in backend or just trust token for now if decoding locally
-                    // Ideally: const { data } = await api.get('/api/auth/profile');
-                    // For now, let's decode the token or just keep the session active
-                    // To be fully secure, we should hit an endpoint.
-                    // Let's assume /api/auth/profile exists or we create it.
-                    // I'll leave it as a simple check for now but with intent to use real data.
                     const { data } = await api.get('/api/auth/profile');
                     setUser(data);
                 } catch (error) {
-                    localStorage.removeItem('token');
-                    setUser(null);
+                    // Only clear the token if the server explicitly rejects it (401).
+                    // Network errors or temporary server issues should not log the user out.
+                    if (error.response?.status === 401) {
+                        localStorage.removeItem('token');
+                        setUser(null);
+                    }
                 }
             }
             setLoading(false);

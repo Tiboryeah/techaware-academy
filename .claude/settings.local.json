@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -n \"startsWith.*http.*startsWith.*data\" client/src/pages/*.jsx client/src/components/*.jsx)",
+      "Bash(grep -E \"\\\\.\\(jsx|js\\)$\")",
+      "Bash(wc -l \"c:\\\\Users\\\\USER\\\\.gemini\\\\antigravity\\\\scratch\\\\TT_Academia\\\\server\\\\src\\\\routes\"*.js)",
+      "Bash(python3 -c \"import subprocess; result = subprocess.run\\(['python', '-c', 'import PyPDF2'], capture_output=True, text=True\\); print\\(result.returncode, result.stderr\\)\")",
+      "Bash(python -c \"import PyPDF2; print\\('ok'\\)\")",
+      "Bash(python3 -c \"import PyPDF2; print\\('ok'\\)\")",
+      "Bash(node -e \"const fs = require\\('fs'\\); const buf = fs.readFileSync\\('C:/Users/USER/.gemini/antigravity/scratch/TT_Academia/Reporte_Tecnico.pdf'\\); console.log\\('size:', buf.length, 'bytes'\\); const text = buf.toString\\('binary'\\); const matches = text.match\\(/BT[\\\\s\\\\S]*?ET/g\\); if\\(matches\\) console.log\\('text blocks found:', matches.length\\); else console.log\\('no text blocks'\\); console.log\\('first 500 chars of raw:', buf.slice\\(0,500\\).toString\\('utf8', 'replace'\\)\\);\")",
+      "Bash(node -e ' *)",
+      "Bash(node)",
+      "Bash(curl -s http://localhost:5000/api/courses)",
+      "Bash(node -e \"const d=require\\('fs'\\).readFileSync\\('/dev/stdin','utf8'\\); const c=JSON.parse\\(d\\); c.forEach\\(x=>console.log\\(x.title, '->', x.duration\\)\\)\")",
+      "Bash(curl -s \"http://localhost:5000/api/courses\")",
+      "Bash(python3 -c ' *)"
+    ]
+  }
+}

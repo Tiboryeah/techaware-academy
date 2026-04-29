@@ -224,8 +224,18 @@ const Home = () => {
     return (
       <div className="min-h-screen bg-[#fafafb] dark:bg-[#0a0c10] transition-colors duration-500">
         <div className="max-w-7xl mx-auto px-4 py-8 sm:py-12 sm:px-6 lg:px-8 space-y-12 sm:space-y-16">
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-white dark:bg-[#161b22] rounded-[2rem] sm:rounded-[3rem] p-5 sm:p-8 md:p-10 shadow-2xl border border-gray-100 dark:border-gray-800">
-            <div className="flex flex-col lg:flex-row items-center gap-5 sm:gap-8">
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="relative overflow-hidden bg-white dark:bg-[#161b22] rounded-[2rem] sm:rounded-[3rem] p-5 sm:p-8 md:p-10 shadow-2xl border border-gray-100 dark:border-gray-800">
+            <div className="absolute inset-0 pointer-events-none">
+              <img
+                src="/images/kuxipilli-dashboard-bg.png"
+                alt=""
+                className="w-full h-full object-cover"
+                draggable={false}
+              />
+              <div className="absolute inset-0 bg-white/82 dark:bg-[#0a0c10]/45" />
+              <div className="absolute inset-0 bg-gradient-to-r from-white/70 via-transparent to-white/50 dark:from-[#161b22]/80 dark:via-[#161b22]/15 dark:to-[#161b22]/70" />
+            </div>
+            <div className="relative z-10 flex flex-col lg:flex-row items-center gap-5 sm:gap-8">
               <div className="relative w-24 h-24 sm:w-32 sm:h-32 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden border-[4px] sm:border-[6px] border-white dark:border-[#0a0c10] shadow-2xl bg-white dark:bg-gray-800 shrink-0">
                 {user.avatar ? (
                   <img src={avatarUrl(user.avatar)} alt="Perfil" className="w-full h-full object-cover" />

@@ -32,6 +32,69 @@ router.get('/stats', async (req, res) => {
     }
 });
 
+// @desc    Get latest educational update for dashboard news card
+// @route   GET /api/content/latest-update
+// @access  Private
+router.get('/latest-update', protect, async (req, res) => {
+    try {
+        const Resource = require('../models/Resource');
+
+        const [latestLesson, latestResource] = await Promise.all([
+            Lesson.findOne({ type: { $in: ['article', 'guide'] } })
+                .sort({ updatedAt: -1, createdAt: -1 })
+                .select('title type duration updatedAt createdAt')
+                .lean(),
+            Resource.findOne({ type: { $in: ['case', 'guide'] }, isPublished: true })
+                .sort({ updatedAt: -1, createdAt: -1 })
+                .select('title type summary description slug updatedAt createdAt')
+                .lean(),
+        ]);
+
+        const candidates = [];
+
+        if (latestLesson) {
+            const lessonKind = latestLesson.type === 'guide' ? 'Nueva guía' : 'Nuevo artículo';
+            candidates.push({
+                kind: 'lesson',
+                label: lessonKind,
+                title: latestLesson.title,
+                description: latestLesson.type === 'guide'
+                    ? 'Agregamos una guía de aprendizaje para reforzar una habilidad práctica.'
+                    : 'Agregamos un artículo nuevo para ampliar el contenido formativo.',
+                href: `/lecciones/${latestLesson._id}`,
+                createdAt: latestLesson.createdAt,
+                updatedAt: latestLesson.updatedAt,
+            });
+        }
+
+        if (latestResource) {
+            const isCase = latestResource.type === 'case';
+            candidates.push({
+                kind: latestResource.type,
+                label: isCase ? 'Nuevo caso real' : 'Nueva guía práctica',
+                title: latestResource.title,
+                description: latestResource.summary || latestResource.description || (
+                    isCase
+                        ? 'Agregamos un caso real para analizar señales de alerta y respuestas familiares.'
+                        : 'Agregamos una guía práctica para acompañar mejor la seguridad digital.'
+                ),
+                href: isCase ? `/casos/${latestResource.slug}` : '/casos-y-guias?seccion=guias',
+                createdAt: latestResource.createdAt,
+                updatedAt: latestResource.updatedAt,
+            });
+        }
+
+        const latest = candidates
+            .sort((left, right) =>
+                new Date(right.updatedAt || right.createdAt) - new Date(left.updatedAt || left.createdAt)
+            )[0] || null;
+
+        res.json(latest);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 // @desc    Get all courses
 // @route   GET /api/content/courses
 // @access  Public

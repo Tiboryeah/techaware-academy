@@ -78,6 +78,15 @@ const COMMON_GUIDANCE_WORDS = new Set([
     'una',
     'unos',
 ]);
+const PLATFORM_KEYWORDS = new Set([
+    'roblox',
+    'minecraft',
+    'tiktok',
+    'discord',
+    'instagram',
+    'youtube',
+    'twitch',
+]);
 const PLATFORM_COURSE_MAP = {
     Roblox: 'Videojuegos',
     Minecraft: 'Videojuegos',
@@ -282,7 +291,9 @@ const rankGuidedLessonsForDetail = ({ detail, lessons = [], moduleId = null }) =
                 .map((entry) => normalizeForKeywordSearch(entry))
                 .filter(Boolean);
             const exactPhraseMatches = lessonPhrases.filter((phrase) => normalizedDetailHaystack.includes(phrase)).length;
-            const keywordMatches = detailKeywords.filter((keyword) => lessonKeywords.includes(keyword)).length;
+            const keywordMatches = detailKeywords
+                .filter((keyword) => !PLATFORM_KEYWORDS.has(keyword))
+                .filter((keyword) => lessonKeywords.includes(keyword)).length;
 
             if (moduleId && lesson.moduleId && lesson.moduleId.toString() === moduleId.toString()) {
                 score += 30;
@@ -326,6 +337,85 @@ const rankGuidedLessonsForDetail = ({ detail, lessons = [], moduleId = null }) =
 
             return (right.lesson.duration || 0) - (left.lesson.duration || 0);
         });
+};
+
+const isDirectLessonMatch = (entry) =>
+    entry.exactPhraseMatches > 0 || entry.keywordMatches > 0;
+
+const buildQuestionDetailsFromQuizAttempt = (quiz, answers = {}) =>
+    (quiz.questions || []).map((question) => {
+        const userSelection = answers[question._id.toString()];
+
+        return {
+            questionId: question._id,
+            text: question.text,
+            type: question.type,
+            isCorrect: isAnswerCorrect(question, userSelection),
+            userAnswer: formatUserAnswer(question, userSelection),
+            correctAnswer: getCorrectAnswer(question),
+            explanation: question.explanation || DEFAULT_EXPLANATION,
+            riskArea: question.riskArea || null,
+            platform: question.platform || null,
+        };
+    });
+
+const selectLessonsForWrongQuestionDetails = async ({
+    questionDetails = [],
+    quizScope = null,
+    moduleId = null,
+    courseId = null,
+    maxLessons = null,
+}) => {
+    const wrongDetails = questionDetails.filter((detail) => !detail.isCorrect);
+
+    if (wrongDetails.length === 0) {
+        return [];
+    }
+
+    const areas = [...new Set(wrongDetails.map((detail) => detail.riskArea).filter(Boolean))];
+    const platforms = [...new Set(wrongDetails.map((detail) => detail.platform).filter(Boolean))];
+    const lessonQuery = {};
+
+    if (quizScope === 'module' && moduleId) {
+        lessonQuery.moduleId = moduleId;
+    } else if (courseId) {
+        lessonQuery.courseId = courseId;
+    } else if (areas.length > 0 || platforms.length > 0) {
+        lessonQuery.$or = [
+            ...(areas.length > 0 ? [{ riskAreas: { $in: areas } }] : []),
+            ...(platforms.length > 0 ? [{ platforms: { $in: platforms } }] : []),
+        ];
+    } else {
+        return [];
+    }
+
+    const lessons = await Lesson.find(lessonQuery)
+        .select('title _id duration riskAreas platforms teaches type moduleId')
+        .lean();
+    const lessonScores = new Map();
+
+    for (const detail of wrongDetails) {
+        const ranked = rankGuidedLessonsForDetail({
+            detail,
+            lessons,
+            moduleId: quizScope === 'module' ? moduleId : null,
+        });
+        const best = ranked.find(isDirectLessonMatch);
+
+        if (best && best.score > 0) {
+            const key = best.lesson._id.toString();
+            lessonScores.set(key, Math.max(lessonScores.get(key) || 0, best.score));
+        }
+    }
+
+    const selected = [...lessonScores.entries()]
+        .sort(([, leftScore], [, rightScore]) => rightScore - leftScore)
+        .map(([id]) => lessons.find((lesson) => lesson._id.toString() === id))
+        .filter(Boolean);
+
+    return Number.isInteger(maxLessons) && maxLessons > 0
+        ? selected.slice(0, maxLessons)
+        : selected;
 };
 
 const evaluateQuizSubmission = (quiz, answers = {}) => {
@@ -399,45 +489,28 @@ const saveAttempt = async ({ userId, quizId, answers, evaluation }) =>
         errorsByPlatform: evaluation.errorsByPlatform,
     });
 
-const saveRecommendation = async ({ userId, attempt, errorsByArea, errorsByPlatform }) => {
-    const areas = [...errorsByArea.keys()];
-    const platforms = [...errorsByPlatform.keys()];
-
-    if (areas.length === 0 && platforms.length === 0) return;
-
-    // Pick 1 lesson per platform to guarantee diversity across courses.
-    // Then fill remaining slots with area-based lessons.
-    const seen = new Set();
-    const picked = [];
-
-    for (const platform of platforms) {
-        if (picked.length >= 4) break;
-        const lesson = await Lesson.findOne({ platforms: platform })
-            .select('_id moduleId')
-            .lean();
-        if (lesson && !seen.has(lesson._id.toString())) {
-            seen.add(lesson._id.toString());
-            picked.push(lesson);
-        }
-    }
-
-    for (const area of areas) {
-        if (picked.length >= 4) break;
-        const lesson = await Lesson.findOne({
-            riskAreas: area,
-            _id: { $nin: [...seen].map((id) => require('mongoose').Types.ObjectId.createFromHexString(id)) },
-        })
-            .select('_id moduleId')
-            .lean();
-        if (lesson && !seen.has(lesson._id.toString())) {
-            seen.add(lesson._id.toString());
-            picked.push(lesson);
-        }
-    }
+const saveRecommendation = async ({
+    userId,
+    attempt,
+    quizScope,
+    quizRefId,
+    questionDetails = [],
+    courseId = null,
+}) => {
+    const picked = await selectLessonsForWrongQuestionDetails({
+        questionDetails,
+        quizScope,
+        moduleId: quizScope === 'module' ? quizRefId : null,
+        courseId,
+        maxLessons: 4,
+    });
 
     if (picked.length === 0) return;
 
-    const moduleIds = [...new Set(picked.map((l) => l.moduleId?.toString()).filter(Boolean))];
+    const wrongDetails = questionDetails.filter((detail) => !detail.isCorrect);
+    const areas = [...new Set(wrongDetails.map((detail) => detail.riskArea).filter(Boolean))];
+    const platforms = [...new Set(wrongDetails.map((detail) => detail.platform).filter(Boolean))];
+    const moduleIds = [...new Set(picked.map((lesson) => lesson.moduleId?.toString()).filter(Boolean))];
     const reasonParts = [];
     if (platforms.length > 0) reasonParts.push(platforms.slice(0, 3).join(', '));
     if (areas.length > 0) reasonParts.push(areas.slice(0, 2).join(' y '));
@@ -445,16 +518,30 @@ const saveRecommendation = async ({ userId, attempt, errorsByArea, errorsByPlatf
     await Recommendation.create({
         userId,
         sourceAttemptId: attempt._id,
-        suggestedLessons: picked.map((l) => l._id),
+        suggestedLessons: picked.map((lesson) => lesson._id),
         suggestedModules: moduleIds,
         reason: `Debilidades detectadas en ${reasonParts.join(' — ')}`,
+    });
+};
+
+const clearRecommendationsForQuiz = async ({ userId, quizId }) => {
+    const attempts = await Attempt.find({ userId, quizId })
+        .select('_id')
+        .lean();
+    const attemptIds = attempts.map((attempt) => attempt._id);
+
+    if (attemptIds.length === 0) return;
+
+    await Recommendation.deleteMany({
+        userId,
+        sourceAttemptId: { $in: attemptIds },
     });
 };
 
 const getLatestRecommendation = async (userId) =>
     Recommendation.findOne({ userId })
         .sort({ createdAt: -1 })
-        .populate('suggestedLessons', 'title _id')
+        .populate('suggestedLessons', 'title _id type')
         .lean();
 
 const buildGuidedLessonsForQuestionDetails = async ({
@@ -471,10 +558,10 @@ const buildGuidedLessonsForQuestionDetails = async ({
 
     const lessonQuery = {};
 
-    if (courseId) {
-        lessonQuery.courseId = courseId;
-    } else if (moduleId) {
+    if (moduleId) {
         lessonQuery.moduleId = moduleId;
+    } else if (courseId) {
+        lessonQuery.courseId = courseId;
     } else {
         lessonQuery.$or = [
             ...(areas.length > 0 ? [{ riskAreas: { $in: areas } }] : []),
@@ -487,22 +574,22 @@ const buildGuidedLessonsForQuestionDetails = async ({
         .lean();
 
     return questionDetails.map((detail) => {
+        if (detail.isCorrect) {
+            return { ...detail, guidedLessons: [] };
+        }
+
         const rankedLessons = rankGuidedLessonsForDetail({
             detail,
             lessons,
             moduleId,
         });
-        const fallbackLessons = lessons
-            .filter((lesson) => !moduleId || lesson.moduleId?.toString() === moduleId.toString())
-            .sort((left, right) =>
-                (LESSON_TYPE_PRIORITY[right.type] || 0) - (LESSON_TYPE_PRIORITY[left.type] || 0)
-            )
-            .map((lesson) => ({ lesson }));
+        const directLessons = rankedLessons.filter(isDirectLessonMatch);
+        const topScore = directLessons[0]?.score || 0;
+        const bestLessons = directLessons.filter((entry) => entry.score === topScore);
 
         return {
             ...detail,
-            guidedLessons: (rankedLessons.length > 0 ? rankedLessons : fallbackLessons)
-                .slice(0, 3)
+            guidedLessons: bestLessons
                 .map(({ lesson }) => ({
                     _id: lesson._id,
                     title: lesson.title,
@@ -669,12 +756,21 @@ const submitQuizAttempt = async ({ quizId, userId, answers = {} }) => {
 
     if (quiz.scope !== 'course') {
         try {
-            await saveRecommendation({
-                userId,
-                attempt,
-                errorsByArea: evaluation.errorsByArea,
-                errorsByPlatform: evaluation.errorsByPlatform,
-            });
+            if (evaluation.passed) {
+                await clearRecommendationsForQuiz({
+                    userId,
+                    quizId: quiz._id,
+                });
+            } else {
+                await saveRecommendation({
+                    userId,
+                    attempt,
+                    quizScope: quiz.scope,
+                    quizRefId: quiz.refId,
+                    questionDetails: evaluation.questionDetails,
+                    courseId: quizContext.courseId,
+                });
+            }
         } catch (_) {
             // No bloquear la respuesta si falla la recomendación
         }
@@ -734,11 +830,31 @@ const aggregateCourseBreakdown = (platformBreakdown = []) => {
 };
 
 const getAttemptRecommendations = async (attemptId) => {
-    const attempt = await Attempt.findById(attemptId);
+    const attempt = await Attempt.findById(attemptId).populate('quizId', 'scope refId minPassing');
 
     if (!attempt) {
         return null;
     }
+
+    // If the user passed, no need to recommend anything
+    if (attempt.passed) {
+        return {
+            areasToReview: [],
+            platformsToReview: [],
+            areaBreakdown: [],
+            platformBreakdown: [],
+            courseBreakdown: [],
+            recommendedLessons: [],
+            message: '¡Excelente trabajo! Has superado la evaluación con éxito.',
+        };
+    }
+
+    const minPassing = attempt.quizId?.minPassing || 80;
+    const gap = minPassing - attempt.score;
+    const maxLessons = gap >= 40 ? 4 : gap >= 20 ? 3 : 2;
+
+    const quizScope = attempt.quizId?.scope;
+    const quizRefId = attempt.quizId?.refId;
 
     const areaBreakdown = mapCountEntries(attempt.errorsByArea);
     const platformBreakdown = mapCountEntries(attempt.errorsByPlatform);
@@ -746,33 +862,77 @@ const getAttemptRecommendations = async (attemptId) => {
     const areas = areaBreakdown.map((entry) => entry.label);
     const platforms = platformBreakdown.map((entry) => entry.label);
 
-    // 1 lección por plataforma para garantizar diversidad entre cursos,
-    // luego rellena slots restantes con lecciones por área de riesgo.
-    const seen = new Set();
-    const recommendedLessons = [];
+    const quiz = await Quiz.findById(attempt.quizId._id || attempt.quizId).populate('questions');
+    const questionDetails = buildQuestionDetailsFromQuizAttempt(quiz || { questions: [] }, attempt.answers || {});
+    let recommendedLessons = await selectLessonsForWrongQuestionDetails({
+        questionDetails,
+        quizScope,
+        moduleId: quizScope === 'module' ? quizRefId : null,
+        maxLessons: quizScope === 'module' ? null : maxLessons,
+    });
 
-    for (const platform of platforms) {
-        if (recommendedLessons.length >= 4) break;
-        const lesson = await Lesson.findOne({ platforms: platform })
-            .select('title _id riskAreas platforms')
+    if (false) {
+        // For module quizzes: match each wrong question to its most relevant lesson.
+        // Deduplicate — if N wrong questions all point to the same lesson, recommend once.
+        // If they spread across M lessons, recommend all M.
+        const quiz = await Quiz.findById(attempt.quizId._id || attempt.quizId).populate('questions');
+        const moduleLessons = await Lesson.find({ moduleId: quizRefId })
+            .select('title _id duration riskAreas platforms teaches type moduleId')
             .lean();
-        if (lesson && !seen.has(lesson._id.toString())) {
-            seen.add(lesson._id.toString());
-            recommendedLessons.push(lesson);
+
+        // Map: lessonId → best score across all wrong questions
+        const lessonScores = new Map();
+
+        for (const question of (quiz?.questions || [])) {
+            const userAnswer = attempt.answers?.[question._id.toString()];
+            if (isAnswerCorrect(question, userAnswer)) continue;
+
+            const detail = {
+                text: question.text,
+                explanation: question.explanation || '',
+                correctAnswer: String(getCorrectAnswer(question) || ''),
+                userAnswer: String(formatUserAnswer(question, userAnswer) || ''),
+                riskArea: question.riskArea || null,
+                platform: question.platform || null,
+            };
+
+            const ranked = rankGuidedLessonsForDetail({ detail, lessons: moduleLessons, moduleId: quizRefId });
+            // Take only the top-scoring lesson per wrong question
+            const best = ranked[0];
+            if (best && best.score > 0) {
+                const key = best.lesson._id.toString();
+                lessonScores.set(key, Math.max(lessonScores.get(key) || 0, best.score));
+            }
         }
-    }
 
-    for (const area of areas) {
-        if (recommendedLessons.length >= 4) break;
-        const lesson = await Lesson.findOne({
-            riskAreas: area,
-            _id: { $nin: [...seen].map((id) => require('mongoose').Types.ObjectId.createFromHexString(id)) },
-        })
-            .select('title _id riskAreas platforms')
-            .lean();
-        if (lesson && !seen.has(lesson._id.toString())) {
-            seen.add(lesson._id.toString());
-            recommendedLessons.push(lesson);
+        // Sort by score, no cap — deduplicated list reflects exactly which lessons to review
+        recommendedLessons = [...lessonScores.entries()]
+            .sort(([, a], [, b]) => b - a)
+            .map(([id]) => moduleLessons.find(l => l._id.toString() === id))
+            .filter(Boolean)
+            .map(({ _id, title, riskAreas, platforms: p }) => ({ _id, title, riskAreas, platforms: p }));
+
+    } else if (false) {
+        // For diagnostic: use errorsByArea/errorsByPlatform (questions have tags)
+        const seen = new Set();
+        for (const platform of platforms) {
+            if (recommendedLessons.length >= maxLessons) break;
+            const lesson = await Lesson.findOne({ platforms: platform })
+                .select('title _id riskAreas platforms').lean();
+            if (lesson && !seen.has(lesson._id.toString())) {
+                seen.add(lesson._id.toString());
+                recommendedLessons.push(lesson);
+            }
+        }
+        for (const area of areas) {
+            if (recommendedLessons.length >= maxLessons) break;
+            const seenIds = [...seen].map(id => require('mongoose').Types.ObjectId.createFromHexString(id));
+            const lesson = await Lesson.findOne({ riskAreas: area, _id: { $nin: seenIds } })
+                .select('title _id riskAreas platforms').lean();
+            if (lesson && !seen.has(lesson._id.toString())) {
+                seen.add(lesson._id.toString());
+                recommendedLessons.push(lesson);
+            }
         }
     }
 

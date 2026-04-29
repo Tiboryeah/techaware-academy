@@ -191,7 +191,7 @@ Este video ayuda a distinguir un Realm privado, un servidor público y otros ent
                     }
                 },
                 points: 15,
-                explanation: 'Tip: Java es para PC clásica, Bedrock es multiplataforma, Realms son privados y seguros, los servidores son masivos.'
+                explanation: 'Tip: Java es para PC clásica, Bedrock es multiplataforma, Realms son privados y más controlados, los servidores son masivos.'
             },
             {
                 text: 'Completa el flujo de acceso para una cuenta infantil en Minecraft.',
@@ -268,7 +268,7 @@ Este video ayuda a distinguir un Realm privado, un servidor público y otros ent
                 text: 'Completa la definición de los entornos de juego.',
                 type: 'fill_blanks',
                 metadata: {
-                    sentence: 'Un [blank1] es un servidor privado y seguro. Un [blank2] masivo es un entorno abierto. La edición [blank3] es la más común en consolas. La gestión de privacidad se hace desde la [blank4] familiar.',
+                    sentence: 'Un [blank1] es un servidor privado y más controlado. Un [blank2] masivo es un entorno abierto. La edición [blank3] es la más común en consolas. La gestión de privacidad se hace desde la [blank4] familiar.',
                     bank: ['Realm', 'servidor', 'Bedrock', 'configuración'],
                     correctAnswer: {
                         blank1: 'Realm',

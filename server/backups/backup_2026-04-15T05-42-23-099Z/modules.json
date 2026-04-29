@@ -1,0 +1,343 @@
+[
+  {
+    "_id": "69df0aa70bc39382549395b3",
+    "courseId": "69d59bce5a0067bd466f7e9a",
+    "title": "Módulo 1: Fundamentos de videojuegos en línea",
+    "description": "Entendiendo el panorama general de los mundos digitales.",
+    "lessonOrder": [
+      "69df0aa70bc39382549395b9",
+      "69df0aa70bc39382549395bc",
+      "69df0aa70bc39382549395bf",
+      "69df0aa80bc39382549395c2",
+      "69df0aa80bc39382549395c5"
+    ],
+    "duration": "30 min",
+    "createdAt": "2026-04-15T03:48:55.438Z",
+    "updatedAt": "2026-04-15T03:48:57.132Z",
+    "__v": 1,
+    "quizId": "69df0aa80bc39382549395c9"
+  },
+  {
+    "_id": "69df0aa90bc39382549395eb",
+    "courseId": "69d59bce5a0067bd466f7e9a",
+    "title": "Módulo 2: Roblox: seguridad y control parental",
+    "description": "Configuración técnica y supervisión remota de alta precisión.",
+    "lessonOrder": [
+      "69df0aa90bc39382549395ef",
+      "69df0aa90bc39382549395f2",
+      "69df0aa90bc39382549395f5",
+      "69df0aa90bc39382549395f8"
+    ],
+    "duration": "30 min",
+    "createdAt": "2026-04-15T03:48:57.265Z",
+    "updatedAt": "2026-04-15T03:48:58.843Z",
+    "__v": 1,
+    "quizId": "69df0aaa0bc39382549395fc"
+  },
+  {
+    "_id": "69df0aaa0bc393825493961e",
+    "courseId": "69d59bce5a0067bd466f7e9a",
+    "title": "Módulo 3: Minecraft: cuentas familiares, multijugador y Realms",
+    "description": "Navegando de forma segura en mundos compartidos y privados.",
+    "lessonOrder": [
+      "69df0aab0bc3938254939622",
+      "69df0aab0bc3938254939625",
+      "69df0aab0bc3938254939628",
+      "69df0aab0bc393825493962b"
+    ],
+    "duration": "30 min",
+    "createdAt": "2026-04-15T03:48:58.975Z",
+    "updatedAt": "2026-04-15T03:49:00.523Z",
+    "__v": 1,
+    "quizId": "69df0aab0bc393825493962f"
+  },
+  {
+    "_id": "69df0aac0bc393825493964f",
+    "courseId": "69d59bce5a0067bd466f7e9a",
+    "title": "Módulo 4: Interacción social y señales de alerta",
+    "description": "Identificación de riesgos en la comunicación con otros.",
+    "lessonOrder": [
+      "69df0aac0bc3938254939653",
+      "69df0aac0bc3938254939656",
+      "69df0aad0bc3938254939659",
+      "69df0aad0bc393825493965c"
+    ],
+    "duration": "30 min",
+    "createdAt": "2026-04-15T03:49:00.655Z",
+    "updatedAt": "2026-04-15T03:49:02.202Z",
+    "__v": 1,
+    "quizId": "69df0aad0bc3938254939660"
+  },
+  {
+    "_id": "69df0aae0bc3938254939682",
+    "courseId": "69d59bce5a0067bd466f7e9a",
+    "title": "Módulo 5: Compras digitales, estafas y descargas",
+    "description": "Gestión económica y prevención de malware.",
+    "lessonOrder": [
+      "69df0aae0bc3938254939686",
+      "69df0aae0bc3938254939689",
+      "69df0aae0bc393825493968c",
+      "69df0aae0bc393825493968f"
+    ],
+    "duration": "30 min",
+    "createdAt": "2026-04-15T03:49:02.334Z",
+    "updatedAt": "2026-04-15T03:49:03.902Z",
+    "__v": 1,
+    "quizId": "69df0aaf0bc3938254939693"
+  },
+  {
+    "_id": "69df0ab00bc39382549396b5",
+    "courseId": "69d59bce5a0067bd466f7e9a",
+    "title": "Módulo 6: Bienestar digital y acompañamiento parental",
+    "description": "Salud mental y relación familiar en el juego.",
+    "lessonOrder": [
+      "69df0ab00bc39382549396b9",
+      "69df0ab00bc39382549396bc",
+      "69df0ab00bc39382549396bf",
+      "69df0ab00bc39382549396c2"
+    ],
+    "duration": "30 min",
+    "createdAt": "2026-04-15T03:49:04.044Z",
+    "updatedAt": "2026-04-15T03:49:05.601Z",
+    "__v": 1,
+    "quizId": "69df0ab00bc39382549396c6"
+  },
+  {
+    "_id": "69df0abb0bc39382549397d9",
+    "courseId": "6959a7da7d94363881f624a1",
+    "title": "Introducción al streaming y consumo infantil",
+    "description": "Objetivo: Que los padres entiendan qué son las plataformas y por qué los niños las usan tanto.",
+    "lessonOrder": [
+      "69df0abc0bc39382549397dc",
+      "69df0abc0bc39382549397df",
+      "69df0abc0bc39382549397e2",
+      "69df0abc0bc39382549397e5"
+    ],
+    "duration": "20 min",
+    "createdAt": "2026-04-15T03:49:15.951Z",
+    "updatedAt": "2026-04-15T03:49:17.368Z",
+    "__v": 1,
+    "quizId": "69df0abc0bc39382549397e8"
+  },
+  {
+    "_id": "69df0abd0bc393825493980b",
+    "courseId": "6959a7da7d94363881f624a1",
+    "title": "Tipos de contenido y su impacto en los niños",
+    "description": "Objetivo: Identificar qué ven los niños y cómo influye en su comportamiento.",
+    "lessonOrder": [
+      "69df0abd0bc393825493980e",
+      "69df0abd0bc3938254939811",
+      "69df0abd0bc3938254939814",
+      "69df0abe0bc3938254939817"
+    ],
+    "duration": "22 min",
+    "createdAt": "2026-04-15T03:49:17.500Z",
+    "updatedAt": "2026-04-15T03:49:18.920Z",
+    "__v": 1,
+    "quizId": "69df0abe0bc393825493981a"
+  },
+  {
+    "_id": "69df0abf0bc393825493983d",
+    "courseId": "6959a7da7d94363881f624a1",
+    "title": "Riesgos en plataformas de streaming",
+    "description": "Objetivo: Detectar los principales peligros digitales.",
+    "lessonOrder": [
+      "69df0abf0bc3938254939840",
+      "69df0abf0bc3938254939843",
+      "69df0abf0bc3938254939846",
+      "69df0abf0bc3938254939849"
+    ],
+    "duration": "22 min",
+    "createdAt": "2026-04-15T03:49:19.053Z",
+    "updatedAt": "2026-04-15T03:49:20.473Z",
+    "__v": 1,
+    "quizId": "69df0abf0bc393825493984c"
+  },
+  {
+    "_id": "69df0ac00bc393825493986f",
+    "courseId": "6959a7da7d94363881f624a1",
+    "title": "Monetización, publicidad y engaños",
+    "description": "Objetivo: Comprender cómo las plataformas generan dinero y los riesgos asociados.",
+    "lessonOrder": [
+      "69df0ac00bc3938254939872",
+      "69df0ac00bc3938254939875",
+      "69df0ac10bc3938254939878",
+      "69df0ac10bc393825493987b"
+    ],
+    "duration": "20 min",
+    "createdAt": "2026-04-15T03:49:20.619Z",
+    "updatedAt": "2026-04-15T03:49:22.035Z",
+    "__v": 1,
+    "quizId": "69df0ac10bc393825493987e"
+  },
+  {
+    "_id": "69df0ac20bc39382549398a1",
+    "courseId": "6959a7da7d94363881f624a1",
+    "title": "Tiempo de pantalla y uso problemático",
+    "description": "Objetivo: Detectar adicción digital y establecer límites saludables.",
+    "lessonOrder": [
+      "69df0ac20bc39382549398a4",
+      "69df0ac20bc39382549398a7",
+      "69df0ac20bc39382549398aa",
+      "69df0ac20bc39382549398ad"
+    ],
+    "duration": "20 min",
+    "createdAt": "2026-04-15T03:49:22.168Z",
+    "updatedAt": "2026-04-15T03:49:23.592Z",
+    "__v": 1,
+    "quizId": "69df0ac20bc39382549398b0"
+  },
+  {
+    "_id": "69df0ac30bc39382549398d3",
+    "courseId": "6959a7da7d94363881f624a1",
+    "title": "Control parental y acompañamiento",
+    "description": "Objetivo: Dar herramientas prácticas para supervisión efectiva.",
+    "lessonOrder": [
+      "69df0ac30bc39382549398d6",
+      "69df0ac30bc39382549398d9",
+      "69df0ac40bc39382549398dc",
+      "69df0ac40bc39382549398df"
+    ],
+    "duration": "22 min",
+    "createdAt": "2026-04-15T03:49:23.724Z",
+    "updatedAt": "2026-04-15T03:49:25.141Z",
+    "__v": 1,
+    "quizId": "69df0ac40bc39382549398e2"
+  },
+  {
+    "_id": "69df0ac50bc3938254939905",
+    "courseId": "6959a7da7d94363881f624a1",
+    "title": "Uso positivo y educación digital",
+    "description": "Objetivo: Transformar el streaming en una herramienta educativa.",
+    "lessonOrder": [
+      "69df0ac50bc3938254939908",
+      "69df0ac50bc393825493990b",
+      "69df0ac50bc393825493990e",
+      "69df0ac50bc3938254939911"
+    ],
+    "duration": "20 min",
+    "createdAt": "2026-04-15T03:49:25.273Z",
+    "updatedAt": "2026-04-15T03:49:26.697Z",
+    "__v": 1,
+    "quizId": "69df0ac50bc3938254939914"
+  },
+  {
+    "_id": "69df0bc127d3e7f17f776a24",
+    "courseId": "695993ca3cb2af054489eebc",
+    "title": "Entender las redes sociales que usan los menores",
+    "description": "Objetivo: Que los padres comprendan qué son TikTok, Discord e Instagram, cómo funcionan y por qué resultan tan atractivas para niños y preadolescentes.",
+    "lessonOrder": [
+      "69df0bc227d3e7f17f776a27",
+      "69df0bc227d3e7f17f776a2a",
+      "69df0bc227d3e7f17f776a2d",
+      "69df0bc227d3e7f17f776a30"
+    ],
+    "duration": "20 min",
+    "createdAt": "2026-04-15T03:53:37.988Z",
+    "updatedAt": "2026-04-15T03:53:39.431Z",
+    "__v": 1,
+    "quizId": "69df0bc227d3e7f17f776a33"
+  },
+  {
+    "_id": "69df0bc327d3e7f17f776a56",
+    "courseId": "695993ca3cb2af054489eebc",
+    "title": "Privacidad, datos personales y huella digital",
+    "description": "Objetivo: Que los padres identifiquen qué información comparten los menores y por qué eso puede convertirse en un riesgo.",
+    "lessonOrder": [
+      "69df0bc327d3e7f17f776a59",
+      "69df0bc327d3e7f17f776a5c",
+      "69df0bc327d3e7f17f776a5f",
+      "69df0bc427d3e7f17f776a62"
+    ],
+    "duration": "20 min",
+    "createdAt": "2026-04-15T03:53:39.563Z",
+    "updatedAt": "2026-04-15T03:53:40.171Z",
+    "__v": 1,
+    "quizId": null
+  },
+  {
+    "_id": "69df0bc427d3e7f17f776a66",
+    "courseId": "695993ca3cb2af054489eebc",
+    "title": "Ciberacoso, presión social y daño emocional",
+    "description": "Objetivo: Ayudar a los padres a detectar dinámicas de acoso, humillación y presión social dentro de redes y comunidades digitales.",
+    "lessonOrder": [
+      "69df0bc427d3e7f17f776a69",
+      "69df0bc427d3e7f17f776a6c",
+      "69df0bc427d3e7f17f776a6f",
+      "69df0bc427d3e7f17f776a72"
+    ],
+    "duration": "20 min",
+    "createdAt": "2026-04-15T03:53:40.303Z",
+    "updatedAt": "2026-04-15T03:53:40.904Z",
+    "__v": 1,
+    "quizId": null
+  },
+  {
+    "_id": "69df0bc527d3e7f17f776a76",
+    "courseId": "695993ca3cb2af054489eebc",
+    "title": "Contacto con desconocidos, grooming y manipulación",
+    "description": "Objetivo: Mostrar cómo la interacción en mensajes, chats, servidores y comentarios puede exponer a los menores a personas con malas intenciones.",
+    "lessonOrder": [
+      "69df0bc527d3e7f17f776a79",
+      "69df0bc527d3e7f17f776a7c",
+      "69df0bc527d3e7f17f776a7f",
+      "69df0bc527d3e7f17f776a82"
+    ],
+    "duration": "20 min",
+    "createdAt": "2026-04-15T03:53:41.036Z",
+    "updatedAt": "2026-04-15T03:53:41.637Z",
+    "__v": 1,
+    "quizId": null
+  },
+  {
+    "_id": "69df0bc527d3e7f17f776a86",
+    "courseId": "695993ca3cb2af054489eebc",
+    "title": "Contenido inapropiado, retos virales y desinformación",
+    "description": "Objetivo: Enseñar a los padres a reconocer el impacto de algoritmos, tendencias virales y contenido problemático.",
+    "lessonOrder": [
+      "69df0bc527d3e7f17f776a89",
+      "69df0bc627d3e7f17f776a8c",
+      "69df0bc627d3e7f17f776a8f",
+      "69df0bc627d3e7f17f776a92"
+    ],
+    "duration": "20 min",
+    "createdAt": "2026-04-15T03:53:41.770Z",
+    "updatedAt": "2026-04-15T03:53:42.379Z",
+    "__v": 1,
+    "quizId": null
+  },
+  {
+    "_id": "69df0bc627d3e7f17f776a96",
+    "courseId": "695993ca3cb2af054489eebc",
+    "title": "Compras, publicidad e influencia de creadores",
+    "description": "Objetivo: Que los padres comprendan cómo las redes sociales también impulsan consumo, presión comercial e influencia sobre decisiones de los menores.",
+    "lessonOrder": [
+      "69df0bc627d3e7f17f776a99",
+      "69df0bc627d3e7f17f776a9c",
+      "69df0bc627d3e7f17f776a9f",
+      "69df0bc727d3e7f17f776aa2"
+    ],
+    "duration": "20 min",
+    "createdAt": "2026-04-15T03:53:42.511Z",
+    "updatedAt": "2026-04-15T03:53:43.122Z",
+    "__v": 1,
+    "quizId": null
+  },
+  {
+    "_id": "69df0bc727d3e7f17f776aa6",
+    "courseId": "695993ca3cb2af054489eebc",
+    "title": "Bienestar digital, control parental y acompañamiento",
+    "description": "Objetivo: Cerrar el curso con estrategias prácticas para supervisar, dialogar y acompañar sin invadir.",
+    "lessonOrder": [
+      "69df0bc727d3e7f17f776aa9",
+      "69df0bc727d3e7f17f776aac",
+      "69df0bc727d3e7f17f776aaf",
+      "69df0bc727d3e7f17f776ab2"
+    ],
+    "duration": "20 min",
+    "createdAt": "2026-04-15T03:53:43.256Z",
+    "updatedAt": "2026-04-15T03:53:43.859Z",
+    "__v": 1,
+    "quizId": null
+  }
+]

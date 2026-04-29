@@ -607,14 +607,12 @@ Este video convierte el módulo en una revisión corta antes de gastar, instalar
             text: 'Selecciona todas las opciones que deberían activar alerta en una familia antes de comprar o descargar algo.',
             type: 'multiple_selection',
             options: [
-                { text: 'Una página promete “Robux gratis”', isCorrect: true },
-                { text: 'El enlace pide contraseña o datos personales', isCorrect: true },
-                { text: 'El contenido viene de Marketplace en Bedrock', isCorrect: false },
-                { text: 'Pide instalar un archivo o programa externo poco claro', isCorrect: true },
-                { text: 'Ofrece Minecoins o premios si haces clic en un enlace', isCorrect: true },
-                { text: 'El contenido aparece dentro del flujo oficial del juego', isCorrect: false },
+                { text: 'Una página promete "Robux gratis" a cambio de datos', isCorrect: true },
+                { text: 'El enlace pide la contraseña de la cuenta', isCorrect: true },
                 { text: 'Es un mod de Java descargado desde una página desconocida', isCorrect: true },
-                { text: 'El niño pregunta primero antes de comprar', isCorrect: false }
+                { text: 'El contenido viene del Marketplace oficial de Bedrock', isCorrect: false },
+                { text: 'El menor pregunta al adulto antes de comprar', isCorrect: false },
+                { text: 'La tienda muestra los precios en Minecoins dentro del juego', isCorrect: false }
             ],
             explanation: 'Tip: Promesas de monedas gratis, petición de contraseña, programas externos y mods de páginas desconocidas son señales claras de alerta.',
             points: 15
@@ -645,32 +643,34 @@ Este video convierte el módulo en una revisión corta antes de gastar, instalar
             type: 'categorize',
             metadata: {
                 items: [
-                    'Marketplace de Minecraft Bedrock',
-                    'Add-on obtenido dentro de Marketplace',
-                    'Web que ofrece “Robux gratis”',
-                    'Página que pide la contraseña de Roblox',
-                    'Mod de Java de terceros',
-                    'Archivo externo que pide instalar software raro',
-                    'Minecoins compradas por el canal oficial',
-                    'Límite mensual de gasto en Roblox'
-                ],
-                categories: ['Oficial', 'Sospechoso', 'Requiere más revisión'],
-                correctAnswer: {
-                    'Oficial': [
                         'Marketplace de Minecraft Bedrock',
                         'Add-on obtenido dentro de Marketplace',
                         'Minecoins compradas por el canal oficial',
-                        'Límite mensual de gasto en Roblox'
-                    ],
-                    'Sospechoso': [
-                        'Web que ofrece “Robux gratis”',
+                        'Web que ofrece "Robux gratis"',
                         'Página que pide la contraseña de Roblox',
-                        'Archivo externo que pide instalar software raro'
+                        'Archivo externo que pide instalar software raro',
+                        'Mod de Java de terceros',
+                        'Launcher alternativo de terceros',
+                        'Pack descargado desde un foro de fans sin verificar'
                     ],
-                    'Requiere más revisión': [
-                        'Mod de Java de terceros'
-                    ]
-                }
+                categories: ['Oficial', 'Sospechoso', 'Requiere más revisión'],
+                correctAnswer: {
+                        'Oficial': [
+                            'Marketplace de Minecraft Bedrock',
+                            'Add-on obtenido dentro de Marketplace',
+                            'Minecoins compradas por el canal oficial'
+                        ],
+                        'Sospechoso': [
+                            'Web que ofrece "Robux gratis"',
+                            'Página que pide la contraseña de Roblox',
+                            'Archivo externo que pide instalar software raro'
+                        ],
+                        'Requiere más revisión': [
+                            'Mod de Java de terceros',
+                            'Launcher alternativo de terceros',
+                            'Pack descargado desde un foro de fans sin verificar'
+                        ]
+                    }
             },
             explanation: 'Tip: Oficial significa respaldado por el ecosistema del juego; sospechoso pide datos o software raro; y los mods de terceros requieren evaluación extra.',
             points: 10

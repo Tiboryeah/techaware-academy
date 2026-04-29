@@ -29,7 +29,7 @@ const quizSchema = mongoose.Schema(
         }],
         minPassing: {
             type: Number,
-            default: 70, // Percentage
+            default: 80, // Percentage
         },
     },
     {

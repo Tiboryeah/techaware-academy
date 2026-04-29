@@ -1,0 +1,544 @@
+# Contexto de Sesión — Reporte Técnico Kuxipilli
+## TT 2026-A097 | ESCOM · IPN
+
+> Última actualización: 2026-04-29 (rev. 10)
+> Propósito: retomar el trabajo en cualquier chat sin perder contexto.
+
+---
+
+## Proyecto
+
+**Nombre:** Kuxipilli — Aplicación Web para Padres y/o Tutores: Concientización y Prevención de Riesgos Digitales en Niños de entre 6 y 12 años
+**Número TT:** 2026-A097
+**Institución:** ESCOM · IPN
+**Autores:** Martínez López Gerardo Esteban / Núñez Martínez Miguel Ángel
+**Directora:** Patricia Escamilla Miranda
+
+**Stack real implementado:**
+- Frontend: React 19.2 + Vite 7.2 + TailwindCSS 4.1 + Framer Motion → desplegado en **Netlify**
+- Backend: Node.js 20 + Express 5.1 + Mongoose 9 → desplegado en **Render** (NO Railway)
+- Base de datos: **MongoDB Atlas** (15 colecciones)
+- Email: **Resend API** (primario) + SMTP Gmail/Nodemailer (fallback)
+- IA Chatbot: **Gemini 2.5 Flash** (cascada 4 modelos) → **Groq llama-3.3-70b** → 16 reglas estáticas
+- DNS: **Cloudflare**
+- CI/CD: **GitHub** webhooks → Netlify + Render
+
+---
+
+## Estado del documento — revisión exhaustiva 2026-04-23
+
+### Capítulo 6 — COMPLETO ✅
+Todas las secciones §6.1 a §6.4 están escritas y pegadas en el Word.
+§6.5 Scripts de mantenimiento — pendiente de redactar/pegar.
+
+### Capítulo 7 — FALTA COMPLETAMENTE 🔴
+El documento no contiene ninguna sección del Capítulo 7 (Pruebas).
+Es el pendiente más crítico para la defensa.
+
+---
+
+## Cambios al CÓDIGO realizados en sesión 2026-04-23
+
+### 1. Sistema de Recomendaciones (NUEVO — completamente implementado)
+- **`server/src/models/Recommendation.js`** — ya existía, nunca se usaba
+- **`server/src/services/quizService.js`** — agregado:
+  - `saveRecommendation()`: persiste al terminar quiz de scope `diagnostic` o `module` ÚNICAMENTE (no `course`)
+  - Algoritmo de diversidad: 1 `findOne` por plataforma con error → rellena slots con áreas de riesgo → máx 4 lecciones
+  - `getLatestRecommendation()`: recupera la más reciente con `.populate('suggestedLessons', 'title _id')`
+  - `getAttemptRecommendations()`: corregido con mismo algoritmo de diversidad
+  - `LESSON_TYPE_PRIORITY`: eliminado `case_study: 2` (ya no existe en Lesson.type)
+- **`server/src/routes/quiz.routes.js`** — agregada ruta `GET /api/quiz/my-recommendations` (antes de `/:id` para evitar conflicto)
+- **`client/src/pages/Dashboard.jsx`** — agregado:
+  - Estado `recommendations`
+  - Tercera petición paralela a `/api/quiz/my-recommendations` con `.catch(() => ({ data: null }))`
+  - Tarjeta "Lecciones Recomendadas" condicional con `BookOpen` icon y navegación a `/lecciones/:id`
+
+### 2. Modelo Lesson.type — eliminado `case_study`
+- **`server/src/models/Lesson.js`** — enum cambiado de `['article', 'video', 'guide', 'case_study']` a `['article', 'video', 'guide']`
+- `case_study` SIGUE existiendo en `Question.type` (motor de evaluación) — no se tocó
+- No requirió migración de BD (ninguna lección tenía ese tipo)
+
+### 3. Bug fix: validación de contraseña inconsistente
+- **`client/src/pages/Profile.jsx` línea 294** — cambiado `< 6` a `< 8` para coincidir con el registro (8 caracteres mínimo en ambos lugares)
+
+### 4. Normalización riskArea en seeds
+- **`server/src/scripts/seed/courses/games/module6.js`** y **`games/finalQuiz.js`** — `'Salud Mental y Fisica'` → `'Salud Mental y Física'` (6 ocurrencias, faltaba tilde)
+- Ejecutado `npm run seed:games` para aplicar en Atlas
+
+---
+
+## Cambios al CÓDIGO realizados en sesión 2026-04-24
+
+### 1. Landing pública: bloque “Los riesgos son reales” corregido y respaldado
+- **`client/src/pages/Home.jsx`** — se corrigieron textos y citas del bloque informativo previo al login.
+- Se eliminó la afirmación engañosa de “organismos internacionales” y se sustituyó por “fuentes públicas y estudios académicos”.
+- Se reemplazó el dato incorrecto `91.1%` por cifras verificables de **INEGI ENDUTIH 2024**:
+  - `79.7%` para niñas y niños de `6 a 11 años`
+  - `95.1%` para adolescentes de `12 a 17 años`
+- Se corrigió la tarjeta de Roblox para citar de forma honesta la nota de **The Guardian** basada en la investigación de **Revealing Reality**.
+- Se corrigió la tarjeta de Twitch con autores, título y fecha reales del estudio publicado en **Springer** en diciembre de 2025.
+- Verificación hecha contra fuentes públicas; no existe proyección oficial localizada para 2026 o 2030 de ese mismo indicador por edad.
+
+### 2. Landing pública: franja de estadísticas del hero compactada
+- **`client/src/pages/Home.jsx`** — el componente `StatsGrid` se redujo visualmente para que no abarque toda la pantalla.
+- Ajustes principales:
+  - menor `margin-top`
+  - menor `padding`
+  - `max-width` para contener el bloque
+  - números e iconos ligeramente más pequeños
+  - etiquetas con mejor ancho y lectura
+- Objetivo: que la banda de métricas acompañe al hero sin competir con él.
+
+### 3. Verificación técnica
+- Ejecutado **`npm run build`** en `client` después de los cambios.
+- Resultado: compilación exitosa.
+- Advertencia existente: Vite reporta chunks mayores a 500 kB, pero no está relacionada con estos cambios.
+
+---
+
+## Hechos técnicos confirmados (para el reporte)
+
+### Modelos y BD
+| Campo | Valor correcto |
+|---|---|
+| `Lesson.type` | `article`, `video`, `guide` (NO case_study) |
+| `Question.type` | 10 tipos: single_choice, multiple_choice, multiple_selection, case_study, drag_drop, fill_blanks, match_columns, order_sequence, categorize, drop_down |
+| `Attempt.riskLevel` | `'Alto'`, `'Medio'`, `'Bajo'` (español) |
+| `Quiz.minPassing` | 80 (default) |
+| `User.avatar` | Base64 JPEG 200×200 px, calidad 70%, ~15 KB (Sharp) |
+| `CaseReport` | Sin `updatedAt` (no tiene `timestamps: true`) |
+| `Recommendation` | Se persiste para scope `diagnostic` y `module`, NO para `course` |
+| `LESSON_TYPE_PRIORITY` | guide=4, article=3, video=1 |
+| `errorsByArea` / `errorsByPlatform` | Mapas dinámicos; claves = valores de `riskArea`/`platform` de preguntas falladas |
+
+### riskAreas y plataformas del diagnóstico
+- **Plataformas** (7): Roblox, Minecraft, TikTok, Discord, Instagram, YouTube, Twitch
+- **riskAreas diagnóstico** (10): Seguridad de Cuenta, Privacidad Avanzada, Gasto Controlado, Uso digital, Privacidad, Manipulación, Control parental, Desinformación, Publicidad, Tiempo de pantalla, Monetización y publicidad, Salud Mental y Física
+
+### Cursos y módulos
+| Curso | Módulos |
+|---|---|
+| Videojuegos (Roblox + Minecraft) | 6 módulos |
+| Redes Sociales | 7 módulos |
+| Streaming (YouTube + Twitch) | 7 módulos |
+
+### Endpoints nuevos (esta sesión)
+| Método | Ruta | Descripción |
+|---|---|---|
+| GET | /api/quiz/my-recommendations | Última recomendación del usuario (con populate) |
+| GET | /api/content/latest-update | Última novedad publicada para tarjeta dinámica del dashboard |
+
+### DA Codes — tabla completa
+| ID | Decisión | Descripción corta |
+|---|---|---|
+| DA01 | Verificación por código 6 dígitos | Reemplaza enlace por correo |
+| DA02 | Resend API primario | SMTP Gmail tenía timeouts en Render |
+| DA03 | Cascada Gemini→Groq→estático | Gemini 2.0 deprecado, rate limits agresivos |
+| DA04 | Avatar como Base64 en MongoDB | Render destruye /uploads/ en redespliegue |
+| DA05 | Sharp compresión 200×200 70% | Imagen sin comprimir podría exceder 16 MB doc MongoDB |
+| DA06 | shuffleArray en backend | Frontend generaba IDs nuevos → evaluaciones incorrectas |
+| DA07 | minPassing = 80% default | Criterio de acreditación académica |
+| DA08 | 6 módulos Videojuegos, 7 Redes Sociales y Streaming | Redes sociales requería más profundidad |
+| DA09 | Rutas SPA en español | Público hispanohablante |
+| DA10 | ActivityLog idempotente uniqueKey | Previene duplicados por reintentos de red |
+| DA11 | Rate limit diferenciado prod/dev | 100/15min prod, 1000/1min dev |
+
+---
+
+## Errores encontrados y estado de corrección (revisión exhaustiva 2026-04-23)
+
+### ✅ TODOS LOS ERRORES CORREGIDOS EN EL DOCUMENTO
+
+| # | Sección | Error | Estado |
+|---|---|---|---|
+| C1 | §2.22 Glosario | "WT" → "JWT" | ✅ |
+| C2 | §4.8.5 g) Attempt | riskLevel inglés → español (Alto\|Medio\|Bajo) | ✅ |
+| C3 | §6.2.4 bono lecciones | case_study eliminado del bono | ✅ |
+| C4 | §4.5.4 DS-04 / §4.8.5 d) lessons | case_study como tipo de lección eliminado | ✅ |
+| C5 | §6.2.3 | DA05 y DA08 incorrectos → texto directo sin DA | ✅ |
+| C6 | §6.4 DA08 | "Streaming 6 módulos" → "Streaming 7 módulos" | ✅ |
+| C7 | §6.3.6 | RF13 → RF2 y RF12 | ✅ |
+| C7 | §6.3.8 | RF3+RF14 → RF1 | ✅ |
+| C7 | §6.3.3 | RF9(progreso)+RF10(certificado) → RF7+RF9 | ✅ |
+| C8 | §6.4 DA07 | RF7 → RF9 | ✅ |
+| M1 | §3.1 | Numeración duplicada 3.1.1/3.1.2 | ✅ |
+| M2 | §4.6.1 Sprint 5 | "US01–US15" → "US01–US18" | ✅ |
+| M3 | §6.3.3 | "tre s peticiones" → "tres peticiones" | ✅ |
+| M4 | §4.4 Matriz | CU1/CU2 → CU01/CU02 | ✅ |
+| m2 | §4.6.1 Backlog | "ciberacosos"/"riesgtos" corregidos | ✅ |
+| — | §4.8.5 d) lessons | Pipe sobrante `\|` al final de type eliminado | ✅ |
+| — | §4.8.5 j) recommendations | updatedAt agregado | ✅ |
+| — | §4.8.5 m) resources | fullContent raíz + lessons raíz + color agregados | ✅ |
+| — | §4.8.5 g) attempts | Ejemplos PRIVACIDAD/ROBLOX → Privacidad/Roblox | ✅ |
+| — | §1.3.2 | Marcador roto corregido | ✅ |
+| — | §4.6.1 US15 | "Gemini 2.0" → "Gemini 2.5 Flash" | ✅ |
+| — | §4.6.1 US13 | "token vía SMTP" → "código 6 dígitos" | ✅ |
+| — | RT10 §3.5 | "Render/Railway" → "Render" | ✅ |
+| — | §4.6.1 Backlog | "Render o Railway" → "Render" | ✅ |
+| — | §4.7 Sharp | "400×400" → "200×200 70%" | ✅ |
+| — | §4.11.2 | "mensajes sugeridos" eliminado | ✅ |
+| — | §4.8.7 | avatar 200×200 70%, lessons.type sin case_study | ✅ |
+| — | §4.8.4 | recommendations description actualizada | ✅ |
+| — | §6.2.4 | Tabla tipos 10 correctos, bono sin case_study | ✅ |
+| — | §6.2.4 | Bloque saveRecommendation/diversidad agregado | ✅ |
+| — | §6.2.3 | DA05/DA08 reemplazados por texto directo | ✅ |
+| — | §6.3.3 | "dos" → "tres peticiones" + tabla my-recommendations | ✅ |
+| — | §6.3.3 | Tarjeta lecciones recomendadas agregada | ✅ |
+| — | §6.3.4 | DA07 referencia incorrecta → texto directo | ✅ |
+| — | §6.3.8 | "6 caracteres" → "8 caracteres" | ✅ |
+| — | §6.2.9 | Párrafo normalización tilde agregado | ✅ |
+| — | §4.8 | Párrafo intro agregado | ✅ |
+| — | §6.4 | Tabla DA completa y correcta | ✅ |
+
+### ⚪ Pendientes menores (presentación)
+| # | Sección | Pendiente |
+|---|---|---|
+| m1 | Todo el doc | "Tabla X." / "Ilustración X" → asignar números reales |
+| m3 | Índice de figuras | Agregar entrada Ilustración 8b |
+
+---
+
+## Pendientes de redacción
+
+### 🔴 Capítulo 7 (FALTA COMPLETO)
+Ver checklist detallado más abajo.
+
+### 🟡 §6.5 Scripts de mantenimiento
+Scripts: seed.js, seed-target.js, backup_db.js, fix_activitylog_index.js, audit_orphans.js,
+clean_orphans.js, fix_attempts.js, fix_videos.js, remove_duplicate_streaming.js,
+delete_clone.js, migrate_users.js, restore_progress (v1-v3), sync_progress.js, clean_progress.js
+
+---
+
+## Checklist Capítulo 7: Pruebas
+
+### 7.1 Estrategia de pruebas
+- [ ] Enfoque mixto: Jest+Supertest+MongoMemoryServer (backend) + manuales (UI)
+- [ ] 3 suites automatizadas: auth, quiz, chatbot
+
+### 7.2 Pruebas unitarias e integración
+
+#### 7.2.1 Suite auth.test.js
+- [ ] Registro exitoso → 201, isVerified: false
+- [ ] Login bloqueado sin verificar → 401
+- [ ] Verificación exitosa → isVerified: true
+- [ ] ⚠️ Nota: test escrito con verificación por enlace (GET /:token) — actualizar a POST /verify con código en body
+
+#### 7.2.2 Suite quiz.test.js
+- [ ] errorsByArea y errorsByPlatform calculados correctamente
+- [ ] scope='course' → questionDetails vacío
+- [ ] Lecciones guiadas para diagnóstico (riskArea+platform)
+- [ ] Lecciones guiadas por módulo (campo teaches)
+
+#### 7.2.3 Suite chatbot.test.js
+- [ ] USE_MOCK_AI=true → fallback estático para "grooming", persiste Conversation+Message
+- [ ] 2 mensajes misma conversación → ≥2 registros en messages
+- [ ] "hola" → respuesta contiene "seguridad digital"
+
+### 7.3 Pruebas manuales (Postman + BD)
+- [ ] Flujo registro → verificación → login → ruta protegida
+- [ ] Flujo olvido contraseña → código → reset → login
+- [ ] Reporte con token: test-auth-report.js
+- [ ] Correo SMTP: test-email.js; Resend: test-sendEmail.js
+- [ ] Diagnóstico: test_api_logic.js, test_recent_activity.js
+- [ ] Integridad: check_lesson_count.js, check_integrity.js, check_progress_integrity.js
+
+### 7.4 Pruebas de seguridad
+- [ ] Campos requeridos, JWT en rutas protegidas → 401
+- [ ] Rate limiting → 429 en producción
+- [ ] CORS: origen no permitido → error
+- [ ] passHash nunca expuesto en respuestas JSON
+- [ ] Anonimización chatbot: emails → [EMAIL], teléfonos → [TLF]
+
+### 7.5 Pruebas de rendimiento
+- [ ] Chatbot: Gemini <1.5s, Groq ~0.8s, estático <50ms
+- [ ] Cursos con populate: <400ms (Atlas)
+- [ ] PDF certificado: <200ms (client-side jsPDF)
+- [ ] Avatar con Sharp: <200ms vs ~1.5s sin compresión
+
+### 7.6 Pruebas de usabilidad
+- [ ] Escritorio: Chrome, Firefox; Móvil: iOS Safari, Android Chrome
+- [ ] Responsive Tailwind sm/md/lg
+- [ ] Bug B08 chatbot laptop 13" (commit 83288fe)
+- [ ] Bug B10 touch crop iOS (commit 31395bd)
+
+### 7.7 Resultados automatizados
+- [ ] Tabla: suite / casos / pasados / fallidos
+- [ ] Captura de jest --coverage
+- [ ] Métricas de cobertura por módulo
+
+### 7.8 Tabla de incidencias documentadas (12 bugs)
+- [ ] B01 SMTP timeout → Resend (6ebbafe, 190491b)
+- [ ] B02 Avatar perdido en Render → Base64 (4da73b2)
+- [ ] B03 Quiz IDs inválidos tras shuffle → shuffle solo en presentación (449177d)
+- [ ] B04 Curso Streaming duplicado → remove_duplicate_streaming.js
+- [ ] B05 Progreso perdido tras re-seed → restore_progress v1/v2/v3
+- [ ] B06 Error 11000 ActivityLog → fix_activitylog_index.js
+- [ ] B07 Pantalla blanca ForgotPassword → try/catch granular (1e50a6a)
+- [ ] B08 Chatbot desbordaba laptop 13" → max-h viewport (83288fe)
+- [ ] B09 fill_blanks sensible a mayúsculas → toLowerCase()+trim()
+- [ ] B10 Avatar Base64 roto en frontend → avatarUrl.js (22204fd)
+- [ ] B11 SPA 404 en Netlify → _redirects + netlify.toml (db6b970)
+- [ ] B12 Intentos huérfanos → fix_attempts.js
+
+---
+
+## Diagramas PlantUML
+
+### Diagrama de clases (actualizado 2026-04-23)
+- `case_study` eliminado de `Lesson.type` en el diagrama
+- `minPassing default 80` (no 70)
+- `riskLevel: Alto | Medio | Bajo`
+- `CaseReport` sin `updatedAt`
+- `Recommendation` con relaciones reales a `Attempt`, `Lesson`, `Module`
+- Estilo dos tonos `#header/body` con `roundcorner 8`
+
+**Paleta de colores del diagrama:**
+| Dominio | Header/Body |
+|---|---|
+| Usuario | `#FB8C00/FFF3E0` |
+| Contenido educativo | `#1976D2/E3F2FD` |
+| Evaluación | `#7B1FA2/F3E5F5` |
+| Progreso/Acreditación/Recomendación | `#388E3C/E8F5E9` |
+| Actividad | `#303F9F/E8EAF6` |
+| Chatbot | `#00796B/E0F2F1` |
+| Reportes/Recursos | `#C62828/FFEBEE` |
+
+### Diagramas de arquitectura y flujo (generados en sesiones anteriores)
+1. Il. 3 — Arquitectura 3 capas backend ✅
+2. Il. 4 — Despliegue ✅
+3. Il. 5 — DFD Nivel 0 ✅
+4. Il. 6 — DFD Nivel 1 ✅
+5. Il. 7 — DFD Nivel 2 P2 ✅
+6. Il. X — DFD Nivel 2 P3 ✅ (pendiente número)
+7. Il. X — DFD Nivel 2 P5 ✅ (pendiente número)
+8. Il. 8a — CU Padre/Tutor ✅
+9. Il. 8b — CU Administrador ✅
+10. Il. 9 — DS-01 Autenticación ✅
+11. Il. 10 — DS-02 Chatbot ✅
+12. Il. 11 — DS-03 Contenido Educativo ✅
+13. Il. 12 — DS-04 Acreditación ✅
+14. Il. nueva — DS-05 Reportes ✅
+15. Il. nueva — DS-06 Orquestación IA ✅
+
+---
+
+## Endpoints completos del sistema
+
+| Método | Ruta | Descripción |
+|---|---|---|
+| POST | /api/auth/register | Crea usuario, envía código 6 dígitos |
+| POST | /api/auth/verify | Verifica con { email, code } |
+| POST | /api/auth/resend-verification | Reenvía código |
+| POST | /api/auth/login | JWT 30 días |
+| POST | /api/auth/forgot-password | Código SHA-256, expira 10 min |
+| POST | /api/auth/reset-with-code | { email, code, newPassword } |
+| PUT | /api/auth/update-profile | Sharp→Base64, nombre |
+| GET | /api/auth/profile | Datos del usuario autenticado |
+| PUT | /api/auth/update-password | Cambio contraseña (mín. 8 chars) |
+| GET | /api/content/courses | Cursos publicados |
+| GET | /api/content/courses/:id | Curso + módulos + quizIds |
+| GET | /api/content/lessons/:id | Lección individual |
+| GET | /api/content/stats | Conteo cursos/lecciones/casos |
+| POST | /api/progress/lesson/:id/complete | Marca lección + ActivityLog |
+| GET | /api/progress/course/:id | Progreso por curso |
+| GET | /api/progress/summary/all | Dashboard resumen global |
+| GET | /api/progress/next-step | Siguiente lección/quiz pendiente |
+| GET | /api/quiz/diagnostic | Quiz diagnóstico |
+| GET | /api/quiz/recommendations/:attemptId | Áreas/plataformas a repasar (pantalla inmediata) |
+| GET | /api/quiz/my-recommendations | Última recomendación persistida del usuario |
+| GET | /api/quiz/:id | Quiz por ID |
+| POST | /api/quiz/:id/submit | Califica, Attempt, ActivityLog, Accreditation |
+| POST | /api/chatbot/message | Gemini→Groq→estático, persiste conversación |
+| POST | /api/reports/submit | Rate limit 3/hora + cooldown 10 min |
+| GET | /api/resources | Recursos paginados (type=guide\|case, limit=9) |
+| GET | /api/resources/:slug | Detalle por slug |
+
+---
+
+## Cambios al CÓDIGO realizados en sesión 2026-04-28
+
+### 1. Exámenes de módulo — curso Redes Sociales (M1–M7): reescritos completamente
+- Todas las preguntas reescritas desde cero basadas en el contenido real de las lecciones de cada módulo.
+- Eliminada ambigüedad en `match_columns` (pares 1:1 claros, sin opciones compartidas).
+- `multiple_selection`: reducido a 3 correctas de 5 opciones (antes hasta 6/9).
+- `categorize`: balanceado a 3+3+3 o 2+3+2 (antes hasta 4+4+1).
+- Ejecutado `npm run seed:social`.
+
+### 2. Exámenes de módulo — curso Streaming (M1–M7): corregidos
+- Q5 (`multiple_selection`): 6/9 → 3/5 en todos los módulos.
+- Q7 (`categorize`): rebalanceado en M4, M5, M6.
+- Ejecutado `npm run seed:streaming`.
+
+### 3. Exámenes de módulo — curso Videojuegos (M1–M6): corregidos estructuralmente
+- M1 Q5: 6/8 → 3/6 correctas.
+- M1 Q7: Roblox(2)/Minecraft(2)/Ambos(4) → 3+3+3.
+- M2 Q5: 6/8 → 3/6 correctas.
+- M2 Q7: Prevención(4)/Supervisión(2)/Respuesta(2) → 3+3+3.
+- M4 Q5: 6/8 → 3/6 correctas.
+- M5 Q5: 5/8 → 3/6 correctas.
+- M5 Q7: Oficial(4)/Sospechoso(3)/Requiere(1) → 3+3+3.
+- M6 Q5: 5/8 → 3/6 correctas.
+- Ejecutado `npm run seed:games`.
+
+### 4. Exámenes finales — corrección de `multiple_selection` con demasiadas respuestas correctas
+- **Social final exam**: 2 preguntas con 6/9 correctas → reducidas a 3/6 cada una.
+- **Streaming final exam**: 2 preguntas con 5/8 y 6/9 correctas → reducidas a 3/6 cada una.
+- Ejecutados `npm run seed:social` y `npm run seed:streaming`.
+
+### Regla aplicada consistentemente en los 3 cursos
+| Tipo | Regla |
+|---|---|
+| `multiple_selection` | Máximo 3–4 correctas de 5–6 opciones totales |
+| `categorize` | Balance 3+3+3 o al menos 2+3+2 por categoría |
+| Contenido | Cada pregunta basada en lecciones del módulo donde aparece |
+
+---
+
+## Cambios al CÓDIGO realizados en sesión 2026-04-28 (continuación)
+
+### 5. Corrección de ambigüedad en match_columns y categorize — 3 cursos
+
+**Problema raíz:** preguntas con plataformas como categorías usaban descripciones de comportamiento que podían aplicar a múltiples plataformas (ej. "el perfil puede ser visto por seguidores" aplica tanto a TikTok como a Instagram).
+
+**Regla aplicada:** cada item debe referenciar un **elemento nombrado exclusivo** de su plataforma (nombre de herramienta, sección o función específica).
+
+| Módulo | Item ambiguo eliminado | Reemplazado por |
+|---|---|---|
+| Social M1 Q3 | "El perfil... puede ser visto por seguidores" | "fotos y **Reels** en la **cuadrícula** permanente" (Instagram) |
+| Social M1 Q7 | "Las Historias desaparecen a las 24h" | "fotos y Reels en la cuadrícula permanente del perfil" |
+| Social M1 Q7 | "El feed muestra contenido sin seguir a nadie" | "**For You Page** se reproduce aunque no sigas a nadie" (TikTok) |
+| Social M1 Q7 | "El perfil tiene conteo de seguidores" | "sección **Explorar** muestra cuentas que el menor no sigue" (Instagram) |
+| Social M3 Q3 | "Deja de publicar por comentarios negativos en feed" | "desactiva comentarios de videos en el **For You Page**" (TikTok) |
+| Social M3 Q3 | "Cuenta falsa para hacerse pasar" | "**solicitudes de seguimiento** a sus contactos" (Instagram) |
+| Social M4 Q3 | "Seguidor comenta videos e intenta conversación" | "videos del **For You Page** e intenta abrir chat" (TikTok) |
+| Social M4 Q3 | "Cuenta desconocida responde historias" | "bandeja de **Direct** del menor" (Instagram) |
+| Social M5 Q3 | "Feed lleva a contenido perturbador por autoplay" | "**For You Page** lleva a contenido inapropiado" (TikTok) |
+| Social M5 Q3 | "Envía archivos por mensaje directo" | "**canal de texto privado** del servidor" (Discord) |
+| Social M7 Q3 | "Teen Accounts con privacidad reforzada" (→ Instagram) | "**Sincronización familiar** vincula cuenta del padre" (Instagram) |
+| Social M7 Q3 | "Cuenta privada y control de contenido sensible" | "publicaciones y **Reels** solo visibles para seguidores aprobados" |
+| Games M1 Q3 | "Puede jugarse en solitario o en línea" (ambos) | "en **Realms** privados o en servidores públicos" (Minecraft) |
+
+**Streaming y Games:** No se encontraron ambigüedades adicionales. Streaming M1 match_columns (YouTube vs Twitch) usa características inequívocas (grabado vs en vivo). Games usa herramientas nombradas (Robux, Minecoins, Family Safety, etc.).
+
+Ejecutados `npm run seed:social` y `npm run seed:games`.
+
+---
+
+## Cambios al CÓDIGO realizados en sesión 2026-04-29
+
+### 1. Auditoría final de exámenes por alcance de módulo/curso
+- **Redes Sociales:** revisado que cada examen de módulo solo pregunte contenido visto dentro de su módulo.
+  - Corrección puntual en M7: Teen Accounts corresponde a Instagram; Sincronización familiar no se asigna a Instagram.
+  - Ejecutado `npm run seed:social`.
+- **Streaming:** revisado que los exámenes de módulo estén acotados al módulo y que el final integre todo el curso.
+  - Corrección puntual en M3 Q5: explicación ajustada para coincidir con la opción correcta sobre autoplay, historial/recomendaciones y regla de avisar.
+  - Ejecutado `npm run seed:streaming`.
+- **Videojuegos:** revisados M1-M6 y examen final.
+  - M1: `Mi información viaja de forma segura por Internet` → `Mi información viaja por Internet`.
+  - M3: `Realms son privados y seguros` → `Realms son privados y más controlados`.
+  - Confirmado que el examen final cubre los 6 módulos del curso.
+  - Ejecutado `npm run seed:games`.
+
+### 2. Recomendaciones por preguntas falladas — lógica reforzada
+- **`server/src/services/quizService.js`**:
+  - Las recomendaciones post-examen ahora se calculan desde las preguntas falladas concretas, no desde todo el módulo ni desde áreas/plataformas agregadas de forma amplia.
+  - Se agregó reconstrucción de detalles del intento para identificar respuestas incorrectas reales.
+  - `saveRecommendation()` ahora recibe `questionDetails` y selecciona lecciones relacionadas con esas preguntas.
+  - `getAttemptRecommendations()` usa el mismo criterio por preguntas falladas.
+  - Las preguntas correctas ya no cargan `guidedLessons`.
+- **Regla de limpieza:** si el usuario vuelve a presentar el mismo quiz y lo acredita, se eliminan las recomendaciones pendientes asociadas a intentos anteriores de ese quiz.
+- **Examen final de curso (`scope: course`)** sigue sin generar recomendaciones ni desglose por pregunta.
+
+### 3. Guía de aprendizaje en examen resuelto — solo lecciones correspondientes
+- **Problema detectado:** en la pantalla de examen resuelto, la sección "Guía de aprendizaje" podía mostrar lecciones de más porque:
+  - buscaba por `courseId` antes que por `moduleId`;
+  - usaba un fallback que rellenaba con lecciones del módulo;
+  - plataformas como TikTok/Discord/Instagram contaban como coincidencias demasiado amplias.
+- **Correcciones en `quizService.js`:**
+  - Para quizzes de módulo, la consulta prioriza `moduleId`, no `courseId`.
+  - Se eliminó el fallback de "rellenar" con lecciones del módulo.
+  - Plataformas (`roblox`, `minecraft`, `tiktok`, `discord`, `instagram`, `youtube`, `twitch`) ya no cuentan como coincidencia temática suficiente.
+  - Se muestran solo las lecciones mejor puntuadas por coincidencia real; si una pregunta requiere varias lecciones y empatan como mejor coincidencia, pueden salir varias.
+
+### 4. Dashboard — recomendaciones pendientes y novedad dinámica
+- **Recomendaciones del dashboard:**
+  - `/api/quiz/my-recommendations` sigue devolviendo la recomendación más reciente pendiente del usuario.
+  - Al aprobar el mismo quiz que originó una recomendación, esta deja de aparecer porque se eliminan recomendaciones asociadas a intentos anteriores de ese quiz.
+- **Novedad dinámica en perfil/dashboard:**
+  - **`server/src/routes/content.routes.js`** agregó `GET /api/content/latest-update`.
+  - El endpoint compara lo más reciente entre:
+    - `Lesson` tipo `article` o `guide`;
+    - `Resource` tipo `case` o `guide` publicado.
+  - Devuelve `label`, `title`, `description`, `href`, `createdAt`, `updatedAt`.
+  - **`client/src/pages/Dashboard.jsx`** ahora consume `/api/content/latest-update` y la tarjeta "Novedad" muestra contenido real y clickeable:
+    - Nuevo artículo → `/lecciones/:id`
+    - Nueva guía de lección → `/lecciones/:id`
+    - Nuevo caso real → `/casos/:slug`
+    - Nueva guía práctica → `/casos-y-guias?seccion=guias`
+
+### 5. Pruebas y validaciones ejecutadas
+- `npx.cmd jest src/tests/quiz.test.js --runInBand`
+  - Resultado final: **9 tests passed**.
+  - Cobertura agregada para:
+    - recomendaciones diagnósticas desde la pregunta fallada exacta;
+    - persistencia de recomendaciones del dashboard desde preguntas falladas;
+    - limpieza al aprobar posteriormente el mismo quiz;
+    - guía de aprendizaje sin lecciones ajenas al módulo;
+    - no rellenar guía con lecciones no relacionadas.
+- `npm.cmd run build` en `client`
+  - Resultado: compilación exitosa.
+  - Advertencia existente: chunks mayores a 500 kB en Vite; no bloquea.
+
+---
+
+## Archivos relevantes del repositorio
+
+```
+TT_Academia/
+├── Reporte_Tecnico.docx             ← versión editable (actualizada 2026-04-23)
+├── RUTA_CAPITULOS_6_7.md            ← plan detallado Caps 6-7
+├── CONTEXTO_SESION.md               ← este archivo
+├── client/src/
+│   ├── pages/
+│   │   ├── Dashboard.jsx            ← 4 fetches paralelos, recomendaciones + novedad dinámica
+│   │   ├── Profile.jsx              ← validación contraseña mín. 8 chars
+│   │   ├── LessonView.jsx           ← renderer Markdown, YouTube iframe
+│   │   ├── CourseDetail.jsx         ← scroll-to-lesson, admin bypass
+│   │   ├── QuizTaker.jsx            ← 10 tipos de pregunta
+│   │   ├── RealCases.jsx            ← paginación incremental, tabs por URL
+│   │   └── CaseDetail.jsx           ← timeline, tips, layout 4/8
+│   ├── components/
+│   │   └── Chatbot.jsx              ← height calc(100vh-8.25rem), kuxibot:toggle
+│   ├── context/
+│   │   └── AuthContext.jsx          ← JWT localStorage, GET /profile en mount
+│   └── utils/
+│       └── lessonType.js            ← getLessonTypeLabel, getLessonDisplayTitle
+└── server/src/
+    ├── routes/
+    │   ├── auth.routes.js           ← 9 endpoints, rate limit auth 10/15min
+    │   ├── quiz.routes.js           ← incluye GET /my-recommendations
+    │   ├── progress.routes.js
+    │   ├── chatbot.routes.js
+    │   ├── report.routes.js
+    │   ├── resource.routes.js
+    │   └── content.routes.js        ← incluye GET /latest-update
+    ├── models/
+    │   ├── Lesson.js                ← type: ['article','video','guide'] (sin case_study)
+    │   ├── Question.js              ← type: 10 valores (case_study SÍ aquí)
+    │   ├── Attempt.js               ← riskLevel: Alto|Medio|Bajo
+    │   ├── Recommendation.js        ← userId, sourceAttemptId, suggestedLessons, suggestedModules
+    │   └── CaseReport.js            ← sin timestamps (solo createdAt manual)
+    ├── services/
+    │   ├── quizService.js           ← recomendaciones por preguntas falladas, limpieza al aprobar quiz
+    │   └── progressService.js
+    └── scripts/seed/
+        ├── courses/social/catalog.js    ← M1–M7 reescritos + examen final corregido
+        ├── courses/streaming/catalog.js ← M1–M7 Q5/Q7 corregidos + examen final corregido
+        ├── courses/games/module1.js     ← Q5(3/6), Q7(3+3+3)
+        ├── courses/games/module2.js     ← Q5(3/6), Q7(3+3+3)
+        ├── courses/games/module4.js     ← Q5(3/6)
+        ├── courses/games/module5.js     ← Q5(3/6), Q7(3+3+3)
+        ├── courses/games/module6.js     ← Q5(3/6), 'Salud Mental y Física' corregido
+        └── courses/games/finalQuiz.js   ← ídem tilde
+```

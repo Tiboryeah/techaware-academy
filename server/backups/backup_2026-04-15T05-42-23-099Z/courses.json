@@ -1,0 +1,77 @@
+[
+  {
+    "_id": "695993ca3cb2af054489eebc",
+    "title": "Redes Sociales: TikTok, Discord e Instagram",
+    "description": "Curso práctico para entender cómo usan TikTok, Discord e Instagram los menores, reconocer riesgos reales y acompañarlos con más criterio, seguridad y confianza.",
+    "category": "Redes Sociales",
+    "platforms": [
+      "TikTok",
+      "Discord",
+      "Instagram"
+    ],
+    "riskAreas": [
+      "Privacidad y huella digital",
+      "Ciberacoso y presión social",
+      "Grooming y manipulación",
+      "Contenido viral y consumo"
+    ],
+    "status": "published",
+    "createdAt": "2026-01-03T22:10:18.429Z",
+    "updatedAt": "2026-04-15T03:29:19.334Z",
+    "__v": 4,
+    "totalDuration": 0,
+    "order": 2,
+    "finalQuizId": null,
+    "duration": "2 h 20 min"
+  },
+  {
+    "_id": "6959a7da7d94363881f624a1",
+    "title": "Plataformas de Streaming: YouTube y Twitch",
+    "description": "Curso práctico para entender YouTube y Twitch, revisar riesgos, acompañar el consumo infantil y convertir estas plataformas en herramientas más seguras y útiles.",
+    "category": "Streaming",
+    "platforms": [
+      "YouTube",
+      "Twitch"
+    ],
+    "riskAreas": [
+      "Consumo infantil",
+      "Impacto del contenido",
+      "Riesgos en streaming",
+      "Monetización y publicidad",
+      "Tiempo de pantalla",
+      "Control parental",
+      "Educación digital"
+    ],
+    "status": "published",
+    "createdAt": "2026-01-03T23:35:54.691Z",
+    "updatedAt": "2026-04-15T03:49:27.857Z",
+    "__v": 3,
+    "totalDuration": 0,
+    "order": 3,
+    "duration": "7 módulos",
+    "finalQuizId": "69df0ac60bc3938254939937"
+  },
+  {
+    "_id": "69d59bce5a0067bd466f7e9a",
+    "title": "Videojuegos en Línea: Roblox y Minecraft",
+    "description": "Curso práctico para acompañar el uso de Roblox y Minecraft, revisando cuentas, chat, compras y bienestar digital.",
+    "category": "Videojuegos",
+    "platforms": [
+      "Roblox",
+      "Minecraft"
+    ],
+    "riskAreas": [
+      "Seguridad de Cuenta",
+      "Privacidad Avanzada",
+      "Gasto Controlado",
+      "Salud Mental y Física"
+    ],
+    "status": "published",
+    "duration": "3 horas",
+    "createdAt": "2026-04-08T00:05:34.116Z",
+    "updatedAt": "2026-04-15T03:49:06.750Z",
+    "__v": 0,
+    "order": 1,
+    "finalQuizId": "69df0ab10bc39382549396e8"
+  }
+]

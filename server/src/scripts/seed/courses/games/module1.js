@@ -239,7 +239,7 @@ Este video convierte el módulo en una lista visual de revisión inicial para qu
                     'Plataforma con múltiples experiencias creadas dentro del ecosistema',
                     'Juego sandbox con modos como Creativo y Supervivencia',
                     'Puede cambiar mucho según la experiencia específica',
-                    'Puede jugarse en solitario o en línea',
+                    'Puede jugarse en solitario, en Realms privados o en servidores públicos',
                     'Suele requerir revisar experiencia, interacción social y gasto',
                     'Suele requerir revisar edición, multijugador y tipo de mundo'
                 ],
@@ -251,7 +251,7 @@ Este video convierte el módulo en una lista visual de revisión inicial para qu
                     ],
                     'Minecraft': [
                         'Juego sandbox con modos como Creativo y Supervivencia',
-                        'Puede jugarse en solitario o en línea',
+                        'Puede jugarse en solitario, en Realms privados o en servidores públicos',
                         'Suele requerir revisar edición, multijugador y tipo de mundo'
                     ]
                 }
@@ -266,14 +266,14 @@ Este video convierte el módulo en una lista visual de revisión inicial para qu
                 items: [
                     'Enciendo mi dispositivo local (consola, PC o móvil).',
                     'Inicio sesión con mi cuenta personal de usuario.',
-                    'Mi información viaja de forma segura por Internet.',
+                    'Mi información viaja por Internet.',
                     'El servidor central del juego recibe mis datos.',
                     'Mi personaje aparece junto a otros jugadores en línea.'
                 ],
                 correctAnswer: [
                     'Enciendo mi dispositivo local (consola, PC o móvil).',
                     'Inicio sesión con mi cuenta personal de usuario.',
-                    'Mi información viaja de forma segura por Internet.',
+                    'Mi información viaja por Internet.',
                     'El servidor central del juego recibe mis datos.',
                     'Mi personaje aparece junto a otros jugadores en línea.'
                 ]
@@ -285,14 +285,12 @@ Este video convierte el módulo en una lista visual de revisión inicial para qu
             text: 'Selecciona todas las opciones que una familia debería revisar antes de permitir el uso de un videojuego en línea.',
             type: 'multiple_selection',
             options: [
-                { text: 'Si permite chat de texto o voz', isCorrect: true },
-                { text: 'Si tiene compras dentro del juego', isCorrect: true },
-                { text: 'Si necesita crear cuenta', isCorrect: true },
-                { text: 'Si se puede jugar con otras personas', isCorrect: true },
-                { text: 'Si tiene controles parentales', isCorrect: true },
-                { text: 'Si permite interacción con desconocidos', isCorrect: true },
+                { text: 'Si permite chatear con desconocidos', isCorrect: true },
+                { text: 'Si requiere crear una cuenta propia', isCorrect: true },
+                { text: 'Si tiene controles parentales disponibles', isCorrect: true },
                 { text: 'Si el color principal del juego le gusta al menor', isCorrect: false },
-                { text: 'Si el avatar se puede cambiar de ropa', isCorrect: false }
+                { text: 'Si el avatar puede usar accesorios especiales', isCorrect: false },
+                { text: 'Si el sonido del menú principal es agradable', isCorrect: false }
             ],
             explanation: 'Tip: Antes de autorizar conviene revisar comunicación, gasto, cuenta, multijugador y controles parentales.',
             points: 10

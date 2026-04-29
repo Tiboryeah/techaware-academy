@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx --yes pdf-parse --version)",
+      "Bash(node -e ' *)",
+      "Bash(curl -s -X POST http://localhost:5000/api/auth/login -H 'Content-Type: application/json' -d '{\"email\":\"bleakc1@gmail.com\",\"password\":\"test\"}')",
+      "Bash(curl -s -X POST http://localhost:5000/api/auth/login -H 'Content-Type: application/json' -d '{\"email\":\"contacto.techawarekids@gmail.com\",\"password\":\"test\"}')",
+      "Bash(curl -s -X POST http://localhost:5000/api/auth/login -H 'Content-Type: application/json' -d '{\"email\":\"tiboryeahrock@gmail.com\",\"password\":\"12345678\"}')"
+    ]
+  }
+}

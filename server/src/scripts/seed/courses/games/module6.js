@@ -595,13 +595,11 @@ Este video muestra cómo convertir las reglas del módulo en un acuerdo visible,
             type: 'multiple_selection',
             options: [
                 { text: 'Se irrita mucho cuando no puede jugar', isCorrect: true },
-                { text: 'El juego afecta sueño o ejercicio', isCorrect: true },
-                { text: 'Habla del juego, pero también sigue con otras actividades', isCorrect: false },
-                { text: 'Bajan sus calificaciones o evita tareas', isCorrect: true },
-                { text: 'Dejó de interesarse por familia, hobbies o deporte', isCorrect: true },
-                { text: 'Duerme lo suficiente para su edad', isCorrect: false },
+                { text: 'El juego afecta el sueño o el ejercicio del menor', isCorrect: true },
                 { text: 'El juego se vuelve su único tema de conversación', isCorrect: true },
-                { text: 'Juega a veces con un adulto y conversa sobre ello', isCorrect: false }
+                { text: 'Cumple con las tareas escolares antes de jugar', isCorrect: false },
+                { text: 'Participa en actividades familiares aunque también juega', isCorrect: false },
+                { text: 'Duerme lo suficiente para su edad', isCorrect: false }
             ],
             explanation: 'Tip: Irritabilidad, desplazamiento del sueño, malas notas, abandono de intereses y obsesión temática son señales que conviene revisar.',
             points: 15

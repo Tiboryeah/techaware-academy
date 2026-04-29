@@ -31,21 +31,24 @@ const Dashboard = () => {
     const [progressData, setProgressData] = useState(null);
     const [courses, setCourses] = useState([]);
     const [recommendations, setRecommendations] = useState(null);
+    const [latestUpdate, setLatestUpdate] = useState(null);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     const fetchData = async () => {
         try {
             const timestamp = Date.now();
-            const [progressRes, coursesRes, recRes] = await Promise.all([
+            const [progressRes, coursesRes, recRes, latestRes] = await Promise.all([
                 api.get(`/api/progress/summary/all?t=${timestamp}`),
                 api.get(`/api/content/courses?t=${timestamp}`),
                 api.get('/api/quiz/my-recommendations').catch(() => ({ data: null })),
+                api.get(`/api/content/latest-update?t=${timestamp}`).catch(() => ({ data: null })),
             ]);
             console.log("[Dashboard] Summary Data:", progressRes.data);
             setProgressData(progressRes.data);
             setCourses(coursesRes.data);
             setRecommendations(recRes.data);
+            setLatestUpdate(latestRes.data);
         } catch (error) {
             console.error("Error fetching dashboard data:", error);
         } finally {
@@ -265,6 +268,7 @@ const Dashboard = () => {
     const rank = getRank(protectionIndex);
 
     const timeAgo = (date) => {
+        if (!date) return 'Reciente';
         const seconds = Math.floor((new Date() - new Date(date)) / 1000);
         if (seconds < 60) return 'Hace un momento';
         const minutes = Math.floor(seconds / 60);
@@ -274,6 +278,11 @@ const Dashboard = () => {
         }
         return new Date(date).toLocaleDateString([], { day: '2-digit', month: 'short' });
     };
+
+    const newsLabel = latestUpdate?.label || 'Novedad';
+    const newsTitle = latestUpdate?.title || 'Contenido actualizado';
+    const newsDescription = latestUpdate?.description || 'Explora el material más reciente agregado a Kuxipilli.';
+    const newsDate = latestUpdate?.updatedAt || latestUpdate?.createdAt;
 
     const getActivityConfig = (activity) => {
         switch (activity?.kind) {
@@ -388,10 +397,12 @@ const Dashboard = () => {
                     <div className="lg:col-span-8 space-y-5 sm:space-y-8">
 
                         {/* News Banner */}
-                        <motion.div
+                        <motion.button
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="relative group bg-white dark:bg-[#161b22] rounded-[1.5rem] sm:rounded-[2rem] p-5 sm:p-8 border border-gray-100 dark:border-gray-800 overflow-hidden shadow-xl dark:shadow-2xl transition-all duration-500"
+                            onClick={() => latestUpdate?.href && navigate(latestUpdate.href)}
+                            disabled={!latestUpdate?.href}
+                            className="relative group w-full text-left bg-white dark:bg-[#161b22] rounded-[1.5rem] sm:rounded-[2rem] p-5 sm:p-8 border border-gray-100 dark:border-gray-800 overflow-hidden shadow-xl dark:shadow-2xl transition-all duration-500 disabled:cursor-default enabled:hover:border-indigo-300 dark:enabled:hover:border-indigo-500/40"
                         >
                             <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 opacity-0 dark:opacity-100 transition-opacity duration-500" />
                             <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/5 dark:bg-white/5 blur-3xl -mr-16 -mt-16 group-hover:bg-indigo-500/10 dark:group-hover:bg-white/10 transition-all duration-500" />
@@ -401,16 +412,16 @@ const Dashboard = () => {
                                 </div>
                                 <div className="space-y-2">
                                     <div className="flex items-center gap-2">
-                                        <span className="px-2 py-0.5 bg-indigo-500 text-[10px] font-black uppercase tracking-widest text-white rounded-md">Novedad</span>
-                                        <span className="text-xs text-indigo-600 dark:text-indigo-400 font-bold">Hace 2 horas</span>
+                                        <span className="px-2 py-0.5 bg-indigo-500 text-[10px] font-black uppercase tracking-widest text-white rounded-md">{newsLabel}</span>
+                                        <span className="text-xs text-indigo-600 dark:text-indigo-400 font-bold">{timeAgo(newsDate)}</span>
                                     </div>
-                                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">¡Nuevo módulo de seguridad!</h3>
+                                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">{newsTitle}</h3>
                                     <p className="text-gray-600 dark:text-gray-400 text-sm italic leading-relaxed">
-                                        Hemos añadido la lección sobre <strong className="text-indigo-600 dark:text-indigo-300">"Sincronización Familiar en Roblox"</strong>. Aprende a gestionar la cuenta de tus hijos desde tu propio dispositivo.
+                                        {newsDescription}
                                     </p>
                                 </div>
                             </div>
-                        </motion.div>
+                        </motion.button>
 
                         {/* Diagnostic CTA - HIDDEN if completed */}
                         {!hasDiag && (

@@ -336,14 +336,12 @@ Este video muestra la respuesta práctica que una familia puede aplicar cuando a
                 options: [
                     { text: 'Madurez de contenido', isCorrect: true },
                     { text: 'Experience chat o comunicación', isCorrect: true },
-                    { text: 'Tiempo en pantalla', isCorrect: true },
                     { text: 'Límite mensual de gasto', isCorrect: true },
-                    { text: 'Servidores privados o Party', isCorrect: true },
-                    { text: 'Conexiones del menor', isCorrect: true },
-                    { text: 'Color del avatar', isCorrect: false },
-                    { text: 'Marca del dispositivo', isCorrect: false }
+                    { text: 'Color del avatar del menor', isCorrect: false },
+                    { text: 'Marca del dispositivo donde se juega', isCorrect: false },
+                    { text: 'Nombre del primer juego que abrió el menor', isCorrect: false }
                 ],
-                explanation: 'Tip: Los 6 pilares de seguridad en Roblox son: Contenido, Chat, Tiempo, Gasto, Privacidad de servidor y Amigos.',
+                explanation: 'Tip: Lo más crítico al configurar Roblox es revisar el contenido, el chat y el límite de gasto. El avatar, el dispositivo y el historial no son controles de seguridad.',
                 points: 15,
                 platform: 'Roblox'
             },
@@ -375,33 +373,35 @@ Este video muestra la respuesta práctica que una familia puede aplicar cuando a
                 metadata: {
                     items: [
                         'Poner límite mensual de gasto',
-                        'Revisar promedio semanal de uso',
-                        'Bloquear un usuario',
                         'Ajustar madurez de contenido',
-                        'Reportar una experiencia',
+                        'Fijar screen time diario',
+                        'Revisar promedio semanal de uso',
                         'Ver conexiones del menor',
-                        'Limitar Party o servidores privados',
-                        'Fijar screen time diario'
+                        'Revisar listado de experiencias más usadas',
+                        'Bloquear un usuario',
+                        'Reportar una experiencia',
+                        'Ajustar privacidad de Party tras un incidente'
                     ],
                     categories: ['Prevención', 'Supervisión', 'Respuesta'],
                     correctAnswer: {
                         'Prevención': [
                             'Poner límite mensual de gasto',
                             'Ajustar madurez de contenido',
-                            'Limitar Party o servidores privados',
                             'Fijar screen time diario'
                         ],
                         'Supervisión': [
                             'Revisar promedio semanal de uso',
-                            'Ver conexiones del menor'
+                            'Ver conexiones del menor',
+                            'Revisar listado de experiencias más usadas'
                         ],
                         'Respuesta': [
                             'Bloquear un usuario',
-                            'Reportar una experiencia'
+                            'Reportar una experiencia',
+                            'Ajustar privacidad de Party tras un incidente'
                         ]
                     }
                 },
-                explanation: 'Tip: Prevención es antes de jugar. Supervisión es durante el proceso. Respuesta es tras un incidente.',
+                explanation: 'Tip: Prevención es configurar antes. Supervisión es revisar durante. Respuesta es actuar tras un problema.',
                 points: 10,
                 platform: 'Roblox'
             },
