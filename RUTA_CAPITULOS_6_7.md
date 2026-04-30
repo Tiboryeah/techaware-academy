@@ -46,6 +46,7 @@
 - [x] GET /api/content/lessons/:id: lección individual
 - [x] Estructura de cursos: 3 cursos × hasta 7 módulos cada uno
 - [x] Decisión de diseño: `courseId` denormalizado en Lesson para consultas directas
+- [!] AGREGAR: GET /api/content/latest-update — endpoint de novedad dinámica para el dashboard
 
 #### 6.2.4 Motor de evaluación (`quiz.routes.js` + `quizService.js`)
 - [x] GET /api/quiz/:id: obtener quiz con preguntas mezcladas (shuffleArray en backend)
@@ -82,6 +83,7 @@
 - [x] Comandos npm: seed, seed:games, seed:social, seed:streaming, seed:diagnostic, seed:content
 - [x] Proceso idempotente con helpers getOrCreate por campo natural
 - [x] getOrCreateQuiz elimina y recrea preguntas en cada sync
+- [!] AGREGAR: correcciones de calidad de exámenes (multiple_selection, categorize, match_columns), mini glosarios, imágenes en artículos Redes Sociales
 
 ---
 
@@ -95,9 +97,11 @@
 
 #### 6.3.3 Dashboard (Panel personal)
 - [x] Saludo personalizado, tarjetas de resumen, feed de actividad, medidor SVG animado, PDF jsPDF
+- [!] ACTUALIZAR: certificado ahora usa html2canvas+jsPDF; agregar tarjeta novedad dinámica y 4 fetches paralelos
 
 #### 6.3.4 Visor de cursos y lecciones
 - [x] CourseDetail (plan de estudios, progreso, examen final), LessonView (renderer Markdown, video YouTube, marcado automático al abrir)
+- [!] ACTUALIZAR: agregar scroll-to-lesson al volver al curso (state + requestAnimationFrame + scrollIntoView)
 
 #### 6.3.5 Sistema de evaluación (QuizTaker)
 - [x] 10 tipos de pregunta renderizados, modo revisión, lecciones guiadas por pregunta fallida
@@ -238,7 +242,7 @@ Documentar cada script de operación creado durante el desarrollo:
 - [ ] Tiempo de respuesta del chatbot: medido en desarrollo local con Gemini 2.5 Flash
       (promedio <1.5s), con Groq (~0.8s), con estático (<50ms)
 - [ ] Carga de cursos con módulos y lecciones populadas: tiempo promedio <400ms (Atlas)
-- [ ] Generación de PDF de certificado: <200ms en cliente (jsPDF sin llamada al servidor)
+- [!] Generación de PDF de certificado: ~1-2s en cliente (html2canvas+jsPDF; antes <200ms con jsPDF puro) — ACTUALIZAR
 - [ ] Carga de avatar: antes de Sharp (~1.5s para imagen 2MB), después de Sharp (<200ms)
 
 ---
@@ -302,3 +306,86 @@ Tabla de bugs encontrados durante TT2:
 ---
 
 *Archivo generado: 2026-04-21 | Basado en análisis de 70+ archivos del repositorio y git history completo*
+
+---
+
+## CORRECCIONES PENDIENTES EN EL REPORTE TÉCNICO
+### (cambios de código realizados en sesiones 2026-04-28 al 2026-04-30)
+
+> Cada ítem indica: qué sección del Word debe corregirse, qué dice actualmente y qué debe decir.
+
+---
+
+### §6.3.3 — Dashboard (Panel personal)
+
+**Texto actual:**
+> "PDF jsPDF"
+
+**Debe decir:**
+> Certificado generado client-side mediante `html2canvas` + `jsPDF`. La función `generateCertificate` (async) construye un div HTML oculto con el diseño del certificado, lo captura con `html2canvas` a escala 2× y lo inserta como imagen PNG en el PDF mediante `jsPDF`. El logo se pre-procesa en un canvas offscreen con `ctx.arc()` + `ctx.clip()` para garantizar recorte circular, ya que `html2canvas` no aplica correctamente `overflow:hidden` con `border-radius`.
+
+**Agregar también:**
+> El dashboard consume cuatro peticiones paralelas al cargar: resumen de progreso, lista de cursos, última recomendación pendiente (`/api/quiz/my-recommendations`) y última novedad publicada (`/api/content/latest-update`). La tarjeta "Novedad" muestra el artículo, guía o caso más reciente y navega al recurso correspondiente.
+
+---
+
+### §6.3.4 — Visor de cursos y lecciones
+
+**Agregar al párrafo de CourseDetail/LessonView:**
+> Al presionar "Volver al curso" desde una lección, `LessonView` envía `state={{ scrollToLessonId: lesson._id }}` mediante `react-router`. `CourseDetail` espera a que termine la carga y utiliza `requestAnimationFrame` + `scrollIntoView({ behavior: 'auto', block: 'center' })` para posicionar la vista sobre la tarjeta de la lección que se estaba viendo, evitando que el usuario pierda su lugar en el plan de estudios.
+
+---
+
+### §6.2.3 — Módulo de contenido educativo
+
+**Agregar endpoint faltante en la tabla:**
+> `GET /api/content/latest-update` — compara el documento más reciente entre lecciones tipo `article`/`guide` y recursos tipo `case`/`guide`; devuelve `{ label, title, description, href, createdAt }` para la tarjeta dinámica del dashboard.
+
+---
+
+### §6.2.4 — Motor de evaluación
+
+**Actualizar párrafo de lecciones guiadas:**
+> Las recomendaciones post-examen se calculan desde las **preguntas falladas concretas**, no desde áreas o plataformas agregadas del módulo completo. `saveRecommendation()` recibe `questionDetails` e identifica las lecciones más relevantes por coincidencia de `riskArea`, `platform` y `teaches`. Si el usuario vuelve a presentar el mismo quiz y lo acredita, las recomendaciones del intento anterior se eliminan automáticamente. El examen final de curso (`scope: 'course'`) no genera recomendaciones ni desglose por pregunta.
+
+---
+
+### §6.2.9 — Sistema de seed de contenido
+
+**Agregar párrafo sobre calidad del contenido:**
+> Durante el desarrollo se aplicaron correcciones sistemáticas al contenido de los tres cursos:
+> - **Exámenes de módulo:** `multiple_selection` limitado a máximo 3–4 respuestas correctas de 5–6 opciones; `categorize` balanceado en distribución 3+3+3 o 2+3+2; `match_columns` con ítems referenciando elementos nombrados exclusivos de cada plataforma para evitar ambigüedad.
+> - **Mini glosarios para padres:** agregados en artículos clave de los tres cursos para explicar términos técnicos (streamer, grooming, For You Page, Realms, Robux, etc.) en lenguaje cotidiano.
+> - **Corrección conceptual Streaming M1:** YouTube se describe como plataforma de videos para ver cuando se quiera (con transmisiones en vivo posibles); Twitch como plataforma de directos (con grabaciones y fragmentos disponibles). Se eliminaron términos `VOD`, `clips`, `a demanda`.
+> - **Imágenes en artículos:** el curso de Redes Sociales reemplazó tablas extensas por imágenes explicativas alojadas en `client/public/article-images/redes-sociales/` y servidas desde Netlify CDN. MongoDB almacena la referencia (ruta relativa en el markdown), no el binario.
+
+---
+
+### §6.4 — Decisiones de arquitectura
+
+**Agregar dos filas nuevas a la tabla de DA:**
+
+| # | Decisión / Cambio | Razón | Commit de referencia |
+|---|---|---|---|
+| 12 | Imágenes de artículos en Netlify estático (`client/public/`) | Render destruye archivos en redespliegue (DA04); MongoDB no está diseñado para binarios (límite 16MB/doc); imágenes atadas al seed → son contenido estático del código | 5355948 |
+| 13 | Certificado PDF via html2canvas + jsPDF en lugar de jsPDF puro | jsPDF puro no soporta caracteres unicode, produce texto con espaciado irregular y no permite CSS real; html2canvas captura HTML/CSS con fidelidad total | 5355948 |
+
+---
+
+### §7.5 — Pruebas de rendimiento
+
+**Texto actual:**
+> "Generación de PDF de certificado: <200ms en cliente (jsPDF sin llamada al servidor)"
+
+**Debe decir:**
+> Generación de PDF de certificado: ~1–2 s en cliente (html2canvas captura el DOM y jsPDF inserta la imagen; no requiere llamada al servidor). El incremento respecto a jsPDF puro (<200ms) es aceptable dado que la operación es puntual y no afecta el flujo principal de la aplicación.
+
+---
+
+### §7.8 — Incidencias documentadas
+
+**Agregar bug:**
+
+| ID | Descripción | Módulo | Causa raíz | Solución | Commit |
+|---|---|---|---|---|---|
+| B13 | Certificado PDF con caracteres corruptos y texto desalineado | Frontend | jsPDF no soporta unicode ni CSS; coordenadas absolutas generaban huecos | Reemplazar jsPDF puro por html2canvas + jsPDF; diseño en HTML/CSS | 5355948 |
