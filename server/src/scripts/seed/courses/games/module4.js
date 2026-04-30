@@ -48,6 +48,16 @@ Puede verse como:
 
 **NCMEC** describe la online enticement como una forma de explotación en la que una persona se comunica con alguien que cree que es menor de edad con intención sexual o de abuso. Esta categoría incluye grooming y sextorsión. También advierte que quienes dañan a menores pueden usar identidades falsas, construir confianza poco a poco y mover la conversación desde una app, red o juego hacia un espacio más privado.
 
+## Mini glosario para padres
+
+**Online enticement**: término en inglés usado para describir intentos de atraer, manipular o explotar sexualmente a un menor por internet.
+
+**Grooming**: manipulación gradual para ganar confianza del menor, aislarlo o presionarlo.
+
+**Sextorsión**: amenaza o presión usando imágenes íntimas, conversaciones o información personal para obligar a la víctima a hacer algo.
+
+**Identidad falsa**: perfil donde alguien finge ser otra persona, otra edad o tener otra intención.
+
 Para una familia, una forma sencilla de entenderlo es esta: el grooming casi nunca empieza con una amenaza directa. Suele comenzar con una relación aparentemente amable.
 
 La otra persona puede:

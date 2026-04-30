@@ -318,7 +318,7 @@ const LessonView = () => {
             }`}>
                 <Link 
                     to={`/cursos/${lesson.courseId}`}
-                    state={{ scrollToLessonId: location.state?.returnToLessonId || lesson._id }}
+                    state={{ scrollToLessonId: lesson._id }}
                     className="pointer-events-auto inline-flex items-center justify-center gap-0 text-gray-500 dark:text-gray-400 transition-colors duration-200 hover:text-indigo-600 dark:hover:text-indigo-400 sm:justify-start sm:gap-2.5 h-11 w-11 sm:h-auto sm:w-auto"
                 >
                     <ArrowLeft className="h-4 w-4" />
@@ -431,7 +431,7 @@ const LessonView = () => {
                         <div className="flex flex-col sm:flex-row justify-between items-center pt-8 gap-6 pb-12">
                             {prevLesson ? (
                                 <button
-                                    onClick={() => navigate(`/lecciones/${prevLesson._id}`, { state: { courseId: lesson.courseId, returnToLessonId: location.state?.returnToLessonId || lesson._id } })}
+                                    onClick={() => navigate(`/lecciones/${prevLesson._id}`, { state: { courseId: lesson.courseId, returnToLessonId: prevLesson._id } })}
                                     className="w-full sm:w-auto group flex items-center justify-center gap-3 px-8 py-4 bg-white dark:bg-[#161b22] hover:bg-gray-50 dark:hover:bg-indigo-500/10 text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-white font-black text-[10px] uppercase tracking-[0.2em] rounded-xl transition-all border border-gray-100 dark:border-white/5 shadow-sm hover:shadow-md active:scale-95"
                                 >
                                     <ChevronLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Anterior
@@ -440,7 +440,7 @@ const LessonView = () => {
 
                             {nextLesson ? (
                                 <button
-                                    onClick={() => navigate(`/lecciones/${nextLesson._id}`, { state: { courseId: lesson.courseId, returnToLessonId: location.state?.returnToLessonId || lesson._id } })}
+                                    onClick={() => navigate(`/lecciones/${nextLesson._id}`, { state: { courseId: lesson.courseId, returnToLessonId: nextLesson._id } })}
                                     className="w-full sm:w-auto group flex items-center justify-center gap-3 px-6 sm:px-10 py-4 sm:py-5 bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs uppercase tracking-[0.2em] rounded-xl transition-all shadow-lg active:scale-95 hover:translate-y-[-1px]"
                                 >
                                     Siguiente Lección <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -489,7 +489,7 @@ const LessonView = () => {
                                     return (
                                         <div
                                             key={item._id}
-                                            onClick={() => navigate(`/lecciones/${item._id}`, { state: { courseId: lesson.courseId, returnToLessonId: location.state?.returnToLessonId || lesson._id } })}
+                                            onClick={() => navigate(`/lecciones/${item._id}`, { state: { courseId: lesson.courseId, returnToLessonId: item._id } })}
                                             className={`group p-4 sm:p-6 cursor-pointer flex items-center gap-3 sm:gap-5 transition-all border-b border-gray-50 dark:border-white/[0.01] ${isActive ? 'bg-indigo-600 scale-[1.02] shadow-xl z-10 relative rounded-xl mx-2 my-1' : 'hover:bg-indigo-500/5'
                                                 }`}
                                         >

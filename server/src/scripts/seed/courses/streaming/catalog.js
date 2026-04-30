@@ -56,7 +56,8 @@ En otras palabras, todo está disponible casi todo el tiempo.
 YouTube es una plataforma donde los usuarios pueden ver, subir y compartir videos.
 
 ### Características principales
-* Videos grabados, como tutoriales, juegos, entretenimiento o contenido educativo.
+* Videos grabados que pueden verse cuando el usuario quiera, como tutoriales, juegos, entretenimiento o contenido educativo.
+* Transmisiones en vivo, estrenos y eventos en tiempo real.
 * Sistema de recomendaciones automático.
 * Reproducción continua.
 * Contenido para muchas edades e intereses.
@@ -74,6 +75,7 @@ Twitch es una plataforma enfocada principalmente en transmisiones en vivo.
 * Contenido en tiempo real.
 * Interacción mediante chat en vivo.
 * Creadores que juegan, hablan, reaccionan o conviven con su audiencia.
+* Transmisiones que pueden quedar guardadas como grabaciones, fragmentos cortos o repeticiones si el canal las conserva.
 
 ### ¿Por qué atrae a los niños?
 * Pueden ver a otras personas jugar videojuegos en directo.
@@ -84,10 +86,12 @@ Twitch es una plataforma enfocada principalmente en transmisiones en vivo.
 
 | Característica | YouTube | Twitch |
 | --- | --- | --- |
-| Tipo de contenido | Videos grabados | Transmisiones en vivo |
-| Interacción | Limitada, por ejemplo en comentarios | Alta, por ejemplo en chat en vivo |
-| Control del contenido | Mayor control previo | Menor control en tiempo real |
-| Riesgo principal | Contenido inapropiado | Interacción con desconocidos |
+| Tipo de contenido | Predomina el video grabado para ver cuando se quiera; también hay directos | Predomina el directo; también puede haber grabaciones guardadas, fragmentos cortos o repeticiones |
+| Interacción | Suele ser menor en videos grabados; aumenta en directos, estrenos y comentarios | Suele ser alta por el chat en vivo y la comunidad |
+| Control del contenido | Mayor control previo en videos editados; menor en transmisiones en vivo | Menor control en tiempo real; las grabaciones guardadas pueden revisarse después |
+| Riesgo principal | Recomendaciones y exposición a contenido no adecuado | Interacción en vivo, chat y contacto con desconocidos |
+
+La diferencia, entonces, no es que YouTube solo tenga videos grabados ni que Twitch solo tenga contenido en vivo. La diferencia útil para una familia es dónde está el énfasis: YouTube suele funcionar más como biblioteca de videos para ver cuando se quiera, mientras Twitch suele girar más alrededor del directo, el chat y la comunidad.
 
 ## ¿Cómo funcionan los algoritmos?
 
@@ -298,7 +302,7 @@ No todo el contenido entretiene de la misma forma ni tiene el mismo impacto. Alg
 
 ## 1. Gameplays y transmisiones de videojuegos
 
-Es uno de los formatos más populares entre niños. En YouTube suelen ser videos grabados; en Twitch, transmisiones en vivo. A muchos menores les gusta porque sienten que aprenden, descubren juegos nuevos y forman parte de una comunidad.
+Es uno de los formatos más populares entre niños. En YouTube suelen aparecer como videos grabados que pueden verse cuando se quiera, aunque también existen directos; en Twitch suelen aparecer como transmisiones en vivo, aunque algunos canales conservan repeticiones o fragmentos cortos. A muchos menores les gusta porque sienten que aprenden, descubren juegos nuevos y forman parte de una comunidad.
 
 El problema aparece cuando el contenido incluye insultos, burlas, frustración exagerada o juegos pensados para mayores. Aunque el niño no esté jugando, también está aprendiendo formas de hablar, reaccionar y relacionarse.
 
@@ -524,6 +528,18 @@ El problema no es solo hablar con extraños. El verdadero riesgo aparece cuando 
 | Relación con creadores | El streamer parece cercano o de confianza | El menor puede bajar su nivel de alerta |
 | Mensajes fuera de la plataforma | La interacción puede moverse a espacios menos supervisados | Aumenta el riesgo de secreto, manipulación o grooming |
 
+## Mini glosario para padres
+
+**Streamer**: persona que transmite en vivo y habla con su audiencia mientras juega, conversa o muestra contenido.
+
+**Chat en vivo**: conversación que ocurre al mismo tiempo que la transmisión.
+
+**Grooming**: manipulación gradual en la que alguien gana confianza del menor para aislarlo, pedir secretos, presionarlo o llevarlo a situaciones de riesgo.
+
+**Sextorsión**: amenaza o presión usando imágenes íntimas, conversaciones o información personal para obligar a la víctima a hacer algo.
+
+**Mensajes fuera de la plataforma**: cuando alguien intenta mover la conversación a otra app o espacio menos visible para la familia.
+
 Esta síntesis recoge riesgos descritos por UNICEF, NCMEC y las propias plataformas, que distinguen entre contenido visto y contacto o interacción con otras personas en línea.
 
 ## 1. En un directo, todo pasa más rápido
@@ -594,6 +610,16 @@ El riesgo no siempre está en una gran compra. A veces empieza con una acción p
 | Gift subs | Twitch | Un usuario paga suscripciones para otras personas o para un grupo del chat | Incentiva gasto impulsivo durante un directo |
 | Bits / Cheers | Twitch | Moneda digital de Twitch usada en mensajes del chat | El dinero se vuelve menos tangible y más fácil de gastar |
 
+## Mini glosario para padres
+
+**Super Chat**: pago en YouTube para que un mensaje se vea más dentro del chat de un directo o estreno.
+
+**Super Stickers**: pago en YouTube para enviar una imagen animada destacada dentro del chat.
+
+**Bits o Cheers**: moneda digital de Twitch que se compra con dinero real y se usa para apoyar o llamar la atención en el chat.
+
+**Gift subs**: suscripciones de Twitch que una persona paga y regala a otros usuarios.
+
 Estos mecanismos están descritos por las propias plataformas: YouTube explica que Super Chat y Super Stickers permiten pagar para destacar mensajes o animaciones en chats en vivo, y que las membresías son pagos mensuales por beneficios; Twitch describe Bits como contenido digital que se compra en Twitch y usa en Cheers, y las gift subs como suscripciones que pueden regalarse a usuarios o grupos en el chat.
 
 ## 1. Pagar para ser visto
@@ -657,6 +683,18 @@ El riesgo no está solo en que haya publicidad, sino en que a veces parece una o
 ## Formas en que aparece la publicidad
 
 La publicidad en streaming puede tomar varias formas. YouTube permite a creadores incluir promociones pagadas y etiquetar productos en videos, Shorts y transmisiones en vivo; además, cuando el creador declara una promoción pagada, la plataforma muestra un aviso al inicio del contenido. Twitch, por su parte, considera como contenido de marca elementos como colocación de producto, respaldos, gameplay patrocinado, unboxings pagados y patrocinios de canal, y exige usar su herramienta de divulgación.
+
+## Mini glosario para padres
+
+**Influencer**: creador de contenido que puede influir en gustos, compras o decisiones de quienes lo siguen.
+
+**Contenido patrocinado**: contenido donde una marca paga, regala algo o da un beneficio para que el creador muestre o recomiende un producto.
+
+**Promoción pagada**: aviso que indica que el creador tiene una relación comercial con una marca.
+
+**Shorts**: videos cortos de YouTube, parecidos a los formatos breves de otras redes.
+
+**Unboxing**: video donde alguien abre un producto frente a la cámara y comenta lo que trae o cómo se ve.
 
 | Forma de publicidad | Cómo se ve | Riesgo para niños |
 | --- | --- | --- |
@@ -901,6 +939,18 @@ YouTube ofrece dos caminos principales: YouTube Kids y la experiencia supervisad
 
 Dentro de YouTube Kids, el adulto puede cambiar el nivel de contenido y también usar la opción "Approved content only". En ese modo, el niño solo puede ver videos, canales y colecciones seleccionados manualmente por el adulto, y además no puede usar la búsqueda. Esta es una de las opciones más útiles para niños más pequeños.
 
+## Mini glosario para padres
+
+**YouTube Kids**: versión de YouTube pensada para niños, con una experiencia más limitada y controles para familias.
+
+**Cuenta supervisada**: cuenta de YouTube administrada por el adulto, con ajustes de contenido según edad y madurez.
+
+**Family Link**: herramienta de Google para administrar apps, tiempo de uso, compras y algunos ajustes de cuentas infantiles.
+
+**Approved content only**: opción de YouTube Kids en la que el adulto elige manualmente qué videos, canales o colecciones puede ver el menor.
+
+**Whispers**: mensajes privados de Twitch; conviene revisarlos porque pueden abrir contacto directo con desconocidos.
+
 ## 3. Family Link ayuda a reunir controles en un solo lugar
 
 Google indica que con Family Link los padres pueden administrar apps, cambiar algunos ajustes de la cuenta del menor, fijar límites diarios de tiempo, poner una hora de dormir para el dispositivo y revisar cuánto tiempo pasa el niño en ciertas apps. Además, desde Family Link se puede entrar a las restricciones de YouTube para cambiar la experiencia supervisada o el nivel de contenido de YouTube Kids.
@@ -1058,7 +1108,7 @@ La AAP subraya que ver contenido juntos ayuda a que los niños hagan conexiones,
 
 ## 3. YouTube suele funcionar mejor para aprendizaje guiado
 
-Para primaria, YouTube y YouTube Kids ofrecen una experiencia más práctica porque permiten contenido bajo demanda y herramientas parentales. YouTube explica que los padres pueden elegir entre YouTube Kids, cuentas supervisadas y distintos niveles de contenido según la edad y madurez del menor.
+Para primaria, YouTube y YouTube Kids ofrecen una experiencia más práctica porque permiten videos que el niño puede ver cuando quiera y herramientas parentales. YouTube explica que los padres pueden elegir entre YouTube Kids, cuentas supervisadas y distintos niveles de contenido según la edad y madurez del menor.
 
 ## 4. Twitch puede servir, pero no como plataforma libre para niños pequeños
 
@@ -1186,15 +1236,15 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
             metadata: {
                 pairs: [
                     { key: 'Streaming', value: 'Forma de ver videos o transmisiones por internet sin descargarlos' },
-                    { key: 'YouTube', value: 'Plataforma centrada sobre todo en videos grabados que pueden verse cuando el usuario quiere' },
-                    { key: 'Twitch', value: 'Plataforma centrada principalmente en transmisiones en vivo con interacción por chat' },
+                    { key: 'YouTube', value: 'Plataforma centrada sobre todo en videos para ver cuando se quiera, aunque también incluye transmisiones en vivo' },
+                    { key: 'Twitch', value: 'Plataforma centrada principalmente en transmisiones en vivo con chat, aunque puede conservar grabaciones o fragmentos cortos' },
                     { key: 'Algoritmo', value: 'Sistema automático que analiza intereses y recomienda contenido similar' },
                     { key: 'Reproducción automática', value: 'Función que inicia otro video sin que el usuario lo elija manualmente' },
                 ],
                 correctAnswer: {
                     Streaming: 'Forma de ver videos o transmisiones por internet sin descargarlos',
-                    YouTube: 'Plataforma centrada sobre todo en videos grabados que pueden verse cuando el usuario quiere',
-                    Twitch: 'Plataforma centrada principalmente en transmisiones en vivo con interacción por chat',
+                    YouTube: 'Plataforma centrada sobre todo en videos para ver cuando se quiera, aunque también incluye transmisiones en vivo',
+                    Twitch: 'Plataforma centrada principalmente en transmisiones en vivo con chat, aunque puede conservar grabaciones o fragmentos cortos',
                     Algoritmo: 'Sistema automático que analiza intereses y recomienda contenido similar',
                     'Reproducción automática': 'Función que inicia otro video sin que el usuario lo elija manualmente',
                 },
@@ -1206,17 +1256,17 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
             text: 'Completa las frases con la palabra correcta.',
             type: 'fill_blanks',
             metadata: {
-                sentence: 'En YouTube predominan los [blank1]. En Twitch predominan las [blank2]. En ambas plataformas, un [blank3] analiza lo que ve el menor y puede recomendar contenido [blank4]. Cuando eso ocurre sin pausas claras, el niño puede pasar más [blank5] del planeado.',
-                bank: ['videos grabados', 'transmisiones en vivo', 'algoritmo', 'similar', 'tiempo'],
+                sentence: 'En YouTube predominan los videos para ver cuando se [blank1]. En Twitch predominan las [blank2]. En ambas plataformas, un [blank3] analiza lo que ve el menor y puede recomendar contenido [blank4]. Cuando eso ocurre sin pausas claras, el niño puede pasar más [blank5] del planeado.',
+                bank: ['quiera', 'transmisiones en vivo', 'algoritmo', 'similar', 'tiempo'],
                 correctAnswer: {
-                    blank1: 'videos grabados',
+                    blank1: 'quiera',
                     blank2: 'transmisiones en vivo',
                     blank3: 'algoritmo',
                     blank4: 'similar',
                     blank5: 'tiempo',
                 },
             },
-            explanation: 'Tip: La diferencia base entre YouTube y Twitch es el tipo de contenido, y en ambas el algoritmo influye en cuánto sigue mirando el menor.',
+            explanation: 'Tip: La diferencia base no es absoluta: YouTube se asocia más con videos para ver cuando se quiera y Twitch con transmisiones en vivo, aunque ambas pueden mezclar formatos.',
             points: 12,
         },
         {
@@ -1225,7 +1275,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
             metadata: {
                 left: ['YouTube', 'Twitch'],
                 right: [
-                    'Videos grabados disponibles a demanda',
+                    'Videos grabados disponibles para ver cuando se quiera',
                     'Chat en vivo con alta interacción',
                     'Mayor control previo del contenido',
                     'Menor control en tiempo real',
@@ -1234,7 +1284,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                 ],
                 correctAnswer: {
                     YouTube: [
-                        'Videos grabados disponibles a demanda',
+                        'Videos grabados disponibles para ver cuando se quiera',
                         'Mayor control previo del contenido',
                         'Suele atraer por videos fáciles de consumir cuando el niño quiere',
                     ],
@@ -1245,7 +1295,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                     ],
                 },
             },
-            explanation: 'Tip: YouTube se entiende mejor desde el video grabado; Twitch, desde el directo y la interacción en tiempo real.',
+            explanation: 'Tip: YouTube se entiende mejor desde videos que se pueden ver cuando se quiera; Twitch, desde el directo y la interacción en tiempo real.',
             points: 12,
         },
         {
@@ -1287,21 +1337,21 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
             text: 'Completa correctamente cada idea comparativa.',
             type: 'drop_down',
             metadata: {
-                sentence: 'YouTube se relaciona más con [blank1], mientras Twitch se relaciona más con [blank2]. En Twitch, un riesgo inicial importante es la interacción con [blank3]. En YouTube, un riesgo importante es la exposición a contenido [blank4] recomendado por el sistema.',
+                sentence: 'YouTube se relaciona más con videos para ver cuando se [blank1], mientras Twitch se relaciona más con [blank2]. En Twitch, un riesgo inicial importante es la interacción con [blank3]. En YouTube, un riesgo importante es la exposición a contenido [blank4] recomendado por el sistema.',
                 options: {
-                    blank1: ['videos grabados', 'chat privado', 'transmisiones escolares'],
+                    blank1: ['quiera', 'chat privado', 'transmisiones escolares'],
                     blank2: ['transmisiones en vivo', 'videos descargados', 'foros escritos'],
                     blank3: ['desconocidos', 'solo familiares', 'docentes'],
                     blank4: ['inapropiado', 'siempre educativo', 'sin imagen'],
                 },
                 correctAnswer: {
-                    blank1: 'videos grabados',
+                    blank1: 'quiera',
                     blank2: 'transmisiones en vivo',
                     blank3: 'desconocidos',
                     blank4: 'inapropiado',
                 },
             },
-            explanation: 'Tip: El módulo diferencia bien dos riesgos iniciales: en YouTube pesa más lo que aparece; en Twitch, con quién se interactúa.',
+            explanation: 'Tip: YouTube también puede tener directos y Twitch puede conservar videos, pero el módulo diferencia dos énfasis iniciales: en YouTube pesa más lo recomendado para ver cuando se quiera; en Twitch, con quién se interactúa en vivo.',
             points: 10,
         },
         {
@@ -2437,15 +2487,15 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
             metadata: {
                 pairs: [
                     { key: 'Streaming', value: 'Forma de ver videos o transmisiones por internet sin descargarlos' },
-                    { key: 'YouTube', value: 'Plataforma centrada sobre todo en videos grabados y consumo a demanda' },
-                    { key: 'Twitch', value: 'Plataforma centrada principalmente en transmisiones en vivo con chat' },
+                    { key: 'YouTube', value: 'Plataforma centrada sobre todo en videos para ver cuando se quiera, aunque también ofrece transmisiones en vivo' },
+                    { key: 'Twitch', value: 'Plataforma centrada principalmente en transmisiones en vivo con chat, aunque puede conservar grabaciones o fragmentos cortos' },
                     { key: 'Algoritmo', value: 'Sistema que detecta intereses y recomienda contenido parecido' },
                     { key: 'Reproducción automática', value: 'Función que reproduce otro contenido sin pausa clara' },
                 ],
                 correctAnswer: {
                     Streaming: 'Forma de ver videos o transmisiones por internet sin descargarlos',
-                    YouTube: 'Plataforma centrada sobre todo en videos grabados y consumo a demanda',
-                    Twitch: 'Plataforma centrada principalmente en transmisiones en vivo con chat',
+                    YouTube: 'Plataforma centrada sobre todo en videos para ver cuando se quiera, aunque también ofrece transmisiones en vivo',
+                    Twitch: 'Plataforma centrada principalmente en transmisiones en vivo con chat, aunque puede conservar grabaciones o fragmentos cortos',
                     Algoritmo: 'Sistema que detecta intereses y recomienda contenido parecido',
                     'Reproducción automática': 'Función que reproduce otro contenido sin pausa clara',
                 },

@@ -1,7 +1,7 @@
 # Contexto de Sesión — Reporte Técnico Kuxipilli
 ## TT 2026-A097 | ESCOM · IPN
 
-> Última actualización: 2026-04-29 (rev. 10)
+> Última actualización: 2026-04-30 (rev. 12)
 > Propósito: retomar el trabajo en cualquier chat sin perder contexto.
 
 ---
@@ -253,7 +253,7 @@ delete_clone.js, migrate_users.js, restore_progress (v1-v3), sync_progress.js, c
 ### 7.5 Pruebas de rendimiento
 - [ ] Chatbot: Gemini <1.5s, Groq ~0.8s, estático <50ms
 - [ ] Cursos con populate: <400ms (Atlas)
-- [ ] PDF certificado: <200ms (client-side jsPDF)
+- [ ] PDF certificado: ~1-2s (html2canvas captura DOM → jsPDF; antes <200ms con jsPDF puro)
 - [ ] Avatar con Sharp: <200ms vs ~1.5s sin compresión
 
 ### 7.6 Pruebas de usabilidad
@@ -492,6 +492,219 @@ Ejecutados `npm run seed:social` y `npm run seed:games`.
 
 ---
 
+## Cambios al CÓDIGO realizados en sesión 2026-04-30
+
+### 1. Experiencia de artículos — imágenes por curso y reemplazo de tablas
+- Se creó estructura pública para imágenes de artículos:
+  - `client/public/article-images/videojuegos/`
+  - `client/public/article-images/redes-sociales/`
+  - `client/public/article-images/streaming/`
+- Objetivo: permitir que el usuario suba imágenes por curso y luego se inserten en artículos específicos.
+- En el curso **Redes Sociales** se reemplazaron tablas extensas por imágenes, manteniendo la misma información base para que los exámenes sigan saliendo del contenido.
+- Archivo principal editado:
+  - `server/src/scripts/seed/courses/social/catalog.js`
+
+**Imágenes insertadas en Redes Sociales:**
+| Módulo/Artículo | Imágenes |
+|---|---|
+| M1A1 | `RedesArticulo1.png`, `RedesArticulo1.2.png` |
+| M1A2 | `RedesArticulo2.png`, `RedesArticulo2.2.png` |
+| M2A1 | `M2A1.png`, `M2A1.1.png` |
+| M2A2 | `M2A2.png`, `M2A2.1.png` |
+| M3A1 | `M3A1.png`, `M3A1.1.png` |
+| M3A2 | `M3A2.png`, `M3A2.1.png` |
+| M4A1 | `M4A1.png`, `M4A1.1.png` |
+| M4A2 | `M4A2.png`, `M4A2.1.png` |
+| M5A1 | `M5A1.png`, `M5A1.1.png` |
+| M5A2 | `M5A2.png`, `M5A2.1.png` |
+| M6A1 | `M6A1.png`, `M6A1.1.png` |
+| M6A2 | `M6A2.png`, `M62.1.png` |
+| M7A1 | `M7A1.png`, `M7A1.1.png` |
+| M7A2 | `M7A2.png`, `M7A2.1.png` |
+
+### 2. Navegación: volver al curso conserva la posición
+- Problema: al estar dentro de un artículo, video o curso, al pulsar **Volver al curso** la página podía irse arriba o abajo, perdiendo el lugar donde estaba el usuario.
+- Corrección:
+  - `client/src/pages/LessonView.jsx`
+    - El botón **Volver al curso** ahora envía `state={{ scrollToLessonId: lesson._id }}`.
+    - Navegación de anterior/siguiente/sidebar actualiza el objetivo de retorno al lesson correcto.
+  - `client/src/pages/CourseDetail.jsx`
+    - El scroll espera a que termine `loading`.
+    - Usa `requestAnimationFrame` para ubicar la tarjeta correcta.
+    - Aplica `lessonCard.scrollIntoView({ behavior: 'auto', block: 'center' })`.
+
+### 3. Redes Sociales — definición explícita de grooming
+- Se verificó que el curso de redes no explicaba con suficiente claridad qué es grooming.
+- Se agregó en `server/src/scripts/seed/courses/social/catalog.js`, Módulo 4 Artículo 2:
+  - definición simple;
+  - explicación de que no suele iniciar con amenaza evidente;
+  - señales de manipulación gradual, secretos, presión y cambio a espacios privados.
+- Objetivo: que los padres aprendan el término antes de responder reactivos del módulo.
+
+### 4. Streaming — corrección conceptual YouTube vs Twitch
+- Problema detectado: en Módulo 1 de Streaming se presentaba a YouTube como si solo fueran videos grabados y a Twitch como si solo fueran directos.
+- Corrección en `server/src/scripts/seed/courses/streaming/catalog.js`:
+  - YouTube ahora se explica como plataforma donde predominan videos para ver cuando se quiera, pero también existen transmisiones en vivo.
+  - Twitch ahora se explica como plataforma donde predominan directos, pero puede conservar grabaciones, fragmentos cortos o repeticiones.
+  - Se ajustaron tablas, artículo, examen del módulo y examen final.
+- Se eliminaron términos poco claros para padres:
+  - `VODs`
+  - `clips`
+  - `a demanda`
+  - `bajo demanda`
+- Sustituciones usadas:
+  - “videos para ver cuando se quiera”
+  - “grabaciones o fragmentos cortos”
+  - “transmisiones en vivo”
+
+### 5. Mini glosarios para padres en los tres cursos
+- Se revisaron los cursos **Videojuegos**, **Redes Sociales** y **Streaming** para detectar términos que un padre/tutor podría no conocer.
+- Se agregaron bloques `## Mini glosario para padres` en artículos clave.
+- Regla aplicada: explicar el término en lenguaje cotidiano, justo cerca de donde aparece, sin cambiar la información base de los exámenes.
+
+**Streaming — `server/src/scripts/seed/courses/streaming/catalog.js`:**
+- `streamer`
+- `chat en vivo`
+- `grooming`
+- `sextorsión`
+- `mensajes fuera de la plataforma`
+- `Super Chat`
+- `Super Stickers`
+- `Bits o Cheers`
+- `Gift subs`
+- `influencer`
+- `contenido patrocinado`
+- `promoción pagada`
+- `Shorts`
+- `unboxing`
+- `YouTube Kids`
+- `cuenta supervisada`
+- `Family Link`
+- `Approved content only`
+- `Whispers`
+
+**Redes Sociales — `server/src/scripts/seed/courses/social/catalog.js`:**
+- `algoritmo`
+- `feed`
+- `For You Page`
+- `servidor de Discord`
+- `canal`
+- `mensaje directo o DM`
+- `historia`
+- `influencer`
+- `reel`
+- `Paid partnership`
+- `Promotional content`
+- `contenido patrocinado`
+- `Coins`
+- `Gifts`
+- `Stars`
+- `Nitro`
+- `gifting`
+- `Family Pairing`
+- `Restricted Mode`
+- `Teen Accounts`
+- `Family Center`
+- `contenido sensible`
+
+**Videojuegos — archivos editados:**
+- `server/src/scripts/seed/courses/games/module1.js`
+- `server/src/scripts/seed/courses/games/module2.js`
+- `server/src/scripts/seed/courses/games/module3.js`
+- `server/src/scripts/seed/courses/games/module4.js`
+- `server/src/scripts/seed/courses/games/module5.js`
+
+**Términos explicados en Videojuegos:**
+- `sandbox`
+- `experiencia de Roblox`
+- `Realm`
+- `Bedrock Edition`
+- `Java Edition`
+- `cuenta parental`
+- `privilegios parentales`
+- `verificación de identidad`
+- `Add parent`
+- `Parental Controls`
+- `madurez de contenido`
+- `Experience Chat`
+- `Direct Chat`
+- `Parties`
+- `Private Servers`
+- `conexiones`
+- `cross-play`
+- `Marketplace`
+- `servidor público`
+- `Join Multiplayer Games`
+- `Can join Realms`
+- `Gamertag`
+- `Realms Stories`
+- `Xbox Family Settings app`
+- `online enticement`
+- `grooming`
+- `sextorsión`
+- `identidad falsa`
+- `skin`
+- `avatar`
+- `phishing`
+- `skin pack`
+- `texture pack`
+- `world`
+- `mash-up pack`
+
+### 6. Validaciones ejecutadas
+- `npm run seed:social`
+- `npm run seed:streaming`
+- `npm run seed:games`
+- `npm run seed:content`
+  - Resultado: cursos Videojuegos, Redes Sociales y Streaming sincronizados correctamente en MongoDB Atlas.
+- `npm run build` en `client`
+  - Resultado: compilación exitosa.
+  - Advertencia existente: Vite reporta chunks mayores a 500 kB; no bloquea ni está relacionada con estos cambios.
+- Búsqueda final:
+  - No quedan `VODs`, `clips`, `a demanda` ni `bajo demanda` en `server/src/scripts/seed/courses`.
+
+### 7. Rediseño completo del certificado PDF — `client/src/pages/Dashboard.jsx`
+
+**Problema original:** el certificado se generaba con jsPDF puro (drawing primitives), lo que causaba:
+- Caracteres unicode (`▸`) corruptos al exportar → aparecían como `%,`
+- Texto con espaciado extraño por el motor de fuentes de jsPDF
+- Diseño con estética de pergamino/institucional sin relación con el branding de Kuxipilli
+
+**Solución implementada:** generación via `html2canvas` + `jsPDF`.
+
+**Flujo nuevo:**
+1. Se construye un div HTML oculto (`position:fixed; left:-9999px`) con el diseño del certificado en CSS puro
+2. `html2canvas` captura ese div como canvas a escala 2× (alta resolución)
+3. `jsPDF` inserta el canvas como imagen PNG y descarga el archivo
+
+**Cambios en código:**
+- `import html2canvas from 'html2canvas'` agregado (dependencia ya instalada)
+- `generateCertificate` convertida de función síncrona a `async`
+- Template HTML del certificado: fondo blanco, barra gradiente superior (indigo→violeta→cyan), logo circular, nombre del usuario en negro grande, nombre del curso en azul oscuro, caja de competencias en gris, sello circular, franja inferior degradada
+- `escapeHtml()` agregado para sanitizar valores dinámicos dentro del HTML inyectado
+- Font-size dinámico para nombre de usuario (`nameFontSize`) y nombre del curso (`courseFontSize`) según longitud del texto
+
+**Fixes iterativos aplicados:**
+| Problema | Causa raíz | Solución |
+|---|---|---|
+| Barra rosa cortando el texto del nombre | `background-clip:text` + `-webkit-text-fill-color:transparent` no funciona en html2canvas | Usar `color` sólido en lugar de gradient text |
+| Hueco enorme en el centro del certificado | `position:absolute` con coordenadas fijas dejaban espacio muerto | Reemplazar por `display:flex; flex-direction:column` con `flex:1` para el cuerpo central |
+| Logo alargado/oval | html2canvas no aplica `overflow:hidden` + `border-radius` correctamente | Pre-procesar la imagen en un `<canvas>` offscreen usando `ctx.arc()` + `ctx.clip()` antes de inyectarla como data URL |
+| Logo no cargaba (blanco) | `src="/logo_v2.png"` no resuelve desde un div off-screen | Hacer `fetch(window.location.origin + '/logo_v2.png')` → `FileReader` → base64 antes de inyectar el HTML |
+| Bullets desalineados con el texto | `border-radius:50%` en `<span>` pequeño no renderiza bien en html2canvas; `align-items:center` en flex tampoco es confiable | Usar carácter HTML `&#8226;` con `color:#7c3aed` directamente en el texto |
+
+**Estado final del certificado:**
+- Diseño profesional blanco con acento indigo/violeta/cyan
+- Logo de Kuxipilli circular en esquina superior izquierda
+- Badge de categoría (ej. "REDES SOCIALES") arriba a la derecha
+- Nombre del usuario centrado en tipografía grande y negrita
+- Nombre del curso en azul oscuro
+- Caja "Competencias Digitales Acreditadas" con grid de 2 columnas
+- Código de verificación + sello circular "KUXIPILLI / CURSO" en el footer
+- `§7.5` nota: tiempo de generación aumentó de <200ms (jsPDF) a ~1-2s (html2canvas); aceptable para descarga puntual
+
+---
+
 ## Archivos relevantes del repositorio
 
 ```
@@ -501,10 +714,10 @@ TT_Academia/
 ├── CONTEXTO_SESION.md               ← este archivo
 ├── client/src/
 │   ├── pages/
-│   │   ├── Dashboard.jsx            ← 4 fetches paralelos, recomendaciones + novedad dinámica
+│   │   ├── Dashboard.jsx            ← 4 fetches paralelos, recomendaciones + novedad dinámica + certificado html2canvas
 │   │   ├── Profile.jsx              ← validación contraseña mín. 8 chars
-│   │   ├── LessonView.jsx           ← renderer Markdown, YouTube iframe
-│   │   ├── CourseDetail.jsx         ← scroll-to-lesson, admin bypass
+│   │   ├── LessonView.jsx           ← renderer Markdown, YouTube iframe, volver al curso conserva lesson
+│   │   ├── CourseDetail.jsx         ← scroll-to-lesson, admin bypass, centra tarjeta al volver
 │   │   ├── QuizTaker.jsx            ← 10 tipos de pregunta
 │   │   ├── RealCases.jsx            ← paginación incremental, tabs por URL
 │   │   └── CaseDetail.jsx           ← timeline, tips, layout 4/8
@@ -533,12 +746,13 @@ TT_Academia/
     │   ├── quizService.js           ← recomendaciones por preguntas falladas, limpieza al aprobar quiz
     │   └── progressService.js
     └── scripts/seed/
-        ├── courses/social/catalog.js    ← M1–M7 reescritos + examen final corregido
-        ├── courses/streaming/catalog.js ← M1–M7 Q5/Q7 corregidos + examen final corregido
-        ├── courses/games/module1.js     ← Q5(3/6), Q7(3+3+3)
-        ├── courses/games/module2.js     ← Q5(3/6), Q7(3+3+3)
-        ├── courses/games/module4.js     ← Q5(3/6)
-        ├── courses/games/module5.js     ← Q5(3/6), Q7(3+3+3)
+        ├── courses/social/catalog.js    ← M1–M7 reescritos, imágenes, grooming, mini glosarios
+        ├── courses/streaming/catalog.js ← M1–M7 corregidos, YouTube/Twitch ajustado, mini glosarios
+        ├── courses/games/module1.js     ← Q5(3/6), Q7(3+3+3), mini glosario
+        ├── courses/games/module2.js     ← Q5(3/6), Q7(3+3+3), mini glosarios Roblox
+        ├── courses/games/module3.js     ← mini glosarios Minecraft/Realms/permisos
+        ├── courses/games/module4.js     ← Q5(3/6), mini glosario grooming/sextorsión
+        ├── courses/games/module5.js     ← Q5(3/6), Q7(3+3+3), mini glosarios compras/mods
         ├── courses/games/module6.js     ← Q5(3/6), 'Salud Mental y Física' corregido
         └── courses/games/finalQuiz.js   ← ídem tilde
 ```

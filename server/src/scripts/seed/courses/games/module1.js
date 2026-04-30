@@ -122,6 +122,18 @@ Este video muestra cómo se ven y cómo se sienten Roblox y Minecraft cuando un 
 
 > **Perspectiva inicial:** Roblox y Minecraft no se supervisan igual. Uno funciona más como plataforma de experiencias sociales y el otro como juego sandbox cuya seguridad depende de la edición y del entorno de juego.
 
+## Mini glosario para padres
+
+**Sandbox**: juego abierto donde el menor puede construir, explorar y crear objetivos propios, no solo seguir una misión fija.
+
+**Experiencia de Roblox**: juego o mundo creado dentro de Roblox. Roblox funciona como una plataforma que contiene muchas experiencias distintas.
+
+**Realm**: mundo privado de Minecraft administrado por invitación, normalmente para jugar con personas elegidas.
+
+**Bedrock Edition**: versión de Minecraft usada en consolas, celulares, tablets y Windows, con Marketplace y Minecoins.
+
+**Java Edition**: versión de Minecraft para computadora, más abierta a mods y descargas externas.
+
 ## 1. Plataforma vs sandbox
 
 **Roblox** se parece más a una plataforma con muchas experiencias distintas dentro del mismo ecosistema.

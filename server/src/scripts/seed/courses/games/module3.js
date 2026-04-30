@@ -20,6 +20,18 @@ Minecraft se divide en dos grandes "familias": **Java Edition** y **Bedrock Edit
 
 ![Diferencias entre Minecraft Java y Bedrock](/uploads/minecraft_java_vs_bedrock.png)
 
+## Mini glosario para padres
+
+**Java Edition**: versión de Minecraft para computadora, más abierta a servidores externos y mods.
+
+**Bedrock Edition**: versión de Minecraft usada en consolas, celulares, tablets y Windows; facilita jugar entre dispositivos distintos.
+
+**Cross-play**: jugar con personas que usan otro dispositivo, por ejemplo una consola y un celular.
+
+**Marketplace**: tienda oficial de Minecraft Bedrock para comprar o descargar contenido dentro del ecosistema del juego.
+
+**Servidor público**: espacio abierto donde pueden entrar muchos usuarios, incluidos desconocidos.
+
 ### Edición Java (Java Edition)
 Es la versión original para computadoras (Windows, macOS, Linux). 
 * **Perfil de usuario**: Jugadores que suelen buscar "mods" (modificaciones), servidores personalizados y una experiencia de juego más abierta.
@@ -104,6 +116,18 @@ Minecraft y Xbox separan las acciones básicas en permisos granulares:
 1. **Unirse a partidas multijugador**: Permite entrar a mundos de otros y servidores.
 2. **Unirse a Realms**: Permite entrar a servidores privados alojados por Microsoft.
 3. **Agregar amistades**: Permite buscar y añadir amigos mediante Gamertags.
+
+## Mini glosario para padres
+
+**Join Multiplayer Games**: permiso de Microsoft/Xbox que permite al menor entrar a partidas o mundos con otras personas.
+
+**Can join Realms**: permiso que permite entrar a Realms, es decir, mundos privados alojados por Microsoft.
+
+**Gamertag**: nombre público del jugador dentro de Xbox/Microsoft.
+
+**Realms Stories**: espacio social de Realms para compartir historias o capturas con el grupo invitado.
+
+**Xbox Family Settings app**: aplicación para que el adulto revise y ajuste permisos familiares de Xbox y Minecraft.
 
 ---
 

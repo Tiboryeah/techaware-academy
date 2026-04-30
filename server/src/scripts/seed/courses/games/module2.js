@@ -34,6 +34,18 @@ Roblox define la cuenta con privilegios parentales como un perfil de adulto que 
 
 > **Definición Clave**: Cuenta parental en Roblox: Perfil del adulto con privilegios verificados que permite la aprobación de acciones y la administración centralizada de los controles de seguridad del menor vinculado.
 
+## Mini glosario para padres
+
+**Cuenta parental**: cuenta del adulto que sirve para administrar controles y permisos de la cuenta del menor.
+
+**Privilegios parentales**: permisos especiales que Roblox da al adulto verificado para aprobar acciones y cambiar configuraciones de seguridad.
+
+**Verificación de identidad**: proceso para comprobar que el adulto realmente es mayor de edad y puede administrar la cuenta del menor.
+
+**Add parent**: opción de Roblox para agregar o vincular al padre, madre o tutor a la cuenta infantil.
+
+**Parental Controls**: sección donde se configuran límites, permisos, privacidad, tiempo y gasto.
+
 ## ¿Por qué el adulto necesita su propia cuenta?
 
 Roblox promueve el uso de cuentas separadas por tres motivos técnicos fundamentales:
@@ -128,6 +140,20 @@ Este video acompaña la activación de la cuenta adulta enlazada y muestra dónd
 ## ¿Qué conviene configurar primero?
 
 Para establecer una cultura de seguridad efectiva, se recomienda seguir un orden lógico de configuración: primero el contenido, luego la comunicación y, finalmente, la gestión de tiempo y gasto. Roblox organiza estos controles dentro de un panel parental centralizado que permite ajustar la madurez de las experiencias, filtrar el chat, limitar el acceso a servidores privados y fijar topes mensuales de consumo.
+
+## Mini glosario para padres
+
+**Madurez de contenido**: nivel que indica qué tan intenso o adecuado puede ser un juego o experiencia para cierta edad.
+
+**Experience Chat**: chat dentro de una experiencia de Roblox; puede permitir hablar durante el juego.
+
+**Direct Chat**: mensajes directos entre usuarios, fuera de la conversación general de una experiencia.
+
+**Parties**: grupos o reuniones dentro de Roblox para jugar o comunicarse con otros usuarios.
+
+**Private Servers**: servidores privados donde se puede jugar con personas invitadas o seleccionadas.
+
+**Conexiones**: contactos o amistades dentro de Roblox; conviene revisar quiénes son y qué permisos tienen.
 
 ---
 

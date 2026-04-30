@@ -51,17 +51,30 @@ const CourseDetail = () => {
     }, [id]);
 
     useEffect(() => {
-        if (!course || !location.state?.scrollToLessonId) return;
+        if (loading || !course || !location.state?.scrollToLessonId) return;
 
-        const timer = setTimeout(() => {
+        let attempts = 0;
+        let frameId;
+
+        const scrollToLessonCard = () => {
             const lessonCard = document.getElementById(`lesson-card-${location.state.scrollToLessonId}`);
             if (lessonCard) {
-                lessonCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                lessonCard.scrollIntoView({ behavior: 'auto', block: 'center' });
+                return;
             }
-        }, 150);
 
-        return () => clearTimeout(timer);
-    }, [course, location.state]);
+            attempts += 1;
+            if (attempts < 10) {
+                frameId = window.requestAnimationFrame(scrollToLessonCard);
+            }
+        };
+
+        frameId = window.requestAnimationFrame(scrollToLessonCard);
+
+        return () => {
+            if (frameId) window.cancelAnimationFrame(frameId);
+        };
+    }, [course, loading, location.state?.scrollToLessonId]);
 
     useEffect(() => {
         const handleScroll = () => {

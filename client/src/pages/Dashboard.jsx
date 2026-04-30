@@ -5,6 +5,7 @@ import api from '../services/api';
 import avatarUrl from '../utils/avatarUrl';
 import { motion } from 'framer-motion';
 import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 import {
     LayoutDashboard,
     Trophy,
@@ -82,154 +83,200 @@ const Dashboard = () => {
         navigate('/iniciar-sesion');
     };
 
-    const generateCertificate = (courseName, category) => {
-        const doc = new jsPDF({
-            orientation: 'landscape',
-            unit: 'mm',
-            format: 'a4'
-        });
-
-        const pageWidth = doc.internal.pageSize.getWidth();
-        const pageHeight = doc.internal.pageSize.getHeight();
-
-        // 1. Background (Parchment Color)
-        doc.setFillColor(254, 253, 250); // Off-white/Cream
-        doc.rect(0, 0, pageWidth, pageHeight, 'F');
-
-        // 2. Decorative Borders
-        doc.setDrawColor(30, 27, 75); // Indigo-950
-        doc.setLineWidth(1.5);
-        doc.rect(8, 8, pageWidth - 16, pageHeight - 16, 'D');
-
-        doc.setDrawColor(180, 150, 50); // Gold-ish
-        doc.setLineWidth(0.5);
-        doc.rect(12, 12, pageWidth - 24, pageHeight - 24, 'D');
-
-        // 3. Header
-        doc.setTextColor(30, 27, 75);
-        doc.setFontSize(30);
-        doc.setFont('times', 'bold');
-        doc.text('KUXIPILLI CERTIFICATION', pageWidth / 2, 40, { align: 'center' });
-
-        doc.setFontSize(12);
-        doc.setFont('times', 'italic');
-        doc.setTextColor(100, 100, 100);
-        doc.text('Programa de Formación Profesional en Seguridad Digital', pageWidth / 2, 48, { align: 'center' });
-
-        // 4. Distinction Title
-        doc.setFillColor(30, 27, 75);
-        doc.rect(pageWidth / 2 - 80, 55, 160, 12, 'F');
-        doc.setTextColor(255, 255, 255);
-        doc.setFontSize(14);
-        doc.setFont('helvetica', 'bold');
-        doc.text(`ESPECIALISTA EN SEGURIDAD: ${category?.toUpperCase() || 'GENERAL'}`, pageWidth / 2, 63, { align: 'center' });
-
-        // 5. User Name
-        doc.setTextColor(30, 27, 75);
-        doc.setFontSize(16);
-        doc.setFont('times', 'normal');
-        doc.text('Por la presente se hace constar oficialmente que', pageWidth / 2, 85, { align: 'center' });
-
-        doc.setFontSize(40);
-        doc.setFont('times', 'bold');
-        doc.text(user?.name?.toUpperCase() || 'GUARDIÁN DIGITAL', pageWidth / 2, 105, { align: 'center' });
-
-        doc.setDrawColor(180, 150, 50);
-        doc.setLineWidth(0.8);
-        doc.line(pageWidth / 2 - 90, 110, pageWidth / 2 + 90, 110);
-
-        // 6. Achievement Text
-        doc.setFontSize(14);
-        doc.setFont('times', 'italic');
-        doc.setTextColor(50, 50, 50);
-        doc.text('Ha completado satisfactoriamente los requisitos académicos del curso:', pageWidth / 2, 122, { align: 'center' });
-
-        doc.setFontSize(20);
-        doc.setFont('times', 'bold');
-        doc.setTextColor(30, 27, 75);
-        // Split long course names if needed
-        const splitTitle = doc.splitTextToSize(courseName?.toUpperCase() || 'INTRODUCCIÓN A LA SEGURIDAD', 200);
-        doc.text(splitTitle, pageWidth / 2, 135, { align: 'center' });
-
-        // 7. Verified Competencies
-        doc.setDrawColor(230, 230, 230);
-        doc.setFillColor(245, 245, 245);
-        doc.rect(40, 150, pageWidth - 80, 25, 'F');
-
-        doc.setFontSize(10);
-        doc.setFont('helvetica', 'bold');
-        doc.setTextColor(70, 70, 70);
-        doc.text('ESTÁNDARES DE COMPETENCIA ALCANZADOS:', pageWidth / 2, 156, { align: 'center' });
-
-        doc.setFontSize(9);
-        doc.setFont('helvetica', 'normal');
-
-        let competencies = [];
+    const generateCertificate = async (courseName, category) => {
         const lowerCat = category?.toLowerCase() || '';
+        let competencies = [];
 
         if (lowerCat.includes('videojuego') || lowerCat.includes('game')) {
             competencies = [
-                '• Prevención de Grooming en Chats de Juego',
-                '• Gestión de Identidad y Avatares Seguros',
-                '• Reconocimiento de Estafas (Free Nitro/Skins)',
-                '• Balance de Tiempo y Bienestar Digital'
+                'Configuración de cuentas y controles parentales',
+                'Privacidad, chat y multijugador seguro',
+                'Reconocimiento de ciberacoso, grooming y datos personales',
+                'Compras digitales, estafas y descargas seguras',
             ];
         } else if (lowerCat.includes('social') || lowerCat.includes('redes')) {
             competencies = [
-                '• Configuración de Privacidad Avanzada',
-                '• Identificación de Perfiles Falsos y Bots',
-                '• Netiqueta y Prevención de Ciberacoso',
-                '• Gestión Responsable de la Huella Digital'
+                'Privacidad, datos personales y huella digital',
+                'Reconocimiento de ciberacoso y presión social',
+                'Detección de grooming y contacto manipulador',
+                'Pensamiento crítico ante contenido, publicidad y compras',
             ];
         } else if (lowerCat.includes('stream') || lowerCat.includes('plataforma')) {
             competencies = [
-                '• Protección de Datos de Identidad en Vivo',
-                '• Moderación y Filtros de Seguridad en Chat',
-                '• Pensamiento Crítico ante Creadores de Contenido',
-                '• Seguridad en Transacciones y Donaciones'
+                'Comprensión de YouTube, Twitch y algoritmos',
+                'Identificación de contenido inapropiado e interacción de riesgo',
+                'Prevención de gastos, donaciones y publicidad engañosa',
+                'Límites de pantalla, controles parentales y acompañamiento',
             ];
         } else {
             competencies = [
-                '• Análisis de Riesgos en el Entorno Digital',
-                '• Implementación de Medidas Preventivas',
-                '• Comportamiento Ético y Ciudadanía Digital',
-                '• Resolución de Casos Prácticos de Seguridad'
+                'Identificación de riesgos digitales',
+                'Uso de medidas preventivas',
+                'Acompañamiento y comunicación familiar',
+                'Pensamiento crítico ante contenido digital',
             ];
         }
 
-        doc.text(`${competencies[0]}  ${competencies[1]}`, pageWidth / 2, 163, { align: 'center' });
-        doc.text(`${competencies[2]}  ${competencies[3]}`, pageWidth / 2, 168, { align: 'center' });
+        const escapeHtml = (value) => String(value ?? '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
 
-        // 8. Footer Info
-        doc.setFontSize(8);
-        doc.setTextColor(150, 150, 150);
         const certCode = `CERT-${user?._id?.substring(0, 8).toUpperCase()}-${category?.substring(0, 3).toUpperCase()}`;
-        doc.text(`CÓDIGO DE VERIFICACIÓN: ${certCode}`, 40, 185);
-        doc.text(`FECHA DE EMISIÓN: ${new Date().toLocaleDateString()}`, 40, 190);
+        const issueDate = new Date().toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' });
+        const userName = user?.name?.toUpperCase() || 'GUARDIÁN DIGITAL';
+        const courseNameUpper = courseName?.toUpperCase() || 'INTRODUCCIÓN A LA SEGURIDAD';
+        const categoryLabel = category?.toUpperCase() || 'GENERAL';
+        const nameFontSize = userName.length > 28 ? 42 : userName.length > 18 ? 50 : 58;
+        const courseFontSize = courseNameUpper.length > 46 ? 23 : 27;
 
-        // 9. Seals and signatures
-        doc.setDrawColor(180, 150, 50);
-        doc.setFillColor(212, 175, 55);
-        doc.circle(pageWidth - 50, 170, 18, 'F');
-        doc.setDrawColor(150, 120, 30);
-        doc.circle(pageWidth - 50, 170, 16, 'D');
-        doc.setTextColor(255, 255, 255);
-        doc.setFontSize(9);
-        doc.setFont('helvetica', 'bold');
-        doc.text('CERTIFICADO', pageWidth - 50, 168, { align: 'center' });
-        doc.text('OFICIAL', pageWidth - 50, 173, { align: 'center' });
+        const competenciesHTML = competencies
+            .map(c => `
+                <div style="font-size:13px;color:#334155;line-height:1.4;">
+                    <span style="color:#7c3aed;font-size:15px;margin-right:7px;">&#8226;</span>${escapeHtml(c)}
+                </div>
+            `)
+            .join('');
 
-        doc.setDrawColor(30, 27, 75);
-        doc.line(pageWidth / 2 - 40, 185, pageWidth / 2 + 40, 185);
-        doc.setFontSize(10);
-        doc.setTextColor(30, 27, 75);
-        doc.text('FIRMA AUTORIZADA', pageWidth / 2, 192, { align: 'center' });
+        // Pre-cargar logo y recortarlo en círculo via canvas (html2canvas no soporta overflow:hidden + border-radius)
+        let logoDataUrl = '';
+        try {
+            const logoRes = await fetch(window.location.origin + '/logo_v2.png');
+            const blob = await logoRes.blob();
+            const rawDataUrl = await new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.readAsDataURL(blob);
+            });
+            logoDataUrl = await new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => {
+                    const SIZE = 80;
+                    const offscreen = document.createElement('canvas');
+                    offscreen.width = SIZE;
+                    offscreen.height = SIZE;
+                    const ctx = offscreen.getContext('2d');
+                    ctx.beginPath();
+                    ctx.arc(SIZE / 2, SIZE / 2, SIZE / 2, 0, Math.PI * 2);
+                    ctx.closePath();
+                    ctx.clip();
+                    const scale = Math.max(SIZE / img.width, SIZE / img.height);
+                    const w = img.width * scale;
+                    const h = img.height * scale;
+                    ctx.drawImage(img, (SIZE - w) / 2, (SIZE - h) / 2, w, h);
+                    resolve(offscreen.toDataURL('image/png'));
+                };
+                img.onerror = () => resolve('');
+                img.src = rawDataUrl;
+            });
+        } catch (_) { /* si falla, el logo queda en blanco */ }
 
-        const safeUserName = (user?.name || 'Usuario').split(' ')[0].normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9]/g, '');
-        const safeCourseName = (courseName || 'Curso').normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9]/g, '').substring(0, 15);
+        const container = document.createElement('div');
+        container.style.cssText = 'position:fixed;left:-9999px;top:-9999px;z-index:-1;';
+        document.body.appendChild(container);
 
-        const fileName = `${safeUserName}_${safeCourseName}.pdf`;
-        doc.save(fileName);
+        container.innerHTML = `
+            <div id="cert-render" style="
+                width:1122px;height:794px;
+                background:#f8fafc;
+                font-family:'Segoe UI',Arial,sans-serif;
+                position:relative;
+                box-sizing:border-box;
+                color:#111827;
+                overflow:hidden;">
+
+                    <div style="position:absolute;inset:22px;border:1.5px solid #c4b5fd;border-radius:24px;background:#ffffff;box-shadow:0 20px 60px rgba(49,46,129,0.12);overflow:hidden;">
+                    <div style="position:absolute;left:0;top:0;width:100%;height:12px;background:linear-gradient(90deg,#4f46e5 0%,#7c3aed 55%,#0ea5e9 100%);"></div>
+                    ${logoDataUrl
+                        ? `<img src="${logoDataUrl}" alt="Kuxipilli" style="position:absolute;left:42px;top:36px;width:80px;height:80px;border-radius:50%;border:2px solid #e0e7ff;display:block;box-shadow:0 4px 16px rgba(79,70,229,0.15);" />`
+                        : `<div style="position:absolute;left:42px;top:36px;width:80px;height:80px;border-radius:50%;background:#ede9fe;border:2px solid #e0e7ff;"></div>`
+                    }
+
+                    <div style="position:absolute;left:138px;top:42px;">
+                        <div style="font-size:31px;font-weight:900;letter-spacing:6px;color:#111827;line-height:1;">KUXIPILLI</div>
+                        <div style="margin-top:9px;font-size:11px;font-weight:700;letter-spacing:3px;color:#64748b;text-transform:uppercase;">Plataforma de seguridad digital para familias</div>
+                    </div>
+
+                    <div style="position:absolute;right:42px;top:46px;text-align:right;">
+                        <div style="display:inline-block;border:1px solid #ddd6fe;border-radius:999px;padding:8px 17px;background:#f5f3ff;color:#5b21b6;font-size:11px;font-weight:800;letter-spacing:1.7px;text-transform:uppercase;">${escapeHtml(categoryLabel)}</div>
+                        <div style="margin-top:13px;font-size:11px;color:#64748b;letter-spacing:1px;">Fecha de emisión: ${escapeHtml(issueDate)}</div>
+                    </div>
+
+                    <div style="position:absolute;left:42px;right:42px;top:142px;height:1px;background:linear-gradient(90deg,#ddd6fe,transparent 45%,#bae6fd);"></div>
+
+                    <div style="position:absolute;left:70px;right:70px;top:177px;text-align:center;">
+                        <div style="font-size:15px;font-weight:700;color:#64748b;letter-spacing:3px;text-transform:uppercase;">Constancia de finalización</div>
+                        <div style="margin-top:22px;font-size:15px;color:#475569;letter-spacing:1px;">Kuxipilli hace constar que</div>
+                        <div style="margin:13px auto 0;width:820px;max-width:820px;font-size:${nameFontSize}px;font-weight:900;color:#111827;line-height:1.05;letter-spacing:1px;text-align:center;word-break:break-word;">
+                            ${escapeHtml(userName)}
+                        </div>
+                        <div style="margin:18px auto 0;width:430px;height:3px;border-radius:999px;background:linear-gradient(90deg,transparent,#7c3aed,#0ea5e9,transparent);"></div>
+                        <div style="margin-top:22px;font-size:15px;color:#475569;letter-spacing:1px;">ha completado satisfactoriamente el curso</div>
+                        <div style="margin:12px auto 0;max-width:900px;font-size:${courseFontSize}px;font-weight:900;color:#312e81;line-height:1.22;letter-spacing:1.4px;text-align:center;">
+                            ${escapeHtml(courseNameUpper)}
+                        </div>
+                    </div>
+
+                    <div style="position:absolute;left:70px;right:70px;bottom:128px;border:1px solid #e0e7ff;border-radius:18px;background:#f8fafc;padding:22px 28px;">
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+                            <div style="font-size:12px;font-weight:900;color:#4f46e5;letter-spacing:3px;text-transform:uppercase;">Competencias digitales acreditadas</div>
+                            <div style="height:1px;background:#dbeafe;flex:1;margin-left:24px;"></div>
+                        </div>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px 42px;">
+                            ${competenciesHTML}
+                        </div>
+                    </div>
+
+                    <div style="position:absolute;left:70px;right:70px;bottom:54px;display:flex;align-items:flex-end;justify-content:space-between;">
+                        <div style="width:275px;">
+                            <div style="height:1px;background:#cbd5e1;margin-bottom:9px;"></div>
+                            <div style="font-size:10px;color:#64748b;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;">Código de verificación</div>
+                            <div style="margin-top:5px;font-size:12px;color:#0f172a;font-weight:800;letter-spacing:1px;">${escapeHtml(certCode)}</div>
+                        </div>
+
+                        <div style="text-align:center;">
+                            <div style="font-size:11px;color:#64748b;letter-spacing:1px;">Esta constancia reconoce la finalización del contenido educativo y sus evaluaciones.</div>
+                            <div style="margin:11px auto 0;width:180px;height:1px;background:linear-gradient(90deg,transparent,#7c3aed,transparent);"></div>
+                            <div style="margin-top:7px;font-size:10px;font-weight:900;color:#4f46e5;letter-spacing:2.6px;text-transform:uppercase;">Programa educativo Kuxipilli</div>
+                        </div>
+
+                        <div style="width:106px;height:106px;border-radius:50%;border:2px solid #7c3aed;background:#f5f3ff;display:flex;align-items:center;justify-content:center;">
+                            <div style="width:86px;height:86px;border-radius:50%;border:1px solid #c4b5fd;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                                <div style="font-size:11px;font-weight:900;color:#312e81;letter-spacing:1.6px;">KUXIPILLI</div>
+                                <div style="width:44px;height:2px;background:linear-gradient(90deg,#4f46e5,#0ea5e9);margin:7px 0;"></div>
+                                <div style="font-size:9px;font-weight:900;color:#7c3aed;letter-spacing:2px;">CURSO</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="position:absolute;left:0;bottom:0;width:100%;height:10px;background:linear-gradient(90deg,#4f46e5 0%,#7c3aed 55%,#0ea5e9 100%);"></div>
+                </div>
+            </div>
+        `;
+
+        const certEl = container.querySelector('#cert-render');
+        const images = Array.from(certEl.querySelectorAll('img'));
+        await Promise.all(images.map((img) => {
+            if (img.complete) return Promise.resolve();
+            return new Promise((resolve) => {
+                img.onload = resolve;
+                img.onerror = resolve;
+            });
+        }));
+        const canvas = await html2canvas(certEl, { scale: 2, useCORS: true, allowTaint: false, backgroundColor: '#ffffff' });
+        document.body.removeChild(container);
+
+        const imgData = canvas.toDataURL('image/png');
+        const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+        const pdfW = doc.internal.pageSize.getWidth();
+        const pdfH = doc.internal.pageSize.getHeight();
+        doc.addImage(imgData, 'PNG', 0, 0, pdfW, pdfH);
+
+        const safeUserName = (user?.name || 'Usuario').split(' ')[0].normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-zA-Z0-9]/g, '');
+        const safeCourseName = (courseName || 'Curso').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-zA-Z0-9]/g, '').substring(0, 15);
+        doc.save(`${safeUserName}_${safeCourseName}.pdf`);
     };
 
     if (loading) return (
@@ -721,7 +768,7 @@ const Dashboard = () => {
                                                     <div className="flex items-center gap-2">
                                                         <div className={`w-1.5 h-1.5 rounded-full ${badge.isCompleted ? 'bg-indigo-500' : 'bg-gray-400'}`} />
                                                         <p className={`text-[9px] font-black uppercase tracking-[0.2em] ${badge.isCompleted ? theme.text : 'text-gray-500'}`}>
-                                                            {badge.isCompleted ? 'Acreditación Oficial' : 'Curso Pendiente'}
+                                                            {badge.isCompleted ? 'Curso Completado' : 'Curso Pendiente'}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -733,7 +780,7 @@ const Dashboard = () => {
                                                     whileTap={{ scale: 0.9 }}
                                                     onClick={() => generateCertificate(badge.title, badge.category)}
                                                     className={`p-4 rounded-xl bg-gray-50 dark:bg-gray-900 text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 border border-gray-100 dark:border-gray-800 shadow-sm transition-all relative z-10 group/btn`}
-                                                    title={`Descargar Certificado`}
+                                                    title={`Descargar constancia`}
                                                 >
                                                     <Download className="w-5 h-5 group-hover/btn:animate-bounce" />
                                                 </motion.button>

@@ -209,6 +209,12 @@ Todo esto encaja con la definición amplia de **In-Game Purchases** de la ESRB y
 
 **Límite de gasto**: herramienta de supervisión para controlar compras recurrentes.
 
+**Skin**: apariencia visual de un personaje o avatar; cambia cómo se ve, no necesariamente cómo juega.
+
+**Avatar**: representación del jugador dentro del juego o plataforma.
+
+**Phishing**: engaño que usa enlaces, páginas o mensajes falsos para robar contraseñas, cuentas o datos de pago.
+
 ---
 
 ## Microactividad de 1 minuto
@@ -453,6 +459,14 @@ Una forma útil de ordenar este tema es pensar en tres bloques:
 **Java Edition**: edición más abierta a mods de terceros.
 
 **Descarga de terceros**: archivo o software obtenido fuera del canal oficial del juego.
+
+**Skin pack**: paquete de apariencias para personajes.
+
+**Texture pack**: paquete que cambia cómo se ven bloques, objetos o escenarios.
+
+**World**: mundo o mapa descargable para jugar dentro de Minecraft.
+
+**Mash-up pack**: paquete temático que puede combinar mundos, texturas, skins y otros elementos visuales.
 
 ---
 
