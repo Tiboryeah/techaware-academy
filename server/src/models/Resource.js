@@ -19,6 +19,14 @@ const guideDetailsSchema = mongoose.Schema(
     { _id: false }
 );
 
+const sourceSchema = mongoose.Schema(
+    {
+        label: { type: String, required: true, trim: true },
+        url: { type: String, required: true, trim: true },
+    },
+    { _id: false }
+);
+
 const resourceSchema = mongoose.Schema(
     {
         type: {
@@ -67,6 +75,14 @@ const resourceSchema = mongoose.Schema(
             type: String,
             default: '',
         },
+        subLabel: {
+            type: String,
+            default: '',
+        },
+        ageRange: {
+            type: String,
+            default: '',
+        },
         color: {
             type: String,
             default: 'indigo',
@@ -102,6 +118,10 @@ const resourceSchema = mongoose.Schema(
         },
         tags: {
             type: [String],
+            default: [],
+        },
+        sources: {
+            type: [sourceSchema],
             default: [],
         },
     },

@@ -2,8 +2,8 @@
 ## Reporte Técnico TT 2026-A097 | Kuxipilli
 ### "Aplicación Web para Padres y/o Tutores: Concientización y Prevención de Riesgos Digitales en Niños de entre 6 y 12 años"
 
-> **Convención:** `[x]` = redactado y correcto | `[!]` = redactado pero necesita corrección/actualización | `[ ]` = pendiente de redactar
-> Última revisión: 2026-04-30
+> **Convención:** `[x]` = redactado y correcto | `[✓]` = corregido y aplicado en Word | `[!]` = redactado pero necesita corrección/actualización | `[ ]` = pendiente de redactar
+> Última revisión: 2026-05-01
 
 ---
 
@@ -30,7 +30,7 @@
 - Propuesta: aplicación web con chatbot, módulos y examen diagnóstico
 - Objetivo declarado: fortalecer alfabetización digital parental
 
-**Estado:** `[x]` — no requiere cambios
+**Estado:** `[✓]` — corregido y aplicado (lenguaje formal, Kuxibot nombrado, componentes precisos, tiempo verbal corregido)
 
 ---
 
@@ -38,45 +38,34 @@
 
 ### 1.1 Justificación
 **Contenido:** impacto del uso no controlado de internet en salud mental, reducción de relaciones sociales, exposición a contenido sin filtros, urgencia de solución para padres. Cita HealthyChildren.org, UNICEF, Gaptain.
-**Estado:** `[x]`
+**Estado:** `[✓]` — corregido y aplicado (errores gramaticales, anglicismos, lenguaje informal eliminados)
 
 ### 1.2 Propuesta de solución
-**Contenido:** plataforma web interactiva con chatbot, test diagnóstico, casos reales, seguimiento de progreso.
-**Estado:** `[x]`
+**Contenido:** plataforma web con examen diagnóstico, 3 cursos acreditables, recomendaciones personalizadas, Kuxibot, casos prácticos, dashboard.
+**Estado:** `[✓]` — corregido y aplicado (reescrito en tono formal, componentes precisos del sistema real)
 
 ### 1.3 Objetivos
 
 #### 1.3.1 Objetivo general
-> Construir una app web interactiva y educativa para padres/tutores, desarrollada con metodología ágil, con módulos acreditables que enseñen, evalúen y certifiquen competencias sobre prevención de riesgos digitales (ciberacoso, grooming), rutas de estudio personalizadas y herramientas de control parental.
-**Estado:** `[x]`
+> Desarrollar una aplicación web educativa e interactiva para madres, padres y tutores de niños de entre 6 y 12 años, que integre examen diagnóstico, tres cursos acreditables, recomendaciones personalizadas, Kuxibot con IA generativa, panel de seguimiento y casos prácticos, para fortalecer la alfabetización digital parental.
+**Estado:** `[✓]` — corregido y aplicado (tiempo verbal, componentes completos, sin lenguaje informal)
 
 #### 1.3.2 Objetivos específicos (7 en total)
-1. Armar estructura de cursos y contenido (módulos con videos, textos y guías)
-2. Dar estrategias de control parental personalizadas
-3. Poner en marcha evaluaciones y certificados (aprobación → "completado")
-4. Crear rutas de repaso a medida (feedback por áreas falladas)
-5. Lanzar chatbot educativo Kuxibot (IA generativa)
-6. Agregar casos reales y testimonios
-7. Añadir monitoreo de progreso (dashboard con gráficos)
-**Estado:** `[x]`
+1. Diseñar e implementar la estructura de cursos y contenido educativo
+2. Proveer orientación sobre estrategias de control parental
+3. Implementar un sistema de evaluación y acreditación (≥80% → constancia PDF)
+4. Desarrollar un sistema de recomendaciones de repaso personalizado
+5. Integrar el asistente conversacional Kuxibot (Gemini → Groq → estático)
+6. Incorporar una sección de casos prácticos y guías
+7. Implementar un panel de seguimiento del progreso
+**Estado:** `[✓]` — corregido y aplicado (lenguaje formal, preciso, sin coloquialismos)
 
 ### 1.4 Estado del Arte
-**Contenido:** herramientas analizadas y comparadas en Tabla 1:
-| Herramienta | Tipo | Limitación principal |
-|---|---|---|
-| Norton Family | Control parental | Sin educación para padres |
-| Qustodio | Control parental | Costo elevado, versión gratuita limitada |
-| Google Family Link | Control parental | No evalúa riesgos |
-| Canopy | Filtrado IA | Sin módulos educativos |
-| Bark | Supervisión + alertas | No ofrece módulos educativos |
-| Educatolerancia | Educativa | No monitorea ni bloquea |
-| Common Sense Media | Educativa | No es interactiva ni personalizada |
-| StopBullying.gov | Guía educativa | Solo contenido, no es plataforma |
-
-Brecha identificada: soluciones diseñadas para EE.UU./Europa, sin adaptación cultural para Latinoamérica.
-**Estado:** `[x]`
+**Contenido:** herramientas analizadas en Tabla 1 (sin cambios). Párrafos narrativos corregidos.
+**Estado:** `[✓]` — corregido y aplicado ("chances"→probabilidad, "peques"→hijos, "tiro por la culata" eliminado, "hueco enorme"→brecha significativa)
 
 ### 1.5 Delimitación del Proyecto
+**Estado:** `[✓]` — corregido y aplicado ("puede joder"→lenguaje formal, "nuestra app"→el sistema, tres ámbitos bien etiquetados, enfoque educativo/preventivo aclarado)
 **Contenido:** tres ámbitos de exposición digital:
 1. Videojuegos en línea: Roblox y Minecraft
 2. Redes Sociales: TikTok, Discord, Instagram
@@ -92,74 +81,73 @@ Stack delimitado: MERN con MongoDB NoSQL.
 ## CAPÍTULO 2: MARCO TEÓRICO
 
 ### 2.1 El Impacto de Internet y los Videojuegos en el Desarrollo Infantil
-**Estado:** `[x]` — Cita UNICEF, HealthyChildren.org
+**Estado:** `[✓]` — corregido y aplicado (lenguaje informal eliminado, "se la pasan" → redacción formal)
 
 ### 2.2 Los Riesgos Asociados al Uso de Redes Sociales
-**Estado:** `[x]`
+**Estado:** `[✓]` — corregido y aplicado ("presa fácil"→vulnerable, "teens"→adolescentes, "ideación suicida" en lugar de "ideas suicidas")
 
 ### 2.3 Estrategias de Protección y Uso Responsable de Internet
-**Estado:** `[x]`
+**Estado:** `[✓]` — corregido y aplicado (Kuxibot nombrado correctamente, "meterse de lleno"→involucrarse activamente)
 
 ### 2.4 El Rol de los Padres en la Protección Digital
-**Estado:** `[x]`
+**Estado:** `[✓]` — corregido y aplicado ("blindar"→protección, segunda persona eliminada)
 
 ### 2.5 El Efecto de los Videojuegos en la Educación y el Rendimiento Académico
-**Estado:** `[x]`
+**Estado:** `[✓]` — corregido y aplicado ("cómo les va en la escuela"→rendimiento académico, "les pasa factura"→impacta negativamente)
 
 ### 2.6 Videojuegos y el Desarrollo de Habilidades Cognitivas
-**Estado:** `[x]`
+**Estado:** `[✓]` — corregido y aplicado ("geniales para aprender"→contribuyen al desarrollo cognitivo)
 
 ### 2.7 Desigualdades en el Acceso a Herramientas de Protección Digital
-**Estado:** `[x]`
+**Estado:** `[✓]` — corregido y aplicado ("chances"→acceso, "familias humildes"→nivel socioeconómico)
 
 ### 2.8 El Papel de la Educación Formal en la Seguridad Digital
-**Estado:** `[x]`
+**Estado:** `[✓]` — corregido y aplicado (tono formal, "varios países ya lo están haciendo realidad"→han comenzado a implementar)
 
 ### 2.9 La Evolución de las Normativas sobre la Protección Digital Infantil
-**Estado:** `[x]`
+**Estado:** `[✓]` — corregido y aplicado (ajuste menor "se han vuelto"→"se han hecho")
 
 ### 2.10 Grooming: Riesgo Digital en Línea
-**Estado:** `[x]`
+**Estado:** `[✓]` — corregido y aplicado ("sonsacar"→obtener, "deja secuelas"→genera consecuencias)
 
 ### 2.11 Aplicación Web
-**Estado:** `[x]` — Cita W3C, MDN
+**Estado:** `[✓]` — corregido y aplicado (segunda persona eliminada, "gadget"→dispositivo)
 
 ### 2.12 Aplicación Web Interactiva
-**Estado:** `[x]`
+**Estado:** `[✓]` — corregido y aplicado ("mover y usar"→interactuar y utilizar)
 
 ### 2.13 Lenguajes de Programación para el Desarrollo Web
-**Estado:** `[x]` — HTML5, CSS3, JavaScript
+**Estado:** `[✓]` — corregido y aplicado (**error factual eliminado: Python/Flask/Django no se usan en el proyecto**)
 
 ### 2.14 Bases de Datos
-**Estado:** `[x]`
+**Estado:** `[x]` — sin cambios necesarios
 
 #### 2.14.1 Justificación de la Elección (MongoDB)
-**Estado:** `[x]` — documento flexible, escalabilidad, sin esquema rígido
+**Estado:** `[✓]` — corregido y aplicado (**"React/Vue.js"→React**, **"colección Articles"→lessons**)
 
 ### 2.15 Herramientas de Desarrollo
-**Estado:** `[x]` — VS Code, GitHub, Postman, Figma
+**Estado:** `[✓]` — corregido y aplicado (**error factual eliminado: Heroku→Netlify/Render**)
 
 ### 2.16 Seguridad en la Aplicación Web
-**Estado:** `[x]` — JWT, Bcrypt, HTTPS, Helmet, CORS
+**Estado:** `[✓]` — corregido y aplicado (JWT, Bcrypt, HTTPS, Helmet, CORS, rate limiting documentados con precisión)
 
 ### 2.17 Diseño Responsivo
-**Estado:** `[x]` — Tailwind CSS, breakpoints sm/md/lg
+**Estado:** `[✓]` — corregido y aplicado (**error factual eliminado: Bootstrap→Tailwind CSS v4**)
 
 ### 2.18 Experiencia de Usuario (UX) y Diseño de Interfaz (UI)
-**Estado:** `[x]` — ISO 9241-210, principios user-centered
+**Estado:** `[✓]` — corregido y aplicado (encabezados informales eliminados, registro formal)
 
 ### 2.19 Riesgos en plataformas de streaming (YouTube y Twitch)
-**Estado:** `[x]` — contenido inapropiado, estafas, monetización engañosa. Cita estudio Springer 2024.
+**Estado:** `[✓]` — corregido y aplicado (puntuación de la lista corregida)
 
 ### 2.20 Alfabetización Digital Parental
-**Estado:** `[x]` — UNESCO DigComp 2.2, UNICEF Digital Parenting 2023
+**Estado:** `[✓]` — corregido y aplicado ("Este proyecto quiere sumarse"→contribuye, "gadgets"→dispositivos)
 
 ### 2.21 Marco Normativo sobre la Protección Digital Infantil en México
-**Estado:** `[x]` — LGDNNA, Estrategia Nacional de Ciberseguridad 2017, SEP-PIAD, LGPDPPSO
+**Estado:** `[x]` — sin cambios necesarios
 
 ### 2.22 Glosario de Términos Técnicos (Tabla 2)
-Términos definidos: API REST, Autenticación, Base de datos NoSQL, Chatbot, Ciberacoso, CORS, Diagnóstico digital, Grooming, HTML, JWT, MongoDB, Node.js, React, SPA, Streaming, Tailwind CSS, Vite.
-**Estado:** `[x]` — corrección ya aplicada: "WT" → "JWT" (C1)
+**Estado:** `[✓]` — corregido y aplicado (5 entradas nuevas agregadas: Tailwind CSS, Vite, Mongoose, Bcrypt, html2canvas)
 
 ---
 
@@ -178,15 +166,9 @@ Términos definidos: API REST, Autenticación, Base de datos NoSQL, Chatbot, Cib
 **Estado:** `[x]`
 
 #### 3.1.3 Estructura de Sprints y Entregables
-5 Sprints de TT1:
-- Sprint 1: Análisis inicial y levantamiento de requerimientos
-- Sprint 2: Diseño de arquitectura y modelado del sistema
-- Sprint 3: Estandarización técnica y documentación
-- Sprint 4: Diseño UI/UX y estructura visual
-- Sprint 5: Integración final y preparación TT1
-
-Herramientas: GitHub, Microsoft 365 Copilot, PlantUML, Mermaidchart
-**Estado:** `[x]` — corrección ya aplicada: numeración duplicada 3.1.1/3.1.2 (M1)
+10 Sprints en total: 5 de TT1 (análisis/diseño) + 5 de TT2 (implementación/pruebas/despliegue).
+Herramientas: GitHub, PlantUML, Mermaidchart
+**Estado:** `[✓]` — corregido y aplicado (TT2 sprints agregados, Sprint 6–10 documentados con lo implementado realmente)
 
 #### 3.1.4 Conclusión metodológica
 **Estado:** `[x]`
@@ -221,33 +203,12 @@ Herramientas: GitHub, Microsoft 365 Copilot, PlantUML, Mermaidchart
 **Estado:** `[x]`
 
 ### 3.3 Requerimientos Funcionales (RF) — Tabla 5
-| ID | Nombre | Prioridad |
-|---|---|---|
-| RF1 | Registro y Autenticación de Padres | Alta |
-| RF2 | Chatbot Interactivo de Consulta | Alta |
-| RF3 | Examen de Diagnóstico y de Módulo | Alta |
-| RF4 | Retroalimentación Personalizada y Ruta de Repaso | Alta |
-| RF5 | Visualización de Módulos Educativos | Alta |
-| RF6 | Visualización de Guías de Control Parental | Media |
-| RF7 | Base de Datos de Usuarios y Evaluaciones | Alta |
-| RF8 | Acceso a Casos Prácticos | Media |
-| RF9 | Gestión de Acreditación de Cursos (≥80% → certificado PDF) | Alta |
-| RF10 | Verificación de Identidad (código 6 dígitos) | Alta |
-| RF11 | Reporte de Casos de Riesgo | Media |
-| RF12 | Interacción Contextual Experta (historial conversación) | Alta |
-**Estado:** `[x]`
+Nombres y prioridades sin cambio. Descripciones reescritas en tono formal y tercera persona.
+**Estado:** `[✓]` — corregido y aplicado (RF1–RF12: segunda persona eliminada, "súper útil"→formal, 80% mencionado en RF9, código 6 dígitos en RF10)
 
 ### 3.4 Requerimientos No Funcionales (RNF) — Tabla 6
-| ID | Nombre | Categoría |
-|---|---|---|
-| RNF1 | Diseño Responsivo | Usabilidad |
-| RNF2 | Interfaz Intuitiva (UX/UI) | Usabilidad |
-| RNF3 | Tiempo de respuesta chatbot (tiempo real) | Rendimiento |
-| RNF4 | Seguridad HTTPS | Seguridad |
-| RNF5 | Disponibilidad 99% uptime | Disponibilidad |
-| RNF6 | Escalabilidad de Base de Datos | Mantenimiento |
-| RNF7 | Autenticación Segura (JWT/OAuth) | Seguridad |
-**Estado:** `[x]`
+Nombres y categorías sin cambio. Definición introductoria y descripciones reescritas.
+**Estado:** `[✓]` — corregido y aplicado ("superintuitiva en un santiamén"→formal, RNF3 <2s precisado, RNF7 JWT/OAuth→solo JWT)
 
 ### 3.5 Requerimientos Técnicos (RT) — Tabla 7
 | ID | Descripción |
@@ -266,23 +227,11 @@ Herramientas: GitHub, Microsoft 365 Copilot, PlantUML, Mermaidchart
 ### 3.6 Reglas de Negocio — Tabla 8
 
 #### 3.6.1 Tabla de Reglas de Negocio
-| ID | Regla | Descripción |
-|---|---|---|
-| RN-01 | Registro único por correo | Email válido y exclusivo, sin cuentas repetidas |
-| RN-02 | Validación de correo | Código 6 dígitos enviado al correo para activar cuenta |
-| RN-03 | Progresión educativa controlada | Completar todos los módulos antes del examen final |
-| RN-04 | Restricción de roles administrativos | Solo admins modifican cursos/módulos/recursos |
-| RN-05 | Privacidad de datos personales | Cumplimiento LGPDPPSO |
-| RN-06 | Autenticación y sesión segura | JWT con expiración automática |
-| RN-07 | Chatbot Kuxibot | System Instruction estricta: solo ciberseguridad, alfabetización digital y tips parentales |
-| RN-08 | Módulos acreditables independientes | Cada curso: examen inicial + módulos + acreditación final |
-| RN-09 | Registro de progreso | % completado, última conexión, notas de exámenes |
-| RN-10 | Acceso multiplataforma | ISO 9241-210, interfaz responsive |
-| RN-11 | Cumplimiento normativo | COBIT 2019 para gobernanza TI |
-**Estado:** `[x]`
+Nombres sin cambio. Párrafo introductorio y descripciones RN-03 a RN-10 reescritos.
+**Estado:** `[✓]` — corregido y aplicado (RN-04 "tocar"→formal, RN-05 "al 100%"→principios LGPDPPSO, RN-06 "se apaga sola"→expira automáticamente, RN-07 "a prueba de balas"/"meollo"→lenguaje técnico formal, RN-09 segunda persona eliminada, RN-10 "brilla"→accesible y funcional)
 
 #### 3.6.2 Observaciones generales
-**Estado:** `[x]`
+**Estado:** `[x]` — sin cambios necesarios
 
 #### 3.6.3 Modelo de protección de datos personales
 **Contenido:** datos gestionados (cuenta, uso educativo, interacción chatbot), principios LGPDPPSO, controles en frontend/backend/BD. Anonimización PII en prompts de chatbot (no se envían emails ni nombres reales a Gemini/Groq).
@@ -300,11 +249,14 @@ Herramientas: GitHub, Microsoft 365 Copilot, PlantUML, Mermaidchart
 #### 3.7.2 Estrategias generales de mitigación
 **Estado:** `[x]`
 
+### 3.7.1 Clasificación de riesgos
+**Estado:** `[✓]` — corregido y aplicado (emojis 🟥🟧🟩 → texto formal con negritas)
+
 ### 3.8 Análisis de Factibilidad
 - **Técnica:** Alta — pila MERN madura, SDK Gemini disponible, herramientas gratuitas
 - **Operativa:** Alta — no requiere conocimientos técnicos del usuario final
 - **Económica:** Alta — open source, costo total estimado $37,800–$38,300 MXN
-**Estado:** `[x]`
+**Estado:** `[✓]` — corregido y aplicado (Nodemailer solo → Resend API primario + Nodemailer fallback)
 
 ---
 
@@ -448,7 +400,7 @@ Flujo: detallado de la cadena Gemini → Groq → estático, con historial 10 me
 | Despliegue | Netlify (frontend) + Render (backend) | — |
 | Dev tools | VS Code, Postman, MongoDB Compass, Jest+Supertest | — |
 
-**Estado:** `[!]` — **ACTUALIZAR**: el documento menciona "jsPDF" para certificados; debe decir "jsPDF + html2canvas" (DA13). Correcciones ya aplicadas: "Render o Railway" → "Render" (C), "400×400" → "200×200 70%" Sharp (C).
+**Estado:** `[✓]` — corregido y aplicado (jsPDF → jsPDF + html2canvas en Tabla 10, Tabla 11 y Tabla 15)
 
 ### 4.8 Diseño de la Base de Datos
 
@@ -485,13 +437,13 @@ Flujo: detallado de la cadena Gemini → Groq → estático, con historial 10 me
 ### 4.9 Plan de Pruebas del Sistema
 
 #### 4.9.1 Objetivos del plan de pruebas
-**Estado:** `[x]`
+**Estado:** `[x]` — sin cambios en objetivos
 
 #### 4.9.2 Criterios de aceptación
 **Estado:** `[x]`
 
-#### 4.9.3 Plan de pruebas por módulo
-**Estado:** `[x]`
+#### 4.9.3 Plan de pruebas por módulo — Tabla 17 y Tabla 18
+**Estado:** `[✓]` — corregido y aplicado (Mocha/JMeter/OWASP ZAP/React Testing Library eliminados → Jest+Supertest+Postman; notificación admin → Resend API no "servidor SMTP")
 
 #### 4.9.4 Estrategia de ejecución
 **Estado:** `[x]`
@@ -528,7 +480,7 @@ Flujo: detallado de la cadena Gemini → Groq → estático, con historial 10 me
 **Estado:** `[x]`
 
 #### 4.11.5 Conclusión de diseño visual
-**Estado:** `[x]`
+**Estado:** `[✓]` — corregido y aplicado (tiempo futuro → pasado: "se implementarán"→"fueron implementados con React 19")
 
 ---
 
@@ -576,13 +528,12 @@ Educativo, Social, Tecnológico, Institucional.
 **Estado:** `[x]`
 
 ### 5.6 Gestión de Riesgos y Continuidad — Tabla 26
-4 riesgos de gobierno: falla seguridad/pérdida datos, sobrecarga servidor, falta adopción, obsolescencia tecnológica.
-**Estado:** `[x]`
+**Estado:** `[✓]` — corregido y aplicado (sobrecarga servidor: escalado horizontal → rate limiting + arquitectura stateless)
 
 ### 5.7 Valor Tecnológico y Madurez del Proyecto
-- TT1: Nivel 2 COBIT (Gestionado)
-- TT2 meta: Nivel 3 (Establecido)
-**Estado:** `[x]`
+- TT1: Nivel 2 COBIT (Gestionado) ✓ alcanzado
+- TT2: Nivel 3 (Establecido) ✓ alcanzado
+**Estado:** `[✓]` — corregido y aplicado (tiempo futuro → pasado: TT2 ya concluyó, Nivel 3 alcanzado)
 
 ### 5.8 Análisis de Costos y Recursos
 
@@ -613,8 +564,8 @@ $35,000 MXN (laptops + recursos gráficos + licencias $0).
 **Estado:** `[x]`
 
 #### 5.9.2 Depreciación del equipo de cómputo
-Método: depreciación lineal, vida útil 36 meses.
-**Estado:** `[x]`
+Método: depreciación lineal, vida útil 36 meses. Mensual: $833.33 MXN. Total 10 meses: $8,333.33 MXN.
+**Estado:** `[✓]` — verificar que la fórmula sea visible en Word (no campo vacío ni imagen)
 
 #### 5.9.3 Costos Operativos
 **Estado:** `[x]`
@@ -680,21 +631,16 @@ Netlify (frontend SPA) + Render (backend API) + MongoDB Atlas.
 - GET /api/content/courses/:id → módulos + lecciones populadas
 - GET /api/content/lessons/:id
 - GET /api/content/stats → conteo cursos/lecciones/casos
-- **[!] AGREGAR:** GET /api/content/latest-update → novedad más reciente entre `Lesson(article|guide)` y `Resource(case|guide)`; devuelve `{ label, title, description, href, createdAt }`
-**Estado:** `[!]` — falta documentar endpoint latest-update
+- GET /api/content/latest-update → novedad más reciente entre `Lesson(article|guide)` y `Resource(case|guide)`; devuelve `{ label, title, description, href, createdAt }`
+**Estado:** `[✓]` — corregido y aplicado (endpoint latest-update documentado)
 
 #### 6.2.4 Motor de evaluación (`quiz.routes.js` + `quizService.js`)
 - GET /api/quiz/:id → preguntas mezcladas (shuffleArray en backend, DA06)
 - GET /api/quiz/my-recommendations → última recomendación pendiente persistida
 - GET /api/quiz/recommendations/:attemptId → áreas/plataformas a repasar (pantalla inmediata)
-- POST /api/quiz/:id/submit → motor de calificación
-  - 10 tipos de pregunta con lógica diferenciada
-  - Score: round((weighted/total)×100)
-  - riskLevel: Alto (<50%), Medio (50–79%), Bajo (≥80%)
-  - errorsByArea y errorsByPlatform como mapas dinámicos
-  - **[!] ACTUALIZAR:** recomendaciones calculadas desde preguntas falladas concretas (no desde módulo completo); `saveRecommendation()` recibe `questionDetails`; plataformas solas no cuentan como coincidencia suficiente; al aprobar el mismo quiz se eliminan recomendaciones previas de ese quiz; `scope:'course'` no genera recomendaciones ni `questionDetails`.
-- Guía de aprendizaje: lecciones por `moduleId`, no por `courseId`; sin fallback con lecciones no relacionadas.
-**Estado:** `[!]` — actualizar descripción de recommendations y guía de aprendizaje
+- POST /api/quiz/:id/submit → recomendaciones calculadas desde preguntas falladas concretas; `scope:'course'` no genera recomendaciones ni `questionDetails`; al aprobar el mismo quiz se eliminan recomendaciones previas
+- Guía de aprendizaje: lecciones por `moduleId`, no por `courseId`; sin fallback con lecciones no relacionadas
+**Estado:** `[✓]` — corregido y aplicado (recommendations desde preguntas falladas, limpieza al aprobar)
 
 #### 6.2.5 Sistema de progreso (`progress.routes.js` + `progressService.js`)
 - POST /api/progress/lesson/:lessonId/complete → `$addToSet` idempotente + upsert
@@ -710,7 +656,8 @@ Netlify (frontend SPA) + Render (backend API) + MongoDB Atlas.
 - System Instruction, anonimización PII (emails → [EMAIL], teléfonos → [TLF])
 - Historial de 10 mensajes por conversación
 - Mock mode con USE_MOCK_AI=true (pruebas)
-**Estado:** `[x]`
+- Cubre RF2 y RF12 (no RF10/RF11 como estaba escrito)
+**Estado:** `[✓]` — corregido y aplicado (RF10/RF11 → RF2/RF12)
 
 #### 6.2.7 Módulo de reportes de incidentes (`report.routes.js`)
 - POST /api/reports/submit → rate limit 3/hora + cooldown 10min en BD
@@ -724,19 +671,9 @@ Netlify (frontend SPA) + Render (backend API) + MongoDB Atlas.
 **Estado:** `[x]`
 
 #### 6.2.9 Sistema de seed de contenido
-- `seed.js` (completo) / `seed-target.js` (por objetivo con aliases)
-- Comandos npm: seed, seed:games, seed:social, seed:streaming, seed:diagnostic, seed:content
-- Proceso idempotente con `getOrCreate` por campo natural
-- `getOrCreateQuiz`: elimina y recrea preguntas en cada sync
-- **[!] AGREGAR:** correcciones de calidad aplicadas en sesiones 2026-04-28 a 2026-04-30:
-  - `multiple_selection`: máximo 3–4 respuestas correctas de 5–6 opciones
-  - `categorize`: balance 3+3+3 o 2+3+2 por categoría
-  - `match_columns`: ítems con elementos nombrados exclusivos de cada plataforma (sin ambigüedad)
-  - Mini glosarios para padres en artículos clave de los 3 cursos
-  - Corrección conceptual Streaming M1: YouTube = videos predominantemente para ver cuando se quiera (también tiene directos); Twitch = directos predominantemente (también guarda grabaciones)
-  - Términos eliminados: VOD, clips, a demanda, bajo demanda
-  - Imágenes en artículos de Redes Sociales (M1A1–M7A2): alojadas en `client/public/article-images/redes-sociales/`, servidas desde Netlify CDN; MongoDB almacena solo la referencia en el markdown
-**Estado:** `[!]` — agregar párrafo de calidad de contenido
+- `seed.js` / `seed-target.js`, comandos npm por curso
+- Idempotente con `getOrCreate`, correcciones de calidad de exámenes (multiple_selection, categorize, match_columns), mini glosarios para padres, imágenes en artículos Redes Sociales
+**Estado:** `[✓]` — corregido y aplicado (párrafo de calidad de contenido agregado)
 
 ---
 
@@ -754,33 +691,19 @@ Register → VerifyAccount (código 6 dígitos) → Login; ForgotPassword → Re
 **Estado:** `[x]`
 
 #### 6.3.3 Panel personal (Dashboard)
-- Saludo personalizado, tarjetas de resumen, feed de actividad reciente
-- Medidor SVG animado (Índice de Protección Digital)
-  - Fórmula: DiagBonus(20%) + Lecciones(20%) + Módulos(60%)
-  - DiagBonus binario: +20 si diagnóstico ≥80%, +0 si no
-- Tarjeta "Mis Logros Digitales": badges de cursos completados + botón descarga certificado
-- Tarjeta "Lecciones Recomendadas": consume `/api/quiz/my-recommendations`
-- **[!] ACTUALIZAR — tarjeta "Novedad":** consume `/api/content/latest-update`, muestra artículo/guía/caso más reciente clickeable
-- **[!] ACTUALIZAR — certificado PDF:** generado client-side con `html2canvas + jsPDF` (no solo jsPDF):
-  1. Se construye div HTML oculto con el diseño del certificado en CSS puro
-  2. Logo pre-procesado en canvas circular (`ctx.arc()` + `ctx.clip()`)
-  3. `html2canvas` captura el div a escala 2×
-  4. `jsPDF` inserta imagen PNG y descarga (~1–2 s, no <200 ms)
-- **[!] ACTUALIZAR:** 4 peticiones paralelas al cargar (progreso, cursos, recomendaciones, novedad)
-**Estado:** `[!]` — certificado, novedad y fetches paralelos necesitan actualizarse
+- 4 peticiones paralelas: progreso, cursos, recomendaciones, latest-update
+- Medidor SVG, tarjeta novedad, tarjeta recomendadas, insignias, certificado html2canvas+jsPDF
+**Estado:** `[✓]` — corregido y aplicado (4 fetches, tarjeta novedad, certificado html2canvas+jsPDF)
 
 #### 6.3.4 Visor de cursos y lecciones
-- CourseDetail: plan de estudios, progreso por módulo, botón examen final
-- LessonView: renderer Markdown (react-markdown), iframe YouTube embebido, marcado automático al abrir
-- **[!] AGREGAR — scroll-to-lesson al volver:** LessonView envía `state={{ scrollToLessonId: lesson._id }}`; CourseDetail espera fin de carga y usa `requestAnimationFrame` + `scrollIntoView({ behavior:'auto', block:'center' })`
-- Admin bypass: administrador puede navegar sin restricciones de progreso
-**Estado:** `[!]` — agregar scroll-to-lesson
+- CourseDetail: scroll-to-lesson con requestAnimationFrame + scrollIntoView(behavior:'auto')
+- LessonView: renderer Markdown, iframe YouTube, marcado automático
+**Estado:** `[✓]` — corregido y aplicado (scroll behavior:'smooth'→'auto', requestAnimationFrame documentado)
 
 #### 6.3.5 Sistema de evaluación (QuizTaker)
-- 10 tipos de pregunta renderizados: single_choice, multiple_choice, multiple_selection, case_study, drag_drop, fill_blanks, match_columns, order_sequence, categorize, drop_down
-- Modo revisión: respuestas correctas/incorrectas con justificación
-- Guía de aprendizaje: lecciones recomendadas por pregunta fallada
-**Estado:** `[x]`
+- 10 tipos de pregunta, modo revisión, guía de aprendizaje por pregunta fallada
+- Cubre RF3, RF4 y RF9 (no RF6/RF7/RF8 como estaba escrito)
+**Estado:** `[✓]` — corregido y aplicado (RF6/RF7/RF8 → RF3/RF4/RF9)
 
 #### 6.3.6 Chatbot Kuxibot (interfaz)
 - Widget flotante, burbujas de chat
@@ -821,7 +744,7 @@ Register → VerifyAccount (código 6 dígitos) → Login; ForgotPassword → Re
 | **DA12** | **Imágenes de artículos en Netlify estático (`client/public/`)** | **Render destruye archivos (DA04); MongoDB no diseñado para binarios (16MB/doc); imágenes atadas al seed = contenido estático del código** | **5355948** |
 | **DA13** | **Certificado PDF via html2canvas + jsPDF en lugar de jsPDF puro** | **jsPDF puro no soporta unicode, produce texto con espaciado irregular y no permite CSS real; html2canvas captura HTML/CSS con fidelidad total** | **5355948** |
 
-**Estado:** `[!]` — agregar DA12 y DA13 al documento
+**Estado:** `[✓]` — corregido y aplicado (DA12 y DA13 agregados a la tabla)
 
 ---
 
@@ -843,18 +766,18 @@ Register → VerifyAccount (código 6 dígitos) → Login; ForgotPassword → Re
 | `audit_orphans.js` / `clean_orphans.js` | Detectar y eliminar documentos huérfanos | Mantenimiento periódico |
 | `clean_progress.js` | Limpiar registros de progreso inconsistentes | Tras migraciones complejas |
 
-**Estado:** `[ ]` — sección pendiente de redactar en el Word
+**Estado:** `[✓]` — corregido y aplicado (sección completa redactada y pegada en Word)
 
 ---
 
 ## CAPÍTULO 7: PRUEBAS
-> **TODO: Capítulo completo pendiente de redactar.**
+> **PENDIENTE:** texto redactado en CORRECCIONES.md listo para pegar. Esperando cambios visuales finales antes de aplicar §7.6 y §7.8.
 
 ### 7.1 Estrategia de pruebas
 - Enfoque mixto: automatizadas (Jest 30 + Supertest 7 + MongoMemoryServer 11) para lógica crítica del backend; manuales para flujos UI y experiencia de usuario
 - BD en memoria descartable por suite; sin efectos secundarios sobre Atlas
 - 3 suites automatizadas (auth, quiz, chatbot) + pruebas manuales por módulo
-**Estado:** `[ ]`
+**Estado:** `[ ]` — texto listo en CORRECCIONES.md, pendiente pegar en Word
 
 ### 7.2 Pruebas unitarias e integración (automatizadas)
 
@@ -908,9 +831,9 @@ Register → VerifyAccount (código 6 dígitos) → Login; ForgotPassword → Re
 ### 7.5 Pruebas de rendimiento
 - Chatbot: Gemini 2.5 Flash <1.5s, Groq ~0.8s, estático <50ms
 - Cursos con populate: <400ms (Atlas)
-- **[!] ACTUALIZAR — certificado PDF:** ~1–2 s (html2canvas captura DOM → jsPDF; antes era <200ms con jsPDF puro). El incremento es aceptable para operación puntual de descarga.
+- Certificado PDF: ~1–2 s (html2canvas+jsPDF; antes <200ms con jsPDF puro)
 - Avatar con Sharp: <200ms vs ~1.5s sin compresión
-**Estado:** `[ ]`
+**Estado:** `[ ]` — texto listo en CORRECCIONES.md, pendiente pegar en Word
 
 ### 7.6 Pruebas de usabilidad
 - Dispositivos: escritorio (Chrome, Firefox), móvil (iOS Safari, Android Chrome)
@@ -945,7 +868,7 @@ Register → VerifyAccount (código 6 dígitos) → Login; ForgotPassword → Re
 | B12 | Intentos huérfanos tras re-seed | BD | quizIds obsoletos en attempts | fix_attempts.js reasigna al nuevo diag | — |
 | **B13** | **Certificado PDF con caracteres corruptos y texto desalineado** | **Frontend** | **jsPDF no soporta unicode ni CSS; coordenadas absolutas generaban huecos** | **html2canvas + jsPDF; diseño en HTML/CSS** | **5355948** |
 
-**Estado:** `[ ]` — tabla existe en Word pero requiere agregar B13
+**Estado:** `[ ]` — texto completo listo en CORRECCIONES.md (B01–B13), pendiente pegar en Word tras cambios visuales finales
 
 ---
 
