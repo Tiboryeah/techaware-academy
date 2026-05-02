@@ -940,21 +940,35 @@ Ejecutados `npm run seed:social` y `npm run seed:games`.
 - `npm run build` en `client`: exitoso.
 - Advertencia esperada de Vite: chunks mayores a 500 kB.
 
-### Estado git relevante al cerrar
-- Cambios propios de esta fase:
-  - `client/src/pages/CaseDetail.jsx`
-  - `client/src/pages/Modules.jsx`
-  - `client/src/pages/RealCases.jsx`
-  - `server/src/models/Resource.js`
-  - `server/src/scripts/seed/resources.js`
-  - `CONTEXTO_SESION.md`
-- Cambios no necesariamente de esta fase / posiblemente del usuario o previos:
-  - `RUTA_TODOS_CAPITULOS.md`
-  - `Reporte_Tecnico.docx`
-  - `Reporte_Tecnico.pdf`
-  - `server/src/scripts/seed/courses/streaming/catalog.js`
-  - `client/public/article-images/streaming/`
-- No revertir nada sin permiso explicito.
+### Actualización posterior: UptimeRobot, dominio y subida a GitHub
+- Se corrigió el falso incidente de UptimeRobot por `HTTP 429 - Too Many Requests`.
+- Causa: el monitor pegaba a una ruta normal del backend y podía consumir el rate limit global.
+- Archivo modificado: `server/src/index.js`.
+- Cambios aplicados:
+  - `app.set('trust proxy', 1)` para Render.
+  - Endpoint liviano `GET /health`.
+  - Endpoint alterno `GET /api/health`.
+  - Exclusión de `/health` y `/api/health` del rate limiter.
+  - Fallback de CORS actualizado con `https://kuxipilli.com` y `https://www.kuxipilli.com`.
+- Configuración recomendada:
+  - Monitor de backend/API en UptimeRobot: `https://techaware-academy.onrender.com/health`.
+  - Monitor opcional de frontend público: `https://kuxipilli.com/`.
+  - No usar `https://kuxipilli.com/` como monitor principal para mantener o comprobar el backend.
+- Se actualizó `client/.env.example` para documentar que `VITE_API_URL` apunta al backend de Render.
+
+### Subidas a GitHub
+- Rama: `main`.
+- Remoto: `origin https://github.com/Tiboryeah/techaware-academy`.
+- Commits subidos:
+  - `46240f0 Fix health checks and Spanish case text`
+    - Corrección de `/health`, rate limit, CORS y `client/.env.example`.
+    - Corrección de ortografía española en casos reales (`ñ`, tildes y mojibake).
+    - Corrección de `RealCases.jsx`, `CaseDetail.jsx` y `server/src/scripts/seed/resources.js`.
+    - `npm run seed:target -- resources` ejecutado después de corregir los textos.
+  - `2bdcb76 Add streaming article assets and report updates`
+    - Subidas las 26 imágenes de `client/public/article-images/streaming/`.
+    - Incluye cambios en `RUTA_TODOS_CAPITULOS.md`, `Reporte_Tecnico.docx`, `Reporte_Tecnico.pdf`, `Modules.jsx`, `Resource.js` y `server/src/scripts/seed/courses/streaming/catalog.js`.
+- Estado al cerrar: `git status --short` quedó limpio antes de esta actualización de contexto.
 TT_Academia/
 ├── Reporte_Tecnico.docx             ← versión editable (correcciones aplicadas 2026-05-01)
 ├── RUTA_TODOS_CAPITULOS.md          ← mapa completo 7 capítulos con estados [x]/[✓]/[!]/[ ]
