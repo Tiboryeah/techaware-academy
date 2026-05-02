@@ -1,7 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ShieldCheck, Zap, Lightbulb, Clock, Shield, Users, UserX, AlertTriangle, Info } from 'lucide-react';
+import {
+    ArrowLeft,
+    ShieldCheck,
+    Zap,
+    Lightbulb,
+    Clock,
+    Shield,
+    Users,
+    UserX,
+    AlertTriangle,
+    Info,
+    ExternalLink,
+    BookOpen,
+    Link,
+    Target,
+} from 'lucide-react';
 import NotFound from './NotFound';
 import api from '../services/api';
 
@@ -9,6 +24,39 @@ const caseIcons = {
     Ciberacoso: <UserX className="w-5 h-5" />,
     Fraudes: <AlertTriangle className="w-5 h-5" />,
     Grooming: <ShieldCheck className="w-5 h-5" />,
+    'Retos virales': <AlertTriangle className="w-5 h-5" />,
+    'Explotación digital': <ShieldCheck className="w-5 h-5" />,
+    Suicidio: <AlertTriangle className="w-5 h-5" />,
+    'Violencia en vivo': <AlertTriangle className="w-5 h-5" />,
+    'Grooming fatal': <ShieldCheck className="w-5 h-5" />,
+    'Contenido camuflado': <AlertTriangle className="w-5 h-5" />,
+};
+
+const SectionHeader = ({ eyebrow, title, icon }) => (
+    <div className="flex items-start gap-4">
+        <div className="w-11 h-11 rounded-2xl bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 border border-indigo-600/15 flex items-center justify-center flex-shrink-0">
+            {icon}
+        </div>
+        <div className="space-y-1">
+            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-600 dark:text-indigo-400">{eyebrow}</p>
+            <h2 className="text-2xl sm:text-3xl font-black tracking-tighter text-gray-900 dark:text-white">{title}</h2>
+        </div>
+    </div>
+);
+
+const FactCard = ({ label, value, tone = 'indigo' }) => {
+    const tones = {
+        indigo: 'bg-indigo-50 dark:bg-indigo-500/10 border-indigo-100 dark:border-indigo-500/20 text-indigo-600 dark:text-indigo-300',
+        red: 'bg-red-50 dark:bg-red-500/10 border-red-100 dark:border-red-500/20 text-red-600 dark:text-red-300',
+        gray: 'bg-gray-50 dark:bg-white/5 border-gray-100 dark:border-gray-800 text-gray-500 dark:text-gray-400',
+    };
+
+    return (
+        <div className={`p-5 rounded-2xl border ${tones[tone] || tones.indigo}`}>
+            <p className="text-[10px] font-black uppercase tracking-widest mb-2">{label}</p>
+            <p className="text-lg font-black text-gray-900 dark:text-white leading-tight">{value}</p>
+        </div>
+    );
 };
 
 const CaseDetail = () => {
@@ -73,18 +121,27 @@ const CaseDetail = () => {
             <main className="max-w-7xl mx-auto px-4 pt-8 sm:pt-12">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-16">
                     <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="lg:col-span-4 space-y-8">
-                        <div className="relative">
-                            <div className="relative p-6 sm:p-10 bg-gradient-to-br from-indigo-600 to-indigo-900 rounded-[2rem] sm:rounded-[3rem] text-white shadow-2xl overflow-hidden">
-                                <div className="absolute top-0 right-0 p-8 opacity-10">
-                                    <Shield className="w-32 h-32 rotate-12" />
-                                </div>
-                                <div className="space-y-6 relative z-10">
+                        <div className="relative p-6 sm:p-10 bg-gradient-to-br from-indigo-600 to-indigo-900 rounded-[2rem] sm:rounded-[3rem] text-white shadow-2xl overflow-hidden">
+                            <div className="absolute top-0 right-0 p-8 opacity-10">
+                                <Shield className="w-32 h-32 rotate-12" />
+                            </div>
+                            <div className="space-y-6 relative z-10">
+                                <div className="flex flex-wrap gap-2">
                                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-[10px] font-black uppercase tracking-widest border border-white/20">
-                                        Nivel de riesgo: {caseItem.riskLevel}
+                                        Riesgo: {caseItem.riskLevel}
                                     </div>
-                                    <h1 className="text-2xl sm:text-4xl font-black tracking-tighter leading-tight text-white">{caseItem.title}</h1>
-                                    <p className="text-indigo-100 text-lg italic leading-relaxed font-medium">"{caseItem.summary}"</p>
-                                    <div className="pt-6 border-t border-white/10 flex items-center gap-4">
+                                    {caseItem.subLabel ? (
+                                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-[10px] font-black uppercase tracking-widest border border-white/20">
+                                            {caseItem.subLabel}
+                                        </div>
+                                    ) : null}
+                                </div>
+
+                                <h1 className="text-2xl sm:text-4xl font-black tracking-tighter leading-tight text-white">{caseItem.title}</h1>
+                                <p className="text-indigo-100 text-lg italic leading-relaxed font-medium">"{caseItem.summary}"</p>
+
+                                <div className="pt-6 border-t border-white/10 space-y-4">
+                                    <div className="flex items-center gap-4">
                                         <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center">
                                             {caseItem.icon}
                                         </div>
@@ -92,6 +149,18 @@ const CaseDetail = () => {
                                             <p className="text-[10px] font-black uppercase opacity-60 tracking-wider">Categoría</p>
                                             <p className="font-bold">{caseItem.category}</p>
                                         </div>
+                                    </div>
+                                    <div className="flex flex-wrap gap-2">
+                                        {caseItem.platform ? (
+                                            <span className="inline-flex items-center px-4 py-2 bg-white/10 rounded-full text-[10px] font-black uppercase tracking-widest border border-white/20">
+                                                Plataforma: {caseItem.platform}
+                                            </span>
+                                        ) : null}
+                                        {caseItem.ageRange ? (
+                                            <span className="inline-flex items-center px-4 py-2 bg-white/10 rounded-full text-[10px] font-black uppercase tracking-widest border border-white/20">
+                                                Edad: {caseItem.ageRange}
+                                            </span>
+                                        ) : null}
                                     </div>
                                 </div>
                             </div>
@@ -107,45 +176,106 @@ const CaseDetail = () => {
                                         <div className="w-6 h-6 rounded-lg bg-green-500/10 text-green-500 flex items-center justify-center flex-shrink-0">
                                             <ShieldCheck className="w-4 h-4" />
                                         </div>
-                                        <p className="text-xs font-bold text-gray-600 dark:text-gray-300">{tip}</p>
+                                        <p className="text-xs font-bold text-gray-600 dark:text-gray-300 leading-6">{tip}</p>
                                     </div>
                                 ))}
                             </div>
                         </div>
                     </motion.div>
 
-                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="lg:col-span-8 space-y-10 sm:space-y-16">
-                        <section className="space-y-6">
-                            <div className="flex items-center gap-3">
-                                <div className="w-8 h-1 bg-indigo-600 rounded-full" />
-                                <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">Análisis completo</h2>
+                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="lg:col-span-8 space-y-10 sm:space-y-14">
+                        <section className="overflow-hidden rounded-[2rem] sm:rounded-[3rem] border border-gray-100 dark:border-gray-800 bg-white dark:bg-[#161b22] shadow-2xl">
+                            <div className="p-5 sm:p-8 md:p-10 border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-white/[0.03]">
+                                <SectionHeader
+                                    eyebrow="Análisis completo"
+                                    title="Qué ocurrió y por qué importa"
+                                    icon={<BookOpen className="w-5 h-5" />}
+                                />
                             </div>
-                            <div className="space-y-6">
-                                <p className="text-2xl font-bold dark:text-indigo-200 leading-tight">Un desglose de lo sucedido y cómo se gestionó la crisis digital.</p>
-                                <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed font-medium">{caseItem.fullContent}</p>
+
+                            <div className="p-5 sm:p-8 md:p-10 space-y-8">
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                    <FactCard label="Plataforma" value={caseItem.platform || 'Caso digital'} />
+                                    <FactCard label="Riesgo" value={caseItem.riskLevel || 'Sin clasificar'} tone="red" />
+                                    <FactCard label="Edad" value={caseItem.ageRange || 'Menor de edad'} tone="gray" />
+                                </div>
+
+                                <div className="p-6 sm:p-8 rounded-[2rem] bg-[#fafafb] dark:bg-[#0a0c10] border border-gray-100 dark:border-gray-800">
+                                    <p className="text-sm font-black uppercase tracking-[0.22em] text-indigo-600 dark:text-indigo-400 mb-4">Lectura del caso</p>
+                                    <p className="text-base sm:text-lg text-gray-650 dark:text-gray-300 leading-8 font-medium">
+                                        {caseItem.fullContent}
+                                    </p>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="p-6 rounded-2xl border border-amber-200/70 dark:border-amber-500/20 bg-amber-50 dark:bg-amber-500/10">
+                                        <div className="flex items-center gap-3 mb-3">
+                                            <AlertTriangle className="w-5 h-5 text-amber-600 dark:text-amber-300" />
+                                            <h3 className="text-sm font-black uppercase tracking-widest text-amber-700 dark:text-amber-200">Señal de alerta</h3>
+                                        </div>
+                                        <p className="text-sm font-bold leading-7 text-gray-700 dark:text-gray-200">{caseItem.summary}</p>
+                                    </div>
+                                    <div className="p-6 rounded-2xl border border-green-200/70 dark:border-green-500/20 bg-green-50 dark:bg-green-500/10">
+                                        <div className="flex items-center gap-3 mb-3">
+                                            <Target className="w-5 h-5 text-green-600 dark:text-green-300" />
+                                            <h3 className="text-sm font-black uppercase tracking-widest text-green-700 dark:text-green-200">Respuesta clave</h3>
+                                        </div>
+                                        <p className="text-sm font-bold leading-7 text-gray-700 dark:text-gray-200">{caseItem.tips?.[0] || caseItem.lessons}</p>
+                                    </div>
+                                </div>
                             </div>
                         </section>
 
-                        <section className="space-y-8">
-                            <div className="flex items-center gap-3">
-                                <div className="w-8 h-1 bg-indigo-600 rounded-full" />
-                                <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">Cronología del incidente</h2>
-                            </div>
-                            <div className="bg-white dark:bg-[#161b22] p-5 sm:p-10 md:p-16 rounded-[2rem] sm:rounded-[3rem] md:rounded-[4rem] border border-gray-100 dark:border-gray-800 shadow-2xl">
-                                <div className="space-y-8 sm:space-y-12">
-                                    {caseItem.timeline.map((step, idx) => (
-                                        <div key={idx} className="flex flex-col md:flex-row gap-8 items-start">
-                                            <div className="md:w-32 flex-shrink-0">
-                                                <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600/10 text-indigo-600 dark:text-indigo-400 rounded-xl border border-indigo-600/20 font-black text-xs uppercase tracking-widest">
-                                                    <Clock className="w-3 h-3" /> {step.time}
-                                                </div>
+                        {caseItem.sources?.length ? (
+                            <section className="space-y-6 rounded-[2rem] sm:rounded-[3rem] border border-gray-100 dark:border-gray-800 bg-white dark:bg-[#161b22] p-5 sm:p-8 shadow-xl">
+                                <SectionHeader
+                                    eyebrow="Fuentes del caso"
+                                    title="Evidencia periodística"
+                                    icon={<Link className="w-5 h-5" />}
+                                />
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    {caseItem.sources.map((source, idx) => (
+                                        <a
+                                            key={`${source.url}-${idx}`}
+                                            href={source.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="group flex items-center justify-between gap-4 p-5 bg-gray-50 dark:bg-[#0a0c10] rounded-2xl border border-gray-100 dark:border-gray-800 hover:border-indigo-300 dark:hover:border-indigo-500/60 transition-colors"
+                                        >
+                                            <div>
+                                                <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">Fuente {idx + 1}</p>
+                                                <span className="text-sm font-black text-gray-700 dark:text-gray-200">
+                                                    {source.label}
+                                                </span>
                                             </div>
-                                            <div className="flex-grow space-y-3">
-                                                <div className="flex items-center gap-4">
-                                                    <div className="w-4 h-4 rounded-full border-4 border-indigo-600 bg-white dark:bg-[#0a0c10]" />
-                                                    <div className="h-px bg-gray-100 dark:bg-gray-800 flex-grow" />
+                                            <ExternalLink className="w-4 h-4 text-indigo-500 flex-shrink-0 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                                        </a>
+                                    ))}
+                                </div>
+                            </section>
+                        ) : null}
+
+                        <section className="space-y-8 rounded-[2rem] sm:rounded-[3rem] border border-gray-100 dark:border-gray-800 bg-white dark:bg-[#161b22] p-5 sm:p-8 md:p-10 shadow-2xl">
+                            <SectionHeader
+                                eyebrow="Cronología"
+                                title="Cómo escaló el incidente"
+                                icon={<Clock className="w-5 h-5" />}
+                            />
+                            <div className="pt-2">
+                                <div className="space-y-4">
+                                    {caseItem.timeline.map((step, idx) => (
+                                        <div key={idx} className="relative pl-12 sm:pl-16">
+                                            {idx < caseItem.timeline.length - 1 ? (
+                                                <div className="absolute left-5 sm:left-6 top-12 bottom-[-1rem] w-px bg-gray-200 dark:bg-gray-800" />
+                                            ) : null}
+                                            <div className="absolute left-0 top-1 w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-indigo-600 text-white flex items-center justify-center text-xs font-black shadow-lg shadow-indigo-600/20">
+                                                {idx + 1}
+                                            </div>
+                                            <div className="p-5 sm:p-6 rounded-2xl bg-gray-50 dark:bg-[#0a0c10] border border-gray-100 dark:border-gray-800">
+                                                <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-3 bg-indigo-600/10 text-indigo-600 dark:text-indigo-400 rounded-xl border border-indigo-600/20 font-black text-[10px] uppercase tracking-widest">
+                                                    {step.time}
                                                 </div>
-                                                <p className="text-lg sm:text-xl md:text-2xl font-black text-gray-900 dark:text-white leading-tight">{step.event}</p>
+                                                <p className="text-base sm:text-lg font-black text-gray-900 dark:text-white leading-7">{step.event}</p>
                                             </div>
                                         </div>
                                     ))}

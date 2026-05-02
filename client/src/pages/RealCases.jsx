@@ -25,6 +25,12 @@ const caseIcons = {
     Ciberacoso: <UserX className="w-5 h-5" />,
     Fraudes: <AlertTriangle className="w-5 h-5" />,
     Grooming: <ShieldCheck className="w-5 h-5" />,
+    'Retos virales': <AlertTriangle className="w-5 h-5" />,
+    'Explotación digital': <ShieldCheck className="w-5 h-5" />,
+    Suicidio: <AlertTriangle className="w-5 h-5" />,
+    'Violencia en vivo': <AlertTriangle className="w-5 h-5" />,
+    'Grooming fatal': <ShieldCheck className="w-5 h-5" />,
+    'Contenido camuflado': <AlertTriangle className="w-5 h-5" />,
 };
 
 const guideIcons = {
@@ -35,12 +41,14 @@ const guideIcons = {
     Instagram: <Instagram className="w-6 h-6 text-purple-600" />,
     YouTube: <Youtube className="w-6 h-6 text-red-600" />,
     Twitch: <Tv className="w-6 h-6 text-purple-700" />,
+    'Videojuegos en línea': <Gamepad2 className="w-6 h-6 text-cyan-500" />,
 };
 
 const caseStyles = {
     red: 'bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20',
     yellow: 'bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 border-yellow-500/20',
     indigo: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20',
+    purple: 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20',
 };
 
 const guideDots = {
@@ -129,6 +137,7 @@ const RealCases = () => {
             casesState.items.map((item) => ({
                 ...item,
                 icon: caseIcons[item.category] || <Info className="w-5 h-5" />,
+                platformIcon: guideIcons[item.platform] || null,
                 style: caseStyles[item.color] || caseStyles.indigo,
             })),
         [casesState.items]
@@ -250,6 +259,24 @@ const RealCases = () => {
                                                         <h3 className="text-2xl font-black text-gray-900 dark:text-white leading-tight">
                                                             {item.title}
                                                         </h3>
+                                                        {item.subLabel ? (
+                                                            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-100 dark:border-indigo-500/20 text-[10px] font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-300">
+                                                                {item.subLabel}
+                                                            </div>
+                                                        ) : null}
+                                                        {item.ageRange ? (
+                                                            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-gray-800 text-[10px] font-black uppercase tracking-widest text-gray-500 dark:text-gray-400">
+                                                                Edad: {item.ageRange}
+                                                            </div>
+                                                        ) : null}
+                                                        {item.platform ? (
+                                                            <div className="inline-flex items-center gap-2 px-3 py-2 rounded-2xl bg-gray-50 dark:bg-[#0a0c10] border border-gray-100 dark:border-gray-800 text-[10px] font-black uppercase tracking-widest text-gray-500 dark:text-gray-400">
+                                                                {item.platformIcon ? (
+                                                                    <span className="scale-75 origin-center">{item.platformIcon}</span>
+                                                                ) : null}
+                                                                {item.platform}
+                                                            </div>
+                                                        ) : null}
                                                         <p className="text-sm italic text-gray-600 dark:text-gray-400 border-l-2 border-indigo-500/20 pl-4">
                                                             "{item.summary}"
                                                         </p>

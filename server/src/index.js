@@ -13,18 +13,29 @@ dotenv.config();
 // Connect to database
 connectDB();
 const app = express();
+app.set('trust proxy', 1);
+
+const healthCheckHandler = (req, res) => {
+    res.status(200).json({
+        status: 'ok',
+        service: 'techaware-academy-api',
+        uptime: process.uptime(),
+        timestamp: new Date().toISOString(),
+    });
+};
 
 // Security Middleware (RNF4 / RT6)
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100, // limit each IP to 100 requests per windowMs
+    skip: (req) => req.path === '/health' || req.path === '/api/health',
     message: 'Demasiadas solicitudes desde esta IP, por favor intenta de nuevo en 15 minutos.'
 });
 
 // Middleware
 const allowedOrigins = process.env.ALLOWED_ORIGINS
     ? process.env.ALLOWED_ORIGINS.split(',').map((o) => o.trim())
-    : ['http://localhost:5173', 'http://localhost:3000'];
+    : ['https://kuxipilli.com', 'https://www.kuxipilli.com', 'http://localhost:5173', 'http://localhost:3000'];
 
 app.use(cors({
     origin: (origin, callback) => {
@@ -36,6 +47,9 @@ app.use(cors({
     credentials: true,
 }));
 app.use(express.json());
+
+app.get('/health', healthCheckHandler);
+app.get('/api/health', healthCheckHandler);
 
 if (process.env.NODE_ENV === 'production') {
     app.use(limiter);

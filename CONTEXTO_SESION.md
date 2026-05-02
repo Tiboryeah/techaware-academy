@@ -1,7 +1,7 @@
 # Contexto de Sesión — Reporte Técnico Kuxipilli
 ## TT 2026-A097 | ESCOM · IPN
 
-> Última actualización: 2026-04-30 (rev. 12)
+> Última actualización: 2026-05-01 (rev. 13)
 > Propósito: retomar el trabajo en cualquier chat sin perder contexto.
 
 ---
@@ -705,12 +705,261 @@ Ejecutados `npm run seed:social` y `npm run seed:games`.
 
 ---
 
+## Cambios al CODIGO realizados en sesion 2026-05-01
+
+### 1. Curso Streaming -- reemplazo de tablas por imagenes completado
+- Archivo principal editado:
+  - `server/src/scripts/seed/courses/streaming/catalog.js`
+- Se reemplazaron las tablas disponibles del curso **Plataformas de Streaming: YouTube y Twitch** por imagenes ubicadas en:
+  - `client/public/article-images/streaming/`
+- Regla aplicada durante el reemplazo:
+  - La imagen sustituye solo la tabla correspondiente.
+  - Si la imagen ya incluye nota o texto de cierre, se elimina el parrafo duplicado debajo.
+  - Los textos introductorios, mini glosarios y terminos previos a la tabla se conservan.
+  - Si no existe imagen para una tabla puntual, la tabla se deja en Markdown para no romper contenido.
+
+**Imagenes insertadas en Streaming:**
+| Modulo/Articulo | Imagenes aplicadas |
+|---|---|
+| M1A1 | `M1A1.png` |
+| M1A2 | `M1A2.png` |
+| M2A1 | `M2A1.png`, `M2A1.1.png` |
+| M2A2 | `M2A2.png`, `M2A2.1.png` |
+| M3A1 | `M3A1.png`, `M3A1.1.png` |
+| M3A2 | `M3A2.png`, `M3A2.1.png` |
+| M4A1 | `M4A1.png`, `M4A1.1.png` |
+| M4A2 | `M4A2.png`, `M4A2.1.png` |
+| M5A1 | `M5A1.png`, `M5A1.1.png` |
+| M5A2 | `M5A2.png`, `M5A2.1.png` |
+| M6A1 | `M6A1.png`, `M6A1.1.png` |
+| M6A2 | `M6A2.png`, `M6A2.1.png` |
+| M7A1 | `M7A1.png`, `M7A1.1.png` |
+| M7A2 | `M7A2.png`, `M7A2.1.png` |
+
+### 2. Validaciones ejecutadas
+- Despues de cada bloque de cambios se ejecuto:
+  - `npm run seed:streaming`
+- Se verificaron rutas locales de imagenes nuevas con `HEAD` contra Vite (`http://127.0.0.1:5173/article-images/streaming/...`) y respondieron `200`.
+- El curso Streaming quedo sincronizado en MongoDB Atlas despues del ultimo seed.
+
+### 3. Estado actual y siguiente pendiente
+- **Streaming:** terminado para las imagenes disponibles.
+- **Redes Sociales:** ya tenia tablas reemplazadas por imagenes en la sesion anterior.
+- **Pendiente siguiente:** curso **Videojuegos en linea (Roblox + Minecraft)**.
+  - Ubicar tablas en `server/src/scripts/seed/courses/games/module1.js` a `module6.js`.
+  - Reemplazarlas por las imagenes que se agreguen en `client/public/article-images/videojuegos/`.
+  - Cuidar la misma regla: no duplicar notas si la imagen ya las incluye y no recortar glosarios o explicaciones previas.
+  - Ejecutar `npm run seed:games` al terminar cada bloque o articulo.
+
+---
+
+## Correcciones al REPORTE TÉCNICO realizadas en sesión 2026-05-01
+
+### Metodología de trabajo
+- Se extrajo el texto completo del `Reporte_Tecnico.docx` usando PowerShell + ZipFile para procesar el XML interno
+- Se generó el archivo `CORRECCIONES.md` con texto listo para pegar en Word, sección por sección
+- Se generó `RUTA_TODOS_CAPITULOS.md` con el mapa completo de los 7 capítulos y sus estados
+- Las correcciones se aplicaron en Word y se confirmaron por el usuario una a una
+
+### Criterio aplicado
+- Registro formal académico en tercera persona (tiempo pasado — el sistema ya existe)
+- Eliminación de: segunda persona, anglicismos, coloquialismos, lenguaje obsceno, lenguaje de marketing
+- Corrección de errores factuales: tecnologías erróneas, RF incorrectos, tiempos verbales futuros
+- Redacción orientada a minimizar detección de IA en Turnitin (variación de estructura, oraciones mixtas)
+
+### Secciones corregidas y aplicadas en Word
+
+| Sección | Correcciones principales |
+|---|---|
+| Resumen | Reescrito completo: Kuxibot nombrado, 3 cursos, 80%, constancia PDF, Gemini/Groq/Resend |
+| Palabras clave | "Control parental"→"Alfabetización digital parental"; "Seguridad en internet"→eliminada; agregados "Grooming" e "Inteligencia artificial generativa" |
+| Introducción | Reescrita: tiempo verbal, componentes precisos, Kuxibot nombrado |
+| §1.1 Justificación | Reescrita: errores gramaticales, anglicismos, segunda persona eliminados |
+| §1.2 Propuesta de solución | Reescrita completamente: de tono coloquial a formal, componentes del sistema reales |
+| §1.3.1 Objetivo general | Reescrito: tiempo futuro→pasado, componentes completos |
+| §1.3.2 Objetivos específicos | Reescritos: 7 objetivos formales, precisos, sin coloquialismos |
+| §1.4 Estado del Arte | Párrafos narrativos reescritos ("peques", "tiro por la culata", "frescos" eliminados) |
+| §1.5 Delimitación | Reescrita: lenguaje obsceno eliminado, tres ámbitos bien etiquetados |
+| §2.1–§2.10 | Lenguaje informal eliminado en todas las secciones |
+| §2.11–§2.13 | **Error factual corregido: Python/Flask eliminado** (no se usa en el proyecto) |
+| §2.14.1 | **Error factual corregido: "React/Vue.js"→React; "colección Articles"→lessons** |
+| §2.15 | **Error factual corregido: Heroku→Netlify/Render** |
+| §2.17 | **Error factual corregido: Bootstrap→Tailwind CSS v4** |
+| §2.18, §2.20 | Reescritas en tono formal |
+| §2.19 | Puntuación de lista corregida |
+| §2.22 Glosario | 5 entradas nuevas: Tailwind CSS, Vite, Mongoose, Bcrypt, html2canvas |
+| §3.1.3 Sprints | **Ampliado con Sprint 6–10 (TT2)**: implementación, pruebas, despliegue |
+| §3.3 RF (Tabla 5) | RF1–RF12: descripciones reescritas en tercera persona formal |
+| §3.4 RNF (Tabla 6) | Definición introductoria y RNF1–RNF7 reescritos (RNF7: JWT/OAuth→solo JWT) |
+| §3.6 RN (Tabla 8) | RN-03 a RN-10 reescritos ("tocar"→formal, "brilla"→accesible, "a prueba de balas"→técnico) |
+| §3.7.1 | Emojis 🟥🟧🟩 → texto formal |
+| §3.8 Factibilidad | Nodemailer solo → Resend API primario + Nodemailer fallback |
+| §4.2 | "Se utilizará"→"Se implementó" |
+| §4.2.1, §4.2.2 | "jsPDF"→"jsPDF + html2canvas" en Tabla 10 y Tabla 11 |
+| §4.3 DFD | Errata "Ilustración e Flujo"→"de Flujo"; P3.3 case_study eliminado de prioridad de lecciones |
+| §4.5.4 DS-04 | "jsPDF"→"html2canvas + jsPDF" en descripción de generación del certificado |
+| §4.9.3 Tabla 17-18 | Herramientas reales: Mocha/JMeter/OWASP ZAP→Jest+Supertest+Postman; corrección notificación admin |
+| §4.11.1 | Nota tipografía de implementación final agregada |
+| §4.11.5 | "se implementarán"→"fueron implementados con React 19" |
+| §5.6 | Escalado horizontal→rate limiting + stateless |
+| §5.7 | TT2 ya concluyó → Nivel 3 COBIT alcanzado |
+| §5.8.1 | Fila herramientas: costo "$0" explícito |
+| §5.9.2 | Fórmula depreciación verificada/escrita explícitamente |
+| §6.2.3 | Endpoint `/api/content/latest-update` documentado |
+| §6.2.4 | Recomendaciones desde preguntas falladas concretas; limpieza al aprobar |
+| §6.2.6 | **RF10/RF11→RF2/RF12** (chatbot no cubre reportes ni verificación) |
+| §6.2.9 | Párrafo de calidad de contenido (exámenes, glosarios, imágenes) agregado |
+| §6.3.3 Dashboard | 3→4 peticiones paralelas; tarjeta novedad agregada; certificado reescrito (html2canvas) |
+| §6.3.4 | scrollIntoView behavior:'smooth'→'auto' + requestAnimationFrame documentado |
+| §6.3.5 | **RF6/RF7/RF8→RF3/RF4/RF9** (QuizTaker cubre evaluación y acreditación) |
+| §6.4 | DA12 y DA13 agregadas a la tabla |
+| §6.5 | **Sección completa redactada desde cero** (13 scripts de mantenimiento) |
+| §7.1–§7.8 | **Capítulo 7 redactado desde cero** en CORRECCIONES.md — pendiente pegar en Word tras cambios visuales finales |
+
+### Estado del documento
+- **Capítulos 1–6:** correcciones aplicadas ✅
+- **Resumen y Palabras clave:** corregidos ✅
+- **Capítulo 7:** texto listo en CORRECCIONES.md, pendiente pegar (esperando cambios visuales finales de la app)
+- **§4.5.4 DS-04:** jsPDF→html2canvas+jsPDF corregido ✅
+- **Índice de tablas e ilustraciones:** números reales pendientes de asignar
+
+---
+
 ## Archivos relevantes del repositorio
 
 ```
+
+---
+
+## Actualización de sesión 2026-05-01 - Cambios en app Kuxipilli
+
+### Resumen general
+- Se trabajó sobre la app en `TT_Academia` para ajustar la sección de cursos, tarjetas de aprendizaje y casos reales.
+- El usuario quiere continuar en otro chat por consumo alto de tokens. Este bloque resume el estado para retomar sin releer toda la conversación.
+- Importante: no revertir cambios no relacionados. El worktree tiene cambios del usuario en documentos y otros archivos.
+
+### Cambios visuales en cursos
+- Archivo principal: `client/src/pages/Modules.jsx`.
+- Título cambiado de `Cursos de Especialidad` a `Cursos de Aprendizaje`.
+- Iconos/logos de tarjetas actualizados:
+  - Redes sociales: TikTok, Discord e Instagram.
+  - Streaming: YouTube y Twitch.
+  - Videojuegos: Roblox y Minecraft.
+- Parte inferior de tarjetas actualizada para que no use textos genéricos de riesgos:
+  - Redes sociales: privacidad, mensajes, huella digital, ciberacoso, grooming, retos y presión social.
+  - Streaming: YouTube/Twitch seguros, publicidad, donaciones y bienestar.
+  - Videojuegos: seguridad, privacidad, controles parentales, compras, fraudes y contactos.
+
+### Casos reales - modelo y seed
+- Archivos principales:
+  - `server/src/models/Resource.js`
+  - `server/src/scripts/seed/resources.js`
+  - `client/src/pages/RealCases.jsx`
+  - `client/src/pages/CaseDetail.jsx`
+- `Resource.js` ahora incluye:
+  - `sources: [{ label, url }]`
+  - `subLabel`
+  - `ageRange`
+- `resources.js` ahora elimina casos antiguos no incluidos en `activeCaseSlugs`:
+  - `deleteMany({ type: 'case', slug: { $nin: activeCaseSlugs } })`
+- Los links de fuentes se muestran solo en `Ver análisis completo`, no en tarjetas.
+- Se corrió `npm run seed:target -- resources` después de los cambios.
+
+### Criterio de edad de casos
+- El usuario pidió que todos los casos se centren en edades 6 a 12, con máximo 17.
+- Se quitaron o reemplazaron casos cuyo centro era adulto o no encajaba:
+  - Valeria Márquez, 23 años.
+  - Buffalo/Twitch, víctimas adultas.
+  - Video camuflado de TikTok basado en caso de adulto.
+- Casos actuales y rango:
+  1. Videojuegos: el asesinato de Breck Bednar - 14 años.
+  2. Instagram: el caso Molly Russell - 14 años.
+  3. YouTube: el caso Amanda Todd - 15 años.
+  4. TikTok: el reto blackout - 10 a 14 años.
+  5. YouTube: revictimización de Ainara - 16 años.
+  6. Discord: perfil falso de menor - 8 años.
+  7. Twitch: regalos para manipular - 9 a 12 años.
+  8. Instagram: perfil prestado para acosar - menores de 13 años.
+  9. Roblox: el viaje desde Mérida - menor de edad, máximo 17.
+  10. TikTok: reto con clonazepam - secundaria, 12 a 15 aprox.
+
+### Orden de gravedad
+- El usuario pidió que primero aparezcan los más graves y después los menos graves.
+- `order` actual en `resources.js`:
+  1. Breck Bednar, grooming fatal en videojuegos.
+  2. Molly Russell, suicidio asociado a contenido de autolesión/suicidio en Instagram/Pinterest.
+  3. Amanda Todd, sextorsión/ciberacoso y suicidio, video en YouTube.
+  4. TikTok blackout, reto con muertes de menores.
+  5. Ainara/YosStop, revictimización y difusión/comentario de material de agresión sexual a menor.
+  6. Discord Sonora, grooming/material sexual de menor de 8 años.
+  7. Twitch Hines, regalos/tarjetas para manipular niños de 9 a 12.
+  8. Instagram/TikTok perfil prestado, grooming a menores de 13.
+  9. Roblox Mérida-CDMX, contacto y traslado para encuentro presencial.
+  10. TikTok clonazepam, intoxicación por reto viral.
+
+### CaseDetail - rediseño visual
+- Archivo reconstruido: `client/src/pages/CaseDetail.jsx`.
+- Corrección posterior: los textos visibles deben conservar ortografía española correcta en UTF-8, incluyendo `ñ` y tildes. No usar ASCII para evitar mojibake; revisar la codificación del archivo si reaparecen caracteres corruptos.
+- Labels visibles corregidos:
+  - `Análisis completo`
+  - `Qué ocurrió y por qué importa`
+  - `Señal de alerta`
+  - `Evidencia periodística`
+  - `Cronología`
+- El análisis completo ahora tiene:
+  - Tarjetas de `Plataforma`, `Riesgo`, `Edad`.
+  - Bloque de lectura principal.
+  - Tarjeta `Señal de alerta`.
+  - Tarjeta `Respuesta clave`.
+  - Fuentes con cards clicables y `target="_blank" rel="noopener noreferrer"`.
+  - Cronología tipo timeline numerado.
+  - Lecciones fundamentales.
+
+### Veracidad y fuentes
+- Se reforzó la redacción de `fullContent` para usar lenguaje cuidadoso:
+  - `reportó`
+  - `según la fuente`
+  - `las fuentes citadas`
+- Se revisaron fuentes al implementar:
+  - The Guardian - Breck Bednar.
+  - CBS News - Molly Russell.
+  - AP - Amanda Todd.
+  - The Guardian - TikTok blackout challenge.
+  - CBS Philadelphia - Twitch/Geoffrey Hines.
+  - La Jornada - clonazepam en secundaria.
+  - N+ Sonora - Discord.
+  - DW / El País - YosStop/Ainara.
+  - TN - perfil falso Instagram/TikTok.
+  - Diario de Yucatán / TV Azteca Yucatán - Roblox Mérida-CDMX.
+- Nota: si se necesita máxima precisión académica, volver a abrir cada fuente y verificar detalles antes de citar formalmente en el documento.
+### Verificaciones ejecutadas
+- `npm run seed:target -- resources` en `server`: exitoso.
+- Consulta directa a Mongo con Mongoose: confirmo 10 casos, orden 1-10 y 6 pasos de timeline por caso.
+- `node --check src/scripts/seed/resources.js`: exitoso.
+- `node --check src/models/Resource.js`: exitoso.
+- `npm run build` en `client`: exitoso.
+- Advertencia esperada de Vite: chunks mayores a 500 kB.
+
+### Estado git relevante al cerrar
+- Cambios propios de esta fase:
+  - `client/src/pages/CaseDetail.jsx`
+  - `client/src/pages/Modules.jsx`
+  - `client/src/pages/RealCases.jsx`
+  - `server/src/models/Resource.js`
+  - `server/src/scripts/seed/resources.js`
+  - `CONTEXTO_SESION.md`
+- Cambios no necesariamente de esta fase / posiblemente del usuario o previos:
+  - `RUTA_TODOS_CAPITULOS.md`
+  - `Reporte_Tecnico.docx`
+  - `Reporte_Tecnico.pdf`
+  - `server/src/scripts/seed/courses/streaming/catalog.js`
+  - `client/public/article-images/streaming/`
+- No revertir nada sin permiso explicito.
 TT_Academia/
-├── Reporte_Tecnico.docx             ← versión editable (actualizada 2026-04-23)
-├── RUTA_CAPITULOS_6_7.md            ← plan detallado Caps 6-7
+├── Reporte_Tecnico.docx             ← versión editable (correcciones aplicadas 2026-05-01)
+├── RUTA_TODOS_CAPITULOS.md          ← mapa completo 7 capítulos con estados [x]/[✓]/[!]/[ ]
+├── CORRECCIONES.md                  ← texto listo para pegar en Word (Cap 1–7)
+├── RUTA_CAPITULOS_6_7.md            ← plan original Caps 6-7 (reemplazado por RUTA_TODOS_CAPITULOS)
 ├── CONTEXTO_SESION.md               ← este archivo
 ├── client/src/
 │   ├── pages/
