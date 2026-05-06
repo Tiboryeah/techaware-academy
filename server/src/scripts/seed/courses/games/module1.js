@@ -109,7 +109,7 @@ Este video muestra cómo se ven y cómo se sienten Roblox y Minecraft cuando un 
 * Qué señales visuales muestran si el menor está entrando a mundos, servidores o experiencias concretas.
 * Qué preguntas conviene hacer antes de dejar jugar.`,
         type: 'video',
-        videoUrl: 'https://www.youtube.com/watch?v=placeholder1',
+        videoUrl: 'https://www.youtube.com/watch?v=1_NMcGTXzi4',
         duration: 2,
         platforms: ['Roblox', 'Minecraft'],
         riskAreas: ['Seguridad de Cuenta', 'Privacidad Avanzada', 'Gasto Controlado'],
@@ -185,7 +185,7 @@ Este video convierte el módulo en una lista visual de revisión inicial para qu
 * Dónde aparecen el chat, las compras y los controles parentales.
 * Qué indicadores muestran si puede haber contacto con desconocidos.`,
         type: 'video',
-        videoUrl: 'https://www.youtube.com/watch?v=placeholder2',
+        videoUrl: 'https://www.youtube.com/watch?v=wj3feXm1huI',
         duration: 2,
         platforms: ['Roblox', 'Minecraft'],
         riskAreas: ['Seguridad de Cuenta', 'Privacidad Avanzada', 'Gasto Controlado'],

@@ -16,6 +16,7 @@ import {
     BookOpen,
     Link,
     Target,
+    Check,
 } from 'lucide-react';
 import NotFound from './NotFound';
 import api from '../services/api';
@@ -65,6 +66,7 @@ const CaseDetail = () => {
     const [caseItem, setCaseItem] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [copied, setCopied] = useState(false);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -102,6 +104,31 @@ const CaseDetail = () => {
     if (error || !caseItem) {
         return <NotFound />;
     }
+
+    const handleCopyLink = async () => {
+        const shareUrl = window.location.href;
+
+        try {
+            if (navigator.clipboard?.writeText) {
+                await navigator.clipboard.writeText(shareUrl);
+            } else {
+                const textArea = document.createElement('textarea');
+                textArea.value = shareUrl;
+                textArea.setAttribute('readonly', '');
+                textArea.style.position = 'fixed';
+                textArea.style.opacity = '0';
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+            }
+
+            setCopied(true);
+            window.setTimeout(() => setCopied(false), 1800);
+        } catch (copyErr) {
+            console.error('Error copying case link:', copyErr);
+        }
+    };
 
     return (
         <div className="min-h-screen bg-[#fafafb] dark:bg-[#0a0c10] text-gray-900 dark:text-gray-100 pb-20 transition-colors duration-500">
@@ -303,8 +330,13 @@ const CaseDetail = () => {
                                 <Users className="w-6 h-6 text-gray-400" />
                                 <p className="text-sm font-bold text-gray-500 dark:text-gray-400">Comparte este análisis con otros padres para prevenir riesgos.</p>
                             </div>
-                            <button className="px-8 py-4 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-black text-xs uppercase tracking-widest rounded-2xl">
-                                Copiar enlace
+                            <button
+                                type="button"
+                                onClick={handleCopyLink}
+                                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-black text-xs uppercase tracking-widest rounded-2xl transition-transform active:scale-95"
+                            >
+                                {copied ? <Check className="w-4 h-4" /> : null}
+                                {copied ? 'Enlace copiado' : 'Copiar enlace'}
                             </button>
                         </div>
                     </motion.div>

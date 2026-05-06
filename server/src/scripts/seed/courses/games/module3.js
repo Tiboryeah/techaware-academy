@@ -89,7 +89,7 @@ Este video muestra la ruta visual para revisar los permisos familiares que más 
 * Qué ajustes afectan Join Multiplayer Games y Can join Realms.
 * Por qué la cuenta infantil debe estar dentro del grupo familiar.`,
             type: 'video',
-            videoUrl: 'https://www.youtube.com/watch?v=placeholder5',
+            videoUrl: 'https://www.youtube.com/watch?v=eKyZTXUakDU',
             duration: 2,
             platforms: ['Minecraft'],
             riskAreas: ['Seguridad de Cuenta'],
@@ -176,7 +176,7 @@ Este video ayuda a distinguir un Realm privado, un servidor público y otros ent
 * Dónde revisar permisos sociales, chat y amistades.
 * Qué decisiones conviene tomar antes de permitir juego en línea.`,
             type: 'video',
-            videoUrl: 'https://www.youtube.com/watch?v=placeholder6',
+            videoUrl: 'https://www.youtube.com/watch?v=OiaS3T1Y5cw',
             duration: 2,
             platforms: ['Minecraft'],
             riskAreas: ['Privacidad Avanzada'],

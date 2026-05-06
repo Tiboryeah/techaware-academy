@@ -259,7 +259,7 @@ Este video traduce el módulo en ejemplos de conversación y estructura familiar
 * Qué frases ayudan más que los castigos improvisados.
 * Qué señales muestran que el juego ya está desplazando sueño, escuela o ejercicio.`,
         type: 'video',
-        videoUrl: 'https://www.youtube.com/watch?v=placeholder11',
+        videoUrl: 'https://www.youtube.com/watch?v=ccnnm-V9ulM',
         duration: 2,
         platforms: ['Roblox', 'Minecraft'],
         riskAreas: ['Salud Mental y Física'],
@@ -479,7 +479,7 @@ Este video muestra cómo convertir las reglas del módulo en un acuerdo visible,
 * Cómo combinar tiempo, descanso, escuela y juego compartido.
 * Por qué un acuerdo funciona mejor cuando también compromete a los adultos.`,
         type: 'video',
-        videoUrl: 'https://www.youtube.com/watch?v=placeholder12',
+        videoUrl: 'https://www.youtube.com/watch?v=RcBHQVFLwOE',
         duration: 2,
         platforms: ['Roblox', 'Minecraft'],
         riskAreas: ['Salud Mental y Física'],

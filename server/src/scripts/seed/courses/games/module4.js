@@ -249,7 +249,7 @@ Este video aterriza el módulo en escenas típicas de chat y juego para que la f
 * Qué cambia cuando una interacción pasa de normal a invasiva.
 * Qué señales deberían activar una conversación inmediata con el menor.`,
             type: 'video',
-            videoUrl: 'https://www.youtube.com/watch?v=placeholder7',
+            videoUrl: 'https://www.youtube.com/watch?v=sgiMbuJpRqc',
             duration: 2,
             platforms: ['Roblox', 'Minecraft'],
             riskAreas: ['Privacidad Avanzada'],
@@ -540,7 +540,7 @@ Este video ordena la respuesta familiar después de una interacción de riesgo p
 * En qué momento reportar dentro de la plataforma no es suficiente.
 * Cuándo conviene acudir a escuela, apoyo profesional o autoridades.`,
             type: 'video',
-            videoUrl: 'https://www.youtube.com/watch?v=placeholder8',
+            videoUrl: 'https://www.youtube.com/watch?v=g07zEPiMiro',
             duration: 2,
             platforms: ['Roblox', 'Minecraft'],
             riskAreas: ['Privacidad Avanzada'],

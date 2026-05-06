@@ -2,6 +2,48 @@ const buildSocialCatalog = () => {
     const placeholderVideoUrl = 'https://www.youtube.com/watch?v=aqz-KE-bpKQ';
 
     const lessonOverrides = {
+        module1Video1: {
+            videoUrl: 'https://www.youtube.com/watch?v=3L41XcuR4cU',
+        },
+        module1Video2: {
+            videoUrl: 'https://www.youtube.com/watch?v=nmK7VyE_CoY',
+        },
+        module2Video1: {
+            videoUrl: 'https://www.youtube.com/watch?v=e5XfhUBf378',
+        },
+        module2Video2: {
+            videoUrl: 'https://www.youtube.com/watch?v=FzcX1OCECsg',
+        },
+        module3Video1: {
+            videoUrl: 'https://www.youtube.com/watch?v=ZoP2Z2rxYHQ',
+        },
+        module3Video2: {
+            videoUrl: 'https://www.youtube.com/watch?v=50PZAj0XcoM',
+        },
+        module4Video1: {
+            videoUrl: 'https://www.youtube.com/watch?v=3-3qS47w-cc',
+        },
+        module4Video2: {
+            videoUrl: 'https://www.youtube.com/watch?v=QcUfg9PStQs',
+        },
+        module5Video1: {
+            videoUrl: 'https://www.youtube.com/watch?v=UpHx8ho-zfA',
+        },
+        module5Video2: {
+            videoUrl: 'https://www.youtube.com/watch?v=iraRsH2pDqE',
+        },
+        module6Video1: {
+            videoUrl: 'https://www.youtube.com/watch?v=9A1YB20agDU',
+        },
+        module6Video2: {
+            videoUrl: 'https://www.youtube.com/watch?v=fuNO4m1wQGU',
+        },
+        module7Video1: {
+            videoUrl: 'https://www.youtube.com/watch?v=aNsr1-7Yq6s',
+        },
+        module7Video2: {
+            videoUrl: 'https://www.youtube.com/watch?v=YN_eT7Bm6J0',
+        },
         module1Article1: {
             content: `# ¿Qué son TikTok, Discord e Instagram y cómo funcionan?
 
@@ -3413,7 +3455,7 @@ Nota: este video usa un enlace temporal mientras se integra el material audiovis
             teaches: override.teaches || (type === 'video' ? inferVideoTeaches(title) : []),
             platforms: override.platforms || defaultPlatforms,
             riskAreas: override.riskAreas || moduleRiskAreas[moduleTitle] || [],
-            ...(type === 'video' ? { videoUrl: placeholderVideoUrl } : {}),
+            ...(type === 'video' ? { videoUrl: override.videoUrl || placeholderVideoUrl } : {}),
         };
     };
 
@@ -3429,9 +3471,9 @@ Nota: este video usa un enlace temporal mientras se integra el material audiovis
             },
             lessons: [
                 ['Artículo 1: ¿Qué son TikTok, Discord e Instagram y cómo funcionan?', 'article', 11, 'module1Article1'],
-                ['Video 1: Recorrido visual por TikTok, Discord e Instagram: lo que un padre debe reconocer', 'video', 2],
+                ['Video 1: Recorrido visual por TikTok, Discord e Instagram: lo que un padre debe reconocer', 'video', 2, 'module1Video1'],
                 ['Artículo 2: ¿Por qué estas plataformas atraen tanto a niños y adolescentes?', 'article', 11, 'module1Article2'],
-                ['Video 2: Cómo el algoritmo, los likes y la interacción mantienen la atención', 'video', 2],
+                ['Video 2: Cómo el algoritmo, los likes y la interacción mantienen la atención', 'video', 2, 'module1Video2'],
             ],
         },
         {
@@ -3445,9 +3487,9 @@ Nota: este video usa un enlace temporal mientras se integra el material audiovis
             },
             lessons: [
                 ['Artículo 1: Qué datos comparten los niños sin darse cuenta en redes sociales', 'article', 11, 'module2Article1'],
-                ['Video 1: Ejemplos visuales de exposición de datos en perfiles, historias, chats y publicaciones', 'video', 2],
+                ['Video 1: Ejemplos visuales de exposición de datos en perfiles, historias, chats y publicaciones', 'video', 2, 'module2Video1'],
                 ['Artículo 2: Huella digital: lo que se publica hoy puede traer consecuencias mañana', 'article', 11, 'module2Article2'],
-                ['Video 2: Cómo enseñar a los hijos a cuidar su privacidad en línea', 'video', 2],
+                ['Video 2: Cómo enseñar a los hijos a cuidar su privacidad en línea', 'video', 2, 'module2Video2'],
             ],
         },
         {
@@ -3461,9 +3503,9 @@ Nota: este video usa un enlace temporal mientras se integra el material audiovis
             },
             lessons: [
                 ['Artículo 1: Ciberacoso en TikTok, Discord e Instagram: cómo aparece y cómo detectarlo', 'article', 11, 'module3Article1'],
-                ['Video 1: Señales de alerta de ciberacoso y cambios de conducta en los menores', 'video', 2],
+                ['Video 1: Señales de alerta de ciberacoso y cambios de conducta en los menores', 'video', 2, 'module3Video1'],
                 ['Artículo 2: Likes, comparaciones y presión social: cómo afectan la autoestima', 'article', 11, 'module3Article2'],
-                ['Video 2: Qué pueden hacer los padres cuando una red social afecta el bienestar emocional', 'video', 2],
+                ['Video 2: Qué pueden hacer los padres cuando una red social afecta el bienestar emocional', 'video', 2, 'module3Video2'],
             ],
         },
         {
@@ -3477,9 +3519,9 @@ Nota: este video usa un enlace temporal mientras se integra el material audiovis
             },
             lessons: [
                 ['Artículo 1: Riesgos de hablar con desconocidos en mensajes, comentarios y servidores', 'article', 11, 'module4Article1'],
-                ['Video 1: Cómo se dan las interacciones de riesgo en Discord, Instagram y TikTok', 'video', 2],
+                ['Video 1: Cómo se dan las interacciones de riesgo en Discord, Instagram y TikTok', 'video', 2, 'module4Video1'],
                 ['Artículo 2: Grooming y manipulación emocional: señales que los padres deben conocer', 'article', 11, 'module4Article2'],
-                ['Video 2: Cómo actuar si un menor está siendo presionado o manipulado en línea', 'video', 2],
+                ['Video 2: Cómo actuar si un menor está siendo presionado o manipulado en línea', 'video', 2, 'module4Video2'],
             ],
         },
         {
@@ -3493,9 +3535,9 @@ Nota: este video usa un enlace temporal mientras se integra el material audiovis
             },
             lessons: [
                 ['Artículo 1: Contenido inapropiado y exposición accidental en redes sociales', 'article', 11, 'module5Article1'],
-                ['Video 1: Cómo un menor puede terminar viendo contenido dañino sin buscarlo', 'video', 2],
+                ['Video 1: Cómo un menor puede terminar viendo contenido dañino sin buscarlo', 'video', 2, 'module5Video1'],
                 ['Artículo 2: Retos virales, rumores y desinformación: por qué los niños los creen y comparten', 'article', 11, 'module5Article2'],
-                ['Video 2: Cómo enseñar pensamiento crítico frente al contenido viral', 'video', 2],
+                ['Video 2: Cómo enseñar pensamiento crítico frente al contenido viral', 'video', 2, 'module5Video2'],
             ],
         },
         {
@@ -3509,9 +3551,9 @@ Nota: este video usa un enlace temporal mientras se integra el material audiovis
             },
             lessons: [
                 ['Artículo 1: Publicidad disfrazada, influencers y contenido patrocinado en TikTok e Instagram', 'article', 11, 'module6Article1'],
-                ['Video 1: Cómo reconocer promociones ocultas y recomendaciones pagadas', 'video', 2],
+                ['Video 1: Cómo reconocer promociones ocultas y recomendaciones pagadas', 'video', 2, 'module6Video1'],
                 ['Artículo 2: Regalos, suscripciones, monedas y compras impulsivas en redes y comunidades', 'article', 11, 'module6Article2'],
-                ['Video 2: Cómo prevenir gastos no supervisados y consumo por presión social', 'video', 2],
+                ['Video 2: Cómo prevenir gastos no supervisados y consumo por presión social', 'video', 2, 'module6Video2'],
             ],
         },
         {
@@ -3525,9 +3567,9 @@ Nota: este video usa un enlace temporal mientras se integra el material audiovis
             },
             lessons: [
                 ['Artículo 1: Controles parentales y configuraciones de seguridad en TikTok, Discord e Instagram', 'article', 10, 'module7Article1'],
-                ['Video 1: Guía visual para activar ajustes de seguridad y privacidad', 'video', 2],
+                ['Video 1: Guía visual para activar ajustes de seguridad y privacidad', 'video', 2, 'module7Video1'],
                 ['Artículo 2: Cómo acompañar a un hijo en redes sociales sin caer en vigilancia excesiva', 'article', 10, 'module7Article2'],
-                ['Video 2: Conversaciones clave para construir confianza y uso responsable', 'video', 2],
+                ['Video 2: Conversaciones clave para construir confianza y uso responsable', 'video', 2, 'module7Video2'],
             ],
         },
     ];

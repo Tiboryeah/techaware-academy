@@ -255,7 +255,7 @@ Este video muestra cómo se ve una promesa falsa antes de que termine en robo de
 * Por qué las promesas de moneda gratis suelen buscar credenciales o pagos.
 * Qué respuesta rápida debe seguir una familia ante un enlace dudoso.`,
         type: 'video',
-        videoUrl: 'https://www.youtube.com/watch?v=placeholder9',
+        videoUrl: 'https://www.youtube.com/watch?v=navOCcm5w7A',
         duration: 2,
         platforms: ['Roblox', 'Minecraft'],
         riskAreas: ['Gasto Controlado'],
@@ -506,7 +506,7 @@ Este video convierte el módulo en una revisión corta antes de gastar, instalar
 * Qué preguntas hacer antes de pagar con moneda virtual.
 * Qué señales indican que una instalación o compra no es segura.`,
         type: 'video',
-        videoUrl: 'https://www.youtube.com/watch?v=placeholder10',
+        videoUrl: 'https://www.youtube.com/watch?v=0O2oLZ6pk_I',
         duration: 2,
         platforms: ['Roblox', 'Minecraft'],
         riskAreas: ['Gasto Controlado'],

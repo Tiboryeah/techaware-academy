@@ -124,7 +124,7 @@ Este video acompaña la activación de la cuenta adulta enlazada y muestra dónd
 * En qué parte del panel se ajustan edad, chat, tiempo y gasto.
 * Qué errores comunes conviene evitar al configurar el entorno.`,
             type: 'video',
-            videoUrl: 'https://www.youtube.com/watch?v=placeholder3',
+            videoUrl: 'https://www.youtube.com/watch?v=1qKy5EBKfRI',
             duration: 2,
             platforms: ['Roblox'],
             riskAreas: ['Seguridad de Cuenta'],
@@ -248,7 +248,7 @@ Este video muestra la respuesta práctica que una familia puede aplicar cuando a
 * Cómo se documenta el problema antes de reportarlo.
 * En qué casos bloquear y reportar deben hacerse de inmediato.`,
             type: 'video',
-            videoUrl: 'https://www.youtube.com/watch?v=placeholder4',
+            videoUrl: 'https://www.youtube.com/watch?v=gNJ6TZO7N8U',
             duration: 2,
             platforms: ['Roblox'],
             riskAreas: ['Privacidad Avanzada', 'Gasto Controlado'],
