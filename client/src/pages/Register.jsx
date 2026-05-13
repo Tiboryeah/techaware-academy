@@ -29,6 +29,11 @@ const Register = () => {
             return;
         }
 
+        if (!emailIsValid) {
+            setError('Ingresa un correo electrónico válido (ej. nombre@dominio.com).');
+            return;
+        }
+
         if (password.length < 8) {
             setError('La contraseña debe tener al menos 8 caracteres.');
             return;
@@ -63,9 +68,12 @@ const Register = () => {
         }
     };
 
+    const emailIsValid = email.trim().length === 0
+        ? null
+        : /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/.test(email.trim().toLowerCase());
     const passwordHasMinLength = password.length >= 8;
     const passwordsMatch = confirmPassword.length > 0 && password === confirmPassword;
-    const isFormValid = name.trim() && email.trim() && passwordHasMinLength && passwordsMatch && acceptedTerms;
+    const isFormValid = name.trim() && emailIsValid === true && passwordHasMinLength && passwordsMatch && acceptedTerms;
 
     return (
         <div className="min-h-screen bg-[#fafafb] dark:bg-[#0a0c10] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-500">
@@ -132,13 +140,29 @@ const Register = () => {
                                     <input
                                         type="email"
                                         required
-                                        className="w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-[#0a0c10] border-2 border-gray-100 dark:border-gray-800 rounded-2xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:border-indigo-600 transition-all font-medium"
+                                        className={`w-full pl-12 pr-4 py-4 bg-gray-50 dark:bg-[#0a0c10] border-2 rounded-2xl text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none transition-all font-medium ${
+                                            emailIsValid === false
+                                                ? 'border-red-400 dark:border-red-500 focus:border-red-500'
+                                                : emailIsValid === true
+                                                ? 'border-green-400 dark:border-green-500 focus:border-green-500'
+                                                : 'border-gray-100 dark:border-gray-800 focus:border-indigo-600'
+                                        }`}
                                         placeholder="padre@ejemplo.com"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                         onBlur={() => setEmail((prev) => prev.trim().toLowerCase())}
                                     />
                                 </div>
+                                {emailIsValid === false && (
+                                    <p className="mt-2 ml-1 text-[11px] font-semibold text-red-500 dark:text-red-400">
+                                        Ingresa un correo con formato válido (ej. nombre@dominio.com).
+                                    </p>
+                                )}
+                                {emailIsValid === true && (
+                                    <p className="mt-2 ml-1 text-[11px] font-semibold text-green-600 dark:text-green-400">
+                                        Correo electrónico válido.
+                                    </p>
+                                )}
                             </div>
 
                             <div>

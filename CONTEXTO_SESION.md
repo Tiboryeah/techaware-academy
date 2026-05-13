@@ -1,7 +1,7 @@
 # Contexto de Sesión — Reporte Técnico Kuxipilli
 ## TT 2026-A097 | ESCOM · IPN
 
-> Última actualización: 2026-05-01 (rev. 13)
+> Última actualización: 2026-05-12 (rev. 18)
 > Propósito: retomar el trabajo en cualquier chat sin perder contexto.
 
 ---
@@ -825,9 +825,705 @@ Ejecutados `npm run seed:social` y `npm run seed:games`.
 
 ---
 
+## Cambios al CÓDIGO realizados en sesión 2026-05-12
+
+### 7. Verificación y corrección de links rotos en casos reales
+
+**Script usado:** verificación HEAD HTTP contra todos los links de fuentes del seed.
+
+**Resultados:**
+| Link | Estado | Acción |
+|---|---|---|
+| BBC News — Breck Bednar (`feeds.bbci.co.uk/...`) | ❌ 404 | Corregido a `www.bbc.com/news/uk-england-essex-30205716` |
+| El País — Ainara/YosStop | ❌ 404 | Eliminado del seed y de Atlas (sin alternativa disponible) |
+| Todos los demás (13 links) | ✅ 200 | Sin cambios |
+
+**Archivos modificados:**
+- `server/src/scripts/seed/resources.js` — BBC URL corregida, El País eliminado
+- MongoDB Atlas — mismos cambios aplicados directamente con `findOneAndUpdate`
+
+---
+
+### 6. Fechas reales de casos en tarjetas y detalle
+
+**Archivos modificados:** `server/src/models/Resource.js`, `client/src/pages/RealCases.jsx`, `client/src/pages/CaseDetail.jsx`
+
+**Campo nuevo en modelo:** `caseDate: String` — fecha del evento en lenguaje natural (ej. "Febrero 2014").
+
+**Fechas asignadas (derivadas de URLs de fuentes):**
+| Caso | Fecha |
+|---|---|
+| Videojuegos: el asesinato de Breck Bednar | Febrero 2014 |
+| Instagram: el caso Molly Russell | Noviembre 2017 |
+| YouTube: el caso Amanda Todd | Octubre 2012 |
+| YouTube: revictimización de Ainara | Junio 2021 |
+| TikTok: reto con clonazepam | Enero 2023 |
+| Instagram: perfil prestado para acosar | Agosto 2020 |
+| TikTok: el reto blackout | 2021 – 2022 |
+| Roblox: el viaje desde Mérida | Diciembre 2025 |
+| Discord: perfil falso de menor | 2024 |
+| Twitch: regalos para manipular | 2021 |
+
+**Dónde aparece la fecha:**
+- Tarjeta del listado (`RealCases.jsx`) → badge junto a edad y plataforma
+- Detalle del caso (`CaseDetail.jsx`) → cuarta FactCard en la fila de datos del análisis completo (grid 2×4 en lugar de 1×3)
+
+---
+
+### 5. CaseDetail — sección de video animado por caso
+
+**Archivos modificados:** `server/src/models/Resource.js`, `client/src/pages/CaseDetail.jsx`
+
+**Campo nuevo en modelo:** `videoUrl: String`
+
+**Comportamiento:** la sección de video aparece condicionalmente solo si el caso tiene `videoUrl`. Se coloca entre "Lectura del caso" y las tarjetas "Señal de alerta / Respuesta clave". Diseño: barra índigo con label "CASO ANIMADO" + iframe `aspect-video`.
+
+**Videos asignados en Atlas (directamente con `findOneAndUpdate`):**
+| Caso | URL |
+|---|---|
+| Breck Bednar | `https://www.youtube.com/watch?v=OfRVAQatCMo` |
+| Molly Russell | `https://www.youtube.com/watch?v=SiIOV-FxVqg` |
+| Amanda Todd | `https://www.youtube.com/watch?v=Zc3a3rLhIrA` |
+| TikTok Blackout | `https://www.youtube.com/watch?v=CIT7B4soyMo` |
+| Ainara | `https://www.youtube.com/watch?v=FaDC25FPJy4` |
+| Discord perfil falso | `https://www.youtube.com/watch?v=dG9FZLR60Kk` |
+| Twitch regalos | `https://www.youtube.com/watch?v=2cHsh_N5rDs` |
+| Instagram perfil prestado | `https://www.youtube.com/watch?v=ISips_xurb0` |
+| Roblox Mérida | `https://www.youtube.com/watch?v=KsbPsDgACHc` |
+| TikTok clonazepam | `https://www.youtube.com/watch?v=1jTxumftBIs` |
+
+---
+
+### 4. RealCases — íconos por plataforma con colores oficiales y caseIcons con significado
+
+**Archivos modificados:** `client/src/pages/RealCases.jsx`, `client/src/pages/CaseDetail.jsx`
+
+**Íconos de categoría (significado del desenlace):**
+| Categoría | Ícono | Significado |
+|---|---|---|
+| Grooming fatal | `Skull` | Caso terminó en muerte |
+| Suicidio | `HeartCrack` | Pérdida emocional / suicidio |
+| Ciberacoso | `UserX` | Persona atacada/excluida |
+| Grooming / Explotación digital | `EyeOff` | El menor no ve el peligro |
+| Retos virales / Violencia / Fraudes | `AlertTriangle` | Peligro físico o económico |
+
+**Color del ícono según plataforma (`platformIconStyles`):**
+TikTok → gris suave (no agresivo en modo claro) | YouTube → rojo | Twitch → morado | Minecraft → verde | Roblox → azul | Instagram → rosa | Discord → índigo
+
+**Íconos de plataforma en badge:** reemplazados por `PlatformIcon` del componente `PlatformIcons.jsx` (SVG oficiales). Fallback: `Gamepad2` cian para plataformas sin ícono específico.
+
+---
+
+### 3. Rutas públicas — Casos y guías sin login
+
+**Archivos modificados:** `client/src/App.jsx`, `client/src/components/Layout.jsx`, `server/src/routes/resource.routes.js`
+
+- `/casos-y-guias`, `/casos/:id` movidas fuera del `<ProtectedRoute>` en App.jsx
+- `protected: true → false` para "Casos y guías" en `NAV_LINKS` de Layout.jsx
+- `protect` middleware eliminado de `GET /api/resources` y `GET /api/resources/:slug`
+
+---
+
+### 2. Mejoras visuales en LessonView — título duplicado y contexto de módulo en sidebar
+
+**Archivos modificados:** `client/src/pages/LessonView.jsx`
+
+#### Problema 1 resuelto: H1 del markdown duplicaba el título del header
+
+El campo `content` de cada lección comienza con `# Título del artículo`, que se renderizaba como un H1 gigante dentro del cuerpo, repitiendo el título que ya aparecía en el header superior de la página.
+
+**Solución:** en `renderLessonContent`, se añadió un flag `firstH1Skipped` que omite el primer `# ` heading del contenido markdown al iterar las líneas. El dato en MongoDB no se toca.
+
+```js
+let firstH1Skipped = false;
+// dentro del loop:
+if (!firstH1Skipped && line.startsWith('# ')) {
+    firstH1Skipped = true;
+    continue;
+}
+```
+
+#### Problema 2 resuelto: sidebar sin contexto de módulo
+
+El panel lateral ("Contenido") mostraba la lista de lecciones del módulo y la barra de progreso, pero el usuario no sabía en qué módulo estaba navegando.
+
+**Solución:** se añadieron dos estados nuevos:
+- `moduleNumber` (número 1-based del módulo dentro del curso)
+- `moduleTitle` (nombre del módulo sin el prefijo "Módulo N:")
+
+Poblados en el `useEffect` al resolver `currentModule`:
+```js
+const idx = courseData.modules.findIndex(m => m._id === lessonData.moduleId);
+setModuleNumber(idx + 1);
+setModuleTitle(rawTitle.replace(/^Módulo\s+\d+:\s*/i, ''));
+```
+
+El regex elimina "Módulo N: " de los títulos de videojuegos (que ya lo incluyen), mientras que los cursos de Redes Sociales y Streaming muestran su título directamente sin transformación.
+
+Resultado visual en el sidebar, arriba de la barra de progreso:
+```
+CONTENIDO
+MÓDULO 2              ← label índigo uppercase
+Roblox: seguridad y control parental   ← título limpio, 2 líneas máx
+[barra de progreso]
+```
+
+---
+
+### 1. Cálculo y ajuste de duraciones por lección, módulo y curso (los 3 cursos)
+
+**Motivación:** Las duraciones eran genéricas (artículos = 12 min todos, guías = 2 min, módulos = 28 min) y no reflejaban el contenido real de cada lección.
+
+**Metodología aplicada:**
+- Se creó el script utilitario `server/src/scripts/calculate-durations.js`
+- Fórmula: `max(mínimo, round(palabras / 150 + imágenes × 0.5))`
+  - WPM: 150 (conservador, padres no técnicos leyendo contenido educativo)
+  - Bonus imagen: +0.5 min por imagen
+  - Mínimo artículo: 4 min | Mínimo guía: 3 min
+- Duración de módulo = suma de todas sus lecciones
+- Duración de curso = suma de todos sus módulos
+- Videos: mantienen `duration: 2` (placeholder, actualizar manualmente con duración real de YouTube)
+
+**Archivos modificados:**
+- `server/src/scripts/calculate-durations.js` — script de análisis (nuevo)
+- `server/src/scripts/seed/courses/games/index.js`
+- `server/src/scripts/seed/courses/games/module1.js` a `module6.js`
+- `server/src/scripts/seed/courses/social/catalog.js`
+- `server/src/scripts/seed/courses/streaming/catalog.js`
+
+**Duraciones resultantes por curso:**
+
+| Curso | Duración anterior | Duración nueva |
+|---|---|---|
+| Videojuegos (Roblox + Minecraft) | '3 horas' | '1 hora 58 min' |
+| Redes Sociales (TikTok, Discord e Instagram) | '3 horas' | '1 hora 51 min' |
+| Streaming (YouTube y Twitch) | '3 horas' | '1 hora 49 min' |
+| **Total 3 cursos** | ~9 horas | **5 horas 38 min** |
+
+**Duraciones por módulo — Videojuegos:**
+| Módulo | Antes | Después |
+|---|---|---|
+| M1: Fundamentos de videojuegos en línea | '40 min' | '15 min' |
+| M2: Roblox: seguridad y control parental | '28 min' | '18 min' |
+| M3: Minecraft: cuentas familiares, multijugador y Realms | '28 min' | '14 min' |
+| M4: Interacción social y señales de alerta | '28 min' | '28 min' (sin cambio) |
+| M5: Compras digitales, estafas y descargas | '28 min' | '22 min' |
+| M6: Bienestar digital y acompañamiento parental | '28 min' | '21 min' |
+
+**Duraciones por módulo — Redes Sociales:**
+| Módulo | Antes | Después |
+|---|---|---|
+| M1: Entender las redes sociales | '26 min' | '17 min' |
+| M2: Privacidad, datos personales y huella digital | '26 min' | '15 min' |
+| M3: Ciberacoso, presión social y daño emocional | '26 min' | '15 min' |
+| M4: Contacto con desconocidos, grooming y manipulación | '26 min' | '16 min' |
+| M5: Contenido inapropiado, retos virales y desinformación | '26 min' | '15 min' |
+| M6: Compras, publicidad e influencia de creadores | '26 min' | '16 min' |
+| M7: Bienestar digital, control parental y acompañamiento | '24 min' | '17 min' |
+
+**Duraciones por módulo — Streaming:**
+| Módulo | Antes | Después |
+|---|---|---|
+| M1: Introducción al streaming y consumo infantil | '26 min' | '14 min' |
+| M2: Tipos de contenido y su impacto en los niños | '26 min' | '15 min' |
+| M3: Riesgos en plataformas de streaming | '26 min' | '16 min' |
+| M4: Monetización, publicidad y engaños | '26 min' | '18 min' |
+| M5: Tiempo de pantalla y uso problemático | '26 min' | '14 min' |
+| M6: Control parental y acompañamiento | '26 min' | '17 min' |
+| M7: Uso positivo y educación digital | '24 min' | '15 min' |
+
+**Cambio técnico en social/catalog.js:**
+- La duración de módulo pasó de una expresión ternaria `idx < 6 ? '26 min' : '24 min'` a un array de valores individuales:
+  `['17 min', '15 min', '15 min', '16 min', '15 min', '16 min', '17 min'][idx]`
+
+**Seeds ejecutados exitosamente:**
+- `npm run seed:games` ✅
+- `npm run seed:social` ✅
+- `npm run seed:streaming` ✅
+
+### 2. Pendiente para el Reporte Técnico — cambios por documentar
+
+Los siguientes campos del reporte deben actualizarse una vez que los videos también tengan duración real:
+
+| Sección | Qué ajustar |
+|---|---|
+| §4.8.5 e) modules | Campo `duration` → ahora refleja suma real de lecciones del módulo (en lugar de estimado fijo) |
+| §4.8.5 b) courses | Campo `duration` → nuevo rango real (~1h49m a 1h58m por curso, no '3 horas') |
+| §4.8 (intro) o §6.2.9 | Agregar nota sobre metodología de cálculo de duración: WPM 150 + bonus imagen 0.5 min |
+| §6.1 (descripción del contenido) | Si hay tabla o mención de duración de cursos, actualizar a '1 hora 49-58 min' por curso |
+
+**Nota:** los videos siguen con `duration: 2` (placeholder). Cuando se actualicen con la duración real de YouTube, los totales de módulos y cursos subirán ligeramente. Se recomienda ejecutar nuevamente `calculate-durations.js` después de actualizar videos y repetir el ajuste.
+
+### 3. CourseDetail — reemplazo de copa en badge "Curso Acreditado"
+
+**Archivo modificado:** `client/src/pages/CourseDetail.jsx`
+
+El badge de acreditación de curso que aparece en el hero de la página de detalle tenía un ícono `Trophy` de Lucide dentro de un cuadro amarillo. Se reemplazó por la imagen personalizada `client/public/images/copa_acreditada.png`.
+
+**Estado final del badge:**
+- Layout horizontal original restaurado (fondo `bg-yellow-500/10`, borde `border-yellow-500/20`, `rounded-3xl`)
+- Imagen `copa_acreditada.png` con `w-28 h-28 -my-6` para que desborde levemente el card verticalmente sin agrandar el contenedor
+- Contenedor con `overflow-visible` para permitir el desborde
+- `drop-shadow` ámbar en la imagen para dar profundidad
+
+**Iteraciones descartadas:** se probaron dos rediseños (tarjeta vertical con rayos y gradiente dorado, tarjeta horizontal con glow radial) pero el usuario prefirió restaurar el diseño original y solo cambiar el ícono.
+
+---
+
+### 4. Dashboard — badges de logros con imágenes personalizadas
+
+**Archivos modificados:** `client/src/pages/Dashboard.jsx`
+
+La sección "Mis Logros Digitales" usaba íconos de Lucide (`Gamepad2`, `Users`, `Tv`) dentro de cuadros con gradiente de color. Se reemplazaron por imágenes personalizadas con dos variantes según el estado del curso:
+
+| Categoría | Completado | Pendiente |
+|---|---|---|
+| Videojuegos | `/images/badge_videojuegos.png` | `/images/badgegris_videojuegos.png` |
+| Redes Sociales | `/images/badge_redes_sociales.png` | `/images/badgegris_redes.png` |
+| Streaming | `/images/badge_streaming.png` | `/images/badgegris_streaming.png` |
+
+**Cambios técnicos:**
+- El array `badges` ahora incluye `imageColor` e `imageGray` en lugar de `icon`
+- El render usa `<img src={badge.isCompleted ? badge.imageColor : badge.imageGray} className="w-16 h-16 object-contain" />`
+- Se eliminaron los imports `Gamepad2`, `Users`, `Tv` y `React` (ya no usados)
+- Se eliminó el div contenedor con gradiente de color alrededor del ícono
+
+---
+
+### 5. Script utilitario: activate-badges.js
+
+**Archivo creado:** `server/src/scripts/activate-badges.js`
+
+Script para activar/desactivar badges de prueba sin tocar la lógica de negocio:
+
+```bash
+# Activar todos los cursos como completados para un usuario
+node src/scripts/activate-badges.js [email]
+# Default: admin@example.com
+
+# Para desactivar (inline):
+node -e "...updateMany({ userId }, { \$set: { isCourseCompleted: false } })..."
+```
+
+Útil para probar el aspecto visual de las badges en cualquier cuenta sin necesidad de completar los cursos realmente.
+
+---
+
+### 6. LessonView — íconos de sidebar (revertido)
+
+Se probó reemplazar los íconos `Play` y `FileText` del sidebar de lecciones con las imágenes `/images/video.png` y `/images/articulo.png`. El usuario prefirió revertir al diseño original con los íconos de Lucide.
+
+**Estado actual:** `Play` y `FileText` de Lucide — sin cambios respecto al diseño original.
+
+---
+
+### 8. Contáctanos — eliminación del campo "Preferencia de respuesta"
+
+**Contexto:** Se analizó implementar una bandeja de mensajes dentro de la plataforma (Opción A) para dar seguimiento a reportes cuando el usuario elegía "Respuesta dentro de la plataforma". Se evaluó el impacto en el reporte técnico (≈3 h reporte + ≈8 h código, todos cambios aditivos). Se decidió no implementar por ahora y simplificar: el campo se elimina del formulario y la respuesta siempre se da por correo electrónico.
+
+**Archivos modificados:**
+
+`client/src/pages/ContactPage.jsx`:
+- Eliminado array `preferredReplyOptions`
+- Eliminado campo `preferredReply` del estado inicial en `getInitialForm`
+- Eliminado el bloque `<select>` de "Preferencia de respuesta" del formulario (estaba en grid 2 columnas junto al botón de evidencia)
+- Botón "¿Cuentan con evidencia?" ajustado: ya no está dentro de un `grid md:grid-cols-2`, ahora es un bloque independiente con `w-full md:w-auto`
+- Toast actualizado: `'Caso enviado. Nos pondremos en contacto por correo electrónico.'`
+- Mensaje de éxito fallback actualizado al mismo texto
+
+`server/src/routes/report.routes.js`:
+- Mensaje 201 actualizado: `'Caso enviado. En breve lo analizaremos y nos pondremos en contacto por correo electrónico.'`
+
+**Lo que NO se modificó:**
+- `server/src/models/CaseReport.js` — el campo `preferredReply` sigue en el esquema con `default: 'Correo electrónico'` para mantener compatibilidad con documentos ya guardados en Atlas. Los nuevos envíos usarán el default automáticamente sin que el usuario lo seleccione.
+
+**Plan documentado (no implementado):**
+- Se agregó al final de `RUTA_TODOS_CAPITULOS.md` la sección **"PLAN: Opción A — Bandeja de mensajes dentro de la plataforma"** con todos los cambios de código y reporte necesarios para implementarla en el futuro si se decide retomar.
+
+---
+
+### 9. Home.jsx — aumento de tamaño de fuente en el landing (vista sin login)
+
+Ajuste conservador: todos los textos de cuerpo subieron un paso de Tailwind. No se tocaron títulos principales, badges decorativos, citas de fuentes ni textos de botones.
+
+| Elemento | Antes | Después |
+|---|---|---|
+| Hero subtítulo "Protege a tu hijo/a" | `text-lg sm:text-2xl` | `text-xl sm:text-2xl md:text-3xl` |
+| Hero descripción de la plataforma | `text-base` | `text-lg` |
+| Descripción sección "Los riesgos son reales" | `text-sm` | `text-base` |
+| Cuerpos de las 3 tarjetas de riesgo | `text-sm` | `text-base` |
+| Descripción sección "Cómo funciona" | `text-sm` | `text-base` |
+| Textos de los 3 pasos | `text-sm` | `text-base` |
+| Descripción sección "3 rutas de aprendizaje" | `text-sm` | `text-base` |
+| Tópicos de cada programa | `text-sm` | `text-base` |
+| Intro sección "¿Por qué Kuxipilli?" | `text-base` | `text-lg` |
+| Descripciones Kuxi / Pilli | `text-sm` | `text-base` |
+| Cita en bloque lateral | `text-sm` | `text-base` |
+| CTA final descripción | `text-base` | `text-lg` |
+
+---
+
+### 10. Register.jsx — validación de formato de correo electrónico
+
+**Archivo modificado:** `client/src/pages/Register.jsx`
+
+**Regex aplicada:** `/^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/`
+
+Valida que el correo tenga: usuario + `@` + dominio + `.` + TLD de al menos 2 letras.
+
+- `fulanito@correo.com` ✅ | `fulanito@hotmail.mx` ✅
+- `fulanito@correo` ❌ (sin TLD) | `fulanitocorreo.com` ❌ (sin @)
+
+**Comportamiento visual:**
+- El borde del campo cambia a **rojo** si el formato es inválido, **verde** si es válido — en tiempo real mientras escribe
+- Aparece texto de feedback debajo del campo (mismo estilo que la validación de contraseña)
+- `isFormValid` requiere `emailIsValid === true` para habilitar el botón
+- `handleSubmit` también valida antes de llamar a la API como segunda barrera
+
+---
+
+### 11. VerifyAccount.jsx — cooldown de 30 segundos al cargar la página
+
+**Archivo modificado:** `client/src/pages/VerifyAccount.jsx`
+
+**Antes:** el botón "Obtener nuevo código" aparecía habilitado inmediatamente al llegar a la página.
+
+**Después:**
+- Al montar el componente, `resendStatus` inicia en `'cooldown'` y `cooldown` en `30`
+- Un `useEffect` arranca el intervalo automáticamente y cuenta regresiva: "Reenviar disponible en 30s" → 29s → ... → 0 → botón habilitado
+- Al hacer clic y reenviar exitosamente, el cooldown vuelve a iniciar desde 30s (lógica ya existía)
+- Se agregó `useEffect` al import de React
+
+---
+
 ## Archivos relevantes del repositorio
 
 ```
+
+---
+
+## Actualización de sesión 2026-05-11 - Curso Videojuegos, tablas e imágenes
+
+### Arranque local
+- Se levantó la aplicación en local desde `TT_Academia`.
+- Frontend activo en `http://127.0.0.1:5173/`.
+- Backend activo en `http://127.0.0.1:5000/`.
+- Verificaciones:
+  - Frontend respondió `200 OK`.
+  - Backend respondió `API is running...`.
+  - Backend conectó correctamente con MongoDB Atlas.
+- Logs locales usados:
+  - `server.local.out.log`
+  - `server.local.err.log`
+  - `client.local.out.log`
+  - `client.local.err.log`
+
+### Videojuegos - reemplazo puntual por imágenes
+- Archivo principal:
+  - `server/src/scripts/seed/courses/games/module1.js`
+- En **M1A1** (`Artículo 1: ¿Qué son los videojuegos en línea y cómo funcionan?`):
+  - Se reemplazó la lista bajo `## Cómo funciona un juego en línea` por:
+    - `/article-images/videojuegos/M1A1.png`
+- En **M1G1** (`Guía visual: Cuenta, servidor, chat, compras y multijugador`):
+  - Se reemplazó la lista bajo `## Ruta visual de un juego en línea` por:
+    - `/article-images/videojuegos/M1G1.png`
+- Verificaciones:
+  - `M1A1.png` respondió `200 OK` en Vite.
+  - `M1G1.png` respondió `200 OK` en Vite.
+  - `node --check server/src/scripts/seed/courses/games/module1.js` exitoso.
+  - `npm run seed:games` ejecutado después de cada bloque.
+
+### Videojuegos - imágenes faltantes reemplazadas por tablas
+- Problema detectado:
+  - `module3.js` tenía referencias antiguas a `/uploads/...`.
+  - `client/public/uploads` no existe.
+  - Las únicas imágenes reales del curso Videojuegos disponibles son:
+    - `client/public/article-images/videojuegos/M1A1.png`
+    - `client/public/article-images/videojuegos/M1G1.png`
+- Archivo corregido:
+  - `server/src/scripts/seed/courses/games/module3.js`
+- Se reemplazaron 7 imágenes rotas por tablas Markdown:
+  - Diferencias entre Minecraft Java y Bedrock.
+  - Formas de juego en línea.
+  - Funcionamiento de Realms.
+  - Semáforo de riesgo en Minecraft.
+  - Capas de permisos.
+  - Diagnóstico para jugar con amigos.
+  - Jugar vs comunicarse.
+- Verificación:
+  - En seeds activos de Videojuegos ya no quedan rutas `/uploads/...`.
+  - La búsqueda amplia todavía encuentra `/uploads` en `server/backups` y documentos históricos, pero no afectan la app.
+
+### Videojuegos - refuerzo tabular completo del curso
+- Objetivo del usuario:
+  - Que el curso de Videojuegos tenga estructura similar a Redes Sociales y Streaming.
+  - Cada artículo/guía debe tener al menos dos tablas o bloques visuales equivalentes.
+  - No eliminar información existente, porque de ahí salen los exámenes.
+  - Solo agregar o reestructurar contenido complementario.
+  - Mantener información verídica y basada en fuentes confiables.
+- Archivos editados:
+  - `server/src/scripts/seed/courses/games/module1.js`
+  - `server/src/scripts/seed/courses/games/module2.js`
+  - `server/src/scripts/seed/courses/games/module3.js`
+  - `server/src/scripts/seed/courses/games/module4.js`
+  - `server/src/scripts/seed/courses/games/module5.js`
+  - `server/src/scripts/seed/courses/games/module6.js`
+
+### Tablas agregadas por módulo
+- **Módulo 1**
+  - Conceptos base: cuenta, servidor, chat, compra dentro del juego, multijugador.
+  - Revisión antes de autorizar un juego.
+  - Ruta visual después de la imagen `M1G1.png`.
+  - Comparación Roblox vs Minecraft.
+  - Economía/compras: Robux vs Minecoins.
+- **Módulo 2**
+  - Requisitos para cuenta parental de Roblox.
+  - Rutas de vinculación: correo electrónico y `Add parent`.
+  - Capas de control: madurez de contenido, comunicación, servidores privados, tiempo y gasto.
+  - Jerarquía de configuración recomendada.
+- **Módulo 3**
+  - Tablas sustitutas de las imágenes faltantes:
+    - Java vs Bedrock.
+    - Formas de juego.
+    - Realms.
+    - Semáforo de riesgo.
+    - Capas de permisos.
+    - Diagnóstico de multijugador.
+    - Jugar vs comunicarse.
+- **Módulo 4**
+  - Riesgos: ciberacoso, grooming y exposición de datos.
+  - Señales observables y respuesta familiar inicial.
+  - Primer momento de respuesta: escuchar, calmar, entender, documentar y actuar.
+  - Semáforo de decisión.
+  - Tabla `Sí / No` ante interacciones de riesgo.
+- **Módulo 5**
+  - Comparación Robux vs Minecoins.
+  - Situaciones de compra, riesgo y medida preventiva.
+  - Oficial/no oficial: Marketplace, add-ons, mods de Java, descargas de terceros.
+  - Preguntas antes de descargar o comprar.
+- **Módulo 6**
+  - Horas de sueño recomendadas por edad.
+  - Bloques de bienestar: sueño, escuela, actividad física, familia, otros intereses.
+  - Preguntas abiertas para acompañamiento.
+  - Control distante vs acompañamiento activo.
+
+### Fuentes usadas para cuidar veracidad
+- Roblox Support - Parental Controls Overview:
+  - https://en.help.roblox.com/hc/en-us/articles/30428310121620-Parental-Controls-Overview
+- Roblox Support - Safety Features: Chat, Privacy & Filtering:
+  - https://en.help.roblox.com/hc/en-us/articles/203313120-Safety-Features-Chat-Privacy-Filtering
+- Minecraft Parents' Guide:
+  - https://www.minecraft.net/en-us/article/parents--guide-minecraft
+- Minecraft - Parental Controls:
+  - https://www.minecraft.net/en-us/article/parental-controls
+- Xbox Family Hub:
+  - https://www.xbox.com/en-US/family-hub
+
+### Validaciones ejecutadas
+- `node --check` en:
+  - `server/src/scripts/seed/courses/games/module1.js`
+  - `server/src/scripts/seed/courses/games/module2.js`
+  - `server/src/scripts/seed/courses/games/module3.js`
+  - `server/src/scripts/seed/courses/games/module4.js`
+  - `server/src/scripts/seed/courses/games/module5.js`
+  - `server/src/scripts/seed/courses/games/module6.js`
+- Búsqueda final de imágenes en seeds activos:
+  - Solo quedan:
+    - `/article-images/videojuegos/M1A1.png`
+    - `/article-images/videojuegos/M1G1.png`
+- Conteo final por lección textual:
+  - Todos los artículos y la guía de Videojuegos tienen al menos 2 tablas.
+  - Módulo 3 Artículo 1 tiene 4 tablas.
+  - Módulo 3 Artículo 2 tiene 3 tablas.
+  - Módulo 4 Artículo 2 tiene 3 tablas.
+- `npm run seed:games` ejecutado correctamente después de los cambios.
+
+### Estado importante
+- No se eliminaron listas ni definiciones existentes que alimentan exámenes.
+- Se agregó contenido complementario en forma de tablas para mejorar lectura y permitir conversión posterior a imágenes.
+- El curso Videojuegos quedó sincronizado en MongoDB Atlas.
+
+### Ajuste de calidad posterior - evitar repetición visual
+- El usuario detectó que algunas tablas repetían de forma demasiado directa información que ya aparecía como lista o imagen.
+- Criterio actualizado:
+  - No agregar tablas solo para cumplir cantidad.
+  - Si una lista, imagen o bloque visual ya comunica la información, no duplicarla inmediatamente debajo.
+  - Las tablas deben aportar una dimensión distinta: comparación, decisión familiar, señal de riesgo, respuesta recomendada o contraste entre plataformas.
+  - Priorizar calidad editorial y lectura profesional sobre número mecánico de tablas.
+- Correcciones aplicadas:
+  - `server/src/scripts/seed/courses/games/module1.js`
+    - En M1A1 se eliminó la tabla que repetía los 5 conceptos base ya listados.
+    - En M1G1 se eliminó la tabla que repetía la ruta visual ya mostrada en `M1G1.png`.
+  - Se mantuvieron tablas que sí agregan valor:
+    - revisión antes de autorizar un juego;
+    - comparación Roblox vs Minecraft;
+    - economía/compras;
+    - riesgo, respuesta, decisión o supervisión en módulos posteriores.
+- Validaciones:
+  - `node --check server/src/scripts/seed/courses/games/module1.js` exitoso.
+  - `npm run seed:games` ejecutado correctamente tras la limpieza.
+
+### Ajuste editorial adicional - claridad en todos los artículos de Videojuegos
+- El usuario señaló que **M1A2** (`Artículo 2: Diferencias clave entre Roblox y Minecraft para una familia`) seguía repetitivo:
+  - Se explicaba "Roblox plataforma / Minecraft sandbox" en párrafos.
+  - Luego la tabla volvía a comunicar la misma idea.
+- Criterio aplicado desde este punto:
+  - Cuando una tabla es la pieza principal, el texto previo debe introducir la lectura, no repetirla.
+  - Cuando una lista ya es necesaria y clara, no se agrega tabla equivalente debajo.
+  - Cuando una tabla se mantiene, debe aportar comparación, decisión, riesgo o acción; no parafrasear.
+- Limpiezas aplicadas:
+  - `server/src/scripts/seed/courses/games/module1.js`
+    - En M1A2 se redujeron los párrafos de `Plataforma vs sandbox` a una introducción breve antes de la tabla.
+    - En `Qué cambia para la supervisión` se eliminaron listas separadas de Roblox/Minecraft y se dejó una síntesis clara.
+    - En `Economía y compras` se cambió la lista redundante por una frase introductoria antes de la tabla.
+  - `server/src/scripts/seed/courses/games/module2.js`
+    - Se eliminó la lista redundante de requisitos de cuenta parental antes de la tabla.
+    - Se quitaron los párrafos duplicados de Ruta A/Ruta B porque la tabla ya explica las rutas de vinculación.
+  - `server/src/scripts/seed/courses/games/module4.js`
+    - Se eliminaron los subtítulos repetidos Amarillo/Naranja/Rojo después de la tabla de semáforo.
+    - Se eliminó la tabla `Sí/No` porque repetía la lista inmediata de acciones.
+  - `server/src/scripts/seed/courses/games/module5.js`
+    - Se compactó la sección Bedrock vs Java para no repetirla como lista y tabla.
+    - Se eliminó la sección "Una forma simple de explicárselo..." porque duplicaba la tabla de oficial/no oficial.
+    - Se redujo la lista previa a la tabla de preguntas antes de descargar/comprar.
+  - `server/src/scripts/seed/courses/games/module6.js`
+    - Se eliminó la lista de bloques de bienestar porque la tabla ya desarrolla esos bloques.
+    - Se eliminó la lista de preguntas abiertas antes de la tabla.
+    - Se eliminaron las listas de supervisión distante/acompañamiento activo porque la tabla ya expresa ese contraste.
+- Validaciones:
+  - `node --check` exitoso en `module1.js` a `module6.js`.
+  - Conteo final aproximado en seeds activos:
+    - `module1.js`: 4 tablas, 2 imágenes.
+    - `module2.js`: 4 tablas.
+    - `module3.js`: 7 tablas.
+    - `module4.js`: 4 tablas.
+    - `module5.js`: 4 tablas.
+    - `module6.js`: 4 tablas.
+  - `npm run seed:games` ejecutado correctamente.
+- Estado:
+  - El curso sigue conservando la información base de exámenes.
+  - Se redujo repetición visual/textual en los artículos.
+  - Las tablas restantes deben revisarse como contenido editorial, no como requisito mecánico.
+
+### Videojuegos M1A2 - reemplazo de tablas por imágenes
+- Archivo editado:
+  - `server/src/scripts/seed/courses/games/module1.js`
+- Lección:
+  - **M1A2**: `Artículo 2: Diferencias clave entre Roblox y Minecraft para una familia`.
+- Cambios:
+  - Se reemplazó la tabla de `## 1. Plataforma vs sandbox` por:
+    - `/article-images/videojuegos/M1A2.png`
+  - Se reemplazó la tabla de `## 3. Economía y compras` por:
+    - `/article-images/videojuegos/M1A2.1.png`
+  - Se conservaron las frases introductorias para dar contexto.
+  - Se conservaron las preguntas finales porque refuerzan el criterio evaluable del artículo.
+- Verificaciones:
+  - `client/public/article-images/videojuegos/M1A2.png` existe.
+  - `client/public/article-images/videojuegos/M1A2.1.png` existe.
+  - Ambas imágenes respondieron `200 OK` desde Vite.
+  - `node --check server/src/scripts/seed/courses/games/module1.js` exitoso.
+  - `npm run seed:games` ejecutado correctamente.
+
+### Corrección M1A2 - imagen de glosario reubicada
+- Problema detectado por el usuario:
+  - `M1A2.png` no era una comparación "Plataforma vs sandbox"; era una imagen de **Mini glosario para padres**.
+  - Se veía incorrecta bajo el encabezado `## 1. Plataforma vs sandbox`.
+- Corrección aplicada:
+  - `M1A2.png` se movió al inicio del artículo, bajo `## Términos clave antes de comparar`.
+  - Se eliminaron las definiciones en texto de Sandbox, Experiencia de Roblox, Realm, Bedrock Edition y Java Edition porque ya vienen dentro de la imagen.
+  - La sección `## 1. Plataforma vs sandbox` quedó como comparación textual real:
+    - Roblox = plataforma con experiencias creadas por usuarios.
+    - Minecraft = juego sandbox donde importan edición, mundo, Realm o servidor público.
+  - `M1A2.1.png` se mantuvo en `## 3. Economía y compras`, porque sí corresponde a esa sección.
+- Validaciones:
+  - `node --check server/src/scripts/seed/courses/games/module1.js` exitoso.
+  - `npm run seed:games` ejecutado correctamente.
+
+### Videojuegos M2A1 - reemplazo de bloques por imágenes
+- Archivo editado:
+  - `server/src/scripts/seed/courses/games/module2.js`
+- Lección:
+  - **M2A1**: `Artículo 1: Vincular cuenta del padre/tutor y cuenta del menor`.
+- Cambios:
+  - En `## ¿Qué es una cuenta con privilegios parentales?` se reemplazó la tabla de requisitos/función/riesgo por:
+    - `/article-images/videojuegos/M2A1.png`
+  - En `## ¿Por qué el adulto necesita su propia cuenta?` se compactó el texto para evitar repetir la imagen.
+  - Se reemplazó el bloque `Beneficios Técnicos de la Vinculación` por:
+    - `/article-images/videojuegos/M2A1.1.png`
+- Verificaciones:
+  - `client/public/article-images/videojuegos/M2A1.png` existe.
+  - `client/public/article-images/videojuegos/M2A1.1.png` existe.
+  - Ambas imágenes respondieron `200 OK` desde Vite.
+  - `node --check server/src/scripts/seed/courses/games/module2.js` exitoso.
+  - `npm run seed:games` ejecutado correctamente.
+
+### Videojuegos M2A2 - reemplazo de glosario y reglas de consentimiento por imágenes
+- Archivo editado:
+  - `server/src/scripts/seed/courses/games/module2.js`
+- Lección:
+  - **M2A2**: `Artículo 2: Privacidad, chat, madurez de contenido, tiempo y gasto`.
+- Cambios:
+  - En `## Mini glosario para padres` se reemplazaron las definiciones de:
+    - Madurez de contenido.
+    - Experience Chat.
+    - Direct Chat.
+    - Parties.
+    - Private Servers.
+    - Conexiones.
+  - Imagen usada:
+    - `/article-images/videojuegos/M2A2.png`
+  - En `## 2. Privacidad y chat: Ejes de comunicación segura` se reemplazó el bloque de `Reglas de Consentimiento` por:
+    - `/article-images/videojuegos/M2A2.1.png`
+  - Se conservó el texto contextual de la sección para que la imagen no aparezca aislada.
+- Verificaciones:
+  - `client/public/article-images/videojuegos/M2A2.png` existe.
+  - `client/public/article-images/videojuegos/M2A2.1.png` existe.
+  - Ambas imágenes respondieron `200 OK` desde Vite.
+  - `node --check server/src/scripts/seed/courses/games/module2.js` exitoso.
+  - `npm run seed:games` ejecutado correctamente.
+
+### Videojuegos M3A1 - reemplazo de glosario y semáforo por imágenes
+- Archivo editado:
+  - `server/src/scripts/seed/courses/games/module3.js`
+- Lección:
+  - **M3A1**: `Artículo 1: Java vs Bedrock, servidores, Realms y niveles de riesgo`.
+- Cambios:
+  - En `## Mini glosario para padres` se reemplazaron las definiciones de:
+    - Java Edition.
+    - Bedrock Edition.
+    - Cross-play.
+    - Marketplace.
+    - Servidor público.
+  - Imagen usada:
+    - `/article-images/videojuegos/M3A1.png`
+  - En `## Semáforo de Riesgo en Minecraft` se reemplazó la tabla de nivel/entorno/señal/acción por:
+    - `/article-images/videojuegos/M3A1.1.png`
+  - Se eliminó la lista redundante de Riesgo Bajo/Moderado/Alto que repetía el contenido del semáforo.
+  - Se conservó la `Regla de Oro` porque funciona como cierre práctico.
+- Verificaciones:
+  - `client/public/article-images/videojuegos/M3A1.png` existe.
+  - `client/public/article-images/videojuegos/M3A1.1.png` existe.
+  - Ambas imágenes respondieron `200 OK` desde Vite.
+  - `node --check server/src/scripts/seed/courses/games/module3.js` exitoso.
+  - `npm run seed:games` ejecutado correctamente.
+
+### Videojuegos M3A2 - reemplazo de diagnóstico y checklist por imágenes
+- Archivo editado:
+  - `server/src/scripts/seed/courses/games/module3.js`
+- Lección:
+  - **M3A2**: `Artículo 2: Permisos de privacidad, amigos, chat y multijugador`.
+- Cambios:
+  - En `## ¿Por qué mi hijo no puede jugar con amigos?` se reemplazó la tabla de diagnóstico por:
+    - `/article-images/videojuegos/M3A2.png`
+  - En `## Checklist de Revisión Prioritaria` se reemplazó la lista numerada por:
+    - `/article-images/videojuegos/M3A2.1.png`
+  - Se conservó el texto contextual antes de cada imagen y la nota final `Recuerda`.
+- Verificaciones:
+  - `client/public/article-images/videojuegos/M3A2.png` existe.
+  - `client/public/article-images/videojuegos/M3A2.1.png` existe.
+  - Ambas imágenes respondieron `200 OK` desde Vite.
+  - `node --check server/src/scripts/seed/courses/games/module3.js` exitoso.
+  - `npm run seed:games` ejecutado correctamente.
 
 ---
 
@@ -1019,3 +1715,279 @@ TT_Academia/
         ├── courses/games/module6.js     ← Q5(3/6), 'Salud Mental y Física' corregido
         └── courses/games/finalQuiz.js   ← ídem tilde
 ```
+
+### Actualización sesión 2026-05-11 — Curso Videojuegos, M4A1
+- Archivo modificado: `server/src/scripts/seed/courses/games/module4.js`.
+- Solicitud atendida: revisar el bloque de M4A1 donde decía `Tres conceptos que conviene distinguir`, porque la explicación posterior se sentía engorrosa.
+- Cambio editorial aplicado:
+  - Se compactó la explicación inicial en una tabla comparativa clara: `Ciberacoso`, `Grooming / online enticement` y `Datos personales`.
+  - Se conservan las fuentes ya usadas en el contenido: StopBullying.gov, NCMEC, UNICEF y HealthyChildren.
+  - Se mantiene contenido evaluable: ciberacoso, grooming, online enticement, sextorsión, identidad falsa, huella digital, datos personales, secretos, contacto externo, fotos y señales de alerta.
+  - Se sustituyó la secuencia larga de definición + ejemplos + tabla + otra definición + glosario por una ruta más limpia: comparación, mini glosario y escalamiento del riesgo.
+  - Se redujo la repetición en la sección `Ciberacoso y grooming no son lo mismo, pero pueden mezclarse`, dejándola como criterio de respuesta familiar y urgencia.
+- Validación técnica:
+  - `node --check server/src/scripts/seed/courses/games/module4.js` ejecutado correctamente.
+  - `npm run seed:games` ejecutado correctamente desde `server`; MongoDB quedó sincronizado con el M4A1 actualizado.
+
+### Ajuste posterior M4A1 — Datos personales
+- Archivo modificado: `server/src/scripts/seed/courses/games/module4.js`.
+- Se reemplazó la lista larga de `Datos personales: lo que nunca debería compartirse` por una tabla compacta de 3 categorías:
+  - `Identidad`.
+  - `Contacto y acceso`.
+  - `Ubicación y rutina`.
+- Motivo:
+  - La lista de 9 elementos era pesada visualmente y rompía el estilo del artículo.
+  - La tabla conserva la información evaluable, pero la presenta con mejor jerarquía editorial.
+- Validación:
+  - `node --check server/src/scripts/seed/courses/games/module4.js` ejecutado correctamente.
+  - `npm run seed:games` ejecutado correctamente; MongoDB quedó sincronizado con este ajuste.
+
+### Actualización sesión 2026-05-12 — Revisión, arranque local y curso Videojuegos
+
+#### Arranque local de la aplicación
+- Se retomó el proyecto desde `c:\Users\USER\.gemini\antigravity\scratch\TT_Academia`.
+- Se revisaron `CONTEXTO_SESION.md` y `README_EJECUTAR_LOCAL.md` para levantar la app sin perder el hilo.
+- Backend levantado en `http://localhost:5000`.
+  - `GET /api/health` respondió correctamente.
+  - El servidor conectó con MongoDB Atlas usando `server/.env`.
+  - Importante: `server/.env` contiene secretos reales; no compartir ni commitear.
+- Frontend Vite levantado en `http://localhost:5173`.
+  - Se corrigió un arranque inicial con argumento incorrecto y se dejó corriendo con `vite --host 127.0.0.1`.
+- Logs locales usados:
+  - `server.local.out.log`
+  - `server.local.err.log`
+  - `client.local.out.log`
+  - `client.local.err.log`
+
+#### Revisión de los cursos
+- El proyecto conserva 3 cursos principales: Redes Sociales, Streaming y Videojuegos.
+- En esta sesión la edición directa se concentró en el curso `Videojuegos`, porque ahí estaban los reportes visuales y las solicitudes de reemplazo por imágenes.
+- No se revirtió ni se reescribió contenido de Redes Sociales ni Streaming durante esta parte; esos cursos quedan como estaban antes de esta sesión.
+- Se revisó que el problema principal en Videojuegos era de presentación: mucha información correcta estaba usando listas numeradas renderizadas como tarjetas grandes, provocando exceso de espacio vertical y sensación de repetición.
+
+#### Limpieza editorial aplicada en Videojuegos
+- Archivos editados:
+  - `server/src/scripts/seed/courses/games/module1.js`
+  - `server/src/scripts/seed/courses/games/module2.js`
+  - `server/src/scripts/seed/courses/games/module3.js`
+  - `server/src/scripts/seed/courses/games/module4.js`
+  - `server/src/scripts/seed/courses/games/module5.js`
+  - `server/src/scripts/seed/courses/games/module6.js`
+- Criterio aplicado:
+  - No quitar información valiosa.
+  - Reducir repeticiones.
+  - Cambiar listas largas por tablas compactas, síntesis y bloques más claros.
+  - Mantener la información evaluable para quizzes y comprensión del curso.
+- Ajustes por módulos:
+  - M1: se compactaron definiciones repetidas entre artículo y guía visual.
+  - M2: se redujeron definiciones duplicadas sobre cuenta parental, controles y jerarquías.
+  - M3: se compactaron permisos, señales y capas de conversación.
+  - M4: se reorganizaron señales, respuesta familiar, prevención y conceptos de riesgo.
+  - M5: se compactaron microtransacciones, Robux/Minecoins, mods, add-ons y Marketplace.
+  - M6: se compactaron criterios de uso saludable, sueño, acompañamiento y conversación familiar.
+- Revisión de repetición:
+  - Se buscó contenido duplicado en el curso.
+  - Lo repetido que quedó corresponde principalmente a metadatos, opciones de quiz o conceptos que deben reaparecer por evaluación; no se detectaron duplicados fuertes de bloques explicativos después de la limpieza.
+
+#### Reemplazos por imágenes en Videojuegos
+- Todas las imágenes están en `client/public/article-images/videojuegos/`.
+- M4A1, artículo 1 del módulo 4:
+  - `M4A1.png` reemplaza `Lo primero: mantener la calma y escuchar`.
+  - `M4A1.1.png` reemplaza `Cortar la interacción sin escalar el conflicto`.
+  - Se verificó que estas imágenes quedaron solo en el artículo 1 y no en el artículo 2.
+- M4A2, artículo 2 del módulo 4:
+  - `M4A2.png` reemplaza `Lo primero: mantener la calma y escuchar`.
+  - `M4A2.1.png` reemplaza `Cortar la interacción sin escalar el conflicto`.
+  - `M4A2.2.png` reemplaza `Caja de conceptos clave`.
+- M5A1, artículo 1 del módulo 5:
+  - `M5A1.png` reemplaza `¿Qué son las microtransacciones?`.
+  - `M5A1.1.png` reemplaza `¿Qué es Robux?`.
+  - `M5A1.2.png` reemplaza `¿Qué son Minecoins?`.
+- M5A2, artículo 2 del módulo 5:
+  - `M5A2.png` reemplaza `¿Qué es un add-on?`.
+  - `M5A2.1.png` reemplaza `¿Por qué importa tanto la fuente de descarga?`.
+  - `M5A2.2.png` reemplaza `Caja de conceptos clave`.
+- M6A1, artículo 1 del módulo 6:
+  - `M6A1.png` reemplaza `No todo se resume a “cuántas horas juega”`.
+  - `M6A1.1.png` reemplaza `Jugar de noche cambia más cosas de las que parece`.
+  - `M6A1.2.png` reemplaza `Checklist rápido: ¿uso saludable o uso problemático?`.
+- M6A2, artículo 2 del módulo 6:
+  - `M6A2.png` reemplaza `Acompañar empieza por interesarse de verdad`.
+  - `M6A2.1.png` reemplaza `Del control al acompañamiento`.
+
+#### Validación técnica realizada
+- `node --check` ejecutado correctamente para los módulos modificados de Videojuegos.
+- `npm run seed:games` ejecutado correctamente varias veces desde `server`; MongoDB quedó sincronizado con los cambios.
+- `npm run build` ejecutado correctamente desde `client`.
+  - Queda la advertencia normal de Vite sobre chunks mayores a 500 kB; no bloquea el build.
+- Se consultó MongoDB para verificar que las imágenes quedaron en los artículos correctos:
+  - M4A1 en módulo 4 artículo 1.
+  - M4A2 en módulo 4 artículo 2.
+  - M5A1 en módulo 5 artículo 1.
+  - M5A2 en módulo 5 artículo 2.
+  - M6A1 en módulo 6 artículo 1.
+  - M6A2 en módulo 6 artículo 2.
+- Se hicieron checks HTTP contra Vite y las rutas de imágenes respondieron `200`.
+
+#### Estado para continuar en otro chat
+- La app quedó levantada localmente:
+  - Frontend: `http://localhost:5173`
+  - Backend: `http://localhost:5000`
+- Estado de trabajo observado:
+  - Hay cambios en `CONTEXTO_SESION.md`.
+  - Hay cambios en `server/src/scripts/seed/courses/games/module1.js` a `module6.js`.
+  - La carpeta `client/public/article-images/videojuegos/` aparece como nueva/no trackeada en Git.
+  - También aparecen archivos locales auxiliares/no trackeados como `README_EJECUTAR_LOCAL.md`, `setup-local-windows.ps1`, `start-local-windows.bat` y `start-local-windows.ps1`.
+- Recomendación para el siguiente chat:
+  - Si se pide una revisión profunda de los 3 cursos completos, empezar comparando `server/src/scripts/seed/courses/social/catalog.js`, `server/src/scripts/seed/courses/streaming/catalog.js` y `server/src/scripts/seed/courses/games/`.
+  - Si se pide continuar con imágenes, verificar primero el artículo exacto en MongoDB o en el seed antes de insertar assets, para no repetir el error de poner imágenes en el artículo equivocado.
+
+---
+
+## Cambios al CÓDIGO realizados en sesión 2026-05-13
+
+### 1. Encabezados duplicados antes de imágenes — limpieza en los 3 cursos
+- Se revisaron los artículos con imágenes en:
+  - `server/src/scripts/seed/courses/games/module1.js` a `module6.js`
+  - `server/src/scripts/seed/courses/social/catalog.js`
+  - `server/src/scripts/seed/courses/streaming/catalog.js`
+- Se eliminaron encabezados Markdown duplicados que aparecían inmediatamente antes de imágenes, por ejemplo un título de sección repetido encima de una imagen que ya contenía ese mismo encabezado visual.
+- Criterio usado:
+  - Solo quitar encabezados cuando la imagen ya hacía evidente el título o cuando el encabezado generaba repetición visual.
+  - No quitar información conceptual ni explicaciones.
+- Validación:
+  - `node --check` sobre archivos modificados.
+  - `npm run seed:content` ejecutado para sincronizar cambios en MongoDB Atlas.
+
+### 2. Curso Videojuegos — reducción de fuentes repetidas y actualización Roblox Voice Chat
+- Archivos editados:
+  - `server/src/scripts/seed/courses/games/module2.js`
+  - `server/src/scripts/seed/courses/games/module4.js`
+  - `server/src/scripts/seed/courses/games/finalQuiz.js`
+- Se redujo la repetición editorial de menciones a fuentes oficiales en el curso de videojuegos, especialmente en secciones donde se citaban plataformas u organismos demasiadas veces de forma seguida.
+- Se agregó contenido nuevo sobre **Roblox Voice Chat**:
+  - Ubicación principal: módulo 2, artículo 2 `Privacidad, chat, madurez de contenido, tiempo y gasto`.
+  - Sección nueva: `Chat de voz en Roblox: qué cambia para una familia`.
+  - Explica:
+    - Qué es Voice Chat.
+    - Requisitos de elegibilidad y verificación de edad.
+    - Uso del icono de audífonos.
+    - Que no está activado por defecto.
+    - Riesgos de comunicación por voz.
+    - Importancia de silenciar, bloquear, reportar y revisar madurez del menor.
+  - Se actualizó la tabla de comunicación para incluir `Experience Chat`, `Direct Chat`, `Party Chat` y `Voice Chat`.
+  - Se añadieron referencias en checklist y `teaches`.
+- Módulo 4:
+  - Se añadió una sección sobre qué cambia cuando la interacción de riesgo ocurre por voz.
+  - Se agregó guía para documentar incidentes de voz aunque no haya mensajes escritos.
+  - Se añadió un reactivo de quiz sobre incidente por Voice Chat.
+- Examen final:
+  - Se añadió `Voice Chat` a reactivos de módulo 2.
+  - Se actualizó clasificación de controles de Roblox.
+- Validación:
+  - `node --check` en `module2.js`, `module4.js` y `finalQuiz.js`.
+  - `npm run seed:games`.
+  - Consulta en MongoDB confirmó contenido con `Voice Chat` en lecciones actuales del curso.
+
+### 3. Curso Redes Sociales — herramientas oficiales actualizadas
+- Archivo editado:
+  - `server/src/scripts/seed/courses/social/catalog.js`
+- Módulo 7, artículo 1:
+  - Se amplió `Teen Accounts` de Instagram con protecciones por defecto sobre privacidad, mensajes, contenido sensible, tiempo y permisos parentales.
+  - Se amplió TikTok `Family Pairing`:
+    - `Daily screen time`
+    - `Restricted Mode`
+    - filtros de palabras
+    - mensajes/comentarios
+  - Se amplió Discord `Family Center`:
+    - actividad general reciente
+    - nuevos amigos
+    - usuarios con quienes el adolescente envió mensajes o llamadas
+    - minutos de voz o video
+    - servidores nuevos y activos
+    - aclaración de que no revela contenido de mensajes privados.
+- Quiz de módulo 7:
+  - Actualizadas definiciones de `Teen Accounts` y `Family Center`.
+  - Actualizados reactivos `fill_blanks` y `match_columns` para reflejar actividad, servidores y llamadas sin leer mensajes.
+- Validación:
+  - `node --check server/src/scripts/seed/courses/social/catalog.js`.
+  - `npm run seed:social`.
+
+### 4. Curso Streaming — limpieza editorial y comparación de opciones
+- Archivo editado:
+  - `server/src/scripts/seed/courses/streaming/catalog.js`
+- Se redujo la repetición de menciones explícitas a `AAP`, `HealthyChildren`, `UNICEF`, `FTC` y fuentes similares cuando aparecían de forma muy seguida.
+- Criterio:
+  - Mantener la información.
+  - Conservar menciones puntuales donde aportan precisión oficial.
+  - Reescribir el resto como guía directa para padres.
+- Se añadió en módulo 6, artículo 1 una tabla nueva:
+  - `Comparación rápida de opciones`
+  - Compara:
+    - `YouTube Kids`
+    - `Experiencia supervisada de YouTube`
+    - `Twitch`
+  - Incluye para quién conviene, qué permite y límite importante.
+- Validación:
+  - `node --check server/src/scripts/seed/courses/streaming/catalog.js`.
+  - `npm run seed:streaming`.
+  - Consulta en MongoDB confirmó la tabla en `Artículo 1: Controles parentales en YouTube y Twitch (configuración y uso)`.
+
+### 5. Banners genéricos por curso para encabezado de artículos
+- Se creó la estructura:
+  - `client/public/lesson-banners/videojuegos/`
+  - `client/public/lesson-banners/redes-sociales/`
+  - `client/public/lesson-banners/streaming/`
+- Imágenes agregadas por el usuario:
+  - `client/public/lesson-banners/videojuegos/videojuegos.png`
+  - `client/public/lesson-banners/redes-sociales/redes.png`
+  - `client/public/lesson-banners/streaming/streaming.png`
+- Dimensiones detectadas:
+  - `2172 x 724 px`
+  - proporción aproximada `3:1`
+- Archivos editados:
+  - `client/src/utils/lessonBanner.js`
+  - `client/src/pages/LessonView.jsx`
+- `lessonBanner.js`:
+  - Se añadió mapeo de banners por curso según plataformas:
+    - Roblox/Minecraft → `/lesson-banners/videojuegos/videojuegos.png`
+    - TikTok/Discord/Instagram → `/lesson-banners/redes-sociales/redes.png`
+    - YouTube/Twitch → `/lesson-banners/streaming/streaming.png`
+  - Se mantiene fallback de gradientes/emoji cuando no haya banner real.
+- `LessonView.jsx`:
+  - Cuando hay `theme.image`, se muestra el banner real en lugar de solo gradiente.
+  - Se eliminan emoji y círculos decorativos cuando existe banner real.
+  - Se agregó overlay oscuro suave para legibilidad del texto inferior izquierdo.
+  - Se ajustó el contenedor a `aspect-[3/1]` para que las imágenes se vean completas, sin deformación y sin recortar logos.
+- Nota de diseño:
+  - Si en el futuro se regeneran banners, la proporción recomendada para el diseño actual quedó como `3:1` para respetar las imágenes existentes.
+  - Si se quisiera volver al banner más bajo original, habría que generar imágenes más panorámicas, por ejemplo `2560 x 416 px`, y usar recorte controlado.
+- Validación:
+  - `npm run build` en `client` pasó correctamente.
+  - Persiste solo la advertencia normal de Vite por chunks grandes; no bloquea.
+
+### 6. Verificación local y semillas ejecutadas
+- Frontend local verificado:
+  - `http://localhost:5173` respondió `200`.
+- Backend local verificado:
+  - `http://localhost:5000/api/content/stats` respondió `200`.
+- Seeds ejecutados durante esta sesión:
+  - `npm run seed:content`
+  - `npm run seed:games`
+  - `npm run seed:social`
+  - `npm run seed:streaming`
+- Builds/checks ejecutados:
+  - `node --check` en archivos de seeds modificados.
+  - `npm run build` en `client`.
+
+### 7. Estado para continuar
+- Los tres cursos tienen banners genéricos por curso en encabezados de artículos.
+- Los banners actuales NO son por artículo; son por curso.
+- El curso de videojuegos ya incluye `Roblox Voice Chat`.
+- Redes Sociales ya incluye actualización de `Teen Accounts`, `Family Pairing` y `Family Center`.
+- Streaming ya tiene estilo editorial más limpio y comparación YouTube Kids / experiencia supervisada / Twitch.
+- Si el siguiente paso es ajustar banners:
+  - Revisar visualmente `LessonView`.
+  - Las imágenes actuales son `3:1`; mantener esa proporción evita recorte/deformación.
+  - Si se desea reducir altura del encabezado, conviene regenerar banners a una proporción más panorámica y dejar zona segura inferior izquierda para texto.
+

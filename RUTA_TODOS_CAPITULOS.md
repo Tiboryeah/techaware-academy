@@ -954,3 +954,153 @@ TT_Academia/
 ---
 
 *Archivo generado: 2026-04-30 | Basado en lectura completa del Reporte_Tecnico.docx (388,487 caracteres, 3,964 líneas) y análisis del código fuente*
+
+---
+
+## PLAN: Opción A — Bandeja de mensajes dentro de la plataforma
+
+> **Decisión pendiente.** Este bloque describe todo lo que habría que hacer en código y en el reporte para implementar la respuesta dentro de la plataforma cuando el usuario elige esa preferencia en Contáctanos.
+> Convención: `[ ]` = tarea pendiente si se decide implementar.
+
+---
+
+### ¿Qué agrega esta funcionalidad?
+
+Cuando el usuario selecciona **"Respuesta dentro de la plataforma"** en el formulario de contacto, actualmente no pasa nada diferente: el formulario se guarda y se envía correo al admin, pero el usuario no tiene ningún lugar donde ver la respuesta. Esta opción crea esa sección:
+
+- Una página `/mis-consultas` donde el usuario ve todas sus consultas enviadas con su estado actual.
+- Al abrir una, ve un hilo de mensajes: su mensaje original + las respuestas del equipo.
+- Puede adjuntar capturas o documentos directamente en el hilo (Base64 en MongoDB, igual que DA04/DA12).
+- El admin responde desde un endpoint protegido con rol `admin`.
+
+---
+
+### PARTE 1 — Cambios en el código
+
+#### 1.1 Backend — `server/src/models/CaseReport.js`
+- [ ] Agregar subdocumento `thread[]` con campos: `senderRole` (enum `'user'|'admin'`), `body` (String), `attachments[]` (`{ filename, mimetype, data (Base64 String) }`), `sentAt` (Date default Date.now)
+- [ ] Extender enum `status`: `['pendiente', 'en_revision', 'respondido']`
+- [ ] Cambiar campo manual `createdAt: { type: Date, default: Date.now }` por `{ timestamps: true }` — Mongoose gestiona `createdAt` y `updatedAt` automáticamente
+- [ ] **Impacto directo en el reporte:** el documento actualmente dice explícitamente "CaseReport sin `updatedAt`" (§4.8.1 y §4.8.5). Ambas menciones deben actualizarse.
+
+#### 1.2 Backend — `server/src/routes/report.routes.js`
+- [ ] `GET /api/reports/mine` — devuelve todos los reportes del usuario autenticado, ordenados por `updatedAt` desc, sin el array `thread` completo (solo metadata + último mensaje)
+- [ ] `GET /api/reports/:id` — devuelve el reporte completo con `thread[]` poblado; verifica que `userId` coincide con `req.user._id`
+- [ ] `POST /api/reports/:id/reply` — agrega un mensaje al `thread[]`; usa `multer` (ya está en el proyecto) para recibir archivos; convierte a Base64; actualiza `status` automáticamente según quién responde (`user` → `en_revision`, `admin` → `respondido`)
+
+#### 1.3 Frontend — archivos nuevos
+- [ ] `client/src/pages/MisConsultas.jsx` — lista de consultas del usuario con tarjeta por reporte: título, tipo, estado (badge de color), fecha última actividad
+- [ ] `client/src/pages/ConsultaDetalle.jsx` — vista de hilo: mensaje original + respuestas en burbuja estilo chat; campo de texto + selector de archivo para adjuntar; botón "Enviar seguimiento"
+
+#### 1.4 Frontend — archivos existentes a modificar
+- [ ] `client/src/App.jsx` — agregar rutas `/mis-consultas` y `/mis-consultas/:id` (protegidas con `<ProtectedRoute>`)
+- [ ] `client/src/components/Layout.jsx` — agregar enlace "Mis consultas" en la navegación; mostrar badge con punto rojo si hay respuesta nueva no vista (consultar `status === 'respondido'` en primer fetch)
+
+---
+
+### PARTE 2 — Cambios en el reporte técnico
+
+#### 2.1 Secciones que NO cambian
+Capítulos 1, 2, §3.1–§3.2, §3.4 RNF, §3.5 RT, §3.6 Reglas de Negocio, §3.7 Riesgos, §3.8 Factibilidad, Capítulo 5, §4.2, §4.3, §4.7 (multer ya está listado), §4.9–§4.11, §6.1, §6.2.1–§6.2.6, §6.2.8–§6.2.9, Bibliografía — **ningún cambio necesario**.
+
+#### 2.2 §3.3 Requerimientos Funcionales — agregar RF13
+- [ ] Agregar una fila al final de la Tabla 5:
+
+| ID | Nombre | Descripción | Prioridad |
+|---|---|---|---|
+| RF13 | Bandeja de consultas | El sistema permitirá al usuario consultar el historial de sus reportes y consultas enviadas, recibir respuestas del equipo dentro de la plataforma y adjuntar archivos (imágenes o documentos) al hilo de conversación. | Alta |
+
+#### 2.3 §4.4 Casos de uso — agregar CU13 y CU14
+
+- [ ] Agregar al diagrama Il. 8a (CU Padre/Tutor) dos casos nuevos:
+
+| ID | Nombre | RF asociado |
+|---|---|---|
+| CU13 | Consultar historial de mensajes | RF13 |
+| CU14 | Adjuntar archivos y responder en hilo | RF13 |
+
+- [ ] Agregar al diagrama Il. 8b (CU Administrador) un caso nuevo: `CUA06 — Responder consultas dentro de la plataforma`
+
+#### 2.4 §4.4.1 Matriz de trazabilidad — agregar fila RF13
+- [ ] Agregar fila: RF13 → CU13, CU14 → US19, US20
+
+#### 2.5 §4.5.5 DS-05 o nuevo DS-07 — actualizar diagrama de secuencia de reportes
+- [ ] Opción A (más sencilla): extender DS-05 existente con un segundo flujo: usuario abre `/mis-consultas` → GET /mine → selecciona reporte → GET /:id → responde con archivo → POST /:id/reply → status actualizado
+- [ ] Opción B (más limpia): crear DS-07 "Seguimiento de consulta" como diagrama independiente
+
+#### 2.6 §4.6.1 Backlog — agregar US19 y US20
+- [ ] Agregar al final de la Tabla 14:
+
+| US | Descripción resumida | Criterio de aceptación clave |
+|---|---|---|
+| US19 | Ver historial de consultas | Usuario autenticado accede a `/mis-consultas` y ve sus reportes con estado actual |
+| US20 | Adjuntar archivos y responder en hilo | Usuario puede subir imagen/PDF (<4 MB) y agregar texto de seguimiento dentro del hilo |
+
+#### 2.7 §4.8.1 Diagrama de clases — actualizar clase CaseReport
+- [ ] En el diagrama PlantUML: agregar campos `thread: ThreadMessage[]`, `status: 'pendiente'|'en_revision'|'respondido'`
+- [ ] Agregar clase interna/anidada `ThreadMessage` con atributos: `senderRole`, `body`, `attachments[]`, `sentAt`
+- [ ] **Eliminar** la nota actual que dice "CaseReport sin `updatedAt`" — ya tendrá `timestamps: true`
+
+#### 2.8 §4.8.4 Catálogo de colecciones — actualizar entrada `casereports`
+- [ ] Actualizar descripción: mencionar que la colección ahora soporta hilo de mensajes con adjuntos y estado de seguimiento en tres etapas
+
+#### 2.9 §4.8.5 Esquemas por colección — actualizar bloque CaseReport
+- [ ] Agregar el subdocumento `thread[]` al esquema JSON-like
+- [ ] Cambiar `status` de `'pendiente'|'revisado'` a `'pendiente'|'en_revision'|'respondido'`
+- [ ] Cambiar `createdAt: Date (default: Date.now)` por `timestamps: true → createdAt, updatedAt`
+- [ ] **Eliminar** cualquier nota que diga "sin `updatedAt`"
+
+#### 2.10 §6.2.7 Módulo de reportes — extender sección
+- [ ] Agregar descripción de los 3 nuevos endpoints con sus reglas:
+  - `GET /api/reports/mine` — solo propios, sin thread completo
+  - `GET /api/reports/:id` — con verificación de propiedad (`userId === req.user._id`)
+  - `POST /api/reports/:id/reply` — multer + Base64, actualización automática de `status`
+
+#### 2.11 §6.3 Frontend — agregar §6.3.9
+- [ ] Redactar nueva subsección **§6.3.9 Bandeja de consultas (`MisConsultas`, `ConsultaDetalle`)**:
+  - Lista con estado visual por badge
+  - Vista de hilo con mensajes y adjuntos
+  - Componente de upload con restricción de tipo y tamaño
+  - Navegación desde el Layout
+
+#### 2.12 §6.4 DA table — agregar DA14
+- [ ] Agregar fila al final de la tabla:
+
+| # | Decisión | Motivación | Commit |
+|---|---|---|---|
+| DA14 | Adjuntos de consultas como Base64 en MongoDB | Render destruye /uploads/ en cada redespliegue (ver DA04); adjuntos de consultas son documentos pequeños (<4 MB) asociados a un reporte específico; MongoDB ya es el almacén centralizado del sistema | — |
+
+#### 2.13 Tabla de endpoints (§6.2.7 y CONTEXTO_SESION.md)
+- [ ] Agregar 3 filas nuevas:
+
+| Método | Ruta | Descripción |
+|---|---|---|
+| GET | /api/reports/mine | Consultas del usuario autenticado (sin thread) |
+| GET | /api/reports/:id | Reporte completo con hilo (solo propietario) |
+| POST | /api/reports/:id/reply | Agregar mensaje + adjuntos al hilo |
+
+#### 2.14 Capítulo 7 — pruebas adicionales (sin costo extra porque Cap. 7 ya está pendiente)
+- [ ] Agregar 2 casos manuales a §7.3:
+  - Flujo: submit reporte con `preferredReply='Respuesta dentro de la plataforma'` → GET /mine → GET /:id → POST /:id/reply con archivo → status actualizado
+  - Verificación de acceso: GET /:id con JWT de otro usuario → 403
+
+---
+
+### Resumen de impacto
+
+| Área | Cambios | Esfuerzo estimado |
+|---|---|---|
+| Código backend | 1 modelo + 1 archivo de rutas extendido | 2–3 h |
+| Código frontend | 2 páginas nuevas + 2 archivos existentes modificados | 4–6 h |
+| Reporte §3.3 RF | 1 fila nueva en tabla | 10 min |
+| Reporte §4.4 CU | 2 casos usuario + 1 admin + diagrama actualizado | 30 min |
+| Reporte §4.5 DS | 1 diagrama nuevo o extendido | 45 min |
+| Reporte §4.6.1 US | 2 historias nuevas | 10 min |
+| Reporte §4.8 BD | Esquema + catálogo + diagrama clases | 30 min |
+| Reporte §6.2.7 | Bloque de endpoints nuevos | 20 min |
+| Reporte §6.3.9 | Subsección nueva de frontend | 30 min |
+| Reporte §6.4 DA | 1 fila nueva | 5 min |
+| Reporte Cap. 7 | 2 casos manuales adicionales | 15 min |
+| **Total estimado** | | **~3 h reporte + ~8 h código** |
+
+> **Nota:** Todo es aditivo. No se reescribe nada que ya esté correcto — se agrega encima. El mayor costo real es el código del frontend (las dos páginas nuevas). El reporte acumula aproximadamente 3 horas de trabajo concentradas en §4.4, §4.5 y §6.3.9.

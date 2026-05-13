@@ -125,7 +125,7 @@ router.post('/submit', protect, reportLimiter, async (req, res) => {
         }
 
         res.status(201).json({
-            message: 'Información enviada con éxito. Gracias por compartir este contexto.',
+            message: 'Caso enviado. En breve lo analizaremos y nos pondremos en contacto por correo electrónico.',
             report: newReport,
         });
     } catch (error) {

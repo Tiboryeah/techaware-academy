@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link, useLocation, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { CheckCircle2, XCircle, Loader2, ArrowRight, Mail, KeyRound, RefreshCw } from 'lucide-react';
@@ -16,10 +16,24 @@ const VerifyAccount = () => {
     const [code, setCode] = useState(token || '');
     const [status, setStatus] = useState('idle'); // idle, loading, success, error
     const [message, setMessage] = useState('');
-    const [resendStatus, setResendStatus] = useState(''); // idle, loading, cooldown
-    const [cooldown, setCooldown] = useState(0);
+    const [resendStatus, setResendStatus] = useState('cooldown');
+    const [cooldown, setCooldown] = useState(30);
     const normalizedEmail = email.trim().toLowerCase();
     const normalizedCode = code.trim();
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCooldown((prev) => {
+                if (prev <= 1) {
+                    clearInterval(timer);
+                    setResendStatus('idle');
+                    return 0;
+                }
+                return prev - 1;
+            });
+        }, 1000);
+        return () => clearInterval(timer);
+    }, []);
 
     const handleVerify = async (e) => {
         e.preventDefault();

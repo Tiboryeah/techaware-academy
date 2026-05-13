@@ -470,11 +470,11 @@ const Home = () => {
               Kuxi<span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-700 via-indigo-500 to-violet-400 dark:from-indigo-400 dark:via-indigo-300 dark:to-violet-200">pilli</span>
             </motion.h1>
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
-              className="max-w-xl mx-auto text-lg sm:text-2xl font-black text-gray-900 dark:text-white tracking-tight mt-6 sm:mt-10">
+              className="max-w-xl mx-auto text-xl sm:text-2xl md:text-3xl font-black text-gray-900 dark:text-white tracking-tight mt-6 sm:mt-10">
               Protege a tu hijo/a en internet.
             </motion.p>
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }}
-              className="max-w-2xl mx-auto text-base text-gray-500 dark:text-gray-400 leading-relaxed">
+              className="max-w-2xl mx-auto text-lg text-gray-500 dark:text-gray-400 leading-relaxed">
               La plataforma educativa para madres, padres y tutores que quieren entender los riesgos reales de los videojuegos, redes sociales y streaming, para actuar con criterio.
             </motion.p>
           </div>
@@ -498,7 +498,7 @@ const Home = () => {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 dark:text-white tracking-tight">
             Los riesgos son reales<br className="hidden sm:block" /> y están creciendo.
           </h2>
-          <p className="max-w-xl mx-auto text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
+          <p className="max-w-xl mx-auto text-gray-500 dark:text-gray-400 text-base leading-relaxed">
             Datos respaldados por fuentes públicas y estudios académicos sobre riesgos digitales que enfrentan niñas, niños y adolescentes.
           </p>
         </motion.div>
@@ -520,7 +520,7 @@ const Home = () => {
                 <p className="text-lg font-black text-gray-900 dark:text-white leading-snug">Contenido inapropiado accesible para menores dentro de Roblox</p>
               </div>
               <div className="bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30 rounded-xl p-4">
-                <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                <p className="text-base text-gray-700 dark:text-gray-300 leading-relaxed">
                   Investigadores documentaron que niños y niñas podían encontrar contenido sexualizado e interactuar con adultos en Roblox, pese a los controles de seguridad existentes.
                 </p>
               </div>
@@ -564,7 +564,7 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+              <p className="text-base text-gray-600 dark:text-gray-400 leading-relaxed">
                 Casi 8 de cada 10 niños en edad escolar ya usan internet. En la adolescencia, la cobertura es prácticamente total.
               </p>
               <p className="text-[10px] text-gray-400 italic leading-relaxed mt-auto pt-3 border-t border-gray-100 dark:border-gray-800">INEGI, ENDUTIH 2024. Resultados presentados el 6 de mayo de 2025.</p>
@@ -587,7 +587,7 @@ const Home = () => {
                 <p className="text-lg font-black text-gray-900 dark:text-white leading-snug">Menores expuestos a contenido para adultos en Twitch sin restricción efectiva</p>
               </div>
               <div className="bg-violet-50 dark:bg-violet-900/10 border border-violet-100 dark:border-violet-900/30 rounded-xl p-4">
-                <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                <p className="text-base text-gray-700 dark:text-gray-300 leading-relaxed">
                   Un estudio comparativo entre Brasil y Estados Unidos encontró que perfiles de menores de edad fueron expuestos a contenido sexualizado y mensajes tóxicos en chats de Twitch.
                 </p>
               </div>
@@ -604,7 +604,7 @@ const Home = () => {
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center space-y-3">
             <p className="text-indigo-600 dark:text-indigo-400 font-black text-[10px] uppercase tracking-[0.3em]">El proceso</p>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 dark:text-white tracking-tight">¿Cómo funciona?</h2>
-            <p className="max-w-lg mx-auto text-gray-500 dark:text-gray-400 text-sm leading-relaxed">Tres pasos para convertirte en el primer escudo digital de tu hijo/a.</p>
+            <p className="max-w-lg mx-auto text-gray-500 dark:text-gray-400 text-base leading-relaxed">Tres pasos para convertirte en el primer escudo digital de tu hijo/a.</p>
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 relative">
             <div className="hidden md:block absolute top-10 left-[calc(33%-1rem)] right-[calc(33%-1rem)] h-px bg-gradient-to-r from-indigo-300 via-violet-300 to-indigo-300 dark:from-indigo-800 dark:via-violet-800 dark:to-indigo-800" />
@@ -621,7 +621,7 @@ const Home = () => {
                 </div>
                 <div className="space-y-2">
                   <h3 className="text-lg font-black text-gray-900 dark:text-white">{s.title}</h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed max-w-xs mx-auto">{s.desc}</p>
+                  <p className="text-base text-gray-500 dark:text-gray-400 leading-relaxed max-w-xs mx-auto">{s.desc}</p>
                 </div>
               </motion.div>
             ))}
@@ -634,7 +634,7 @@ const Home = () => {
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center space-y-3">
           <p className="text-indigo-600 dark:text-indigo-400 font-black text-[10px] uppercase tracking-[0.3em]">Programas de formación</p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 dark:text-white tracking-tight">3 rutas de aprendizaje</h2>
-          <p className="max-w-xl mx-auto text-gray-500 dark:text-gray-400 text-sm leading-relaxed">Cada programa cubre las plataformas que más usan los niños de 6 a 12 años en México.</p>
+          <p className="max-w-xl mx-auto text-gray-500 dark:text-gray-400 text-base leading-relaxed">Cada programa cubre las plataformas que más usan los niños de 6 a 12 años en México.</p>
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
           {[
@@ -719,7 +719,7 @@ const Home = () => {
               <div className="flex flex-col flex-1 p-7 space-y-5">
                 <ul className="space-y-2.5 flex-1">
                   {prog.topics.map((t, ti) => (
-                    <li key={ti} className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300">
+                    <li key={ti} className="flex items-center gap-3 text-base text-gray-600 dark:text-gray-300">
                       <CheckCircle className={`w-4 h-4 flex-shrink-0 ${prog.checkColor}`} />
                       {t}
                     </li>
@@ -755,26 +755,26 @@ const Home = () => {
                     Una palabra, dos culturas.
                   </h2>
                 </div>
-                <p className="text-gray-600 dark:text-gray-400 text-base leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
                   <span className="font-black text-gray-900 dark:text-white">Kuxipilli</span> une dos lenguas originarias de México:
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="bg-white dark:bg-[#161b22] border border-indigo-100 dark:border-indigo-900/40 rounded-2xl p-5 space-y-2 shadow-sm">
                     <p className="text-indigo-500 text-[10px] font-black uppercase tracking-widest">Lengua maya</p>
                     <p className="text-2xl font-black text-gray-900 dark:text-white">Kuxi</p>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                    <p className="text-gray-600 dark:text-gray-400 text-base leading-relaxed">
                       Del maya <em className="text-indigo-600 dark:text-indigo-400">kuxtal</em>, "vida" o "vivir". Representa el bienestar y la vida cotidiana del menor en el entorno digital.
                     </p>
                   </div>
                   <div className="bg-white dark:bg-[#161b22] border border-violet-100 dark:border-violet-900/40 rounded-2xl p-5 space-y-2 shadow-sm">
                     <p className="text-violet-500 text-[10px] font-black uppercase tracking-widest">Lengua náhuatl</p>
                     <p className="text-2xl font-black text-gray-900 dark:text-white">Pilli</p>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                    <p className="text-gray-600 dark:text-gray-400 text-base leading-relaxed">
                       Del náhuatl <em className="text-violet-600 dark:text-violet-400">pilli</em>, "niño" o "hijo". Para las niñas y niños de 6 a 12 años que ya están conectados, porque merecen crecer seguros.
                     </p>
                   </div>
                 </div>
-                <p className="text-gray-500 dark:text-gray-400 text-sm italic leading-relaxed max-w-xl border-l-4 border-indigo-300 dark:border-indigo-700 pl-4">
+                <p className="text-gray-500 dark:text-gray-400 text-base italic leading-relaxed max-w-xl border-l-4 border-indigo-300 dark:border-indigo-700 pl-4">
                   "Kuxipilli" significa, en esencia, <span className="text-gray-900 dark:text-white font-bold">"la vida del niño"</span>. Detrás de cada pantalla hay una infancia que merece ser protegida y acompañada.
                 </p>
               </div>
@@ -790,7 +790,7 @@ const Home = () => {
             Tu hijo/a ya está en línea.<br className="hidden sm:block" />
             <span className="text-indigo-600">¿Estás preparado/a?</span>
           </h2>
-          <p className="max-w-xl mx-auto text-gray-500 dark:text-gray-400 text-base leading-relaxed">
+          <p className="max-w-xl mx-auto text-gray-500 dark:text-gray-400 text-lg leading-relaxed">
             Únete gratis y comienza con el diagnóstico inicial. En menos de 10 minutos sabrás exactamente dónde fortalecer tu conocimiento.
           </p>
         </motion.div>

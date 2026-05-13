@@ -32,12 +32,6 @@ const ageRangeOptions = [
     'Mayor de edad',
 ];
 
-const preferredReplyOptions = [
-    'Correo electrónico',
-    'Respuesta dentro de la plataforma',
-    'Sin preferencia',
-];
-
 const getInitialForm = (messageType) => ({
     messageType,
     title: '',
@@ -50,7 +44,6 @@ const getInitialForm = (messageType) => ({
     actionsTaken: '',
     evidenceAvailable: false,
     evidenceDescription: '',
-    preferredReply: 'Correo electrónico',
 });
 
 const actionCards = [
@@ -134,8 +127,8 @@ const ContactPage = () => {
             };
 
             const { data } = await api.post('/api/reports/submit', payload);
-            setSuccessMessage(data.message || 'Información enviada con éxito.');
-            addToast('Tu mensaje fue enviado correctamente.', 'success');
+            setSuccessMessage(data.message || 'Caso enviado. En breve nos pondremos en contacto por correo electrónico.');
+            addToast('Caso enviado. Nos pondremos en contacto por correo electrónico.', 'success');
             setFormData(getInitialForm(formData.messageType));
         } catch (error) {
             const message = error.response?.data?.message || 'No se pudo enviar la información.';
@@ -376,36 +369,19 @@ const ContactPage = () => {
                             </div>
                         ) : null}
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-                            <div className="space-y-3">
-                                <label className="text-[10px] font-black uppercase tracking-widest text-indigo-500 ml-2">¿Cuentan con evidencia?</label>
-                                <button
-                                    type="button"
-                                    onClick={() => handleChange('evidenceAvailable', !formData.evidenceAvailable)}
-                                    className={`w-full px-5 py-4 rounded-2xl border text-left font-bold transition-all ${
-                                        formData.evidenceAvailable
-                                            ? 'bg-indigo-600 text-white border-indigo-600'
-                                            : 'bg-gray-50 dark:bg-[#0a0c10] text-gray-600 dark:text-gray-300 border-gray-100 dark:border-gray-800'
-                                    }`}
-                                >
-                                    {formData.evidenceAvailable ? 'Sí, tenemos evidencia' : 'No por ahora'}
-                                </button>
-                            </div>
-
-                            <div className="space-y-2">
-                                <label className="text-[10px] font-black uppercase tracking-widest text-indigo-500 ml-2">Preferencia de respuesta</label>
-                                <select
-                                    value={formData.preferredReply}
-                                    onChange={(e) => handleChange('preferredReply', e.target.value)}
-                                    className="w-full px-5 py-4 bg-gray-50 dark:bg-[#0a0c10] border border-gray-100 dark:border-gray-800 rounded-2xl outline-none focus:border-indigo-500 text-sm font-medium"
-                                >
-                                    {preferredReplyOptions.map((option) => (
-                                        <option key={option} value={option}>
-                                            {option}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
+                        <div className="space-y-3">
+                            <label className="text-[10px] font-black uppercase tracking-widest text-indigo-500 ml-2">¿Cuentan con evidencia?</label>
+                            <button
+                                type="button"
+                                onClick={() => handleChange('evidenceAvailable', !formData.evidenceAvailable)}
+                                className={`w-full md:w-auto px-5 py-4 rounded-2xl border text-left font-bold transition-all ${
+                                    formData.evidenceAvailable
+                                        ? 'bg-indigo-600 text-white border-indigo-600'
+                                        : 'bg-gray-50 dark:bg-[#0a0c10] text-gray-600 dark:text-gray-300 border-gray-100 dark:border-gray-800'
+                                }`}
+                            >
+                                {formData.evidenceAvailable ? 'Sí, tenemos evidencia' : 'No por ahora'}
+                            </button>
                         </div>
 
                         {formData.evidenceAvailable ? (
