@@ -6,7 +6,7 @@ module.exports = async function seedGameModule(context) {
     const mod5 = await getOrCreateModule(courseGames._id, {
         title: 'Módulo 5: Compras digitales, estafas y descargas',
         description: 'Gestión económica y prevención de malware.',
-        duration: '28 min'
+        duration: '22 min'
     });
     await Quiz.deleteMany({ refId: mod5._id, scope: 'module' });
 
@@ -18,75 +18,35 @@ module.exports = async function seedGameModule(context) {
 
 Este artículo ayuda a entender una idea clave: que un juego sea popular, entretenido o incluso gratuito no significa que todo lo que ocurre dentro de él sea gratis. En videojuegos como **Roblox** y **Minecraft Bedrock**, gran parte del gasto ocurre a través de monedas virtuales y compras pequeñas que, si no se supervisan, pueden convertirse en gasto frecuente.
 
-La **ESRB** define **In-Game Purchases** como ofertas dentro del juego para comprar bienes o servicios digitales con dinero real, incluyendo monedas virtuales, skins, suscripciones, niveles extra y mejoras. Esa definición es importante porque confirma algo que a veces se pierde de vista: aunque el objeto sea digital, la compra sigue siendo real.
+Las **In-Game Purchases** son ofertas dentro del juego para comprar bienes o servicios digitales con dinero real, incluyendo monedas virtuales, skins, suscripciones, niveles extra y mejoras. La idea importante es sencilla: aunque el objeto sea digital, la compra sigue siendo real.
 
 ---
 
-## ¿Qué son las microtransacciones?
-
-Las microtransacciones son compras pequeñas o medianas que ocurren dentro de un juego o plataforma digital. Pueden parecer menores una por una, pero se vuelven relevantes cuando forman parte del uso cotidiano.
-
-La **ESRB** incluye dentro de **In-Game Purchases** ejemplos como:
-
-1. monedas virtuales,
-2. skins o artículos cosméticos,
-3. suscripciones,
-4. mejoras o accesos extra,
-5. contenido adicional.
-
-> **Lectura pedagógica**: Antes, muchas familias pagaban una sola vez por un juego. Hoy, parte del gasto puede aparecer después, dentro del propio entorno de juego, en forma de compras repetidas y poco visibles.
+![Qué son las microtransacciones: compras pequeñas o medianas dentro de un juego y ejemplos de In-Game Purchases como moneda virtual, contenido visual y accesos.](/article-images/videojuegos/M5A1.png)
 
 ---
 
-## ¿Qué es Robux?
-
-**Roblox** describe **Robux** como la moneda oficial de sus servicios. Según sus términos, Robux puede usarse para adquirir contenido virtual como artículos del avatar, acceso a ciertas experiences, objetos dentro de experiencias y otras funciones permitidas por la plataforma.
-
-Roblox también aclara tres cosas importantes:
-
-1. Robux no es un sustituto del dinero real.
-2. No genera intereses.
-3. No tiene un valor equivalente directo al dinero real, aunque se adquiere con dinero real.
-
-Además, Roblox explica que Robux puede obtenerse por compra directa, por ciertos beneficios de **Premium** y, en algunos casos, dentro del ecosistema permitido por la plataforma. También advierte que usar, vender o distribuir Robux fuera de canales autorizados viola sus términos.
+![Qué es Robux: moneda oficial de Roblox para adquirir contenido virtual dentro de sus servicios.](/article-images/videojuegos/M5A1.1.png)
 
 ---
 
 ## ¿Para qué se usa Robux?
 
-En la práctica, Robux sirve para conseguir contenido virtual dentro de Roblox. Dependiendo de cada experience o servicio, puede usarse para:
+En la práctica, Robux sirve para conseguir contenido virtual dentro de Roblox: artículos del avatar, objetos o ventajas dentro de experiencias, acceso a ciertas experiences, servidores privados y otros contenidos ofrecidos dentro del ecosistema de Roblox.
 
-1. artículos del avatar,
-2. objetos o ventajas dentro de experiencias,
-3. acceso a ciertas experiencias,
-4. servidores privados,
-5. contenido virtual ofrecido dentro del ecosistema de Roblox.
-
-Roblox también indica que, cuando se gasta Robux en contenido virtual dentro del Marketplace o dentro de una experiencia, esa transferencia suele ser final y, salvo políticas específicas, no es reversible.
+Cuando se gasta Robux en contenido virtual dentro del Marketplace o dentro de una experiencia, esa transferencia suele ser final y, salvo políticas específicas, no es reversible.
 
 > **Idea clave para familias**: Roblox no funciona solo como "entrar a jugar". También es un entorno con múltiples oportunidades de gasto digital relativamente pequeñas, distribuidas dentro de la experiencia de juego.
 
 ---
 
-## ¿Qué son Minecoins?
-
-**Minecraft** describe **Minecoins** como una moneda digital usada en el **Minecraft Marketplace** para comprar contenido en la cuenta del usuario. La página oficial de compra de Minecoins indica además que se trata de moneda virtual para **Minecraft: Bedrock Edition**.
-
-La guía oficial para padres de Minecraft explica que, en **Bedrock Edition**, existe un Marketplace donde pueden adquirirse mapas, skins, minijuegos y otros contenidos usando Minecoins. También señala que ese entorno está curado para calidad y seguridad, lo cual ayuda a distinguirlo de descargas externas o no oficiales.
-
-Esto es importante porque muchas familias escuchan "Minecraft" como si fuera una sola experiencia, pero el ecosistema y las compras cambian según la edición y el entorno donde se está jugando.
+![Qué son Minecoins: moneda digital usada en Minecraft Marketplace para comprar contenido en Minecraft Bedrock Edition.](/article-images/videojuegos/M5A1.2.png)
 
 ---
 
 ## ¿Para qué se usan las Minecoins?
 
-Las **Minecoins** se usan para comprar contenido del Marketplace en Bedrock Edition, como:
-
-1. skin packs,
-2. texture packs,
-3. worlds,
-4. mash-up packs,
-5. aventuras y contenido adicional.
+Las **Minecoins** se usan para comprar contenido del Marketplace en Bedrock Edition, como skin packs, texture packs, worlds, mash-up packs, aventuras y contenido adicional.
 
 La información oficial de Minecraft también presenta las Minecoins como una forma de personalizar personajes, transformar mundos y acceder a nuevas experiencias. Su sección de ayuda añade que las compras de Minecoins son finales y no reembolsables, salvo casos de compra no autorizada que deban atenderse con soporte de Microsoft.
 
@@ -98,19 +58,13 @@ La información oficial de Minecraft también presenta las Minecoins como una fo
 
 Aunque ambas son monedas virtuales, no se usan en el mismo ecosistema ni para lo mismo.
 
-### Robux
-
-1. Es la moneda oficial de Roblox.
-2. Se usa dentro del ecosistema de Roblox.
-3. Sirve para contenido virtual, experiencias y otras funciones dentro de la plataforma.
-4. Puede estar vinculada a límites mensuales de gasto parentales.
-
-### Minecoins
-
-1. Es una moneda digital de Minecraft Bedrock.
-2. Se usa en el Marketplace de Bedrock Edition.
-3. Sirve para comprar contenido asociado a esa cuenta.
-4. Opera dentro de un entorno oficial curado.
+| Aspecto | Robux | Minecoins |
+| --- | --- | --- |
+| **Plataforma** | Roblox. | Minecraft: Bedrock Edition. |
+| **Uso principal** | Contenido virtual, avatar, experiencias, accesos o ventajas según la experiencia. | Contenido de Minecraft Marketplace como mundos, skins, texture packs o mash-up packs. |
+| **Entorno de compra** | Ecosistema Roblox y compras dentro de experiencias. | Marketplace oficial de Bedrock. |
+| **Supervisión familiar** | Límite mensual de gasto y controles parentales de Roblox. | Revisión de Marketplace, cuenta Microsoft y método de pago del dispositivo. |
+| **Confusión común** | Pensar que Robux "no cuenta" como dinero real. | Pensar que Minecoins sirven igual en Java y Bedrock. |
 
 La diferencia importa porque ayuda a explicar que no toda moneda virtual sirve para lo mismo ni aparece en las mismas versiones del juego.
 
@@ -118,12 +72,7 @@ La diferencia importa porque ayuda a explicar que no toda moneda virtual sirve p
 
 ## Del dinero real al objeto digital
 
-Una forma sencilla de entender estas compras es ver la secuencia completa:
-
-1. dinero real,
-2. moneda virtual,
-3. compra dentro del juego,
-4. objeto, acceso o contenido digital.
+Una forma sencilla de entender estas compras es ver la secuencia completa: **dinero real → moneda virtual → compra dentro del juego → objeto, acceso o contenido digital**.
 
 Este flujo parece simple, pero muchas veces oculta el gasto real. Cuando un menor compra con Robux o Minecoins, puede sentir que solo está "usando saldo del juego", no gastando dinero. Ahí aparece una de las confusiones más comunes para las familias.
 
@@ -137,12 +86,15 @@ El riesgo no está en que exista una compra digital por sí misma. El problema a
 
 **Roblox** permite a las familias fijar límites mensuales de gasto en la cuenta del menor, incluyendo Robux y suscripciones a experiencias. También aclara que ese límite no afecta el canje de gift cards y que se reinicia al final de cada mes calendario. La existencia misma de esta herramienta muestra que la plataforma reconoce la importancia de supervisar compras recurrentes.
 
-Desde una perspectiva pedagógica, las microtransacciones pueden sentirse pequeñas una por una, pero acumularse con facilidad. Por eso conviene revisar no solo si el menor compró algo, sino también:
+Desde una perspectiva pedagógica, las microtransacciones pueden sentirse pequeñas una por una, pero acumularse con facilidad. Por eso conviene revisar qué compró, con qué frecuencia, con qué permiso y en qué contexto tomó la decisión.
 
-1. qué compró,
-2. con qué frecuencia,
-3. con qué permiso,
-4. en qué contexto tomó la decisión.
+| Situación de compra | Riesgo posible | Medida preventiva |
+| --- | --- | --- |
+| **Compra única con permiso** | Bajo, si el menor entiende costo y contenido. | Conversar qué comprará y por qué lo quiere. |
+| **Compras pequeñas repetidas** | Acumulación de gasto difícil de notar. | Revisar historial y establecer límite mensual. |
+| **Moneda virtual guardada** | El gasto se siente menos real para el menor. | Explicar equivalencia con dinero real y acordar reglas. |
+| **Método de pago guardado** | Compra impulsiva o accidental. | Proteger con contraseña, PIN o autorización adulta. |
+| **Promesa de moneda gratis** | Phishing, robo de cuenta o malware. | No abrir enlaces externos y reportar ofertas sospechosas. |
 
 ---
 
@@ -150,17 +102,11 @@ Desde una perspectiva pedagógica, las microtransacciones pueden sentirse peque�
 
 Una forma útil de leer el nivel de supervisión es pensar en un semáforo:
 
-### Verde: gasto comprendido y supervisado
-
-El menor pregunta antes de comprar, sabe qué está adquiriendo y existe un límite o revisión activa.
-
-### Amarillo: compra ocasional sin mucha revisión
-
-Las compras son esporádicas, pero la familia no siempre revisa frecuencia, valor real o tipo de contenido adquirido.
-
-### Rojo: gasto digital sin comprensión clara
-
-Hay compras repetidas, moneda virtual sin supervisión, confusión sobre el costo real o impulsos de compra frecuentes.
+| Nivel | Cómo se ve | Respuesta familiar |
+| --- | --- | --- |
+| **Verde** | El menor pregunta antes de comprar, sabe qué adquiere y hay límite o revisión activa. | Mantener conversación y seguimiento. |
+| **Amarillo** | Compra ocasional sin revisar frecuencia, valor real o tipo de contenido. | Revisar historial y aclarar reglas. |
+| **Rojo** | Compras repetidas, moneda virtual sin supervisión o confusión sobre el costo real. | Activar límites, retirar pagos guardados y acompañar decisiones. |
 
 > **Lo que un padre debe notar**: El problema no siempre es una compra grande. A veces el desgaste económico aparece por muchas compras pequeñas que pasaron desapercibidas.
 
@@ -170,11 +116,13 @@ Hay compras repetidas, moneda virtual sin supervisión, confusión sobre el cost
 
 Como regla práctica para este curso, conviene revisar al menos cinco puntos:
 
-1. **Qué moneda usa el juego**: Robux o Minecoins.
-2. **Qué se puede comprar con esa moneda**: artículos, experiencias, mapas, skins o contenido adicional.
-3. **Si el gasto está limitado o supervisado**: Roblox, por ejemplo, permite límites mensuales de gasto.
-4. **Si el contenido está dentro del entorno oficial del juego**: en Bedrock, el Marketplace está curado para calidad y seguridad.
-5. **Si el menor entiende que moneda virtual no significa dinero de mentira**.
+| Punto de revisión | Pregunta concreta |
+| --- | --- |
+| **Moneda** | ¿Usa Robux, Minecoins u otro saldo? |
+| **Contenido** | ¿Compra artículos, experiencias, mapas, skins o contenido adicional? |
+| **Supervisión** | ¿Hay límite, autorización adulta o revisión de historial? |
+| **Canal** | ¿El contenido está dentro del entorno oficial del juego? |
+| **Comprensión** | ¿El menor entiende que moneda virtual no significa dinero de mentira? |
 
 Este último punto es especialmente importante porque la moneda virtual puede hacer que el gasto se sienta menos real, aunque se esté pagando con dinero verdadero.
 
@@ -182,16 +130,9 @@ Este último punto es especialmente importante porque la moneda virtual puede ha
 
 ## Qué sí cuenta como microtransacción
 
-A veces conviene aterrizar el concepto a ejemplos concretos. Dentro del entorno de este módulo, una microtransacción puede ser:
+A veces conviene aterrizar el concepto a ejemplos concretos. Dentro del entorno de este módulo, una microtransacción puede ser una skin, un mapa, un mundo, moneda virtual, una suscripción, una mejora o un acceso extra.
 
-1. una skin,
-2. un mapa,
-3. un mundo,
-4. moneda virtual,
-5. una suscripción,
-6. una mejora o acceso extra.
-
-Todo esto encaja con la definición amplia de **In-Game Purchases** de la ESRB y con los ejemplos oficiales presentados por Roblox y Minecraft.
+Todo esto encaja con la idea amplia de **compras dentro del juego** y con los ejemplos habituales de Roblox y Minecraft.
 
 ---
 
@@ -199,7 +140,7 @@ Todo esto encaja con la definición amplia de **In-Game Purchases** de la ESRB y
 
 **Microtransacción**: compra digital pequeña o mediana realizada dentro del juego.
 
-**In-Game Purchases**: etiqueta de la ESRB para compras dentro del juego.
+**In-Game Purchases**: compras dentro del juego realizadas con dinero real o moneda virtual.
 
 **Robux**: moneda oficial de Roblox para adquirir contenido virtual dentro de su ecosistema.
 
@@ -219,12 +160,7 @@ Todo esto encaja con la definición amplia de **In-Game Purchases** de la ESRB y
 
 ## Microactividad de 1 minuto
 
-Piensa en el juego que usa tu hijo o hija:
-
-1. ¿Usa Robux o Minecoins?
-2. ¿Sabes qué puede comprar con esa moneda?
-3. ¿Hay un límite activado?
-4. ¿Tu hijo entiende que esa moneda representa gasto real?
+Piensa en el juego que usa tu hijo o hija: ¿usa Robux o Minecoins?, ¿sabes qué puede comprar con esa moneda?, ¿hay un límite activado?, ¿tu hijo entiende que esa moneda representa gasto real?
 
 Si alguna respuesta es "no", ahí está el siguiente punto que conviene revisar en familia.
 
@@ -238,7 +174,7 @@ Entender cómo funcionan **Robux**, **Minecoins** y las **microtransacciones** a
 
 Este conocimiento prepara el terreno para el siguiente contenido del módulo, centrado en fraudes, phishing y enlaces falsos relacionados con supuestas recompensas "gratis".`,
         type: 'article',
-        duration: 12,
+        duration: 10,
         platforms: ['Roblox', 'Minecraft'],
         riskAreas: ['Gasto Controlado'],
         teaches: ['robux', 'minecoins', 'microtransacción', 'in-game purchases', 'marketplace', 'límite de gasto', 'moneda virtual']
@@ -276,29 +212,15 @@ La pregunta más útil para una familia no es solo "¿esto se ve divertido?", si
 
 ## Primero: ¿qué sí cuenta como contenido oficial?
 
-En **Minecraft: Bedrock Edition**, lo más claramente oficial para una familia es el **Marketplace**. Mojang explica que allí se venden mapas, skins, minijuegos y otros contenidos usando **Minecoins**, y que ese catálogo está curado para asegurar calidad y seguridad.
+En **Minecraft: Bedrock Edition**, lo más claramente oficial para una familia es el **Marketplace**. Allí se venden mapas, skins, minijuegos y otros contenidos usando **Minecoins**, dentro de un catálogo curado.
 
-Además, la información oficial sobre add-ons indica que los add-ons de Marketplace son creados por **trusted Minecraft partners** y probados por la propia empresa. Eso convierte al Marketplace en la referencia más sencilla para identificar contenido respaldado dentro del entorno oficial.
+Además, los add-ons de Marketplace suelen venir de **trusted Minecraft partners** y pasan por revisión antes de publicarse. Eso convierte al Marketplace en la referencia más sencilla para identificar contenido respaldado dentro del entorno oficial.
 
 > **Idea clave**: Oficial no significa solo "popular". En Minecraft, oficial significa que el contenido viene de un canal respaldado por Mojang dentro del ecosistema del juego.
 
 ---
 
-## ¿Qué es un add-on?
-
-Minecraft define los **add-ons** como contenido que cambia la forma en que el juego se ve y se comporta. Pueden añadir:
-
-1. bloques,
-2. objetos,
-3. mobs,
-4. recetas,
-5. mecánicas nuevas dentro del mundo.
-
-Mojang también explica que estos add-ons están disponibles en **Minecraft Marketplace** para **Bedrock Edition**, que pueden ser gratuitos o de pago, y que incluso pueden combinarse entre sí.
-
-Esto importa mucho para familias porque un add-on oficial de Bedrock no es simplemente "un archivo raro de internet". Puede formar parte del ecosistema oficial del juego y estar pensado para funcionar dentro de su entorno normal.
-
-Además, Mojang señala que los add-ons funcionan en cualquier plataforma que ejecute Bedrock Edition y que también pueden funcionar en **multiplayer** y en **Realms**. Es decir, no solo afectan una partida individual.
+![Qué es un add-on: contenido de Minecraft que cambia cómo se ve o se comporta el juego dentro de Bedrock Edition.](/article-images/videojuegos/M5A2.png)
 
 ---
 
@@ -314,24 +236,7 @@ Esa diferencia es clave: un mod puede ser muy conocido dentro de la comunidad, p
 
 ## Bedrock y Java no se supervisan igual
 
-Para una familia, la diferencia práctica puede resumirse así:
-
-### Bedrock Edition
-
-1. tiene **Marketplace**,
-2. usa **Minecoins**,
-3. ofrece add-ons dentro de un entorno oficial,
-4. el contenido oficial es más fácil de reconocer,
-5. la ruta de adquisición es más curada y controlada.
-
-### Java Edition
-
-1. tiene una cultura más abierta de modificaciones,
-2. los mods suelen venir de terceros,
-3. el soporte oficial no cubre problemas derivados del modding,
-4. suele requerir más revisión por parte de la familia.
-
-Mojang dice explícitamente que la forma más fácil y segura de conseguir add-ons para Bedrock es hacerlo por canales oficiales como Marketplace y, en ese entorno, incluso los identifica con un ícono de martillo. En cambio, en Java, entrar al mundo de los mods suele implicar archivos y procesos externos al soporte oficial.
+Para una familia, la diferencia práctica está en la ruta de confianza: Bedrock permite reconocer contenido oficial dentro de Marketplace, mientras que Java exige más revisión porque los mods suelen circular por canales de comunidad o terceros.
 
 ---
 
@@ -341,50 +246,18 @@ Para este curso, conviene enseñar una regla muy clara: si el contenido no viene
 
 Eso no significa que todo lo externo sea automáticamente malicioso. Pero sí significa que la familia sale del entorno curado y del soporte oficial.
 
-En términos prácticos, lo no oficial suele incluir:
+| Tipo de contenido | Canal habitual | Nivel de confianza familiar |
+| --- | --- | --- |
+| **Marketplace de Bedrock** | Tienda oficial dentro del ecosistema Minecraft Bedrock. | Más controlable, porque el contenido está curado y asociado a la cuenta. |
+| **Add-ons de Marketplace** | Contenido de socios confiables probado para Bedrock. | Revisable desde el flujo oficial del juego. |
+| **Mods de Java** | Sitios, comunidades o launchers externos. | Requiere mayor verificación; no está cubierto por soporte oficial de Minecraft. |
+| **Descargas de terceros** | Páginas externas o enlaces compartidos. | Riesgo más alto si piden instalar archivos, permisos o software adicional. |
 
-1. mods de Java de terceros,
-2. descargas externas desde páginas de comunidad,
-3. launchers alternativos,
-4. instaladores o packs ofrecidos fuera del flujo normal del juego,
-5. archivos descargados desde sitios no respaldados por Mojang.
-
----
-
-## ¿Por qué importa tanto la fuente de descarga?
-
-Porque la fuente cambia el nivel de confianza. **Microsoft** recomienda descargar software solo desde sitios oficiales de socios de Microsoft o desde la Microsoft Store, y advierte que los sitios de terceros pueden haber modificado software para incluir malware u otras amenazas.
-
-Aplicado a este módulo, eso significa que cuando una familia descarga launchers, instaladores, mods o archivos "gratis" desde páginas desconocidas, el problema ya no es solo el contenido del juego. También entra en juego la seguridad del dispositivo.
-
-> **Regla práctica**: Cuando la descarga sale del ecosistema oficial, también aumenta la responsabilidad de revisar seguridad, permisos e instalación.
+En términos prácticos, lo no oficial suele incluir mods de Java de terceros, descargas externas desde páginas de comunidad, launchers alternativos, instaladores, packs ofrecidos fuera del flujo normal del juego o archivos descargados desde sitios no respaldados por Mojang.
 
 ---
 
-## Una forma simple de explicárselo a madres y padres
-
-Pedagógicamente, la forma más clara de distinguirlo puede ser esta:
-
-### Marketplace oficial
-
-1. contenido dentro del ecosistema Bedrock,
-2. curado,
-3. vendido o distribuido con la lógica oficial del juego,
-4. respaldado por el entorno de Minecraft.
-
-### Add-ons oficiales de Bedrock
-
-1. contenido que modifica el juego,
-2. disponible dentro de Marketplace,
-3. puede ser gratis o de pago,
-4. forma parte del ecosistema oficial de Bedrock.
-
-### Mods de Java
-
-1. modificaciones de terceros,
-2. asociadas a la comunidad,
-3. fuera del soporte oficial de Minecraft,
-4. requieren más revisión técnica y de seguridad.
+![Por qué importa tanto la fuente de descarga: al salir del ecosistema oficial aumenta la responsabilidad de revisar seguridad, permisos e instalación.](/article-images/videojuegos/M5A2.1.png)
 
 ---
 
@@ -392,17 +265,11 @@ Pedagógicamente, la forma más clara de distinguirlo puede ser esta:
 
 Una familia puede pensar en este semáforo antes de autorizar contenido nuevo:
 
-### Verde: ruta oficial y reconocible
-
-Viene de Marketplace o del flujo oficial de Bedrock, no obliga a salir a páginas raras y está claramente integrado en el ecosistema del juego.
-
-### Amarillo: contenido de comunidad que exige revisar más
-
-No parece malicioso a simple vista, pero requiere verificar qué instala, de dónde viene y qué edición del juego usa el menor.
-
-### Rojo: señales de alto riesgo
-
-La página pide instalar archivos extra, launchers desconocidos, packs "gratis" sospechosos o software fuera del flujo normal del juego.
+| Nivel | Señal | Respuesta familiar |
+| --- | --- | --- |
+| **Verde** | Viene de Marketplace o del flujo oficial de Bedrock. | Revisar contenido y permitir si coincide con reglas familiares. |
+| **Amarillo** | Es contenido de comunidad que exige verificar fuente, edición e instalación. | Revisar antes de autorizar y evitar prisas. |
+| **Rojo** | Pide archivos extra, launchers desconocidos, packs "gratis" o software externo. | No instalar, cerrar enlace y buscar una fuente oficial. |
 
 > **Lo que un padre debe notar**: No siempre el riesgo está en el contenido en sí; a veces está en el instalador, en la página de descarga o en el software adicional que pide.
 
@@ -410,12 +277,15 @@ La página pide instalar archivos extra, launchers desconocidos, packs "gratis" 
 
 ## ¿Qué debería revisar una familia antes de descargar o comprar algo?
 
-Antes de autorizar una compra o descarga, conviene revisar al menos esto:
+Antes de autorizar una compra o descarga, conviene convertir la duda en preguntas concretas:
 
-1. **Si el menor usa Java o Bedrock**.
-2. **Si el contenido proviene de Marketplace o de un canal oficial**.
-3. **Si el archivo exige instalar algo extra fuera del flujo normal del juego**.
-4. **Si ese contenido afectará solo una partida local o también Realms, multiplayer o mundos compartidos**.
+| Pregunta antes de descargar | Respuesta segura | Señal de alerta |
+| --- | --- | --- |
+| **¿De dónde viene?** | Marketplace, Microsoft Store o canal oficial reconocible. | Enlace acortado, sitio desconocido o mensaje de "gratis" urgente. |
+| **¿Qué instala?** | Contenido visible dentro del juego sin instaladores raros. | Ejecutables, launchers o permisos que la familia no entiende. |
+| **¿Para qué edición es?** | Bedrock o Java identificado claramente. | El menor no sabe si sirve para su versión. |
+| **¿Afecta multijugador o Realms?** | La familia sabe si se usará con otras personas. | Cambia mundos compartidos sin revisar a quién afecta. |
+| **¿Quién lo respalda?** | Mojang, Microsoft, Marketplace o socio confiable. | Solo lo recomienda un video, chat o página de terceros. |
 
 Las primeras tres partes se apoyan directamente en la documentación oficial de Minecraft y Microsoft. La última es una conclusión pedagógica importante porque los add-ons pueden funcionar también en multiplayer y Realms, no solo en una partida aislada.
 
@@ -425,59 +295,21 @@ Las primeras tres partes se apoyan directamente en la documentación oficial de 
 
 Una forma útil de ordenar este tema es pensar en tres bloques:
 
-### Oficial
-
-1. Marketplace,
-2. add-ons de Marketplace,
-3. contenido de socios confiables probados por Minecraft.
-
-### Comunidad o no oficial
-
-1. mods de Java,
-2. descargas externas,
-3. launchers o archivos de terceros.
-
-### Preguntas clave
-
-1. ¿de dónde viene?,
-2. ¿quién lo respalda?,
-3. ¿qué instala?,
-4. ¿en qué edición del juego se va a usar?
+| Bloque | Incluye | Pregunta clave |
+| --- | --- | --- |
+| **Oficial** | Marketplace, add-ons de Marketplace y socios confiables probados por Minecraft. | ¿Viene del flujo oficial? |
+| **Comunidad o no oficial** | Mods de Java, descargas externas, launchers o archivos de terceros. | ¿Qué instala y quién lo respalda? |
+| **Revisión familiar** | Fuente, edición, permisos y uso en multijugador o Realms. | ¿En qué versión se usará y a quién afecta? |
 
 ---
 
-## Caja de conceptos clave
-
-**Marketplace**: tienda oficial de contenido para Bedrock.
-
-**Add-on**: contenido que cambia cómo se ve o se comporta el juego dentro del ecosistema Bedrock.
-
-**Mod**: modificación de comunidad, sobre todo asociada a Java, sin soporte oficial de Minecraft.
-
-**Bedrock Edition**: edición con Marketplace y entorno más curado para contenido oficial.
-
-**Java Edition**: edición más abierta a mods de terceros.
-
-**Descarga de terceros**: archivo o software obtenido fuera del canal oficial del juego.
-
-**Skin pack**: paquete de apariencias para personajes.
-
-**Texture pack**: paquete que cambia cómo se ven bloques, objetos o escenarios.
-
-**World**: mundo o mapa descargable para jugar dentro de Minecraft.
-
-**Mash-up pack**: paquete temático que puede combinar mundos, texturas, skins y otros elementos visuales.
+![Caja de conceptos clave: Marketplace, add-on, mod, Bedrock Edition, Java Edition, descarga de terceros, skin pack, texture pack, world y mash-up pack.](/article-images/videojuegos/M5A2.2.png)
 
 ---
 
 ## Microactividad de 1 minuto
 
-Piensa en el contenido que usa tu hijo o hija:
-
-1. ¿Sale de Marketplace?
-2. ¿Es Bedrock o Java?
-3. ¿Te pidió instalar algo aparte?
-4. ¿Sabes si ese archivo viene de un canal oficial o de una página externa?
+Piensa en el contenido que usa tu hijo o hija: ¿sale de Marketplace?, ¿es Bedrock o Java?, ¿te pidió instalar algo aparte?, ¿sabes si ese archivo viene de un canal oficial o de una página externa?
 
 Si alguna respuesta es "no sé", ahí está el siguiente punto que conviene revisar en familia.
 
@@ -489,7 +321,7 @@ Cuando madres, padres y tutores distinguen entre **Marketplace oficial**, **add-
 
 > **Recuerda**: En Minecraft, "oficial" no significa solo que algo sea conocido; significa que viene de un canal respaldado por Mojang.`,
         type: 'article',
-        duration: 12,
+        duration: 8,
         platforms: ['Roblox', 'Minecraft'],
         riskAreas: ['Gasto Controlado', 'Seguridad de Cuenta'],
         teaches: ['add-on', 'marketplace', 'mod de java', 'descarga de terceros', 'phishing', 'robux gratis', 'oficial', 'no oficial']

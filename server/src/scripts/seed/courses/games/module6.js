@@ -6,7 +6,7 @@ module.exports = async function seedGameModule(context) {
     const mod6 = await getOrCreateModule(courseGames._id, {
         title: 'Módulo 6: Bienestar digital y acompañamiento parental',
         description: 'Salud mental y relación familiar en el juego.',
-        duration: '28 min'
+        duration: '21 min'
     });
     await Quiz.deleteMany({ refId: mod6._id, scope: 'module' });
 
@@ -16,91 +16,52 @@ module.exports = async function seedGameModule(context) {
 
 > **Perspectiva Estratégica**: La pregunta no es solo "¿cuánto juega?", sino "¿qué está dejando de hacer por jugar?".
 
-Este artículo deja una idea muy clara: el problema no siempre es jugar mucho, sino jugar de una forma que desplaza lo importante. La **Academia Americana de Pediatría (AAP)** explica que ciertos diseños digitales compiten por la atención y pueden desplazar sueño, juego libre, ejercicio y tiempo en familia. **UNICEF**, por su parte, recomienda hablar temprano y con frecuencia sobre cómo encajan los dispositivos en la vida familiar y si están interfiriendo con otras actividades.
+Este artículo deja una idea muy clara: el problema no siempre es jugar mucho, sino jugar de una forma que desplaza lo importante. Algunos diseños digitales compiten por la atención y pueden desplazar sueño, juego libre, ejercicio y tiempo en familia; por eso conviene hablar temprano sobre cómo encajan los dispositivos en la rutina.
 
 ---
 
-## No todo se resume a “cuántas horas juega”
-
-Medir solo el número de horas puede ser insuficiente. La **AAP** señala que el mundo digital actual es más complejo que el simple "screen time" y que algunas plataformas están diseñadas para mantener a los usuarios enganchados mediante funciones como autoplay, alertas, recompensas y otros estímulos constantes.
-
-Por eso, para una familia importa tanto el tiempo como una pregunta más útil: **¿qué está dejando de hacer el menor por jugar?**
-
-> **Lectura pedagógica**: El tiempo importa, pero el verdadero foco está en el equilibrio. Un juego puede ocupar varias horas sin generar daño si no está desplazando sueño, escuela, convivencia, actividad física u otras necesidades básicas.
+![No todo se resume a cuántas horas juega: el foco real está en qué está dejando de hacer el menor por jugar.](/article-images/videojuegos/M6A1.png)
 
 ---
 
 ## El sueño es una de las primeras señales que conviene revisar
 
-El **CDC** indica que:
+Para revisar el sueño, estas referencias de edad sirven como punto de partida:
 
-1. niñas y niños de 6 a 12 años deberían dormir entre **9 y 12 horas** por día,
-2. adolescentes de 13 a 18 años deberían dormir entre **8 y 10 horas** por día.
+| Edad | Horas de sueño recomendadas | Qué revisar si juega mucho |
+| --- | --- | --- |
+| **6 a 12 años** | 9 a 12 horas por día. | Si el juego recorta hora de dormir, despertar o energía escolar. |
+| **13 a 18 años** | 8 a 10 horas por día. | Si el juego retrasa sueño, concentración o estado de ánimo. |
 
-También advierte que dormir poco se asocia con:
-
-1. más problemas de atención y conducta,
-2. peor rendimiento escolar,
-3. más dificultad para concentrarse,
-4. mayor riesgo de problemas de salud.
-
-**HealthyChildren** añade que, para evitar interrupciones del sueño, conviene mantener las pantallas fuera del dormitorio y apagarlas al menos una hora antes de dormir.
+Dormir poco puede asociarse con problemas de atención y conducta, peor rendimiento escolar, dificultad para concentrarse y mayor riesgo de problemas de salud. Para evitar interrupciones del descanso, conviene mantener las pantallas fuera del dormitorio y apagarlas al menos una hora antes de dormir.
 
 > **Idea clave**: Dormir bien sigue siendo una de las maneras más concretas de notar si el juego está en equilibrio o no.
 
 ---
 
-## Jugar de noche cambia más cosas de las que parece
-
-**HealthyChildren** explica que usar pantallas antes de dormir dificulta relajarse, puede retrasar la hora de acostarse y hacer más difícil quedarse dormido. También recomienda apagar dispositivos entre 30 y 60 minutos antes de dormir y, de ser posible, dejarlos fuera del cuarto.
-
-La **AAP** también recomienda crear tiempos y espacios sin pantallas, especialmente en:
-
-1. comidas,
-2. deberes,
-3. momentos familiares,
-4. la rutina previa al sueño.
-
-Esto protege no solo el descanso, sino también la convivencia y la capacidad de aprender al día siguiente.
+![Jugar de noche cambia más cosas de las que parece: pantallas antes de dormir pueden afectar descanso, convivencia y aprendizaje.](/article-images/videojuegos/M6A1.1.png)
 
 ---
 
 ## Cuando el sueño cae, la escuela suele resentirse
 
-El **CDC** señala que el sueño suficiente ayuda a mantenerse enfocado, mejorar la concentración y favorecer el rendimiento académico. En esa misma línea, la **AAP** relaciona el uso digital problemático en edad escolar con:
+El sueño suficiente ayuda a mantenerse enfocado, mejorar la concentración y sostener mejor el rendimiento académico. En cambio, el uso digital problemático suele aparecer junto con sueño menos saludable, peor desempeño escolar, menor control de la atención y menos tiempo con familia y amistades.
 
-1. sueño menos saludable,
-2. peor desempeño escolar,
-3. menor control de la atención,
-4. menos tiempo con familia y amistades.
-
-Por eso, una familia no debería revisar solo si el menor "se porta bien", sino si últimamente está:
-
-1. más cansado,
-2. distraído,
-3. irritable,
-4. desconectado de su rutina,
-5. cumpliendo peor con tareas o responsabilidades.
+Por eso, una familia no debería revisar solo si el menor "se porta bien", sino si últimamente está más cansado, distraído, irritable, desconectado de su rutina o cumpliendo peor con tareas y responsabilidades.
 
 ---
 
 ## ¿Cuáles son señales de uso problemático?
 
-**HealthyChildren** ofrece una lista muy útil para familias. Entre las señales de posible uso problemático están:
+Estas señales pueden ayudar a una familia a revisar si el juego ya está ocupando demasiado espacio:
 
-1. que el menor se enoje o irrite mucho cuando no puede usar medios,
-2. que el uso afecte sus calificaciones,
-3. que se reduzca su participación en actividades familiares,
-4. que interfiera con sueño o ejercicio,
-5. que se convierta en su único tema de conversación o actividad preferida.
-
-La **AAP** añade otras señales, como:
-
-1. retirarse de amistades y hobbies,
-2. discutir constantemente por tecnología,
-3. dejar que el juego interfiera con actividad física,
-4. descuidar alimentación saludable,
-5. alterar de forma repetida la hora de dormir.
+| Área afectada | Señales posibles |
+| --- | --- |
+| **Estado de ánimo** | Enojo intenso cuando no puede jugar, irritabilidad o discusiones constantes por tecnología. |
+| **Escuela y rutina** | Calificaciones afectadas, tareas incompletas o sueño alterado de forma repetida. |
+| **Convivencia** | Menos participación familiar, retiro de amistades o abandono de hobbies. |
+| **Salud física** | Menos ejercicio, alimentación descuidada o cansancio frecuente. |
+| **Intereses** | El videojuego se vuelve su único tema o actividad preferida. |
 
 > **Regla práctica**: Si el juego empieza a quitar espacio a varias áreas importantes al mismo tiempo, ya no hablamos solo de entretenimiento.
 
@@ -108,11 +69,7 @@ La **AAP** añade otras señales, como:
 
 ## Uso problemático no significa automáticamente “adicción”
 
-Aquí conviene ser muy cuidadosos. La **OMS** define el **gaming disorder** como un patrón de conducta con:
-
-1. falta de control sobre el juego,
-2. prioridad creciente del juego sobre otras actividades,
-3. continuidad o incremento del juego pese a consecuencias negativas.
+Aquí conviene ser muy cuidadosos. La **OMS** define el **gaming disorder** como un patrón de conducta con falta de control sobre el juego, prioridad creciente del juego sobre otras actividades y continuidad o incremento del juego pese a consecuencias negativas.
 
 Pero también aclara que esto afecta solo a una pequeña proporción de quienes juegan y que, para un diagnóstico, el deterioro debe ser significativo y normalmente mantenerse durante al menos 12 meses.
 
@@ -122,16 +79,9 @@ En otras palabras: no todo menor entusiasmado con un videojuego tiene un trastor
 
 ## Entonces, ¿qué sí debería preocupar a una familia?
 
-Lo que más debe llamar la atención no es el entusiasmo por un juego, sino el **desplazamiento**. Es decir, cuando el juego le gana al:
+Lo que más debe llamar la atención no es el entusiasmo por un juego, sino el **desplazamiento**: cuando el juego le gana al sueño, al desempeño escolar, al ejercicio, al tiempo en familia, a la estabilidad del humor o al interés por otras actividades.
 
-1. sueño,
-2. desempeño escolar,
-3. ejercicio,
-4. tiempo en familia,
-5. estabilidad del humor,
-6. interés por otras actividades.
-
-Esta idea está alineada tanto con la definición de la **OMS** como con las señales de uso problemático recogidas por **HealthyChildren**.
+La idea central es práctica: no todo uso intenso es un problema, pero sí conviene actuar cuando el juego desplaza de forma sostenida áreas necesarias para estar bien.
 
 > **Lo que un padre debe notar**: No todo uso intenso es un trastorno, pero sí conviene actuar cuando el juego empieza a ocupar el lugar de lo que el menor necesita para estar bien.
 
@@ -139,13 +89,15 @@ Esta idea está alineada tanto con la definición de la **OMS** como con las se�
 
 ## El equilibrio del bienestar digital
 
-Una forma útil de mirar la rutina es pensar en cinco bloques que necesitan convivir:
+Una forma útil de mirar la rutina es revisar si el juego convive con las necesidades principales del día:
 
-1. sueño,
-2. escuela,
-3. juego,
-4. actividad física,
-5. familia.
+| Bloque de bienestar | Señal de equilibrio | Señal de alerta |
+| --- | --- | --- |
+| **Sueño** | Duerme lo suficiente y se levanta con energía razonable. | Juega hasta tarde, duerme menos o se despierta cansado. |
+| **Escuela** | Cumple tareas y mantiene atención. | Bajan notas, olvida deberes o se distrae por seguir jugando. |
+| **Actividad física** | Conserva movimiento, juego libre o deporte. | Prefiere pantalla siempre y abandona movimiento. |
+| **Familia** | Puede convivir sin conflicto constante por el juego. | Discute todos los días por límites o interrupciones. |
+| **Otros intereses** | Mantiene hobbies y amistades fuera del juego. | El videojuego se vuelve su único tema o actividad. |
 
 El objetivo no es sacar el juego de la rutina, sino comprobar que no se esté comiendo a los otros cuatro bloques.
 
@@ -157,17 +109,11 @@ Cuando el juego cabe dentro del día sin desplazar estas áreas, hablamos de un 
 
 Este semáforo no es una clasificación clínica oficial. Es una síntesis pedagógica para ayudar a observar mejor.
 
-### Verde: uso saludable
-
-Juega, pero duerme bien, cumple con escuela, conserva otros intereses y puede dejar el juego sin gran conflicto.
-
-### Amarillo: empieza a desacomodarse la rutina
-
-Empieza a dormir menos, a discutir por límites o a abandonar otras actividades.
-
-### Rojo: el juego domina su rutina
-
-El juego afecta notas, sueño, convivencia y sigue ocupando el centro del día incluso cuando ya hay consecuencias claras.
+| Nivel | Cómo se ve | Qué hacer |
+| --- | --- | --- |
+| **Verde** | Juega, duerme bien, cumple con escuela y conserva otros intereses. | Mantener acuerdos y observación. |
+| **Amarillo** | Duerme menos, discute por límites o abandona actividades. | Ajustar horarios y recuperar rutina. |
+| **Rojo** | El juego afecta notas, sueño, convivencia y sigue dominando el día. | Intervenir con reglas claras y apoyo si hace falta. |
 
 > **Regla de Oro**: Si el juego desplaza sueño, escuela, ejercicio o convivencia de forma repetida, ya merece intervención, aunque el menor siga diciendo que "todo está bien".
 
@@ -175,37 +121,11 @@ El juego afecta notas, sueño, convivencia y sigue ocupando el centro del día i
 
 ## ¿Qué puede hacer una familia desde la prevención?
 
-**UNICEF** recomienda preguntar al menor:
-
-1. qué le gusta de sus dispositivos,
-2. qué no le gusta,
-3. cuánto los usa,
-4. qué siente que le está funcionando,
-5. si la tecnología está interfiriendo con otras actividades.
-
-La **AAP** recomienda construir un **Family Media Plan**, establecer tiempos y lugares sin pantallas, apagar lo que no se está usando y revisar actividades en línea que puedan estar volviéndose problemáticas.
-
-Traducido a la práctica para este curso, conviene:
-
-1. fijar horarios razonables para jugar,
-2. proteger la rutina de sueño,
-3. dejar tiempos sin pantalla antes de dormir,
-4. mantener momentos familiares sin dispositivos,
-5. revisar si el juego sigue conviviendo con escuela, ejercicio y hobbies.
+Desde la prevención, conviene preguntar al menor qué le gusta de sus juegos, qué no le gusta, cuánto los usa, qué siente que le está funcionando y si la tecnología está interfiriendo con otras actividades. En la práctica, esto se traduce en fijar horarios razonables, proteger la rutina de sueño, dejar tiempos sin pantalla antes de dormir, mantener momentos familiares sin dispositivos y revisar si el juego sigue conviviendo con escuela, ejercicio y hobbies.
 
 ---
 
-## Checklist rápido: ¿uso saludable o uso problemático?
-
-Antes de alarmarse o minimizar, conviene revisar cinco preguntas:
-
-1. **¿Duerme lo suficiente para su edad?**
-2. **¿Cumple con escuela y tareas?**
-3. **¿Sigue moviéndose y haciendo actividad física?**
-4. **¿Convive con otros y mantiene intereses fuera del juego?**
-5. **¿Puede parar sin explotar o entrar en una discusión fuerte?**
-
-Este checklist convierte una preocupación abstracta en observaciones concretas para la vida diaria.
+![Checklist rápido: preguntas para distinguir uso saludable y uso problemático en sueño, escuela, actividad física, intereses y control emocional.](/article-images/videojuegos/M6A1.2.png)
 
 ---
 
@@ -219,18 +139,13 @@ Este checklist convierte una preocupación abstracta en observaciones concretas 
 
 **Gaming disorder**: patrón clínico definido por la OMS, distinto de una afición intensa.
 
-**Family Media Plan**: plan familiar para acordar reglas, horarios y espacios de uso digital.
+**Family Media Plan**: herramienta familiar para convertir reglas, horarios y espacios de uso digital en acuerdos visibles.
 
 ---
 
 ## Microactividad de 1 minuto
 
-Piensa en tu hijo o hija y responde mentalmente:
-
-1. ¿Está durmiendo lo que necesita para su edad?
-2. ¿El juego está afectando tareas o calificaciones?
-3. ¿Puede dejar de jugar sin una discusión fuerte?
-4. ¿Todavía disfruta otras actividades?
+Piensa en tu hijo o hija: ¿está durmiendo lo que necesita?, ¿el juego afecta tareas o calificaciones?, ¿puede dejar de jugar sin una discusión fuerte?, ¿todavía disfruta otras actividades?
 
 Si dos o más respuestas te preocupan, ya hay razones para revisar hábitos y reglas en casa.
 
@@ -242,7 +157,7 @@ El bienestar digital no consiste en eliminar los videojuegos, sino en comprobar 
 
 > **Recuerda**: El problema no siempre es jugar mucho; el problema aparece cuando jugar empieza a desplazar lo que el menor necesita para estar bien.`,
         type: 'article',
-        duration: 12,
+        duration: 9,
         platforms: ['Roblox', 'Minecraft'],
         riskAreas: ['Salud Mental y Física'],
         teaches: ['sueño suficiente', 'uso problemático', 'escuela', 'ejercicio', 'gaming disorder', 'family media plan', 'rutina']
@@ -272,68 +187,33 @@ Este video traduce el módulo en ejemplos de conversación y estructura familiar
 
 > **Perspectiva Estratégica**: A veces, la mejor forma de entender un videojuego no es leer sobre él, sino sentarte al lado de tu hijo y pedirle: "enséñame cómo funciona".
 
-Este artículo transmite una idea central: acompañar no es solo controlar. En bienestar digital, acompañar significa interesarse por lo que el menor juega, preguntarle qué le gusta, entender con quién juega y crear momentos compartidos que permitan conversar sin convertir todo en regaño. **HealthyChildren** señala que involucrarse y mantener abierta la comunicación es una de las formas más importantes de ayudar a que niñas, niños y adolescentes estén más seguros en los juegos en línea.
+Este artículo transmite una idea central: acompañar no es solo controlar. En bienestar digital, acompañar significa interesarse por lo que el menor juega, preguntarle qué le gusta, entender con quién juega y crear momentos compartidos que permitan conversar sin convertir todo en regaño.
 
 ---
 
-## Acompañar empieza por interesarse de verdad
-
-**UNICEF** recomienda hablar temprano y con frecuencia sobre el papel que la tecnología tiene en la vida familiar, y sugiere preguntar al menor:
-
-1. qué le gusta de sus dispositivos,
-2. qué no le gusta,
-3. con qué frecuencia los usa,
-4. qué siente que le está funcionando,
-5. qué cosas le incomodan o le cuestan.
-
-Eso también aplica a los videojuegos. Antes de corregir, conviene comprender. Cuando un padre pregunta con curiosidad real, deja de mirar el juego como una "caja negra" y empieza a entender por qué es importante para su hijo.
-
-> **Idea clave**: Interesarse no significa aprobar todo lo que pasa en el juego; significa conocerlo lo suficiente para orientar mejor.
+![Acompañar empieza por interesarse de verdad: preguntar con curiosidad real ayuda a orientar mejor.](/article-images/videojuegos/M6A2.png)
 
 ---
 
 ## Conversar funciona mejor que dar sermones
 
-**HealthyChildren** propone usar preguntas y prompts para hablar con niños, preadolescentes y adolescentes sobre tecnología, redes y videojuegos, buscando conversaciones y decisiones compartidas en lugar de discursos unilaterales.
+Las preguntas abiertas ayudan más que los discursos largos porque invitan a conversar y tomar decisiones compartidas. Ese enfoque es especialmente útil en videojuegos porque el menor suele colaborar más cuando siente que su experiencia está siendo escuchada y no solo evaluada.
 
-Ese enfoque es especialmente útil en videojuegos porque el menor suele colaborar más cuando siente que su experiencia está siendo escuchada y no solo evaluada.
-
-En la práctica, esto ayuda a pasar de frases como:
-
-1. "¿Otra vez estás jugando?",
-2. "Eso te quita el tiempo",
-3. "Ya te dije que no me gusta ese juego"
-
-a preguntas más útiles que abren conversación.
+En la práctica, esto ayuda a pasar de frases como "¿otra vez estás jugando?", "eso te quita el tiempo" o "ya te dije que no me gusta ese juego", a preguntas más útiles que abren conversación.
 
 ---
 
 ## Jugar junto al hijo cambia la calidad de la supervisión
 
-**UNICEF** dice de forma explícita que una de las mejores maneras en que los padres pueden involucrarse es jugar videojuegos con sus hijos, sentarse con ellos y dejar que les enseñen cómo se juega. Añade que, cuando eso ocurre, el punto de vista de los padres cambia y se abre un diálogo mucho más fluido sobre el juego.
-
-**HealthyChildren** coincide: jugar con el menor o verlo jugar ayuda a entender mejor sus intereses, su lenguaje y su experiencia dentro del juego.
-
-Esto mejora la supervisión porque el adulto ya no habla desde fuera. Empieza a ver:
-
-1. qué tipo de retos hay,
-2. cómo se comunican otros jugadores,
-3. qué compras aparecen,
-4. qué partes del juego frustran o entusiasman más,
-5. qué tipo de reglas tendría sentido acordar.
+Jugar con el menor o verlo jugar ayuda a entender mejor sus intereses, su lenguaje y su experiencia dentro del juego. Esto mejora la supervisión porque el adulto ya no habla desde fuera: empieza a ver retos, comunicación con otros jugadores, compras visibles, momentos de frustración o entusiasmo y reglas que tendría sentido acordar.
 
 ---
 
 ## No hace falta saber jugar bien
 
-Para acompañar no es necesario ser experto. **HealthyChildren** recomienda pedir al menor que muestre su juego favorito, lo que construyó, lo que vio o cómo aprendió a jugar. También explica que compartir medios juntos abre conversaciones que quizá no habrían surgido de otra forma y ayuda a fortalecer el vínculo.
+Para acompañar no es necesario ser experto. Basta con pedir al menor que muestre su juego favorito, lo que construyó, lo que vio o cómo aprendió a jugar. Compartir ese momento abre conversaciones que quizá no habrían surgido de otra forma y ayuda a fortalecer el vínculo.
 
-En la práctica, eso significa que un padre puede acompañar aunque apenas esté aprendiendo. Basta con:
-
-1. estar presente,
-2. observar,
-3. hacer preguntas simples,
-4. dejar que el menor explique con sus propias palabras.
+En la práctica, eso significa que un padre puede acompañar aunque apenas esté aprendiendo: basta con estar presente, observar, hacer preguntas simples y dejar que el menor explique con sus propias palabras.
 
 > **Regla práctica**: No hace falta dominar el juego para acompañar mejor; hace falta estar cerca, mirar con atención y preguntar bien.
 
@@ -341,14 +221,7 @@ En la práctica, eso significa que un padre puede acompañar aunque apenas esté
 
 ## Jugar juntos también ayuda a hablar de seguridad
 
-**HealthyChildren** recomienda revisar con frecuencia con quién juega el menor y si ha tenido contacto con personas desconocidas. Cuando el adulto ve una partida, escucha el tipo de interacción o conoce el funcionamiento del juego, le resulta más fácil hablar de:
-
-1. chat,
-2. reglas de convivencia,
-3. compras,
-4. frustración,
-5. lenguaje ofensivo,
-6. contactos no deseados.
+Cuando el adulto ve una partida, escucha el tipo de interacción o conoce el funcionamiento del juego, le resulta más fácil hablar de chat, reglas de convivencia, compras, frustración, lenguaje ofensivo y contactos no deseados.
 
 Esta es una ventaja concreta del acompañamiento: permite que la prevención salga de situaciones reales, no solo de advertencias abstractas.
 
@@ -356,61 +229,33 @@ Esta es una ventaja concreta del acompañamiento: permite que la prevención sal
 
 ## Acompañar también implica poner límites visibles y razonables
 
-Acompañar no significa dejar todo libre. **HealthyChildren** recomienda tener un **Family Media Plan**, pensar qué actividades podría estar desplazando el juego y mantener el gaming en áreas comunes de la casa cuando sea posible.
-
-**UNICEF** también sugiere establecer reglas de "sí" y "no": qué comportamientos digitales espera la familia y qué cosas no están permitidas, como:
-
-1. dar información personal,
-2. acosar a otros,
-3. comprar sin permiso,
-4. seguir jugando cuando ya es hora de dormir.
-
-Cuando las reglas son visibles, razonables y consistentes, dejan de sentirse como ocurrencias del momento y empiezan a dar estructura.
+Acompañar no significa dejar todo libre. También implica pensar qué actividades podría estar desplazando el juego, mantenerlo en áreas comunes cuando sea posible y establecer reglas de "sí" y "no": qué comportamientos digitales espera la familia y qué cosas no están permitidas, como dar información personal, acosar a otros, comprar sin permiso o seguir jugando cuando ya es hora de dormir. Cuando las reglas son visibles, razonables y consistentes, dejan de sentirse como ocurrencias del momento y empiezan a dar estructura.
 
 ---
 
 ## ¿Qué tipo de preguntas ayudan más?
 
-Para este curso, las preguntas más útiles no son "¿otra vez estás jugando?", sino otras como estas:
+Para este curso, las preguntas más útiles no son "¿otra vez estás jugando?", sino preguntas que abren conversación y revelan contexto:
 
-1. **¿Qué te gusta de este juego?**
-2. **¿Con quién juegas normalmente?**
-3. **¿Qué haces cuando alguien te molesta?**
-4. **¿Hay algo del juego que te estrese o te incomode?**
-5. **¿Quieres enseñarme cómo funciona?**
+| Pregunta abierta | Qué permite descubrir | Por qué ayuda |
+| --- | --- | --- |
+| **¿Qué te gusta de este juego?** | Motivación, intereses y tipo de experiencia. | Abre conversación sin empezar desde el regaño. |
+| **¿Con quién juegas normalmente?** | Amigos, desconocidos, servidores o grupos. | Ayuda a revisar privacidad y contacto social. |
+| **¿Qué haces cuando alguien te molesta?** | Estrategias de bloqueo, reporte o evasión. | Permite enseñar respuesta segura antes de un incidente. |
+| **¿Hay algo que te estrese?** | Frustración, presión social o dinámicas incómodas. | Detecta señales emocionales que no siempre se ven desde fuera. |
+| **¿Me enseñas cómo funciona?** | Menús, chat, compras y reglas reales del juego. | Convierte la supervisión en aprendizaje compartido. |
 
-Estas preguntas son una adaptación pedagógica basada en la orientación de **UNICEF** de preguntar por gustos, hábitos y experiencias, y en la recomendación de **HealthyChildren** de usar preguntas que abran conversación y de pedir al menor que enseñe su juego.
+Estas preguntas convierten la supervisión en una conversación concreta sobre gustos, hábitos, experiencias y reglas reales del juego.
 
 ---
 
-## Del control al acompañamiento
-
-Una forma útil de leer el cambio de enfoque es esta:
-
-### Supervisión distante
-
-1. solo prohibir,
-2. solo regañar,
-3. no conocer el juego,
-4. reaccionar tarde cuando ya hubo un problema.
-
-### Acompañamiento activo
-
-1. preguntar,
-2. mirar o jugar juntos,
-3. conocer con quién juega,
-4. acordar reglas,
-5. conversar antes de que aparezca el conflicto.
-
-> **Lo que un padre debe notar**: La cercanía no elimina la necesidad de reglas; hace que las reglas tengan más sentido y más posibilidades de cumplirse.
+![Del control al acompañamiento: control distante, acompañamiento activo, reglas visibles y conversación frecuente.](/article-images/videojuegos/M6A2.1.png)
 
 ---
 
 ## Jugar junto al hijo también puede ser una experiencia positiva
 
-**HealthyChildren** señala que los videojuegos multijugador pueden ofrecer experiencias de cooperación, trabajo en equipo y socialización, y que incluso pueden disfrutarse juntos en familia. **UNICEF** también destaca que los videojuegos pueden ofrecer aprendizaje, creatividad y conexión.
-
-Esto importa porque el acompañamiento parental no debe construirse solo desde el miedo, sino también desde la posibilidad de compartir algo que al menor le importa.
+Los videojuegos multijugador también pueden ofrecer cooperación, trabajo en equipo, socialización, aprendizaje, creatividad y conexión. Esto importa porque el acompañamiento parental no debe construirse solo desde el miedo, sino también desde la posibilidad de compartir algo que al menor le importa.
 
 Cuando eso pasa, el adulto no solo supervisa mejor: también entiende mejor por qué ese espacio es significativo para su hijo.
 
@@ -420,11 +265,12 @@ Cuando eso pasa, el adulto no solo supervisa mejor: también entiende mejor por 
 
 Una familia puede usar esta autoevaluación sencilla:
 
-1. sé qué juego usa mi hijo,
-2. me ha enseñado al menos una vez cómo funciona,
-3. sé con quién juega,
-4. tenemos reglas básicas,
-5. puedo hablar del tema sin pelea inmediata.
+| Ya estoy acompañando si... | Qué demuestra |
+| --- | --- |
+| Sé qué juego usa mi hijo y me lo ha enseñado al menos una vez. | Hay interés real, no solo vigilancia. |
+| Sé con quién juega. | Existe supervisión social básica. |
+| Tenemos reglas básicas. | Los límites no dependen solo del enojo del momento. |
+| Puedo hablar del tema sin pelea inmediata. | Hay una puerta abierta para pedir ayuda. |
 
 Este checklist ayuda a traducir el acompañamiento a señales visibles y concretas.
 
@@ -446,11 +292,7 @@ Este checklist ayuda a traducir el acompañamiento a señales visibles y concret
 
 ## Microactividad de 1 minuto
 
-Piensa en esto:
-
-1. ¿Tu hijo ya te enseñó alguna vez su juego favorito?
-2. ¿Sabes con quién juega?
-3. ¿Podrías nombrar una regla clara que ya tienen en casa sobre videojuegos?
+Piensa en esto: ¿tu hijo ya te enseñó alguna vez su juego favorito?, ¿sabes con quién juega?, ¿podrías nombrar una regla clara que ya tienen en casa sobre videojuegos?
 
 Si alguna respuesta es "no", ese puede ser tu siguiente paso para acompañar mejor.
 
@@ -462,7 +304,7 @@ Acompañar a un hijo en los videojuegos no consiste en volverse experto ni en vi
 
 > **Recuerda**: Acompañar mejor no empieza con saberlo todo sobre videojuegos; empieza con estar presente y abrir una conversación real.`,
         type: 'article',
-        duration: 12,
+        duration: 8,
         platforms: ['Roblox', 'Minecraft'],
         riskAreas: ['Salud Mental y Física'],
         teaches: ['acompañamiento parental', 'conversación', 'preguntas abiertas', 'juego compartido', 'co-viewing', 'family media plan', 'reglas']
@@ -523,7 +365,7 @@ Este video muestra cómo convertir las reglas del módulo en un acuerdo visible,
             text: 'Completa las frases con la palabra correcta.',
             type: 'fill_blanks',
             metadata: {
-                sentence: 'Si el juego interfiere con el [blank1], ya existe una señal importante de alerta. Si baja el rendimiento en la [blank2], conviene revisar hábitos digitales. Acompañar mejor empieza muchas veces por una buena [blank3] con el menor. Un acuerdo familiar funciona mejor cuando incluye [blank4] claras. HealthyChildren advierte que el uso problemático también puede desplazar el [blank5].',
+                sentence: 'Si el juego interfiere con el [blank1], ya existe una señal importante de alerta. Si baja el rendimiento en la [blank2], conviene revisar hábitos digitales. Acompañar mejor empieza muchas veces por una buena [blank3] con el menor. Un acuerdo familiar funciona mejor cuando incluye [blank4] claras. El uso problemático también puede desplazar el [blank5].',
                 bank: ['sueño', 'escuela', 'conversación', 'reglas', 'ejercicio'],
                 correctAnswer: {
                     blank1: 'sueño',
@@ -608,7 +450,7 @@ Este video muestra cómo convertir las reglas del módulo en un acuerdo visible,
             text: 'Completa correctamente cada frase.',
             type: 'drop_down',
             metadata: {
-                sentence: 'Entre 6 y 12 años, lo recomendado es dormir entre [blank1] horas al día. Entre 13 y 18 años, lo recomendado es dormir entre [blank2] horas al día. Una forma útil de acompañar es pedir al menor que te [blank3] cómo funciona su juego. La herramienta de la AAP para acordar límites familiares se llama [blank4].',
+                sentence: 'Entre 6 y 12 años, lo recomendado es dormir entre [blank1] horas al día. Entre 13 y 18 años, lo recomendado es dormir entre [blank2] horas al día. Una forma útil de acompañar es pedir al menor que te [blank3] cómo funciona su juego. Una herramienta útil para acordar límites familiares se llama [blank4].',
                 options: {
                     blank1: ['9 y 12', '6 y 8', '10 y 14'],
                     blank2: ['8 y 10', '6 y 7', '11 y 13'],

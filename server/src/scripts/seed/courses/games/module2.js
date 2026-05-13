@@ -6,7 +6,7 @@ module.exports = async function seedGameModule(context) {
         const mod2 = await getOrCreateModule(courseGames._id, {
             title: 'Módulo 2: Roblox: seguridad y control parental',
             description: 'Configuración técnica y supervisión remota de alta precisión.',
-            duration: '28 min'
+            duration: '18 min'
         });
         await Quiz.deleteMany({ refId: mod2._id, scope: 'module' });
 
@@ -18,21 +18,17 @@ module.exports = async function seedGameModule(context) {
 
 ## ¿Qué significa “vincular” una cuenta en Roblox?
 
-A diferencia de un control de acceso tradicional, la supervisión parental en esta plataforma no requiere que el adulto inicie sesión directamente en la cuenta del menor. Roblox indica que el tutor debe contar con su propia cuenta con privilegios parentales. Una vez realizado el enlace, es posible administrar todos los controles parentales desde el propio dispositivo del adulto (vía Roblox.com o la app móvil), facilitando un monitoreo constante sin interrumpir la actividad del usuario.
+A diferencia de un control de acceso tradicional, la supervisión parental en esta plataforma no requiere que el adulto inicie sesión directamente en la cuenta del menor. El tutor usa su propia cuenta con privilegios parentales y, una vez realizado el enlace, puede administrar controles desde su dispositivo, vía Roblox.com o la app móvil, sin interrumpir la actividad del menor.
 
 ---
 
 ## ¿Qué es una cuenta con privilegios parentales?
 
-Roblox define la cuenta con privilegios parentales como un perfil de adulto que permite aprobar acciones específicas del menor y administrar configuraciones críticas de seguridad. Para activar estas funciones, la plataforma solicita:
+La cuenta con privilegios parentales funciona como un perfil de adulto que permite aprobar acciones específicas del menor y administrar configuraciones críticas de seguridad. Para entender qué aporta este vínculo, conviene separar requisito, función y riesgo:
 
-1. **Fecha de nacimiento del adulto**: Confirmando que la persona tiene 18 años o más.
-2. **Verificación de identidad**: Mediante una identificación oficial o una tarjeta de crédito válida.
-3. **Rol de tutor**: En la mayoría de las regiones, estos privilegios se habilitan para responsables de menores de 13 años que completen la verificación correspondiente.
+![Requisitos y beneficios de una cuenta con privilegios parentales en Roblox: cuenta propia del adulto, fecha de nacimiento, verificación de identidad y vínculo con la cuenta infantil.](/article-images/videojuegos/M2A1.png)
 
 ---
-
-> **Definición Clave**: Cuenta parental en Roblox: Perfil del adulto con privilegios verificados que permite la aprobación de acciones y la administración centralizada de los controles de seguridad del menor vinculado.
 
 ## Mini glosario para padres
 
@@ -48,11 +44,7 @@ Roblox define la cuenta con privilegios parentales como un perfil de adulto que 
 
 ## ¿Por qué el adulto necesita su propia cuenta?
 
-Roblox promueve el uso de cuentas separadas por tres motivos técnicos fundamentales:
-
-*   **Autonomía de Supervisión**: Permite controlar la experiencia infantil desde el dispositivo personal del adulto, sin necesidad de usar la cuenta del hijo directamente.
-*   **Seguridad de la Información**: Evita compartir credenciales. Cualquiera con acceso directo a una cuenta parental podría modificar ajustes sensibles; por ello, Roblox recomienda mantener perfiles aislados.
-*   **Colaboración Familiar**: La plataforma permite que múltiples adultos enlacen su propia cuenta con la misma cuenta infantil, eliminando la necesidad de compartir una sola contraseña entre tutores.
+La cuenta propia del adulto evita depender de la contraseña del menor y permite administrar controles desde un perfil separado. Esto ayuda a mantener la supervisión organizada, especialmente cuando más de un tutor participa en el acompañamiento.
 
 ---
 
@@ -60,27 +52,25 @@ Roblox promueve el uso de cuentas separadas por tres motivos técnicos fundament
 
 Existen dos rutas principales para establecer este vínculo técnico:
 
-**Ruta A: Solicitud por Correo Electrónico**
-El adulto recibe una notificación solicitando permiso para revisar o aprobar cambios. Al aceptar, puede crear una cuenta nueva o usar una existente (siempre que el correo coincida). Tras verificar la edad, el enlace se activa automáticamente.
-
-**Ruta B: Desde la Cuenta del Menor**
-Dentro de la aplicación del menor, se accede a *Settings > Parental Controls* y se selecciona la opción *Add parent*. Esto inicia el proceso de verificación del adulto y, tras la autorización mutua, el panel parental queda habilitado para el tutor.
+| Ruta de vinculación | Dónde inicia | Qué confirma | Cuándo conviene usarla |
+| --- | --- | --- | --- |
+| **Correo electrónico** | Desde la invitación o solicitud que recibe el adulto. | Que el adulto acepta administrar la cuenta y completa verificación. | Cuando Roblox envía una solicitud de aprobación al tutor. |
+| **Add parent** | Desde Settings > Parental Controls en la cuenta del menor. | Que la cuenta infantil queda conectada al adulto verificado. | Cuando la familia está configurando la supervisión desde cero. |
 
 ---
 
 ## Paso a paso simplificado
 
-1. **Creación de Perfil**: El adulto debe contar con una cuenta propia de Roblox.
-2. **Verificación de Edades**: Realizar el proceso de validación mediante identificación oficial o tarjeta de crédito.
-3. **Aceptación del Vínculo**: Confirmar el enlace desde el correo electrónico o la configuración parental de la cuenta infantil.
-4. **Administración Activa**: Una vez vinculadas, el adulto ya puede modificar controles de tiempo, contenido, gasto y privacidad de forma remota.
+| Paso | Qué debe ocurrir |
+| --- | --- |
+| **Crear perfil adulto** | El tutor usa una cuenta propia de Roblox, no la contraseña del menor. |
+| **Verificar edad** | Completa el proceso de validación que habilita privilegios parentales. |
+| **Aceptar el vínculo** | Confirma el enlace desde correo o desde Parental Controls. |
+| **Administrar activamente** | Ajusta controles de tiempo, contenido, gasto y privacidad desde su dispositivo. |
 
 ---
 
-> **Beneficios Técnicos de la Vinculación**:
-> * Administrar controles de seguridad desde su propio dispositivo personal.
-> * Acceso a métricas de tiempo diario de uso y conexiones en tiempo real.
-> * Preparar y blindar el acceso a contenido, privacidad y límites de gasto automáticos.
+![Beneficios técnicos de la vinculación: administrar controles desde el dispositivo del adulto, acceder a métricas de uso y conexiones, y preparar acceso a contenido, privacidad y límites de gasto.](/article-images/videojuegos/M2A1.1.png)
 
 ---
 
@@ -88,7 +78,7 @@ Dentro de la aplicación del menor, se accede a *Settings > Parental Controls* y
 
 *   **Dependencia de la Contraseña**: Pensar que conocer la clave del menor es suficiente. El modelo de Roblox exige una cuenta parental enlazada para una gestión completa.
 *   **Omitir la Verificación de Identidad**: Este es un paso obligatorio para obtener los privilegios de administración. Sin él, el panel parental no estará activo.
-*   **Compartir la Cuenta Parental**: Roblox advierte que compartir el acceso del adulto puede comprometer la integridad de las configuraciones de seguridad del menor.
+*   **Compartir la Cuenta Parental**: compartir el acceso del adulto puede comprometer la integridad de las configuraciones de seguridad del menor.
 
 ---
 
@@ -96,18 +86,14 @@ Dentro de la aplicación del menor, se accede a *Settings > Parental Controls* y
 
 ## Checklist Final para Familias
 
-*   Tengo una cuenta propia de Roblox independiente.
-*   He completado la verificación de mi edad ante la plataforma.
-*   He aceptado o iniciado el vínculo con la cuenta del menor correctamente.
-*   Tengo acceso visible al panel de "Parental Controls" desde mi dispositivo.
-*   Estoy listo para configurar las restricciones avanzadas de seguridad.
+La familia puede avanzar si ya tiene cuenta adulta independiente, verificación completada, vínculo aceptado con la cuenta del menor y acceso visible al panel de **Parental Controls**.
 
 ---
 
 ## Microactividad de Refuerzo
 Actualice mentalmente el estado de su cuenta: ¿Ya cuenta con el perfil parental verificado y vinculado? Si falta alguno de estos pasos, es recomendable completarlos antes de proceder a la configuración de chat y límites de gasto mensual.`,
             type: 'article',
-            duration: 12,
+            duration: 5,
             platforms: ['Roblox'],
             riskAreas: ['Seguridad de Cuenta'],
             teaches: ['cuenta adulta enlazada', 'cuenta parental', 'privilegios parentales', 'verificación de identidad', 'verificación de edad', 'add parent', 'parental controls']
@@ -139,21 +125,9 @@ Este video acompaña la activación de la cuenta adulta enlazada y muestra dónd
 
 ## ¿Qué conviene configurar primero?
 
-Para establecer una cultura de seguridad efectiva, se recomienda seguir un orden lógico de configuración: primero el contenido, luego la comunicación y, finalmente, la gestión de tiempo y gasto. Roblox organiza estos controles dentro de un panel parental centralizado que permite ajustar la madurez de las experiencias, filtrar el chat, limitar el acceso a servidores privados y fijar topes mensuales de consumo.
+Para establecer una cultura de seguridad efectiva, conviene seguir un orden lógico de configuración: primero el contenido, luego la comunicación y, finalmente, la gestión de tiempo y gasto. El panel parental centraliza controles para ajustar la madurez de las experiencias, filtrar el chat, limitar el acceso a servidores privados y fijar topes mensuales de consumo.
 
-## Mini glosario para padres
-
-**Madurez de contenido**: nivel que indica qué tan intenso o adecuado puede ser un juego o experiencia para cierta edad.
-
-**Experience Chat**: chat dentro de una experiencia de Roblox; puede permitir hablar durante el juego.
-
-**Direct Chat**: mensajes directos entre usuarios, fuera de la conversación general de una experiencia.
-
-**Parties**: grupos o reuniones dentro de Roblox para jugar o comunicarse con otros usuarios.
-
-**Private Servers**: servidores privados donde se puede jugar con personas invitadas o seleccionadas.
-
-**Conexiones**: contactos o amistades dentro de Roblox; conviene revisar quiénes son y qué permisos tienen.
+![Mini glosario para padres sobre controles de Roblox: madurez de contenido, Experience Chat, Direct Chat, Parties, Private Servers y conexiones.](/article-images/videojuegos/M2A2.png)
 
 ---
 
@@ -165,20 +139,45 @@ Roblox utiliza un sistema de etiquetas de contenido para que los tutores determi
 *   **Comportamiento de Búsqueda**: Las experiencias restringidas pueden aparecer en resultados de búsqueda, pero la cuenta infantil no podrá ingresar a ellas, lo que previene el acceso accidental pero puede generar dudas en el usuario si no conoce el límite.
 *   **Bloqueo Individual**: Es posible bloquear experiencias específicas de forma manual, incluso si su clasificación oficial es baja, si el tutor considera que la temática no es apropiada para su familia.
 
+| Capa de control | Qué permite ajustar | Qué debería revisar la familia |
+| --- | --- | --- |
+| **Madurez de contenido** | Nivel de experiencias disponibles para la cuenta infantil. | Si el nivel elegido coincide con edad, sensibilidad y reglas familiares. |
+| **Experiencias bloqueadas** | Bloqueo manual de experiencias concretas. | Si algún juego específico resulta problemático aunque tenga etiqueta baja. |
+| **Comunicación** | Experience Chat, Direct Chat, Party Chat y Voice Chat cuando esté disponible. | Si el menor necesita verificación de edad, consentimiento parental o restricciones adicionales. |
+| **Servidores privados y Parties** | Invitaciones, sesiones privadas y reuniones de juego. | Si solo pueden participar conexiones conocidas o si está desactivado. |
+| **Tiempo y gasto** | Límites diarios, métricas de uso y tope mensual. | Si el uso y las compras se mantienen dentro de acuerdos familiares. |
+
 ---
 
 ## 2. Privacidad y chat: Ejes de comunicación segura
 
 La interacción social es el núcleo de Roblox, por lo que la gestión del chat es una de las tareas más críticas del tutor. La plataforma emplea un sistema de chat filtrado que bloquea automáticamente contenido inapropiado y el intercambio de datos personales.
 
-> **Reglas de Consentimiento**:
-> * Menores de 5 a 9 años: Requieren consentimiento parental explícito para activar el *Experience Chat*.
-> * Menores de 13 años: Requieren consentimiento parental para habilitar el *Direct Chat* (mensajes directos).
-> * Verificación de Edad: Actualmente, no es posible habilitar ciertas funciones de chat avanzado sin completar previamente la comprobación de identidad del adulto.
+![Reglas de consentimiento en Roblox: menores de 5 a 9 años requieren consentimiento parental para Experience Chat, menores de 13 años para Direct Chat y algunas funciones avanzadas requieren verificación de edad.](/article-images/videojuegos/M2A2.1.png)
 
 ---
 
-## 3. Privacidad extendida: Parties, servidores privados y conexiones
+## 3. Chat de voz en Roblox: qué cambia para una familia
+
+El chat de voz agrega una capa distinta a la supervisión porque la comunicación ya no queda solo en texto. En experiencias compatibles, los usuarios elegibles pueden conectarse a voz desde el icono de audífonos o desde los ajustes dentro de la experiencia. No todas las experiencias tienen voz y la función puede variar por región, edad y configuración de la cuenta.
+
+Roblox exige verificación de edad para acceder a funciones de comunicación como **Experience Chat**, **Voice Chat** y **Party Chat**. Para usar Voice Chat, el usuario debe ser elegible, tener al menos 13 años y completar la verificación de edad correspondiente. Además, el chat de voz no está activado por defecto.
+
+| Elemento | Qué significa para la familia | Qué revisar |
+| --- | --- | --- |
+| **Age check** | La cuenta debe completar verificación de edad para habilitar funciones de comunicación. | Que la edad registrada sea correcta y que el adulto entienda qué función se habilita. |
+| **Voice Chat** | Permite hablar por micrófono dentro de experiencias compatibles. | Si está activado, en qué experiencias se usa y con quién puede hablar. |
+| **Icono de audífonos** | Permite conectarse o desconectarse de la voz dentro de la experiencia. | Que el menor sepa desconectarse si algo incomoda. |
+| **Silenciar usuarios** | En experiencias con voz, se puede silenciar a otras personas. | Enseñar a mutear, bloquear y reportar sin entrar en discusión. |
+| **Moderación de voz** | La voz puede procesarse para seguridad y moderación. | Explicar que lo hablado también debe seguir reglas de respeto y seguridad. |
+
+La voz puede hacer que una interacción se sienta más cercana, rápida e intensa que el chat escrito. Por eso, una familia debe tratarla como una función de comunicación avanzada, no como un simple accesorio del juego.
+
+> **Regla práctica**: Si el menor todavía no puede explicar qué haría ante insultos, presión, preguntas personales o una conversación incómoda, conviene mantener la voz desactivada o muy supervisada.
+
+---
+
+## 4. Privacidad extendida: Parties, servidores privados y conexiones
 
 La seguridad se extiende más allá del chat textual. El panel parental permite configurar el acceso a grupos (*Parties*) y servidores privados (*Private Servers*), limitando estas invitaciones únicamente a "Conexiones" (amigos mutuos) o desactivándolas por completo.
 
@@ -186,7 +185,7 @@ Asimismo, la sección de conexiones permite al tutor revisar la lista de usuario
 
 ---
 
-## 4. Tiempo en pantalla: Gestión de hábitos digitales
+## 5. Tiempo en pantalla: Gestión de hábitos digitales
 
 El control de tiempo en Roblox va más allá de un simple límite horario; proporciona contexto sobre el uso:
 
@@ -196,23 +195,25 @@ El control de tiempo en Roblox va más allá de un simple límite horario; propo
 
 ---
 
-## 5. Gestión del gasto: Prevención de transacciones imprevistas
+## 6. Gestión del gasto: Prevención de transacciones imprevistas
 
 Roblox permite fijar un límite mensual de gasto que se reinicia al finalizar el mes calendario. Este tope cubre la compra de moneda virtual (Robux) y suscripciones dentro de las experiencias.
 
 > **Consideraciones Importantes sobre el Gasto**:
 > * **Tarjetas de Regalo**: El límite mensual no suele afectar el canje de tarjetas de regalo físicas.
-> * **Dispositivos de Consola**: En algunos dispositivos, el límite de Roblox puede no ser efectivo al 100%, por lo que se recomienda configurar restricciones de pago también en la tienda de la consola (Xbox, PlayStation).
+> * **Dispositivos de Consola**: En algunos dispositivos, el límite de Roblox puede no ser suficiente por sí solo, así que conviene configurar restricciones de pago también en la tienda de la consola (Xbox, PlayStation).
 
 ---
 
 ## Jerarquía de Revisión Recomendada
 
-1. **Madurez de Contenido**: Definir qué puede jugar.
-2. **Chat y Comunicación**: Definir con quién puede hablar.
-3. **Privacidad Extendida**: Controlar quién puede unirse a sus sesiones.
-4. **Tiempo en Pantalla**: Establecer rutinas predecibles.
-5. **Límite Mensual de Gasto**: Prevenir compras impulsivas.
+| Prioridad | Configuración | Motivo |
+| --- | --- | --- |
+| **1** | Madurez de contenido. | Evita que el menor entre a experiencias fuera del rango familiar permitido. |
+| **2** | Chat, voz y comunicación. | Reduce contacto no deseado, presión de desconocidos y conversaciones difíciles de supervisar. |
+| **3** | Parties, servidores privados y conexiones. | Limita invitaciones y sesiones a personas conocidas o aprobadas. |
+| **4** | Tiempo de pantalla. | Ayuda a observar hábitos y evitar desplazamiento de sueño, escuela o convivencia. |
+| **5** | Gasto mensual. | Previene compras impulsivas con Robux o suscripciones dentro de experiencias. |
 
 ---
 
@@ -221,7 +222,7 @@ Roblox permite fijar un límite mensual de gasto que se reinicia al finalizar el
 ## Checklist de Configuración Avanzada
 
 *   He ajustado el nivel de madurez de contenido (Minimal/Mild/Moderate).
-*   He configurado las restricciones de Experience Chat y Direct Chat.
+*   He configurado las restricciones de Experience Chat, Direct Chat, Party Chat y Voice Chat si aplica.
 *   He revisado la lista de conexiones actuales del menor.
 *   He establecido un límite diario de tiempo razonable.
 *   He fijado un tope de gasto mensual y activado las notificaciones de compra.
@@ -231,10 +232,10 @@ Roblox permite fijar un límite mensual de gasto que se reinicia al finalizar el
 ## Microactividad de Refuerzo
 Identifique el ajuste que considera más prioritario para su situación familiar hoy: ¿Es la comunicación con desconocidos o el control del tiempo de juego? Comience por ajustar esa capa técnica antes de pasar a las demás.`,
             type: 'article',
-            duration: 12,
+            duration: 9,
             platforms: ['Roblox'],
             riskAreas: ['Privacidad Avanzada', 'Gasto Controlado'],
-            teaches: ['madurez de contenido', 'experience chat', 'direct chat', 'party', 'private servers', 'conexiones', 'tiempo de pantalla', 'límite mensual de gasto', 'bloquear', 'reportar']
+            teaches: ['madurez de contenido', 'experience chat', 'direct chat', 'party chat', 'voice chat', 'chat de voz', 'private servers', 'conexiones', 'tiempo de pantalla', 'límite mensual de gasto', 'bloquear', 'reportar']
         });
 
         const l2_4 = await getOrCreateLesson(mod2._id, courseGames._id, {
@@ -252,7 +253,7 @@ Este video muestra la respuesta práctica que una familia puede aplicar cuando a
             duration: 2,
             platforms: ['Roblox'],
             riskAreas: ['Privacidad Avanzada', 'Gasto Controlado'],
-            teaches: ['bloquear', 'reportar', 'conexiones', 'experience chat', 'direct chat']
+            teaches: ['bloquear', 'reportar', 'conexiones', 'experience chat', 'direct chat', 'voice chat', 'chat de voz']
         });
 
         mod2.lessonOrder = [l2_1._id, l2_2._id, l2_3._id, l2_4._id];
@@ -273,6 +274,7 @@ Este video muestra la respuesta práctica que una familia puede aplicar cuando a
                     pairs: [
                         { key: 'Madurez de contenido', value: 'Ayuda a decidir qué experiencias puede abrir' },
                         { key: 'Chat de experiencia', value: 'Controla parte de la comunicación dentro de experiencias' },
+                        { key: 'Chat de voz', value: 'Permite hablar por micrófono en experiencias compatibles si la cuenta es elegible' },
                         { key: 'Tiempo de pantalla', value: 'Permite limitar cuánto tiempo diario usa Roblox' },
                         { key: 'Límite mensual de gasto', value: 'Define cuánto puede gastar el menor en un mes' },
                         { key: 'Conexiones', value: 'Permite revisar o actuar sobre personas vinculadas a la cuenta del menor' }
@@ -280,12 +282,13 @@ Este video muestra la respuesta práctica que una familia puede aplicar cuando a
                     correctAnswer: {
                         'Madurez de contenido': 'Ayuda a decidir qué experiencias puede abrir',
                         'Chat de experiencia': 'Controla parte de la comunicación dentro de experiencias',
+                        'Chat de voz': 'Permite hablar por micrófono en experiencias compatibles si la cuenta es elegible',
                         'Tiempo de pantalla': 'Permite limitar cuánto tiempo diario usa Roblox',
                         'Límite mensual de gasto': 'Define cuánto puede gastar el menor en un mes',
                         'Conexiones': 'Permite revisar o actuar sobre personas vinculadas a la cuenta del menor'
                     }
                 },
-                explanation: 'Tip: La madurez filtra contenidos, el chat la comunicación, el tiempo el uso diario, el gasto la billetera y las conexiones los vínculos.',
+                explanation: 'Tip: La madurez filtra contenidos; el chat y la voz controlan comunicación; el tiempo limita uso diario; el gasto cuida la billetera; las conexiones muestran vínculos.',
                 points: 15,
                 platform: 'Roblox'
             },
@@ -362,13 +365,27 @@ Este video muestra la respuesta práctica que una familia puede aplicar cuando a
                 options: [
                     { text: 'Madurez de contenido', isCorrect: true },
                     { text: 'Experience chat o comunicación', isCorrect: true },
+                    { text: 'Voice Chat si la cuenta es elegible y la experiencia lo permite', isCorrect: true },
                     { text: 'Límite mensual de gasto', isCorrect: true },
                     { text: 'Color del avatar del menor', isCorrect: false },
                     { text: 'Marca del dispositivo donde se juega', isCorrect: false },
                     { text: 'Nombre del primer juego que abrió el menor', isCorrect: false }
                 ],
-                explanation: 'Tip: Lo más crítico al configurar Roblox es revisar el contenido, el chat y el límite de gasto. El avatar, el dispositivo y el historial no son controles de seguridad.',
+                explanation: 'Tip: Lo más crítico al configurar Roblox es revisar contenido, comunicación por texto o voz y límite de gasto. El avatar, el dispositivo y el historial no son controles de seguridad.',
                 points: 15,
+                platform: 'Roblox'
+            },
+            {
+                text: 'Caso: Un menor de 13 años pide activar Voice Chat en Roblox porque sus amigos dicen que así es más divertido. ¿Cuál respuesta se alinea mejor con el módulo?',
+                type: 'case_study',
+                options: [
+                    { text: 'Activarlo de inmediato porque el chat de voz es más seguro que el texto.', isCorrect: false },
+                    { text: 'Revisar edad, elegibilidad, controles de comunicación y madurez del menor antes de permitir una función de voz.', isCorrect: true },
+                    { text: 'Permitirlo solo si promete no hablar con desconocidos, sin revisar configuración.', isCorrect: false },
+                    { text: 'Ignorar el tema porque la voz no forma parte de los controles parentales.', isCorrect: false }
+                ],
+                explanation: 'Voice Chat es una función de comunicación avanzada. Requiere elegibilidad, verificación de edad y una revisión familiar de riesgos, controles y madurez.',
+                points: 10,
                 platform: 'Roblox'
             },
             {

@@ -6,7 +6,7 @@ module.exports = async function seedGameModule(context) {
         const mod3 = await getOrCreateModule(courseGames._id, {
             title: 'Módulo 3: Minecraft: cuentas familiares, multijugador y Realms',
             description: 'Navegando de forma segura en mundos compartidos y privados.',
-            duration: '28 min'
+            duration: '14 min'
         });
         await Quiz.deleteMany({ refId: mod3._id, scope: 'module' });
 
@@ -18,19 +18,12 @@ En Minecraft, la primera duda fundamental para una familia es: "¿qué edición 
 
 Minecraft se divide en dos grandes "familias": **Java Edition** y **Bedrock Edition**.
 
-![Diferencias entre Minecraft Java y Bedrock](/uploads/minecraft_java_vs_bedrock.png)
+| Edición | Dónde se usa más | Qué permite | Qué debería revisar la familia |
+| --- | --- | --- | --- |
+| **Java Edition** | Computadoras Windows, macOS y Linux. | Servidores externos, mods y comunidades más abiertas. | A qué servidores entra el menor, qué mods instala y qué comunidad frecuenta. |
+| **Bedrock Edition** | Consolas, celulares, tablets y Windows. | Cross-play, Marketplace y controles vinculados a Microsoft/Xbox Family. | Privacidad, permisos de multijugador, Realms, amistades y compras. |
 
-## Mini glosario para padres
-
-**Java Edition**: versión de Minecraft para computadora, más abierta a servidores externos y mods.
-
-**Bedrock Edition**: versión de Minecraft usada en consolas, celulares, tablets y Windows; facilita jugar entre dispositivos distintos.
-
-**Cross-play**: jugar con personas que usan otro dispositivo, por ejemplo una consola y un celular.
-
-**Marketplace**: tienda oficial de Minecraft Bedrock para comprar o descargar contenido dentro del ecosistema del juego.
-
-**Servidor público**: espacio abierto donde pueden entrar muchos usuarios, incluidos desconocidos.
+![Mini glosario para padres sobre Minecraft: Java Edition, Bedrock Edition, cross-play, Marketplace y servidor público.](/article-images/videojuegos/M3A1.png)
 
 ### Edición Java (Java Edition)
 Es la versión original para computadoras (Windows, macOS, Linux). 
@@ -48,13 +41,23 @@ Es la versión multiplataforma que funciona en consolas (Xbox, PlayStation, Nint
 
 A grandes rasgos, Minecraft permite varias formas de juego: jugar solo, jugar en multijugador con otras personas, unirse a un Realm o entrar a un servidor.
 
-![Mapa de la ruta de acceso al multijugador y niveles de supervisión](/uploads/minecraft_multiplayer_map.png)
+| Forma de juego | Con quién interactúa el menor | Nivel de supervisión recomendado |
+| --- | --- | --- |
+| **Juego individual** | Nadie más dentro del mundo. | Revisar tiempo de uso y contenido instalado. |
+| **Multijugador local** | Personas cercanas en la misma red o dispositivo. | Confirmar quién participa y cuánto tiempo juegan. |
+| **Realm privado** | Invitados aprobados por el dueño del Realm. | Revisar lista de invitados, permisos y chat. |
+| **Servidor público** | Usuarios desconocidos o comunidades amplias. | Revisar reglas, moderación, chat, reportes y privacidad antes de permitirlo. |
 
 ### Entonces, ¿qué es exactamente un Realm?
 
 Minecraft describe los **Realms** como servidores privados alojados en la nube para jugar con amistades. El dueño del Realm controla quién entra mediante invitaciones, el mundo está siempre en línea y los amigos invitados pueden jugar incluso cuando el propietario no está conectado.
 
-![Funcionamiento de un Realm: Dueño, invitaciones y mundo privado siempre activo](/uploads/minecraft_realm_diagram.png)
+| Elemento del Realm | Qué significa | Por qué importa para una familia |
+| --- | --- | --- |
+| **Dueño del Realm** | Persona que administra el mundo privado. | Decide quién puede entrar y puede retirar invitaciones. |
+| **Invitaciones** | Acceso otorgado a jugadores específicos. | Reduce la exposición frente a desconocidos si la lista se mantiene controlada. |
+| **Mundo siempre activo** | El Realm puede estar disponible aunque el dueño no esté conectado. | La familia debe revisar reglas, horarios y actividad aunque el adulto no esté viendo la partida. |
+| **Grupo cerrado** | Entorno pensado para amistades o personas conocidas. | Es más controlable que un servidor público masivo. |
 
 Es la opción intermedia: más social que el juego solitario, pero mucho más segura que un servidor público masivo, ya que el entorno es cerrado y administrado por alguien conocido.
 
@@ -64,15 +67,11 @@ Es la opción intermedia: más social que el juego solitario, pero mucho más se
 
 No todas las formas de juego conllevan el mismo nivel de exposición. Podemos clasificar el riesgo según el nivel de interacción social:
 
-![Semáforo pedagógico de niveles de riesgo en Minecraft](/uploads/minecraft_risk_semaphore.png)
-
-1. **Riesgo Bajo (Verde)**: Juego en solitario o multijugador local (en la misma casa). No hay interacción con extraños.
-2. **Riesgo Moderado (Amarillo)**: Realms o servidores privados con amigos conocidos de la vida real. El riesgo es social (conflictos entre amigos) pero controlado.
-3. **Riesgo Alto (Rojo)**: Servidores públicos masivos. Aquí el menor interactúa con miles de usuarios desconocidos. Es vital tener configurados los filtros de chat y la privacidad de la cuenta.
+![Semáforo de riesgo en Minecraft: verde para juego individual o multijugador local, amarillo para Realms o servidores privados con amistades conocidas y rojo para servidores públicos masivos.](/article-images/videojuegos/M3A1.1.png)
 
 > **Regla de Oro**: Antes de permitir el multijugador, asegúrese de conocer si su hijo está en un mundo compartido solo con amigos o en un servidor abierto a todo el mundo.`,
             type: 'article',
-            duration: 12,
+            duration: 5,
             platforms: ['Minecraft'],
             riskAreas: ['Seguridad de Cuenta', 'Privacidad Avanzada'],
             teaches: ['java edition', 'bedrock edition', 'realm', 'servidor público', 'microsoft family safety', 'multijugador local', 'riesgo bajo', 'riesgo moderado', 'riesgo alto']
@@ -104,18 +103,20 @@ Este video muestra la ruta visual para revisar los permisos familiares que más 
 
 Entender esto ahorra horas de frustración intentando arreglar "errores" que, en realidad, son restricciones parentales activas. La privacidad en Minecraft se construye en capas, desde quién puede ser amigo hasta quién puede enviar mensajes de voz.
 
-![Las 4 capas de permisos en Minecraft](/uploads/minecraft_permissions_layers.png)
+| Capa de permiso | Qué controla | Qué debería revisar la familia |
+| --- | --- | --- |
+| **Grupo familiar Microsoft** | Si la cuenta infantil está bajo supervisión adulta. | Que el menor use una cuenta vinculada al adulto responsable. |
+| **Multijugador** | Si puede entrar a mundos, servidores o partidas de otras personas. | Permisos como Join Multiplayer Games y Can join Realms. |
+| **Amistades** | Si puede agregar o recibir contactos mediante Gamertag. | Quién está en su lista y si son personas conocidas. |
+| **Comunicación** | Chat de texto, voz y mensajes asociados al juego. | Si está permitido, limitado a amistades o desactivado. |
 
 ## ¿Por qué mi hijo no puede jugar con amigos?
 
 Esta es la pregunta más frecuente en soporte técnico. Si el menor ya tiene el juego pero no puede unirse a un mundo compartido, suele deberse a que la cuenta infantil no tiene los permisos necesarios en la configuración de familia de Microsoft.
 
-![Flujo de diagnóstico: ¿Por qué no puede ganar con amigos?](/uploads/minecraft_cant_play_flow.png)
+![Diagnóstico para Minecraft: revisar grupo familiar, permiso Join Multiplayer Games, permiso Can join Realms y configuración de amigos o Gamertags.](/article-images/videojuegos/M3A2.png)
 
-Minecraft y Xbox separan las acciones básicas en permisos granulares:
-1. **Unirse a partidas multijugador**: Permite entrar a mundos de otros y servidores.
-2. **Unirse a Realms**: Permite entrar a servidores privados alojados por Microsoft.
-3. **Agregar amistades**: Permite buscar y añadir amigos mediante Gamertags.
+Minecraft y Xbox separan las acciones básicas en permisos granulares: unirse a partidas multijugador, entrar a Realms y agregar amistades mediante Gamertag.
 
 ## Mini glosario para padres
 
@@ -135,12 +136,18 @@ Minecraft y Xbox separan las acciones básicas en permisos granulares:
 
 Una distinción crucial para las familias es que **poder jugar con alguien no significa necesariamente poder hablar con ellos**. Un tutor puede permitir que el menor entre a un servidor de amigos, pero bloquear completamente el chat de texto o de voz.
 
-![Comparativa visual: Jugar vs Comunicarse](/uploads/minecraft_play_vs_chat_compare.png)
+| Permiso | Qué permite | Riesgo principal | Revisión recomendada |
+| --- | --- | --- | --- |
+| **Jugar con otras personas** | Entrar a mundos, servidores o Realms. | Contacto con jugadores no previstos o entornos poco moderados. | Confirmar si son amigos, Realm privado o servidor público. |
+| **Comunicarse con otras personas** | Usar chat de texto, voz o mensajes. | Compartir datos personales, recibir presión o mantener conversaciones incómodas. | Limitar comunicación a amistades, usar filtros y revisar señales de alerta. |
 
-### Capas de Comunicación
-* **Chat de Voz y Texto**: Controla si el menor escucha o lee a otros.
-* **Comunicación fuera de Xbox**: Muy importante para servidores de terceros donde la moderación puede variar.
-* **Visibilidad del Perfil**: Quién puede ver qué está jugando el menor o su información básica.
+### Capas de comunicación
+
+| Capa | Qué conviene revisar |
+| --- | --- |
+| **Chat de voz y texto** | Si el menor escucha o lee a otros jugadores. |
+| **Comunicación fuera de Xbox** | Riesgo especial en servidores de terceros con moderación variable. |
+| **Visibilidad del perfil** | Quién puede ver qué está jugando o su información básica. |
 
 ---
 
@@ -150,16 +157,11 @@ En versiones recientes (especialmente Bedrock), Minecraft ha incluido **Realms S
 
 ---
 
-## Checklist de Revisión Prioritaria
-
-1. **Gestión Familiar**: Confirmar que la cuenta del menor está vinculada a un **Microsoft Family Group**.
-2. **Permisos de Juego**: Habilitar "Join Multiplayer Games" y "Can join Realms".
-3. **Filtros Sociales**: Configurar en "Allow" o "Friends" la capacidad de comunicarse con voz y texto.
-4. **Lista de Amigos**: Supervisar periódicamente a quién agrega el menor mediante la **Xbox Family Settings app**.
+![Checklist de revisión prioritaria para Minecraft: gestión familiar, permisos de juego, filtros sociales y lista de amigos.](/article-images/videojuegos/M3A2.1.png)
 
 > **Recuerda**: Supervisar Minecraft no es solo elegir mundos; es configurar la llave maestra de la cuenta Microsoft que abre las puertas de la interacción social.`,
             type: 'article',
-            duration: 12,
+            duration: 5,
             platforms: ['Minecraft'],
             riskAreas: ['Seguridad de Cuenta', 'Privacidad Avanzada'],
             teaches: ['join multiplayer games', 'can join realms', 'agregar amistades', 'chat de voz', 'chat de texto', 'realms stories', 'xbox family settings', 'microsoft family group']

@@ -5,7 +5,7 @@ module.exports = async function seedGameModule(context) {
     const mod1 = await getOrCreateModule(courseGames._id, {
         title: 'Módulo 1: Fundamentos de videojuegos en línea',
         description: 'Entendiendo el panorama general de los mundos digitales.',
-        duration: '40 min'
+        duration: '15 min'
     });
     await Quiz.deleteMany({ refId: mod1._id, scope: 'module' });
 
@@ -19,13 +19,7 @@ Los videojuegos en línea son plataformas o juegos que usan internet para conect
 
 ## Los 5 conceptos base del módulo
 
-Antes de avanzar, una familia necesita entender con claridad cinco conceptos que sí aparecerán en la evaluación:
-
-1. **Cuenta**: perfil que guarda progreso, permisos, amistades y configuraciones.
-2. **Servidor**: espacio o sistema que coordina la partida y conecta a varios jugadores.
-3. **Chat**: función de texto o voz para comunicarse dentro del juego.
-4. **Compra dentro del juego**: pago digital por moneda virtual, objetos, mejoras o acceso.
-5. **Multijugador**: función que permite jugar con otras personas.
+Antes de avanzar, una familia necesita ubicar cinco conceptos que sí aparecerán en la evaluación: **cuenta**, **servidor**, **chat**, **compra dentro del juego** y **multijugador**. La siguiente guía visual los define y muestra qué revisar en cada caso.
 
 > **Idea clave:** Si la familia entiende estos cinco conceptos, deja de ver el juego como una "caja negra" y puede supervisarlo con más lógica.
 
@@ -33,22 +27,19 @@ Antes de avanzar, una familia necesita entender con claridad cinco conceptos que
 
 Una forma simple de verlo es esta:
 
-1. el menor entra desde un **dispositivo**,
-2. inicia sesión con su **cuenta**,
-3. la información viaja por **internet**,
-4. un **servidor** coordina la partida,
-5. aparecen funciones como **multijugador**, **chat** y, en algunos casos, **compras dentro del juego**.
+![Cómo funciona un juego en línea: el menor entra desde un dispositivo, inicia sesión con su cuenta, la información viaja por internet, un servidor coordina la partida y aparecen funciones como multijugador, chat y compras dentro del juego.](/article-images/videojuegos/M1A1.png)
 
 ## Qué conviene revisar antes de autorizar un juego
 
-Antes de permitir el acceso a una nueva plataforma, conviene revisar:
+Antes de permitir el acceso a una nueva plataforma, conviene convertir la duda general en una revisión concreta:
 
-1. si permite hablar con otras personas,
-2. si el chat es de texto, voz o ambos,
-3. si requiere cuenta propia,
-4. si incluye compras o moneda virtual,
-5. si tiene controles parentales,
-6. si el menor podría interactuar con desconocidos.
+| Punto de revisión | Pregunta familiar | Decisión posible |
+| --- | --- | --- |
+| **Comunicación** | ¿El juego permite chat de texto, voz o mensajes privados? | Activar filtros, limitar a amistades o desactivar comunicación. |
+| **Cuenta** | ¿La cuenta del menor está vinculada a un adulto o grupo familiar? | Configurar controles parentales antes de permitir multijugador. |
+| **Compras** | ¿Hay moneda virtual, pases, suscripciones o tienda integrada? | Establecer límite, quitar métodos de pago o exigir permiso previo. |
+| **Multijugador** | ¿Juega con conocidos, invitados o servidores públicos? | Permitir solo espacios conocidos o supervisados. |
+| **Controles parentales** | ¿La plataforma permite ajustar contenido, privacidad y tiempo? | Revisar el panel antes de autorizar el uso cotidiano. |
 
 ## Dos ejemplos que este curso compara
 
@@ -57,7 +48,7 @@ Antes de permitir el acceso a una nueva plataforma, conviene revisar:
 
 > **Actividad breve:** Piensa en el juego que usa tu hijo o hija. ¿Ya sabes si lo más importante que debes revisar ahí es la cuenta, el chat, el multijugador o las compras?`,
         type: 'article',
-        duration: 12,
+        duration: 4,
         platforms: ['Roblox', 'Minecraft'],
         riskAreas: ['Seguridad de Cuenta', 'Privacidad Avanzada', 'Gasto Controlado'],
         teaches: ['internet', 'cuenta', 'servidor', 'chat', 'multijugador', 'compra dentro del juego', 'compras', 'desconocidos', 'controles parentales']
@@ -79,20 +70,13 @@ Esta guía existe para que los conceptos del examen salgan exactamente de algo q
 | **Compra dentro del juego** | Pago digital por moneda virtual, objetos, mejoras o acceso. | Si usa dinero real, si hay límite de gasto y si el menor pide permiso. |
 | **Multijugador** | Función que permite jugar con otras personas. | Con quién juega el menor y qué tan abierto está ese entorno. |
 
-## Ruta visual de un juego en línea
-
-1. **Dispositivo**
-2. **Cuenta**
-3. **Internet**
-4. **Servidor**
-5. **Multijugador y chat**
-6. **Compras**
+![Ruta visual de un juego en línea: dispositivo, cuenta, internet, servidor, multijugador y chat, y compras.](/article-images/videojuegos/M1G1.png)
 
 ## Regla práctica
 
 Si una familia entiende estos cinco conceptos, ya tiene el vocabulario básico para interpretar el resto del curso y responder el examen con lógica.`,
         type: 'guide',
-        duration: 12,
+        duration: 3,
         platforms: ['Roblox', 'Minecraft'],
         riskAreas: ['Seguridad de Cuenta', 'Privacidad Avanzada', 'Gasto Controlado'],
         teaches: ['cuenta', 'servidor', 'chat', 'compra dentro del juego', 'multijugador', 'internet']
@@ -122,44 +106,25 @@ Este video muestra cómo se ven y cómo se sienten Roblox y Minecraft cuando un 
 
 > **Perspectiva inicial:** Roblox y Minecraft no se supervisan igual. Uno funciona más como plataforma de experiencias sociales y el otro como juego sandbox cuya seguridad depende de la edición y del entorno de juego.
 
-## Mini glosario para padres
+## Términos clave antes de comparar
 
-**Sandbox**: juego abierto donde el menor puede construir, explorar y crear objetivos propios, no solo seguir una misión fija.
+Antes de comparar ambas plataformas, conviene aclarar algunos términos que se usarán durante el curso:
 
-**Experiencia de Roblox**: juego o mundo creado dentro de Roblox. Roblox funciona como una plataforma que contiene muchas experiencias distintas.
-
-**Realm**: mundo privado de Minecraft administrado por invitación, normalmente para jugar con personas elegidas.
-
-**Bedrock Edition**: versión de Minecraft usada en consolas, celulares, tablets y Windows, con Marketplace y Minecoins.
-
-**Java Edition**: versión de Minecraft para computadora, más abierta a mods y descargas externas.
+![Mini glosario para padres: sandbox, experiencia de Roblox, Realm, Bedrock Edition y Java Edition.](/article-images/videojuegos/M1A2.png)
 
 ## 1. Plataforma vs sandbox
 
-**Roblox** se parece más a una plataforma con muchas experiencias distintas dentro del mismo ecosistema.
-
-**Minecraft** se parece más a un juego sandbox en el que la familia debe revisar el tipo de mundo, la edición y el multijugador.
+La diferencia central no está solo en cómo se ven. **Roblox** se revisa como una plataforma con muchas experiencias creadas por usuarios; por eso importa saber qué experiencia abrió el menor, con quién interactúa y si puede gastar. **Minecraft** se revisa como un juego sandbox; por eso importa identificar la edición, el tipo de mundo y si juega solo, en Realm o en servidor público.
 
 ## 2. Qué cambia para la supervisión
 
-En **Roblox** conviene revisar:
-
-1. la experiencia específica,
-2. el chat,
-3. la interacción social,
-4. el gasto dentro del juego.
-
-En **Minecraft** conviene revisar:
-
-1. la edición del juego,
-2. si juega solo, en Realm o en servidor público,
-3. los permisos familiares de Microsoft/Xbox,
-4. el tipo de mundo o entorno compartido.
+La supervisión cambia porque Roblox concentra el riesgo en experiencias sociales y gasto dentro de la plataforma, mientras que Minecraft depende mucho de la edición, el mundo y el tipo de multijugador elegido.
 
 ## 3. Economía y compras
 
-* **Roblox** usa **Robux**.
-* **Minecraft Bedrock** usa **Minecoins** y el **Marketplace**.
+La economía digital también se revisa distinto en cada plataforma:
+
+![Comparación de economía y compras: Roblox usa Robux para contenido dentro de experiencias y Minecraft Bedrock usa Minecoins en Marketplace.](/article-images/videojuegos/M1A2.1.png)
 
 ## 4. Qué pregunta una familia antes de dejar jugar
 
@@ -168,7 +133,7 @@ En **Minecraft** conviene revisar:
 
 > **Conclusión:** No existe una plataforma "idéntica" a la otra. Cada una pide una lógica de revisión distinta, y por eso el examen compara ambas.`,
         type: 'article',
-        duration: 12,
+        duration: 4,
         platforms: ['Roblox', 'Minecraft'],
         riskAreas: ['Seguridad de Cuenta', 'Privacidad Avanzada', 'Gasto Controlado'],
         teaches: ['roblox', 'minecraft', 'plataforma', 'sandbox', 'experiencia', 'mundo', 'creativo', 'supervivencia', 'robux', 'minecoins']

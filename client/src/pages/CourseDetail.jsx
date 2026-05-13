@@ -171,11 +171,9 @@ const CourseDetail = () => {
                                 <motion.div
                                     initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
                                     animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                                    className="p-6 bg-yellow-500/10 border border-yellow-500/20 rounded-3xl flex items-center gap-4 shadow-2xl shadow-yellow-500/10"
+                                    className="px-6 py-4 bg-yellow-500/10 border border-yellow-500/20 rounded-3xl flex items-center gap-4 shadow-2xl shadow-yellow-500/10 overflow-visible"
                                 >
-                                    <div className="p-3 bg-yellow-500 rounded-2xl shadow-lg shadow-yellow-500/30">
-                                        <Trophy className="w-8 h-8 text-black" />
-                                    </div>
+                                    <img src="/images/copa_acreditada.png" alt="Copa acreditada" className="w-28 h-28 object-contain flex-shrink-0 -my-6" style={{ filter: 'drop-shadow(0 4px 12px rgba(180,83,9,0.45))' }} />
                                     <div>
                                         <p className="text-yellow-600 dark:text-yellow-500 font-black text-xl uppercase tracking-tighter leading-tight">Curso Acreditado</p>
                                         <p className="text-yellow-600/70 dark:text-yellow-500/70 text-xs font-bold font-serif italic">Maestría Digital Alcanzada</p>

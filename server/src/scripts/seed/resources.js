@@ -6,6 +6,7 @@ const resources = [
         category: 'Grooming',
         platform: 'Roblox',
         ageRange: 'Menor de edad (max. 17)',
+        videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
         summary: 'Un menor fue contactado en Roblox y viajó desde Mérida a CDMX para encontrarse con un adulto.',
         content: 'Autoridades capitalinas detuvieron a un hombre señalado por contactar, manipular y extorsionar a menores a través de Roblox. El caso se activó cuando se alertó que un menor proveniente de Mérida había llegado a la Ciudad de México para un encuentro presencial.',
         fullContent: 'Las fuentes citadas reportan que un hombre fue detenido en CDMX después de que un menor, contactado por Roblox, viajara desde Mérida para encontrarse con él. El valor preventivo del caso está en la secuencia: una interacción de juego puede pasar a confianza, después a comunicación privada y finalmente a un encuentro físico. Para familias, el punto crítico no es prohibir todo juego, sino detectar cuando una relación digital empieza a pedir secreto, obediencia, regalos, fotos, traslado o contacto fuera de la plataforma.',
@@ -181,10 +182,6 @@ const resources = [
                 label: 'DW',
                 url: 'https://amp.dw.com/es/detienen-a-youtuber-mexicana-yosstop-por-posesi%C3%B3n-de-pornograf%C3%ADa-infantil/a-58114732',
             },
-            {
-                label: 'El Pais',
-                url: 'https://elpais.com/mexico/2021-07-08/yoseline-no-describe-un-acto-sexual-no-lo-hace-con-fin-lascivo-que-requiere-la-pornografia.html',
-            },
         ],
     },
     {
@@ -299,7 +296,7 @@ const resources = [
             },
             {
                 label: 'BBC News',
-                url: 'https://feeds.bbci.co.uk/news/uk-england-essex-30205716',
+                url: 'https://www.bbc.com/news/uk-england-essex-30205716',
             },
         ],
     },

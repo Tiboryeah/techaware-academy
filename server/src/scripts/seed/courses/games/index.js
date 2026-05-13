@@ -17,7 +17,7 @@ module.exports = async function seedModule(context) {
         platforms: ['Roblox', 'Minecraft'],
         riskAreas: ['Seguridad de Cuenta', 'Privacidad Avanzada', 'Gasto Controlado', 'Salud Mental y Física'],
         status: 'published',
-        duration: '3 horas',
+        duration: '1 hora 58 min',
     });
 
     await Lesson.deleteMany({ courseId: courseGames._id });

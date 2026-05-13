@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import api from '../services/api';
@@ -16,9 +16,7 @@ import {
     Bell,
     ChevronRight,
     Star,
-    Gamepad2,
-    Users,
-    Tv,
+
     TrendingUp,
     RotateCw,
     Download,
@@ -351,21 +349,25 @@ const Dashboard = () => {
 
     const badges = courses.map(course => {
         const isCompleted = progressData?.completedCourseIds?.some(id => String(id) === String(course._id));
-        let icon = <Trophy />;
+        let imageColor = '/images/badge_videojuegos.png';
+        let imageGray  = '/images/badgegris_videojuegos.png';
         let color = "indigo";
 
         if (course.category?.toLowerCase() === 'videojuegos') {
-            icon = <Gamepad2 />;
+            imageColor = '/images/badge_videojuegos.png';
+            imageGray  = '/images/badgegris_videojuegos.png';
             color = "purple";
         } else if (course.category?.toLowerCase() === 'redes sociales') {
-            icon = <Users />;
+            imageColor = '/images/badge_redes_sociales.png';
+            imageGray  = '/images/badgegris_redes.png';
             color = "pink";
         } else if (course.category?.toLowerCase() === 'streaming') {
-            icon = <Tv />;
+            imageColor = '/images/badge_streaming.png';
+            imageGray  = '/images/badgegris_streaming.png';
             color = "red";
         }
 
-        return { id: course._id, title: course.title, isCompleted, icon, color, category: course.category };
+        return { id: course._id, title: course.title, isCompleted, imageColor, imageGray, color, category: course.category };
     });
 
     return (
@@ -755,12 +757,11 @@ const Dashboard = () => {
                                             )}
 
                                             <div className="flex items-center gap-6 relative z-10">
-                                                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-500 ${badge.isCompleted
-                                                    ? `bg-gradient-to-br ${theme.gradient} text-white shadow-xl ${theme.shadow}`
-                                                    : 'bg-gray-200 dark:bg-gray-700 text-gray-500'
-                                                    }`}>
-                                                    {React.cloneElement(badge.icon, { className: "w-7 h-7" })}
-                                                </div>
+                                                <img
+                                                    src={badge.isCompleted ? badge.imageColor : badge.imageGray}
+                                                    alt={badge.title}
+                                                    className="w-16 h-16 object-contain flex-shrink-0"
+                                                />
                                                 <div>
                                                     <p className={`text-base font-black leading-tight mb-1 ${badge.isCompleted ? 'text-gray-900 dark:text-white' : 'text-gray-400'}`}>
                                                         {badge.title}

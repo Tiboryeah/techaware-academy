@@ -124,6 +124,14 @@ const resourceSchema = mongoose.Schema(
             type: [sourceSchema],
             default: [],
         },
+        videoUrl: {
+            type: String,
+            default: '',
+        },
+        caseDate: {
+            type: String,
+            default: '',
+        },
     },
     {
         timestamps: true,

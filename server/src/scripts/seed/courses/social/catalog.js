@@ -34,6 +34,7 @@ const buildSocialCatalog = () => {
         },
         module6Video1: {
             videoUrl: 'https://www.youtube.com/watch?v=9A1YB20agDU',
+            platforms: ['TikTok', 'Instagram'],
         },
         module6Video2: {
             videoUrl: 'https://www.youtube.com/watch?v=fuNO4m1wQGU',
@@ -56,8 +57,6 @@ Entender esa diferencia es el primer paso para acompañar mejor a los menores.
 TikTok, Discord e Instagram no solo entretienen. También organizan cómo los menores descubren contenido, hablan con otras personas, comparten información y construyen identidad en línea.
 
 Por eso, para supervisarlas bien, no basta con saber sus nombres. Hay que entender qué hacen, cómo atrapan la atención y qué tipo de interacción permiten.
-
-## Comparación rápida
 
 ![Comparación visual entre TikTok, Discord e Instagram: TikTok se centra en videos cortos recomendados por algoritmo, Discord en chats, servidores, voz, video y comunidades, e Instagram en perfil, fotos, videos, historias y mensajes.](/article-images/redes-sociales/RedesArticulo1.png)
 
@@ -126,8 +125,6 @@ Un error común es pensar que "si solo está viendo cosas" no hay riesgo. En una
 
 Cada plataforma abre riesgos distintos, aunque desde fuera parezcan parte del mismo tiempo de pantalla.
 
-## Qué pueden hacer los padres
-
 ![Acciones para padres: identificar qué plataforma usa más el menor, entender la función principal de cada app, revisar herramientas parentales oficiales, distinguir entre ver, publicar e interactuar, y acompañar antes de prohibir.](/article-images/redes-sociales/RedesArticulo1.2.png)
 
 ## Preguntas útiles para conversar en casa
@@ -182,8 +179,6 @@ Estas plataformas no solo muestran contenido. También organizan la experiencia 
 * Discord gira alrededor de servidores, canales y conversación.
 
 Aunque funcionan distinto, las tres logran algo parecido: hacer que el menor sienta que siempre hay algo interesante, alguien con quien interactuar o una respuesta que esperar.
-
-## Qué las hace tan atractivas
 
 ![Factores que hacen atractivas a las redes sociales: recompensa rápida, pertenencia, reconocimiento, personalización y expresión personal.](/article-images/redes-sociales/RedesArticulo2.png)
 
@@ -251,8 +246,6 @@ Una red puede empezar siendo atractiva por motivos sanos, como expresarse, apren
 * le cuesta detenerse,
 * o deja de lado sueño, escuela o convivencia por seguir conectado.
 
-## Qué pueden hacer los padres
-
 ![Acciones para padres: preguntar qué le gusta de cada app, distinguir si busca entretenerse, hablar o publicar, revisar herramientas familiares oficiales, hablar de likes, seguidores y presión social, y observar si la app desplaza sueño, escuela o convivencia.](/article-images/redes-sociales/RedesArticulo2.2.png)
 
 ## Preguntas útiles para conversar en casa
@@ -310,8 +303,6 @@ Muchos niños creen que solo comparten datos cuando escriben su nombre, su edad 
 * o dejan visibles sus contactos y actividad.
 
 La privacidad no depende solo de una publicación. También depende de pequeños datos que, juntos, dicen mucho.
-
-## Qué tipo de datos pueden quedar expuestos
 
 ![Tipos de datos que pueden quedar expuestos: datos de perfil, red de contactos, contenido publicado, ubicación y contexto, actividad dentro de la app y permisos del dispositivo.](/article-images/redes-sociales/M2A1.png)
 
@@ -408,8 +399,6 @@ Un menor puede decir "yo no comparto nada personal" y aun así tener visibles:
 
 La exposición muchas veces no viene de una sola publicación, sino de la suma de varios detalles pequeños.
 
-## Qué pueden hacer los padres
-
 ![Acciones para padres: revisar junto al menor su perfil y configuración de privacidad, limitar permisos de cámara, micrófono, contactos, fotos y ubicación, confirmar si la cuenta es pública o privada, revisar quién puede enviar mensajes o solicitudes, y hablar de huella digital y rastro de información.](/article-images/redes-sociales/M2A1.1.png)
 
 ## Preguntas útiles para conversar en casa
@@ -469,8 +458,6 @@ La huella digital no se forma solo con publicaciones grandes o claramente import
 * y hábitos de uso.
 
 Por eso conviene enseñar a pensar antes de publicar, reaccionar o compartir.
-
-## Cómo se construye la huella digital
 
 ![Cómo se construye la huella digital: subir fotos o videos, comentar o reaccionar, seguir cuentas o unirse a grupos, compartir ubicación o contexto, y mantener perfiles muy abiertos.](/article-images/redes-sociales/M2A2.png)
 
@@ -540,8 +527,6 @@ En realidad, la huella digital suele ser más amplia e incluye:
 * contactos,
 * y contenidos que otros guardaron o difundieron.
 
-## Qué pueden hacer los padres
-
 ![Acciones para padres sobre huella digital: hablar con el menor antes de publicar, revisar juntos privacidad y visibilidad, explicar que una captura o reenvío puede multiplicar el alcance, preguntar si estaría cómodo viendo ese contenido en un año, y cuidar lo que los adultos publican sobre él.](/article-images/redes-sociales/M2A2.1.png)
 
 ## Preguntas útiles para conversar en casa
@@ -597,8 +582,6 @@ En TikTok, Discord e Instagram el ciberacoso puede tomar formas distintas porque
 
 Por eso no basta con preguntar si alguien lo molestó. Conviene entender dónde pasó, cómo pasó y con quién ocurrió.
 
-## Cómo puede aparecer en cada plataforma
-
 ![Cómo puede aparecer el ciberacoso en TikTok, Discord e Instagram: comentarios hirientes, ataques, burlas, hostigamiento, exclusión, mensajes ofensivos y cuentas falsas.](/article-images/redes-sociales/M3A1.png)
 
 ## 1. En TikTok, el daño suele ser más visible
@@ -644,8 +627,6 @@ Muchos menores no cuentan lo que les pasa de inmediato. A veces sienten:
 * o dudas sobre si “realmente cuenta” como acoso.
 
 Por eso conviene fijarse también en cambios de conducta y no esperar solo una confesión directa.
-
-## Señales de alerta
 
 ![Señales de alerta de ciberacoso: tristeza, irritabilidad o ansiedad después de usar la app, evitar una red o abandonar grupos, borrar publicaciones, esconder la pantalla y cambios en sueño, ánimo o rutina.](/article-images/redes-sociales/M3A1.1.png)
 
@@ -713,8 +694,6 @@ En la práctica, la presión puede aparecer cuando el menor:
 * siente que debe encajar,
 * o empieza a depender demasiado de la reacción de los demás.
 
-## Cómo se vive la presión social en cada plataforma
-
 ![Cómo se vive la presión social en TikTok, Instagram y Discord: vistas, likes, viralidad, comparación, imagen personal, seguidores, pertenencia a grupos y miedo a quedarse fuera.](/article-images/redes-sociales/M3A2.png)
 
 ## 1. Compararse se vuelve muy fácil
@@ -762,8 +741,6 @@ No todos los menores viven las redes igual. Lo importante es observar:
 * y qué actividades está desplazando.
 
 Cuando la comparación o la presión social afectan el sueño, la convivencia, el ánimo o la seguridad personal, ya no se trata solo de entretenimiento.
-
-## Señales de alerta
 
 ![Señales de alerta de presión social: comparación constante, malestar si una publicación no recibe reacción, hablar demasiado de seguidores o popularidad, cambiar imagen o conducta para encajar y sentirse peor después de usar la app.](/article-images/redes-sociales/M3A2.1.png)
 
@@ -830,8 +807,6 @@ No todas las plataformas exponen al menor al mismo tipo de contacto.
 
 Por eso no basta con decir “no hables con extraños”. Conviene enseñar qué tipo de contacto debe llamar la atención, qué datos no se comparten y cuándo hay que salir de la conversación.
 
-## Cómo puede aparecer el riesgo
-
 ![Cómo puede aparecer el riesgo de contacto con desconocidos: en TikTok por comentarios repetidos o seguidores insistentes, en Instagram por solicitudes de mensaje o cuentas que generan confianza rápido, y en Discord por servidores, mensajes directos, voz o video.](/article-images/redes-sociales/M4A1.png)
 
 ## 1. En TikTok, el contacto puede empezar desde la visibilidad del contenido
@@ -873,8 +848,6 @@ Una interacción de riesgo no siempre empieza con una amenaza evidente. Puede co
 * o invitaciones a mantener secretos.
 
 Por eso conviene enseñar a reconocer patrones de manipulación, no solo a desconfiar de una persona que “se ve rara”.
-
-## Señales de alerta
 
 ![Señales de alerta en contacto con desconocidos: muchos mensajes de alguien que no conoce, petición de pasar a otra app o guardar secreto, cambios de humor, esconder chats o borrar mensajes, y compartir información personal por presión.](/article-images/redes-sociales/M4A1.1.png)
 
@@ -946,8 +919,6 @@ En la práctica, conviene prestar atención cuando una relación en línea:
 * pide privacidad excesiva,
 * o empieza a presionar al menor para demostrar confianza.
 
-## Cómo puede empezar en cada plataforma
-
 ![Cómo puede empezar el grooming o contacto manipulador: en TikTok con comentarios insistentes, seguimiento constante o intento de pasar a mensajes; en Instagram con respuestas a historias, mensajes privados o cuentas que generan confianza rápido; y en Discord con mensajes directos, servidores, voz o video.](/article-images/redes-sociales/M4A2.png)
 
 ## 1. No empieza con contenido sexual de inmediato
@@ -1001,8 +972,6 @@ Aun así, si el menor acepta el contacto o no reconoce la manipulación, el ries
 | Se pone nervioso si un adulto ve ciertos mensajes | Puede sentirse presionado o confundido |
 | Le insisten en mandar fotos, videos o pruebas de confianza | Es una señal grave |
 | Cambia de app para hablar con la misma persona | Puede estar moviendo la conversación a un espacio más privado |
-
-## Qué pueden hacer los padres
 
 ![Acciones para padres ante grooming y manipulación: explicar que ningún adulto o desconocido debe pedir secretos, fotos íntimas o pruebas de confianza, revisar mensajes y solicitudes, enseñar a bloquear y reportar, reforzar que no se castiga por contar algo incómodo y guardar capturas si hubo presión.](/article-images/redes-sociales/M4A2.1.png)
 
@@ -1060,8 +1029,6 @@ A veces llega sin que lo busquen:
 * o por comunidades donde circulan imágenes, videos o lenguaje no adecuados.
 
 Por eso, la mejor prevención combina configuración, supervisión y conversación.
-
-## Cómo puede aparecer en cada plataforma
 
 ![Cómo puede aparecer contenido inapropiado en cada plataforma: en TikTok por recomendaciones del feed, directos, comentarios, búsquedas y hashtags; en Instagram por Reels, explorar, perfiles sugeridos, mensajes, comentarios y contenido sensible; y en Discord por mensajes directos, servidores, canales, archivos compartidos e imágenes sensibles.](/article-images/redes-sociales/M5A1.png)
 
@@ -1122,8 +1089,6 @@ Por eso conviene hablar no solo de lo que el menor busca, sino también de lo qu
 | Ajustar filtros de contenido y mensajes en comunidades | Reduce imágenes y contacto no deseado |
 | Revisar historial, recomendaciones y comunidades de vez en cuando | Permite detectar patrones antes de que crezcan |
 | Hablar con claridad sobre qué hacer si aparece algo incómodo | Le da al menor una respuesta práctica e inmediata |
-
-## Preguntas útiles para conversar en casa
 
 ![Preguntas útiles para conversar en casa sobre contenido inapropiado: si alguna vez apareció algo que no quería ver, si sabe salir, bloquear o reportar, qué haría ante una imagen o video incómodo, si hay una app o grupo con contenido raro o fuerte, y si quiere revisar filtros en familia.](/article-images/redes-sociales/M5A1.1.png)
 
@@ -1227,8 +1192,6 @@ Aquí el problema no es solo creer algo falso, sino sentir presión para:
 * compartirlo,
 * o reaccionar rápido sin pensar si es seguro o verdadero.
 
-## Señales de alerta
-
 ![Señales de alerta frente a retos virales, rumores y desinformación: comparte contenido sin leerlo bien, repite rumores como hechos, se deja llevar por títulos alarmistas, siente urgencia por hacer lo que todos hacen y no puede responder quién hizo el contenido o por qué.](/article-images/redes-sociales/M5A2.1.png)
 
 ## Qué pueden hacer los padres
@@ -1293,8 +1256,6 @@ La clave para los padres no es prohibir toda recomendación de influencers, sino
 * una opinión personal,
 * una promoción,
 * y un contenido influido por una marca.
-
-## Cómo suele verse en cada plataforma
 
 ![Cómo suele verse la publicidad disfrazada en cada plataforma: en TikTok un creador habla de una marca, usa un producto o hace un video promocional como parte normal del contenido; en Instagram un reel, historia o publicación muestra una marca, etiqueta un negocio o usa paid partnership.](/article-images/redes-sociales/M6A1.png)
 
@@ -1373,8 +1334,6 @@ La influencia comercial también moldea gustos, admiración y presión por consu
 | Empieza a desear productos solo por verlos en creadores favoritos | La influencia comercial ya está afectando su criterio |
 | Asocia popularidad con sinceridad o necesidad | Está mezclando admiración con confianza automática |
 
-## Qué pueden hacer los padres
-
 ![Acciones para padres ante publicidad disfrazada: enseñar a buscar etiquetas como Paid partnership o Promotional content, preguntar si lo muestra porque le gusta o porque le pagan, explicar que un influencer puede estar vendiendo aunque parezca cercano, ver publicaciones juntos y recordar que popular no significa sincero ni necesario.](/article-images/redes-sociales/M6A1.1.png)
 
 ## Preguntas útiles para conversar en casa
@@ -1430,8 +1389,6 @@ El riesgo no siempre está en una compra grande. Muchas veces empieza con una ac
 * o “solo quiero regalarle algo a un amigo”.
 
 Como estas funciones están integradas al contenido y a la conversación, pueden sentirse más impulsivas que una compra tradicional.
-
-## Cómo aparece el gasto en cada plataforma
 
 ![Cómo aparece el gasto en cada plataforma: en TikTok mediante Coins y Gifts en videos o directos, en Instagram mediante Stars, Gifts y gifting de ciertas suscripciones, y en Discord mediante Nitro, Nitro Basic y regalos de suscripción.](/article-images/redes-sociales/M6A2.png)
 
@@ -1496,8 +1453,6 @@ El gasto puede seguir entrando por:
 * regalos de suscripción,
 * o funciones sociales que el menor ve como normales.
 
-## Señales de alerta
-
 ![Señales de alerta sobre compras impulsivas: habla de recargar, mandar regalos o comprar stars sin pensar en dinero real, pide acceso a métodos de pago solo por un momento, ve Coins, Stars o regalos como algo pequeño, quiere gastar para apoyar o pertenecer, y no sabe si hay una tarjeta guardada.](/article-images/redes-sociales/M62.1.png)
 
 ## Qué pueden hacer los padres
@@ -1561,8 +1516,6 @@ No todas las plataformas se supervisan igual.
 
 Por eso, la mejor decisión no es aplicar la misma regla a todas, sino usar las herramientas propias de cada app.
 
-## Resumen rápido de controles útiles
-
 ![Resumen rápido de controles útiles: TikTok usa Family Pairing, límites de tiempo, filtros y Restricted Mode; Instagram usa Teen Accounts, cuenta privada, límites de mensajes, contenido sensible y supervisión; Discord usa Family Center, solicitudes, DMs y filtros.](/article-images/redes-sociales/M7A1.png)
 
 ## Mini glosario para padres
@@ -1571,7 +1524,7 @@ Por eso, la mejor decisión no es aplicar la misma regla a todas, sino usar las 
 
 **Restricted Mode**: modo de TikTok que ayuda a limitar contenido que puede no ser adecuado.
 
-**Teen Accounts**: configuración de Instagram para adolescentes con protecciones más estrictas de privacidad, mensajes y contenido.
+**Teen Accounts**: configuración de Instagram para adolescentes con protecciones más estrictas de privacidad, mensajes, contenido sensible, tiempo de uso y permisos parentales para ciertos cambios.
 
 **Family Center**: espacio de supervisión familiar en Discord o Instagram, según la plataforma, para acompañar actividad sin necesariamente leer conversaciones privadas.
 
@@ -1591,6 +1544,15 @@ TikTok permite vincular la cuenta del adulto con la del adolescente mediante Fam
 * comentarios,
 * y visibilidad de la cuenta.
 
+Family Pairing es especialmente útil cuando el problema no es una sola publicación, sino el patrón de uso: cuánto tiempo pasa el menor, qué tipo de contenido recibe, qué interacciones están abiertas y si necesita horarios más claros.
+
+| Ajuste en TikTok | Qué ayuda a revisar |
+| --- | --- |
+| **Daily screen time** | Si el uso diario está ocupando demasiado espacio. |
+| **Restricted Mode** | Si conviene reducir exposición a contenido potencialmente no adecuado. |
+| **Palabras filtradas** | Si ciertos temas, comentarios o términos están generando malestar. |
+| **Mensajes y comentarios** | Quién puede interactuar directamente con el menor. |
+
 ### Qué debe notar un padre
 * TikTok ayuda mucho a ordenar tiempo, contenido e interacción.
 * Algunas restricciones ya vienen reforzadas por edad.
@@ -1605,6 +1567,15 @@ Instagram concentra buena parte de su protección en las Teen Accounts. La lógi
 * contenido sensible en modo más restrictivo,
 * supervisión parental,
 * y límites de tiempo.
+
+Las Teen Accounts buscan que la protección venga activada por defecto para adolescentes. En la práctica, esto ayuda a reducir contacto no deseado, limitar contenido sensible y hacer más visibles los ajustes que un padre debería revisar con su hijo.
+
+| Ajuste en Instagram | Qué ayuda a revisar |
+| --- | --- |
+| **Cuenta privada** | Quién puede ver publicaciones, Reels e historias. |
+| **Mensajes limitados** | Quién puede enviar solicitudes o iniciar conversación. |
+| **Contenido sensible** | Qué tipo de contenido puede aparecer en recomendaciones. |
+| **Supervisión parental** | Qué cambios requieren revisión o permiso del adulto. |
 
 ### Qué debe notar un padre
 * la privacidad y la mensajería son piezas centrales,
@@ -1621,12 +1592,20 @@ Discord funciona distinto a TikTok o Instagram. Aquí los riesgos y controles gi
 * filtros de contenido sensible,
 * y actividad social.
 
-Family Center permite acompañar sin leer mensajes privados, lo que puede ser útil para equilibrar seguridad y autonomía.
+Family Center permite acompañar sin leer mensajes privados, lo que puede ser útil para equilibrar seguridad y autonomía. Puede mostrar actividad general reciente, como nuevos amigos, usuarios con quienes el adolescente ha enviado mensajes o llamadas, minutos de voz o video, servidores nuevos y servidores activos. Eso no revela el contenido de las conversaciones, pero sí ayuda a detectar cambios de entorno social.
+
+| Dato visible en Discord Family Center | Qué puede indicar |
+| --- | --- |
+| **Nuevos amigos** | Si aumentó el contacto con personas desconocidas. |
+| **Usuarios con mensajes o llamadas** | Con quién interactúa con más frecuencia. |
+| **Minutos de voz y video** | Si la convivencia se está moviendo mucho a llamadas. |
+| **Servidores nuevos o activos** | Qué comunidades están ganando importancia. |
+| **Reportes enviados** | Si el menor ya intentó pedir ayuda dentro de la plataforma. |
 
 ### Qué debe notar un padre
 * Discord requiere mirar más con quién habla el menor que qué contenido “consume”.
 * Los filtros y ajustes de mensajes son especialmente importantes.
-* Conviene revisar bien qué contactos, solicitudes y DMs están permitidos.
+* Conviene revisar bien qué contactos, solicitudes, llamadas, servidores y DMs están permitidos.
 
 ## 4. El control técnico ayuda, pero no reemplaza la conversación
 
@@ -1656,8 +1635,6 @@ Si el menor no entiende:
 
 la protección queda incompleta aunque la configuración sea correcta.
 
-## Qué pueden hacer los padres
-
 ![Acciones para padres en controles parentales: activar Family Pairing, Teen Accounts o Family Center según la app, revisar mensajes, privacidad y tiempo de uso, mantener filtros protectores, explicar cada límite y ajustar reglas según edad y madurez.](/article-images/redes-sociales/M7A1.1.png)
 
 ## Preguntas útiles para conversar en casa
@@ -1672,7 +1649,7 @@ la protección queda incompleta aunque la configuración sea correcta.
 
 Los controles parentales funcionan mejor cuando se ven como una base de seguridad, no como una solución mágica.
 
-TikTok ayuda más con tiempo, contenido e interacción; Instagram con privacidad, mensajes y contenido sensible; y Discord con actividad social, solicitudes y filtros. Cuando los padres entienden esa diferencia, configuran mejor y acompañan con más criterio.
+TikTok ayuda más con tiempo, contenido e interacción; Instagram con privacidad, mensajes, contenido sensible y cambios de configuración; y Discord con actividad social, llamadas, servidores, solicitudes y filtros. Cuando los padres entienden esa diferencia, configuran mejor y acompañan con más criterio.
 
 ## Cierre
 
@@ -1684,11 +1661,14 @@ Y cuando esos ajustes se combinan con conversación y reglas claras, la protecci
                 'teen accounts',
                 'family center',
                 'restricted mode',
+                'daily screen time',
                 'filtros de palabras',
                 'límites de tiempo',
                 'mensajes directos',
                 'contenido sensible',
                 'solicitudes de amistad',
+                'minutos de voz y video',
+                'servidores activos',
                 'privacidad de la cuenta',
                 'controles parentales',
                 'conversación familiar',
@@ -1706,8 +1686,6 @@ Acompañar a un hijo en redes sociales no significa revisar todo lo que hace ni 
 La supervisión útil no busca enterarse de cada detalle, sino reducir riesgos y fortalecer criterio.
 
 Cuando un padre solo aparece para castigar o revisar a escondidas, el menor aprende a ocultar. Cuando el adulto conversa, explica reglas y mantiene presencia constante, el menor tiene más probabilidades de contar lo que le pasa.
-
-## Acompañar no es lo mismo que vigilar
 
 ![Diferencia entre acompañar y vigilar en exceso: acompañar implica preguntar qué le gusta de una aplicación, ver contenido juntos, explicar reglas, revisar configuraciones con el menor y ajustar límites según edad y madurez; vigilar en exceso implica revisar sin avisar, intervenir solo cuando hay problema, imponer reglas sin contexto, cambiar ajustes sin hablarlo y aplicar siempre el mismo control.](/article-images/redes-sociales/M7A2.png)
 
@@ -1766,8 +1744,6 @@ Conviene poner atención si el menor:
 * o empieza a sentir que pedir ayuda traerá castigo seguro.
 
 También conviene revisar si las reglas quedaron desactualizadas para la edad o el momento que vive.
-
-## Qué pueden hacer los padres
 
 ![Acciones para padres para acompañar sin vigilar en exceso: pedir que muestre cuentas, canales o servidores favoritos, revisar juntos privacidad, mensajes y tiempo de uso, acordar momentos para hablar de lo que pasa en línea, usar controles parentales como apoyo y dejar claro que pedir ayuda no traerá castigo automático.](/article-images/redes-sociales/M7A2.1.png)
 
@@ -2887,15 +2863,15 @@ Cuando el adulto entiende la aplicación, conversa con frecuencia, ajusta reglas
             metadata: {
                 pairs: [
                     { key: 'Family Pairing', value: 'Herramienta de TikTok que vincula la cuenta del adulto con la del adolescente para gestionar tiempo, contenido e interacciones' },
-                    { key: 'Teen Accounts', value: 'Configuración de Instagram centrada en privacidad, mensajes y contenido sensible para cuentas de adolescentes' },
-                    { key: 'Family Center', value: 'Herramienta de Discord para acompañar actividad general del menor sin leer sus mensajes privados' },
+                    { key: 'Teen Accounts', value: 'Configuración de Instagram con protecciones por defecto para privacidad, mensajes, contenido sensible y tiempo' },
+                    { key: 'Family Center', value: 'Herramienta de Discord que muestra actividad general reciente sin leer el contenido de mensajes privados' },
                     { key: 'Acompañar', value: 'Supervisar con presencia, conversación y reglas claras para que el menor pueda pedir ayuda sin miedo' },
                     { key: 'Vigilar en exceso', value: 'Revisar todo a escondidas o intervenir solo desde el castigo, lo que hace que el menor aprenda a ocultar' },
                 ],
                 correctAnswer: {
                     'Family Pairing': 'Herramienta de TikTok que vincula la cuenta del adulto con la del adolescente para gestionar tiempo, contenido e interacciones',
-                    'Teen Accounts': 'Configuración de Instagram centrada en privacidad, mensajes y contenido sensible para cuentas de adolescentes',
-                    'Family Center': 'Herramienta de Discord para acompañar actividad general del menor sin leer sus mensajes privados',
+                    'Teen Accounts': 'Configuración de Instagram con protecciones por defecto para privacidad, mensajes, contenido sensible y tiempo',
+                    'Family Center': 'Herramienta de Discord que muestra actividad general reciente sin leer el contenido de mensajes privados',
                     'Acompañar': 'Supervisar con presencia, conversación y reglas claras para que el menor pueda pedir ayuda sin miedo',
                     'Vigilar en exceso': 'Revisar todo a escondidas o intervenir solo desde el castigo, lo que hace que el menor aprenda a ocultar',
                 },
@@ -2907,7 +2883,7 @@ Cuando el adulto entiende la aplicación, conversa con frecuencia, ajusta reglas
             text: 'Completa cada oración con la palabra correcta del banco.',
             type: 'fill_blanks',
             metadata: {
-                sentence: 'En TikTok, Family Pairing permite gestionar el [blank1] de uso, el contenido y las interacciones. En Instagram, las [blank2] protegen privacidad, mensajes y contenido sensible. En Discord, Family Center da visibilidad de la actividad sin leer los [blank3] privados. Los controles técnicos funcionan mejor cuando van acompañados de [blank4] familiar continua. Cuando el padre solo aparece para castigar, el menor aprende a [blank5] lo que le pasa.',
+                sentence: 'En TikTok, Family Pairing permite gestionar el [blank1] de uso, el contenido y las interacciones. En Instagram, las [blank2] protegen privacidad, mensajes y contenido sensible. En Discord, Family Center da visibilidad de la actividad sin leer los [blank3] privados y puede mostrar minutos de voz o servidores recientes. Los controles técnicos funcionan mejor cuando van acompañados de [blank4] familiar continua. Cuando el padre solo aparece para castigar, el menor aprende a [blank5] lo que le pasa.',
                 bank: ['tiempo', 'Teen Accounts', 'mensajes', 'conversación', 'ocultar'],
                 correctAnswer: {
                     blank1: 'tiempo',
@@ -2930,7 +2906,7 @@ Cuando el adulto entiende la aplicación, conversa con frecuencia, ajusta reglas
                     'Restricted Mode y filtros por palabras para limitar contenido',
                     'Teen Accounts refuerza privacidad, mensajes limitados y contenido sensible para adolescentes',
                     'Las publicaciones y Reels del perfil solo son visibles para seguidores aprobados por el menor',
-                    'Family Center para ver actividad general sin leer mensajes privados',
+                    'Family Center para ver actividad general, servidores y llamadas sin leer mensajes privados',
                     'Configuración de solicitudes de amistad y mensajes de miembros de servidor',
                 ],
                 correctAnswer: {
@@ -2943,12 +2919,12 @@ Cuando el adulto entiende la aplicación, conversa con frecuencia, ajusta reglas
                         'Las publicaciones y Reels del perfil solo son visibles para seguidores aprobados por el menor',
                     ],
                     Discord: [
-                        'Family Center para ver actividad general sin leer mensajes privados',
+                        'Family Center para ver actividad general, servidores y llamadas sin leer mensajes privados',
                         'Configuración de solicitudes de amistad y mensajes de miembros de servidor',
                     ],
                 },
             },
-            explanation: 'TikTok: Family Pairing + Restricted Mode. Instagram: Teen Accounts + cuenta privada con Reels. Discord: Family Center + solicitudes de amistad. Cada plataforma tiene sus propias herramientas.',
+            explanation: 'TikTok: Family Pairing + Restricted Mode. Instagram: Teen Accounts + cuenta privada con Reels. Discord: Family Center + solicitudes, actividad y llamadas. Cada plataforma tiene sus propias herramientas.',
             points: 12,
         },
         {
@@ -3329,7 +3305,7 @@ Cuando el adulto entiende la aplicación, conversa con frecuencia, ajusta reglas
             'Grooming y manipulación',
             'Contenido viral y consumo',
         ],
-        duration: '3 horas',
+        duration: '1 hora 51 min',
         status: 'published',
     };
 
@@ -3470,9 +3446,9 @@ Nota: este video usa un enlace temporal mientras se integra el material audiovis
                 questions: module1QuizQuestions,
             },
             lessons: [
-                ['Artículo 1: ¿Qué son TikTok, Discord e Instagram y cómo funcionan?', 'article', 11, 'module1Article1'],
+                ['Artículo 1: ¿Qué son TikTok, Discord e Instagram y cómo funcionan?', 'article', 7, 'module1Article1'],
                 ['Video 1: Recorrido visual por TikTok, Discord e Instagram: lo que un padre debe reconocer', 'video', 2, 'module1Video1'],
-                ['Artículo 2: ¿Por qué estas plataformas atraen tanto a niños y adolescentes?', 'article', 11, 'module1Article2'],
+                ['Artículo 2: ¿Por qué estas plataformas atraen tanto a niños y adolescentes?', 'article', 6, 'module1Article2'],
                 ['Video 2: Cómo el algoritmo, los likes y la interacción mantienen la atención', 'video', 2, 'module1Video2'],
             ],
         },
@@ -3486,9 +3462,9 @@ Nota: este video usa un enlace temporal mientras se integra el material audiovis
                 questions: module2QuizQuestions,
             },
             lessons: [
-                ['Artículo 1: Qué datos comparten los niños sin darse cuenta en redes sociales', 'article', 11, 'module2Article1'],
+                ['Artículo 1: Qué datos comparten los niños sin darse cuenta en redes sociales', 'article', 6, 'module2Article1'],
                 ['Video 1: Ejemplos visuales de exposición de datos en perfiles, historias, chats y publicaciones', 'video', 2, 'module2Video1'],
-                ['Artículo 2: Huella digital: lo que se publica hoy puede traer consecuencias mañana', 'article', 11, 'module2Article2'],
+                ['Artículo 2: Huella digital: lo que se publica hoy puede traer consecuencias mañana', 'article', 5, 'module2Article2'],
                 ['Video 2: Cómo enseñar a los hijos a cuidar su privacidad en línea', 'video', 2, 'module2Video2'],
             ],
         },
@@ -3502,9 +3478,9 @@ Nota: este video usa un enlace temporal mientras se integra el material audiovis
                 questions: module3QuizQuestions,
             },
             lessons: [
-                ['Artículo 1: Ciberacoso en TikTok, Discord e Instagram: cómo aparece y cómo detectarlo', 'article', 11, 'module3Article1'],
+                ['Artículo 1: Ciberacoso en TikTok, Discord e Instagram: cómo aparece y cómo detectarlo', 'article', 6, 'module3Article1'],
                 ['Video 1: Señales de alerta de ciberacoso y cambios de conducta en los menores', 'video', 2, 'module3Video1'],
-                ['Artículo 2: Likes, comparaciones y presión social: cómo afectan la autoestima', 'article', 11, 'module3Article2'],
+                ['Artículo 2: Likes, comparaciones y presión social: cómo afectan la autoestima', 'article', 5, 'module3Article2'],
                 ['Video 2: Qué pueden hacer los padres cuando una red social afecta el bienestar emocional', 'video', 2, 'module3Video2'],
             ],
         },
@@ -3518,9 +3494,9 @@ Nota: este video usa un enlace temporal mientras se integra el material audiovis
                 questions: module4QuizQuestions,
             },
             lessons: [
-                ['Artículo 1: Riesgos de hablar con desconocidos en mensajes, comentarios y servidores', 'article', 11, 'module4Article1'],
+                ['Artículo 1: Riesgos de hablar con desconocidos en mensajes, comentarios y servidores', 'article', 6, 'module4Article1'],
                 ['Video 1: Cómo se dan las interacciones de riesgo en Discord, Instagram y TikTok', 'video', 2, 'module4Video1'],
-                ['Artículo 2: Grooming y manipulación emocional: señales que los padres deben conocer', 'article', 11, 'module4Article2'],
+                ['Artículo 2: Grooming y manipulación emocional: señales que los padres deben conocer', 'article', 6, 'module4Article2'],
                 ['Video 2: Cómo actuar si un menor está siendo presionado o manipulado en línea', 'video', 2, 'module4Video2'],
             ],
         },
@@ -3534,9 +3510,9 @@ Nota: este video usa un enlace temporal mientras se integra el material audiovis
                 questions: module5QuizQuestions,
             },
             lessons: [
-                ['Artículo 1: Contenido inapropiado y exposición accidental en redes sociales', 'article', 11, 'module5Article1'],
+                ['Artículo 1: Contenido inapropiado y exposición accidental en redes sociales', 'article', 6, 'module5Article1'],
                 ['Video 1: Cómo un menor puede terminar viendo contenido dañino sin buscarlo', 'video', 2, 'module5Video1'],
-                ['Artículo 2: Retos virales, rumores y desinformación: por qué los niños los creen y comparten', 'article', 11, 'module5Article2'],
+                ['Artículo 2: Retos virales, rumores y desinformación: por qué los niños los creen y comparten', 'article', 5, 'module5Article2'],
                 ['Video 2: Cómo enseñar pensamiento crítico frente al contenido viral', 'video', 2, 'module5Video2'],
             ],
         },
@@ -3550,9 +3526,9 @@ Nota: este video usa un enlace temporal mientras se integra el material audiovis
                 questions: module6QuizQuestions,
             },
             lessons: [
-                ['Artículo 1: Publicidad disfrazada, influencers y contenido patrocinado en TikTok e Instagram', 'article', 11, 'module6Article1'],
+                ['Artículo 1: Publicidad disfrazada, influencers y contenido patrocinado en TikTok e Instagram', 'article', 6, 'module6Article1'],
                 ['Video 1: Cómo reconocer promociones ocultas y recomendaciones pagadas', 'video', 2, 'module6Video1'],
-                ['Artículo 2: Regalos, suscripciones, monedas y compras impulsivas en redes y comunidades', 'article', 11, 'module6Article2'],
+                ['Artículo 2: Regalos, suscripciones, monedas y compras impulsivas en redes y comunidades', 'article', 6, 'module6Article2'],
                 ['Video 2: Cómo prevenir gastos no supervisados y consumo por presión social', 'video', 2, 'module6Video2'],
             ],
         },
@@ -3566,9 +3542,9 @@ Nota: este video usa un enlace temporal mientras se integra el material audiovis
                 questions: module7QuizQuestions,
             },
             lessons: [
-                ['Artículo 1: Controles parentales y configuraciones de seguridad en TikTok, Discord e Instagram', 'article', 10, 'module7Article1'],
+                ['Artículo 1: Controles parentales y configuraciones de seguridad en TikTok, Discord e Instagram', 'article', 8, 'module7Article1'],
                 ['Video 1: Guía visual para activar ajustes de seguridad y privacidad', 'video', 2, 'module7Video1'],
-                ['Artículo 2: Cómo acompañar a un hijo en redes sociales sin caer en vigilancia excesiva', 'article', 10, 'module7Article2'],
+                ['Artículo 2: Cómo acompañar a un hijo en redes sociales sin caer en vigilancia excesiva', 'article', 5, 'module7Article2'],
                 ['Video 2: Conversaciones clave para construir confianza y uso responsable', 'video', 2, 'module7Video2'],
             ],
         },
@@ -3577,7 +3553,7 @@ Nota: este video usa un enlace temporal mientras se integra el material audiovis
     const moduleDefinitions = moduleBlueprints.map((module, idx) => ({
         title: module.title,
         description: `Objetivo: ${module.objective}`,
-        duration: idx < 6 ? '26 min' : '24 min',
+        duration: ['17 min', '15 min', '15 min', '16 min', '15 min', '16 min', '17 min'][idx],
         quiz: module.quiz,
         lessons: module.lessons.map(([title, type, duration, overrideKey]) => createLesson(title, type, module.title, module.objective, duration, overrideKey)),
     }));

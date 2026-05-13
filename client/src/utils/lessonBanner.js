@@ -53,6 +53,21 @@ const PLATFORM_THEMES = {
     },
 };
 
+const COURSE_BANNERS = [
+    {
+        platforms: ['Roblox', 'Minecraft'],
+        image: '/lesson-banners/videojuegos/videojuegos.png',
+    },
+    {
+        platforms: ['TikTok', 'Discord', 'Instagram'],
+        image: '/lesson-banners/redes-sociales/redes.png',
+    },
+    {
+        platforms: ['YouTube', 'Twitch'],
+        image: '/lesson-banners/streaming/streaming.png',
+    },
+];
+
 const RISK_THEMES = {
     'Seguridad de Cuenta':    { gradient: 'from-blue-600 via-blue-500 to-cyan-400',    icon: '🔐', label: 'Seguridad de Cuenta' },
     'Privacidad Avanzada':    { gradient: 'from-teal-600 via-teal-500 to-emerald-400', icon: '🛡️', label: 'Privacidad' },
@@ -76,12 +91,18 @@ const DEFAULT_THEME = {
 };
 
 export const getLessonTheme = (platforms = [], riskAreas = []) => {
+    const uniquePlatforms = [...new Set(platforms)].filter(Boolean);
+    const courseBanner = COURSE_BANNERS.find((banner) =>
+        uniquePlatforms.some((platform) => banner.platforms.includes(platform))
+    );
+    const platformLabel = uniquePlatforms.join(' · ');
+
     // Priority: first matched platform, then first matched riskArea, then default
-    for (const p of platforms) {
-        if (PLATFORM_THEMES[p]) return PLATFORM_THEMES[p];
+    for (const p of uniquePlatforms) {
+        if (PLATFORM_THEMES[p]) return { ...PLATFORM_THEMES[p], label: platformLabel || PLATFORM_THEMES[p].label, image: courseBanner?.image };
     }
     for (const r of riskAreas) {
-        if (RISK_THEMES[r]) return RISK_THEMES[r];
+        if (RISK_THEMES[r]) return { ...RISK_THEMES[r], image: courseBanner?.image };
     }
-    return DEFAULT_THEME;
+    return { ...DEFAULT_THEME, image: courseBanner?.image };
 };

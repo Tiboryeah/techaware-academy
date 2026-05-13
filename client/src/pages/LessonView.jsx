@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Play, FileText, ChevronLeft, ChevronRight, CheckCircle, List, ArrowLeft, Youtube, Zap } from 'lucide-react';
 import { getLessonDisplayTitle, getLessonDurationLabel, getLessonTypeLabel } from '../utils/lessonType';
 import { getLessonTheme } from '../utils/lessonBanner';
+import { PlatformIconGroup } from '../components/PlatformIcons';
 import NotFound from './NotFound';
 
 const LessonView = () => {
@@ -16,6 +17,8 @@ const LessonView = () => {
     const [completedLessons, setCompletedLessons] = useState([]);
     const [loading, setLoading] = useState(true);
     const [moduleQuizId, setModuleQuizId] = useState(null);
+    const [moduleTitle, setModuleTitle] = useState('');
+    const [moduleNumber, setModuleNumber] = useState(null);
     const [isChatbotOpen, setIsChatbotOpen] = useState(() => (
         typeof document !== 'undefined' && document.body.classList.contains('kuxibot-open')
     ));
@@ -36,6 +39,10 @@ const LessonView = () => {
                 if (currentModule) {
                     setModuleLessons(currentModule.lessonOrder);
                     setModuleQuizId(currentModule.quizId);
+                    const idx = courseData.modules.findIndex(m => m._id === lessonData.moduleId);
+                    setModuleNumber(idx + 1);
+                    const rawTitle = currentModule.title || '';
+                    setModuleTitle(rawTitle.replace(/^Módulo\s+\d+:\s*/i, ''));
                 }
 
                 try {
@@ -227,9 +234,15 @@ const LessonView = () => {
     const renderLessonContent = (content) => {
         const lines = content.split('\n');
         const rendered = [];
+        let firstH1Skipped = false;
 
         for (let idx = 0; idx < lines.length; idx += 1) {
             const line = lines[idx];
+
+            if (!firstH1Skipped && line.startsWith('# ')) {
+                firstH1Skipped = true;
+                continue;
+            }
             const separatorIndex = line.trim().startsWith('|')
                 ? findNextNonEmptyLineIndex(lines, idx + 1)
                 : -1;
@@ -401,18 +414,36 @@ const LessonView = () => {
                                     {(() => {
                                         const theme = getLessonTheme(lesson.platforms || [], lesson.riskAreas || []);
                                         return (
-                                            <div className={`relative overflow-hidden bg-gradient-to-br ${theme.gradient} h-40 sm:h-52 flex items-end`}>
-                                                {/* decorative circles */}
-                                                <div className="absolute top-[-30%] right-[-5%] w-64 h-64 rounded-full bg-white/10 blur-2xl" />
-                                                <div className="absolute bottom-[-40%] left-[-5%] w-48 h-48 rounded-full bg-black/10 blur-2xl" />
-                                                {/* emoji icon */}
-                                                <span className="absolute top-1/2 right-8 -translate-y-1/2 text-7xl sm:text-8xl opacity-20 select-none pointer-events-none">
-                                                    {theme.icon}
-                                                </span>
-                                                <div className="relative z-10 p-5 sm:p-8 space-y-1">
-                                                    <span className="inline-block px-3 py-1 rounded-full bg-white/20 text-white text-[10px] font-black uppercase tracking-widest border border-white/20">
-                                                        {theme.label}
-                                                    </span>
+                                            <div className={`relative overflow-hidden bg-gradient-to-br ${theme.gradient} ${theme.image ? 'aspect-[3/1]' : 'h-40 sm:h-52'} flex items-end`}>
+                                                {theme.image ? (
+                                                    <>
+                                                        <img
+                                                            src={theme.image}
+                                                            alt=""
+                                                            aria-hidden="true"
+                                                            className="absolute inset-0 h-full w-full object-cover"
+                                                        />
+                                                        <div className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/10 to-black/5" />
+                                                        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/35 to-transparent" />
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        {/* decorative circles */}
+                                                        <div className="absolute top-[-30%] right-[-5%] w-64 h-64 rounded-full bg-white/10 blur-2xl" />
+                                                        <div className="absolute bottom-[-40%] left-[-5%] w-48 h-48 rounded-full bg-black/10 blur-2xl" />
+                                                        {/* emoji icon */}
+                                                        <span className="absolute top-1/2 right-8 -translate-y-1/2 text-7xl sm:text-8xl opacity-20 select-none pointer-events-none">
+                                                            {theme.icon}
+                                                        </span>
+                                                    </>
+                                                )}
+                                                <div className="relative z-10 p-5 sm:p-8 space-y-2">
+                                                    <div className="flex flex-wrap items-center gap-2">
+                                                        <PlatformIconGroup platforms={lesson.platforms || []} />
+                                                        <span className="inline-block px-3 py-1 rounded-full bg-white/20 text-white text-[10px] font-black uppercase tracking-widest border border-white/20">
+                                                            {theme.label}
+                                                        </span>
+                                                    </div>
                                                     <p className="text-white/80 text-xs font-bold uppercase tracking-widest">
                                                         {getLessonTypeLabel(lesson.type)} — {lesson.duration ? `${lesson.duration} min de lectura` : 'Lectura'}
                                                     </p>
@@ -466,8 +497,20 @@ const LessonView = () => {
                             className="bg-white/90 dark:bg-[#111418]/90 backdrop-blur-xl rounded-3xl border border-gray-100 dark:border-white/5 overflow-hidden shadow-2xl transition-all"
                         >
                             <div className="p-5 sm:p-8 border-b border-gray-50 dark:border-white/5 bg-slate-50/50 dark:bg-indigo-500/5 transition-colors relative overflow-hidden">
-                                <h3 className="font-black text-sm text-gray-900 dark:text-white uppercase tracking-[0.2em] mb-4 transition-colors">Contenido</h3>
-                                
+                                <h3 className="font-black text-sm text-gray-900 dark:text-white uppercase tracking-[0.2em] mb-2 transition-colors">Contenido</h3>
+                                {moduleNumber && (
+                                    <div className="mb-4 space-y-0.5">
+                                        <p className="text-[9px] font-black uppercase tracking-[0.25em] text-indigo-500 dark:text-indigo-400">
+                                            Módulo {moduleNumber}
+                                        </p>
+                                        {moduleTitle && (
+                                            <p className="text-[11px] font-bold text-gray-600 dark:text-gray-300 leading-snug line-clamp-2">
+                                                {moduleTitle}
+                                            </p>
+                                        )}
+                                    </div>
+                                )}
+
                                 <div className="flex items-center justify-between text-[9px] font-black uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-400 mb-2">
                                     <span>Progreso del Módulo</span>
                                     <span>{Math.round((completedLessons.filter(id => moduleLessons.some(l => String(l._id) === String(id))).length / moduleLessons.length) * 100)}%</span>

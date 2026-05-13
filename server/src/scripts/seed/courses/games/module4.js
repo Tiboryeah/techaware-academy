@@ -16,77 +16,61 @@ module.exports = async function seedGameModule(context) {
 
 > **Perspectiva Estratégica**: No todo riesgo dentro de un videojuego empieza con algo claramente grave. A veces comienza con una burla repetida, una pregunta demasiado personal o una persona que pide guardar un secreto.
 
-Este artículo no busca generar pánico, sino ayudar a madres, padres y tutores a reconocer tres riesgos que a veces aparecen mezclados dentro del juego: **ciberacoso**, **grooming** y **compartición de datos personales**.
+Este artículo no busca generar pánico, sino ayudar a madres, padres y tutores a reconocer tres riesgos que a veces aparecen mezclados dentro del juego: **ciberacoso**, **grooming** y **compartición de datos personales**. La clave es hablar con el menor sobre con quién se comunica, qué comparte y qué puede hacer si algo le incomoda.
 
-**UNICEF** recomienda hablar con niñas, niños y adolescentes sobre con quién se comunican, qué comparten y qué hacer si algo les incomoda. También recuerda que lo que se publica o se comparte en línea deja una huella que puede afectar la privacidad y la seguridad.
+---
+
+![Lo primero: mantener la calma y escuchar cuando un menor cuenta una interacción de riesgo.](/article-images/videojuegos/M4A1.png)
 
 ---
 
 ## Tres conceptos que conviene distinguir
 
-Antes de intervenir, conviene entender que no todos los riesgos son iguales.
+Estos tres riesgos pueden aparecer mezclados dentro de una partida, chat o servidor, pero no significan lo mismo. Separarlos ayuda a decidir mejor qué revisar y cómo actuar.
 
-### Ciberacoso
+| Concepto | Qué significa | Cómo puede aparecer en videojuegos | Qué revisar primero |
+| --- | --- | --- | --- |
+| **Ciberacoso** | Agresión digital repetida que humilla, amenaza, excluye o expone. | Insultos constantes, burlas por perder, exclusión de partidas, rumores o difusión de información privada. | Si la conducta se repite, si hay humillación pública y si el menor evita jugar o cambia de ánimo. |
+| **Grooming / online enticement** | Acercamiento manipulador para ganar confianza, aislar al menor o presionarlo. | Halagos excesivos, amistad muy intensa, secretos, regalos, insistencia para hablar fuera del juego o peticiones personales. | Si pide privacidad, contacto externo, fotos, datos o que no lo cuente a la familia. |
+| **Datos personales** | Información que identifica, ubica o expone al menor. | Preguntas sobre nombre real, escuela, teléfono, ubicación, rutinas, fotos o redes sociales. | Qué información se pidió, a quién se entregó y si puede usarse para contactar al menor fuera del juego. |
 
-**StopBullying.gov** define el ciberacoso como una forma de acoso que ocurre en dispositivos digitales y que puede aparecer en redes sociales, foros, mensajería y también en entornos de gaming. Puede incluir contenido hiriente, falso, humillante o la difusión de información privada.
-
-En un videojuego, el ciberacoso no siempre se presenta como algo obvio. A veces se disfraza de "broma", rivalidad o "parte del ambiente", pero sigue siendo agresión cuando es repetido, humillante o busca dañar.
-
-Puede verse como:
-
-1. insultos constantes en chat o voz,
-2. apodos ofensivos o burlas por perder,
-3. exclusión intencional de partidas o grupos,
-4. rumores o humillaciones frente a otros jugadores,
-5. difusión de información personal para avergonzar o intimidar.
-
-> **Lectura pedagógica**: Muchos menores normalizan estas conductas porque ocurren "dentro del juego". Sin embargo, si una interacción lastima, aísla o humilla de forma repetida, ya no es solo juego.
+> **Idea clave**: El ciberacoso daña mediante agresión; el grooming manipula mediante confianza; la exposición de datos abre la puerta a contacto, presión o humillación fuera del juego.
 
 ---
 
-## ¿Qué es grooming?
-
-**NCMEC** describe la online enticement como una forma de explotación en la que una persona se comunica con alguien que cree que es menor de edad con intención sexual o de abuso. Esta categoría incluye grooming y sextorsión. También advierte que quienes dañan a menores pueden usar identidades falsas, construir confianza poco a poco y mover la conversación desde una app, red o juego hacia un espacio más privado.
-
 ## Mini glosario para padres
 
-**Online enticement**: término en inglés usado para describir intentos de atraer, manipular o explotar sexualmente a un menor por internet.
+**Online enticement**: término usado por NCMEC para describir intentos de atraer o manipular a un menor por internet con intención abusiva.
 
-**Grooming**: manipulación gradual para ganar confianza del menor, aislarlo o presionarlo.
+**Grooming**: proceso gradual de manipulación para ganar confianza, pedir secretos, aislar o presionar al menor.
 
-**Sextorsión**: amenaza o presión usando imágenes íntimas, conversaciones o información personal para obligar a la víctima a hacer algo.
+**Sextorsión**: amenaza o chantaje usando imágenes íntimas, conversaciones o información personal.
 
-**Identidad falsa**: perfil donde alguien finge ser otra persona, otra edad o tener otra intención.
+**Identidad falsa**: perfil donde alguien finge otra edad, identidad o intención para acercarse al menor.
 
-Para una familia, una forma sencilla de entenderlo es esta: el grooming casi nunca empieza con una amenaza directa. Suele comenzar con una relación aparentemente amable.
+**Huella digital**: rastro que dejan mensajes, fotos, publicaciones, datos compartidos o capturas.
 
-La otra persona puede:
+## Cómo suele escalar una interacción de riesgo
 
-1. mostrarse demasiado comprensiva o interesada,
-2. dar atención excesiva y acelerar la confianza,
-3. pedir secretos,
-4. insistir en hablar fuera del juego,
-5. intentar aislar al menor de sus padres o cuidadores.
+No siempre empieza con una amenaza. Puede avanzar así:
 
-**HealthyChildren** advierte que depredadores y estafadores pueden usar identidades falsas para hacerse pasar por amistades en sitios de gaming, apps o redes, con el fin de ganar la confianza del menor.
+**conversación normal → bromas hirientes o atención excesiva → preguntas personales → secreto o contacto por otra app → solicitud de fotos, datos, ubicación o encuentro.**
+
+En videojuegos, apps o redes, algunas personas pueden usar identidades falsas para parecer amistades, ganar confianza y mover la conversación a un terreno menos supervisado.
 
 ---
 
 ## Datos personales: lo que nunca debería compartirse
 
-**UNICEF** recomienda enseñar a niñas, niños y adolescentes a proteger su identidad y a no compartir datos personales con otras personas en línea.
+Conviene enseñar al menor que proteger su identidad también significa no compartir datos personales con personas que conoce solo en línea.
 
-En términos prácticos, una familia debería tratar como información sensible:
+En términos prácticos, conviene agrupar la información sensible en tres categorías:
 
-1. nombre completo,
-2. dirección,
-3. escuela,
-4. teléfono,
-5. contraseñas,
-6. ubicación,
-7. rutinas diarias,
-8. fotos personales,
-9. cualquier dato que permita identificar al menor fuera del juego.
+| Tipo de dato | Ejemplos | Por qué importa |
+| --- | --- | --- |
+| **Identidad** | Nombre completo, fotos personales, usuario de redes o cualquier dato que permita reconocer al menor. | Puede usarse para buscarlo, exponerlo o presionarlo fuera del juego. |
+| **Contacto y acceso** | Teléfono, correo, contraseñas, enlaces de invitación o cuentas vinculadas. | Abre la puerta a mensajes directos, robo de cuenta o contacto no supervisado. |
+| **Ubicación y rutina** | Dirección, escuela, ciudad, horarios, lugares que frecuenta o ubicación en tiempo real. | Permite ubicar al menor o anticipar dónde estará. |
 
 Esto importa porque el daño no siempre aparece de inmediato. A veces todo empieza con frases como: "solo dime tu nombre", "mándame una foto para saber que eres real" o "pásame tu Instagram para hablar mejor".
 
@@ -96,33 +80,44 @@ Esto importa porque el daño no siempre aparece de inmediato. A veces todo empie
 
 ## Señales básicas que deberían encender alerta
 
-Una familia debería prestar atención si el menor:
-
-1. recibe mensajes repetidos de alguien que no conoce en la vida real,
-2. empieza a ocultar chats o cambia de pantalla cuando pasa un adulto,
-3. dice que "solo esa persona lo entiende",
-4. menciona que alguien le pidió guardar un secreto,
-5. es presionado para mandar fotos, audios, videos o datos personales,
-6. es invitado a seguir la conversación por otra app, red social o servicio de mensajería.
-
-Estas señales son coherentes con los patrones de manipulación y acercamiento descritos por **NCMEC** y **HealthyChildren**.
+Estas señales ayudan a reconocer cuándo una interacción empieza a salirse de una conversación normal de juego:
 
 ---
+
+| Señal observable | Posible lectura | Respuesta familiar inicial |
+| --- | --- | --- |
+| **Recibe muchos mensajes de alguien que no conoce** | Puede haber insistencia, presión o acercamiento acelerado. | Revisar quién es la cuenta y cómo empezó la conversación. |
+| **Oculta chats o cambia de pantalla** | Puede haber vergüenza, presión o miedo a perder acceso. | Preguntar con calma y pedir que muestre el contexto. |
+| **Alguien pide secretos** | La conversación dejó de ser transparente. | Reforzar que no hay secretos con personas del juego. |
+| **Quiere pasar a otra app** | Puede buscar un espacio menos supervisado. | Revisar quién lo pide y bloquear si hay presión. |
+| **Pide fotos, datos o ubicación** | Ya existe exposición personal. | Guardar evidencia, cortar contacto y reportar. |
+| **Cambios de ánimo tras jugar** | Puede haber acoso, presión o conflicto social. | Conversar, observar repetición y revisar interacciones. |
 
 ## Cómo distinguir una interacción incómoda de una interacción de riesgo
 
 No toda incomodidad es grooming. No toda discusión entre jugadores es ciberacoso. Pero sí conviene enseñar a detectar cuándo una conversación deja de ser apropiada.
 
-Una interacción pasa a nivel de riesgo cuando incluye:
+Una interacción pasa a nivel de riesgo cuando incluye manipulación, presión, aislamiento, secretos, peticiones de material personal, lenguaje sexual o intentos de mover la conversación a otro espacio menos supervisado.
 
-1. manipulación o presión,
-2. aislamiento,
-3. secretos,
-4. peticiones de material personal,
-5. lenguaje sexual,
-6. intentos de mover la conversación a otro espacio menos supervisado.
+Las identidades falsas y la generación rápida de confianza son tácticas frecuentes en este tipo de casos.
 
-**HealthyChildren** y **NCMEC** coinciden en que las identidades falsas y la generación rápida de confianza son tácticas frecuentes en este tipo de casos.
+---
+
+## Qué cambia cuando la interacción es por voz
+
+El chat de voz puede hacer que una partida se sienta más cercana, intensa y difícil de revisar después. A diferencia del texto, muchas frases no quedan visibles para que la familia las lea con calma. Por eso, cuando una experiencia permite voz, el menor necesita saber cómo desconectarse, silenciar, bloquear y reportar sin discutir con la otra persona.
+
+| Situación por voz | Por qué aumenta el riesgo | Respuesta familiar útil |
+| --- | --- | --- |
+| **Insultos o burlas en tiempo real** | Pueden sentirse más agresivos que un mensaje escrito. | Salir de la voz, silenciar al usuario y reportar si continúa. |
+| **Presión para responder rápido** | El menor puede aceptar algo sin pensarlo. | Enseñar que puede pausar, cortar la voz y pedir ayuda. |
+| **Preguntas personales habladas** | Puede parecer una conversación casual, pero exponer datos. | Reforzar datos que nunca se comparten, incluso si la voz parece amistosa. |
+| **Invitación a otra app o llamada externa** | Saca la conversación de los controles de Roblox. | No aceptar y avisar a un adulto. |
+| **Lenguaje sexual, amenazas o chantaje** | Ya no es solo una mala experiencia de juego. | Cortar contacto, guardar lo que sí exista como evidencia y escalar si hay peligro. |
+
+En voz, puede no haber una captura clara del mensaje exacto. Aun así, la familia puede documentar fecha, hora, experiencia, nombre de usuario, testimonio del menor y cualquier pantalla relacionada antes de bloquear o reportar.
+
+> **Regla práctica**: Si una conversación por voz pide secretos, datos, contacto externo o hace sentir miedo, no se negocia dentro del chat; se corta la comunicación y se pide ayuda.
 
 ---
 
@@ -130,56 +125,39 @@ Una interacción pasa a nivel de riesgo cuando incluye:
 
 Una forma útil de leer el riesgo es pensar en un semáforo de señales:
 
-### Verde: interacción apropiada
-
-La conversación gira sobre el juego, no pide datos personales, no hay presión y el tono es normal.
-
-### Amarillo: algo empieza a incomodar
-
-Hay insistencia, bromas hirientes, presión para seguir hablando o una amistad demasiado intensa en poco tiempo.
-
-### Rojo: hace falta intervenir
-
-Pide secretos, datos, fotos, contacto fuera del juego, lenguaje sexual o intenta separar al menor de la supervisión adulta.
+| Nivel | Señal principal | Lectura familiar |
+| --- | --- | --- |
+| **Verde** | La conversación gira sobre el juego, sin datos personales ni presión. | Interacción apropiada. |
+| **Amarillo** | Hay insistencia, bromas hirientes, presión por voz o amistad demasiado intensa en poco tiempo. | Algo empieza a incomodar y conviene revisar. |
+| **Rojo** | Pide secretos, datos, fotos, contacto externo, lenguaje sexual, aislamiento o continuar por llamada privada. | Hace falta intervenir. |
 
 > **Regla práctica**: Si una conversación pasa de hablar del juego a pedir privacidad, secretos o información personal, la familia ya tiene motivos suficientes para revisar.
 
 ---
 
+![Cortar la interacción sin escalar el conflicto. Acciones útiles: mutear, bloquear, reportar y salir del chat o servidor si hace falta.](/article-images/videojuegos/M4A1.1.png)
+
+---
+
 ## Ciberacoso y grooming no son lo mismo, pero pueden mezclarse
 
-A veces ambos riesgos aparecen juntos, por eso conviene diferenciarlos:
+La diferencia importa porque la respuesta cambia. El ciberacoso suele requerir bloqueo, reporte y contención emocional; el grooming exige intervención más urgente porque combina confianza, secreto y posible explotación.
 
-### Ciberacoso
-
-1. humilla,
-2. excluye,
-3. difunde rumores,
-4. expone para dañar.
-
-### Grooming
-
-1. halaga,
-2. genera confianza acelerada,
-3. pide secreto,
-4. intenta aislar,
-5. escala hacia una petición personal o íntima.
-
-La diferencia importa porque la respuesta también cambia. El ciberacoso suele requerir bloqueo, reporte y contención emocional. El grooming requiere una lectura más urgente porque implica manipulación con potencial de explotación.
+Si una misma conversación mezcla humillación, presión, contacto externo, secretos o petición de datos personales, la familia debe tratarla como una señal de riesgo alto y revisar el contexto completo antes de permitir que continúe.
 
 ---
 
 ## Qué puede hacer una familia desde la prevención
 
-**UNICEF** recomienda establecer reglas claras, revisar ajustes de privacidad y mantener una cultura de conversación abierta sobre seguridad digital.
+La prevención funciona mejor cuando hay reglas claras, ajustes de privacidad revisados y una conversación abierta sobre seguridad digital:
 
-Traducido a la práctica para este curso:
-
-1. acordar qué datos nunca se comparten,
-2. dejar claro que no se guardan secretos con personas del juego,
-3. explicar que pedir ayuda no trae castigo,
-4. revisar de vez en cuando con quién juega el menor y qué tipo de mensajes recibe,
-5. reforzar que toda interacción que incomoda se puede mostrar a un adulto.
+| Acción preventiva | Propósito |
+| --- | --- |
+| Acordar qué datos nunca se comparten. | Evitar exposición de identidad, ubicación o contacto. |
+| Dejar claro que no se guardan secretos con personas del juego. | Cortar manipulación antes de que escale. |
+| Explicar que pedir ayuda no trae castigo. | Mantener abierta la confianza. |
+| Revisar con quién juega y qué mensajes recibe. | Detectar señales antes de que se normalicen. |
+| Reforzar que toda interacción incómoda se puede mostrar a un adulto. | Convertir la incomodidad en una señal útil de protección. |
 
 > **Lo que un padre debe recordar**: El riesgo no siempre empieza con algo extremo; muchas veces empieza con confianza mal colocada.
 
@@ -189,10 +167,12 @@ Traducido a la práctica para este curso:
 
 Antes de dar por segura una interacción, conviene validar cuatro preguntas rápidas:
 
-1. **¿La conversación sigue centrada en el juego?** Si pasa de la partida a la vida personal, el riesgo sube.
-2. **¿Hay presión o secretos?** Si alguien pide ocultar algo a la familia, ya es señal de alerta.
-3. **¿Se solicitaron datos, fotos o contacto externo?** Ese cambio exige revisión inmediata.
-4. **¿El menor se siente incómodo pero no sabe explicarlo?** La incomodidad sostenida también cuenta como señal útil.
+| Pregunta | Por qué importa |
+| --- | --- |
+| **¿La conversación sigue centrada en el juego?** | Si pasa de la partida a la vida personal, el riesgo sube. |
+| **¿Hay presión o secretos?** | Si alguien pide ocultar algo a la familia, ya es señal de alerta. |
+| **¿Se solicitaron datos, fotos, voz privada o contacto externo?** | Ese cambio exige revisión inmediata. |
+| **¿El menor se siente incómodo pero no sabe explicarlo?** | La incomodidad sostenida también cuenta como señal útil. |
 
 > **Regla de Oro**: Si una interacción mezcla insistencia, privacidad y secretos, no hace falta esperar a que ocurra algo peor para intervenir.
 
@@ -214,11 +194,7 @@ Antes de dar por segura una interacción, conviene validar cuatro preguntas ráp
 
 ## Microactividad de 1 minuto
 
-Piensa en el juego que usa tu hijo o hija:
-
-1. ¿Sabría reconocer una broma hiriente?
-2. ¿Sabe que no debe guardar secretos con personas del juego?
-3. ¿Tiene claro qué datos nunca comparte?
+Piensa en el juego que usa tu hijo o hija: ¿sabría reconocer una broma hiriente?, ¿sabe que no debe guardar secretos con personas del juego?, ¿tiene claro qué datos nunca comparte?
 
 Si alguna respuesta es "no", ahí está el siguiente aprendizaje que conviene reforzar.
 
@@ -232,10 +208,10 @@ El primer paso para proteger a un menor en un entorno de juego no es saberlo tod
 
 El siguiente contenido del módulo mostrará qué hacer cuando la interacción de riesgo ya ocurrió y cómo responder de forma útil, calmada y segura.`,
             type: 'article',
-            duration: 12,
+            duration: 13,
             platforms: ['Roblox', 'Minecraft'],
             riskAreas: ['Privacidad Avanzada'],
-            teaches: ['ciberacoso', 'grooming', 'enticement', 'dato personal', 'huella digital', 'secretos', 'datos personales', 'fotos personales']
+            teaches: ['ciberacoso', 'grooming', 'enticement', 'dato personal', 'huella digital', 'secretos', 'datos personales', 'fotos personales', 'chat de voz', 'voice chat']
         });
 
         const l4_2 = await getOrCreateLesson(mod4._id, courseGames._id, {
@@ -247,13 +223,14 @@ Este video aterriza el módulo en escenas típicas de chat y juego para que la f
 ## Qué conviene observar
 * Cómo aparecen secretos, presión o peticiones de datos personales.
 * Qué cambia cuando una interacción pasa de normal a invasiva.
+* Qué hacer si el problema ocurre por chat de voz y no queda una conversación escrita.
 * Qué señales deberían activar una conversación inmediata con el menor.`,
             type: 'video',
             videoUrl: 'https://www.youtube.com/watch?v=sgiMbuJpRqc',
             duration: 2,
             platforms: ['Roblox', 'Minecraft'],
             riskAreas: ['Privacidad Avanzada'],
-            teaches: ['ciberacoso', 'grooming', 'datos personales', 'secretos', 'pasar a otra app']
+            teaches: ['ciberacoso', 'grooming', 'datos personales', 'secretos', 'pasar a otra app', 'chat de voz', 'voice chat']
         });
 
         const l4_3 = await getOrCreateLesson(mod4._id, courseGames._id, {
@@ -262,79 +239,61 @@ Este video aterriza el módulo en escenas típicas de chat y juego para que la f
 
 > **Perspectiva Estratégica**: Cuando algo grave ocurre en un juego o chat, el menor no necesita primero un castigo; necesita un adulto que lo escuche, le dé seguridad y actúe con claridad.
 
-Este artículo enseña algo muy concreto: cuando el riesgo ya ocurrió, la primera respuesta del adulto puede reducir el daño o empeorarlo. **UNICEF** advierte que, si el menor se siente castigado o no escuchado, puede dejar de contar lo que le pasa en el futuro. Por eso, el primer paso no es reaccionar con enojo, sino generar seguridad y actuar con orden.
+Este artículo enseña algo muy concreto: cuando el riesgo ya ocurrió, la primera respuesta del adulto puede reducir el daño o empeorarlo. Si el menor se siente castigado o no escuchado, puede dejar de contar lo que le pasa en el futuro. Por eso, el primer paso no es reaccionar con enojo, sino generar seguridad y actuar con orden.
 
 ---
 
-## Lo primero: mantener la calma y escuchar
-
-Cuando un hijo o hija cuenta que alguien lo insultó, lo acosó, le pidió datos personales, le mandó contenido sexual o trató de mover la conversación fuera del juego, la reacción del adulto importa mucho.
-
-**UNICEF** recomienda:
-
-1. mantenerse en calma,
-2. escuchar con atención,
-3. hacer preguntas abiertas,
-4. dejar claro que el menor no está en problemas,
-5. reconocer que hizo bien en contarlo.
-
-También advierte que quitar de inmediato el dispositivo o el acceso a internet puede hacer que el menor se sienta castigado y sea menos probable que vuelva a pedir ayuda después.
-
-> **Idea central**: En este momento, lo más importante no es controlar el dispositivo, sino proteger la confianza.
+![Lo primero: mantener la calma y escuchar cuando un menor cuenta una interacción de riesgo.](/article-images/videojuegos/M4A2.png)
 
 ---
 
 ## Entender qué pasó antes de decidir
 
-No toda interacción de riesgo es igual. Puede tratarse de:
+No toda interacción de riesgo es igual. Puede tratarse de ciberacoso, presión para compartir datos, manipulación emocional, solicitudes de imágenes, amenazas o intentos de concretar un encuentro.
 
-1. ciberacoso,
-2. presión para compartir datos,
-3. manipulación emocional,
-4. solicitudes de imágenes,
-5. amenazas,
-6. intentos de concretar un encuentro.
+Para entender el incidente, conviene preguntar con calma:
 
-**UNICEF** recomienda preguntar con calma:
-
-1. qué pasó,
-2. dónde ocurrió,
-3. quién participó,
-4. cuánto tiempo lleva ocurriendo,
-5. cómo se sintió el menor.
+| Pregunta | Para qué sirve |
+| --- | --- |
+| **¿Qué pasó y dónde ocurrió?** | Ubica la plataforma, chat, servidor o partida. |
+| **¿Quién participó?** | Distingue amistades, desconocidos, compañeros o cuentas sospechosas. |
+| **¿Desde cuándo pasa?** | Ayuda a saber si fue un incidente aislado o repetido. |
+| **¿Cómo te sentiste?** | Permite valorar impacto emocional y necesidad de apoyo. |
 
 Cuando el adulto no entiende una app, un juego o una expresión, también conviene pedir que se la muestre. Comprender mejor la plataforma ayuda a intervenir mejor.
 
 ---
 
-## Cortar la interacción sin escalar el conflicto
+![Cortar la interacción sin escalar el conflicto. Acciones útiles: mutear, bloquear, reportar y salir del chat o servidor si hace falta.](/article-images/videojuegos/M4A2.1.png)
 
-Si el problema es ciberacoso o contacto no deseado, **StopBullying.gov** recomienda no responder ni reenviar los mensajes agresivos, conservar evidencia y bloquear a la persona.
+---
 
-En términos prácticos, esto significa que intervenir no es discutir con el agresor, sino usar las herramientas de seguridad de la plataforma.
+## Si el incidente ocurrió por chat de voz
 
-Las acciones más útiles suelen ser:
+Cuando el problema ocurrió por voz, puede que no exista un texto para capturar. Eso no significa que la familia no pueda actuar. Conviene pedir al menor que describa qué escuchó, quién habló, en qué experiencia ocurrió, cuánto duró y si hubo otros jugadores presentes.
 
-1. mutear,
-2. bloquear,
-3. reportar,
-4. salir del chat o servidor si hace falta.
+| Qué documentar | Por qué sirve |
+| --- | --- |
+| **Nombre de usuario o perfil** | Permite bloquear, reportar o identificar a la cuenta involucrada. |
+| **Experiencia o servidor** | Ubica el contexto donde ocurrió la interacción. |
+| **Fecha y hora aproximadas** | Ayuda a ordenar el reporte y recordar detalles. |
+| **Qué se dijo o pidió** | Permite distinguir broma, acoso, presión, grooming o amenaza. |
+| **Cómo reaccionó el menor** | Muestra impacto emocional y necesidad de apoyo. |
 
-> **Regla de Oro**: Responder con enojo al agresor suele complicar el problema; bloquear y documentar suele ayudar más.
+También conviene revisar si la cuenta tiene Voice Chat activo, si la experiencia permite voz y si el menor sabe usar las opciones de silenciar, desconectarse, bloquear y reportar.
 
 ---
 
 ## Guardar evidencia antes de borrar
 
-Una reacción muy común es querer borrar todo de inmediato. Sin embargo, **UNICEF** y **StopBullying.gov** coinciden en que, si se piensa reportar el caso, conviene guardar evidencia antes de eliminar nada.
+Una reacción muy común es querer borrar todo de inmediato. Sin embargo, si se piensa reportar el caso, conviene guardar evidencia antes de eliminar nada.
 
-Lo más útil es conservar:
-
-1. capturas de pantalla,
-2. mensajes,
-3. nombre de usuario o perfil,
-4. fecha y hora,
-5. descripción breve de lo ocurrido.
+| Evidencia | Qué debe mostrar |
+| --- | --- |
+| **Capturas y mensajes** | Conversación, tono, solicitudes, amenazas o insultos. |
+| **Usuario o perfil** | Nombre visible, identificador, servidor, experiencia o cuenta involucrada. |
+| **Fecha y hora** | Momento aproximado del incidente y duración del problema. |
+| **Descripción breve** | Qué pasó, cómo empezó y qué hizo sentir al menor. |
 
 Esta evidencia puede servir para denunciar dentro de la plataforma, hablar con la escuela o escalar a autoridades si el caso lo requiere.
 
@@ -342,15 +301,7 @@ Esta evidencia puede servir para denunciar dentro de la plataforma, hablar con l
 
 ## Cuándo reportar dentro de la plataforma
 
-**UNICEF** recuerda que la mayoría de apps, redes y juegos incluyen funciones para reportar, mutear o bloquear usuarios y contenido.
-
-Reportar es apropiado cuando hay:
-
-1. humillación o insultos reiterados,
-2. amenazas,
-3. difusión de contenido o información privada,
-4. solicitudes de datos personales,
-5. conducta que viola claramente las reglas del servicio.
+La mayoría de apps, redes y juegos incluyen funciones para reportar, mutear o bloquear usuarios y contenido. Reportar es apropiado cuando hay humillación reiterada, amenazas, difusión de contenido o información privada, solicitudes de datos personales o una conducta que viola claramente las reglas del servicio.
 
 Si una empresa no responde o la situación no se resuelve, el reporte puede escalarse por otras vías.
 
@@ -358,14 +309,9 @@ Si una empresa no responde o la situación no se resuelve, el reporte puede esca
 
 ## Cuándo hablar con la escuela
 
-Si el incidente involucra a compañeros de escuela o afecta la vida escolar del menor, **UNICEF** indica que puede ser necesario hablar con la escuela y compartir la evidencia recopilada.
+Si el incidente involucra a compañeros de escuela o afecta la vida escolar del menor, puede ser necesario hablar con la escuela y compartir la evidencia recopilada.
 
-Esto es especialmente importante cuando:
-
-1. el acoso sigue fuera de internet,
-2. el menor evita ir a clases,
-3. hay humillación entre compañeros,
-4. el problema impacta el recreo, el salón o la convivencia diaria.
+Esto es especialmente importante cuando el acoso sigue fuera de internet, el menor evita ir a clases, hay humillación entre compañeros o el problema impacta el recreo, el salón y la convivencia diaria.
 
 > **Lectura práctica**: El daño digital muchas veces no se queda en internet. Si afecta la vida escolar, la escuela también forma parte de la respuesta.
 
@@ -375,15 +321,14 @@ Esto es especialmente importante cuando:
 
 Hay situaciones que no deben manejarse solo como "un problema de chat".
 
-**UNICEF** señala que, si existe preocupación por la seguridad del menor, debe contactarse a la policía, a las autoridades o a una organización local de protección infantil. **NCMEC** explica que la online enticement incluye contacto con intención sexual, solicitudes de imágenes explícitas, sextorsión, conversación sexual y, en algunos casos, intentos de encuentro presencial.
+Si existe preocupación por la seguridad del menor, la familia no debe manejarlo sola: conviene contactar a autoridades o servicios de protección infantil. Cuando hay contacto con intención sexual, solicitudes de imágenes explícitas, sextorsión, conversación sexual o intentos de encuentro presencial, el caso exige una respuesta más formal.
 
-Se debe considerar escalamiento urgente si hay:
-
-1. petición de fotos íntimas,
-2. amenazas o chantaje,
-3. sextorsión,
-4. propuesta de encuentro,
-5. miedo real por la seguridad física del menor.
+| Señal grave | Por qué requiere escalar |
+| --- | --- |
+| **Petición de fotos íntimas o sextorsión** | Puede implicar explotación, chantaje o difusión de material sensible. |
+| **Amenazas o chantaje** | Aumenta el riesgo emocional y puede requerir apoyo externo. |
+| **Propuesta de encuentro** | Cambia de riesgo digital a posible riesgo físico. |
+| **Miedo real por la seguridad** | La familia no debe manejarlo sola como un simple problema de chat. |
 
 En Estados Unidos, **NCMEC CyberTipline** es el sistema centralizado para reportar sospechas de explotación sexual infantil en línea.
 
@@ -393,15 +338,7 @@ En Estados Unidos, **NCMEC CyberTipline** es el sistema centralizado para report
 
 Cuando la interacción incluyó presión para enviar imágenes, difusión no consentida o amenazas con material sensible, el foco ya no debe ser regañar al menor, sino reducir el daño cuanto antes.
 
-**UNICEF** incluye entre sus recursos **Take It Down**, una herramienta orientada a apoyar la retirada de imágenes íntimas.
-
-En estos casos, conviene:
-
-1. cortar el contacto,
-2. no negociar con quien amenaza,
-3. guardar evidencia,
-4. activar apoyo especializado,
-5. escalar el caso si hay explotación o chantaje.
+En estos casos, conviene cortar el contacto, no negociar con quien amenaza, guardar evidencia, activar apoyo especializado y escalar el caso si hay explotación o chantaje. Herramientas como **Take It Down** pueden apoyar la retirada de imágenes íntimas.
 
 ---
 
@@ -409,30 +346,26 @@ En estos casos, conviene:
 
 La respuesta no termina cuando se bloquea o se reporta.
 
-**UNICEF** recomienda seguir hablando con el menor, observar cómo se siente y apoyarlo con actividades positivas fuera de la pantalla. Si los cambios en ánimo o conducta duran un tiempo, conviene buscar apoyo profesional.
+Después del incidente, conviene seguir hablando con el menor, observar cómo se siente y apoyarlo con actividades positivas fuera de la pantalla. Si los cambios en ánimo o conducta duran un tiempo, conviene buscar apoyo profesional.
 
-Algunas señales de alarma posteriores son:
-
-1. tristeza persistente,
-2. ansiedad,
-3. irritabilidad,
-4. alteraciones del sueño,
-5. evitación social,
-6. miedo a conectarse.
+| Señal posterior | Qué puede indicar |
+| --- | --- |
+| **Tristeza, ansiedad o irritabilidad persistente** | El incidente sigue afectando emocionalmente. |
+| **Alteraciones del sueño** | Hay tensión, miedo o preocupación que no se resolvió. |
+| **Evitación social o miedo a conectarse** | El menor puede sentirse expuesto o inseguro en línea. |
 
 ---
 
 ## Qué no conviene hacer
 
-Hay errores que suelen empeorar el problema:
+| Error frecuente | Por qué empeora el problema |
+| --- | --- |
+| **Culpar, regañar o castigar de inmediato.** | Puede hacer que el menor oculte futuros incidentes. |
+| **Responder impulsivamente al agresor.** | Suele escalar el conflicto y puede borrar contexto útil. |
+| **Borrar todo antes de guardar pruebas.** | Dificulta reportar o explicar lo ocurrido. |
+| **Minimizar lo ocurrido.** | Deja al menor sin apoyo cuando sí necesitaba protección. |
 
-1. culpar al menor,
-2. responder impulsivamente al agresor,
-3. borrar todo antes de guardar pruebas,
-4. minimizar lo ocurrido,
-5. convertir la revelación en castigo inmediato.
-
-**UNICEF** insiste en no criticar ni culpar, mientras que **StopBullying.gov** recomienda no responder ni reenviar mensajes agresivos.
+En general, no conviene criticar ni culpar al menor, responder impulsivamente al agresor ni reenviar mensajes agresivos.
 
 ---
 
@@ -440,17 +373,11 @@ Hay errores que suelen empeorar el problema:
 
 Este semáforo no es una clasificación oficial, sino una síntesis didáctica para ayudar a decidir mejor:
 
-### Amarillo
-
-Insultos, burlas, humillación o presión social.
-
-### Naranja
-
-Solicitud de datos personales, paso a otra app o petición de secretos.
-
-### Rojo
-
-Petición de fotos íntimas, amenazas, chantaje, propuesta de encuentro o miedo por la seguridad.
+| Nivel | Señales típicas | Acción recomendada |
+| --- | --- | --- |
+| **Amarillo** | Burlas, insultos, presión social o conflicto repetido. | Escuchar, documentar, bloquear si continúa y revisar reglas de convivencia. |
+| **Naranja** | Petición de datos, secretos, contacto externo o aislamiento. | Cortar contacto, guardar evidencia, reportar y supervisar de cerca. |
+| **Rojo** | Fotos íntimas, amenazas, chantaje, propuesta de encuentro o miedo físico. | No negociar, conservar evidencia y escalar a plataforma, escuela o autoridades según el caso. |
 
 > **Regla práctica**: Si el caso ya está en naranja o rojo, no basta con “esperar a ver si se calma”. Hace falta intervenir y documentar.
 
@@ -460,56 +387,29 @@ Petición de fotos íntimas, amenazas, chantaje, propuesta de encuentro o miedo 
 
 Una forma simple de recordar la secuencia correcta es esta:
 
-1. escuchar y calmar,
-2. entender qué ocurrió,
-3. no responder al agresor,
-4. guardar evidencia,
-5. bloquear o reportar,
-6. escalar si la seguridad está comprometida.
+| Primero | Después | Si hay gravedad |
+| --- | --- | --- |
+| Escuchar, calmar y entender qué ocurrió. | No responder al agresor, guardar evidencia y bloquear o reportar. | Escalar si hay amenazas, explotación, imágenes íntimas o riesgo físico. |
 
 ---
 
 ## Qué sí / qué no
 
-### Sí
-
-1. escuchar,
-2. creerle,
-3. guardar pruebas,
-4. usar bloqueo y reporte,
-5. pedir apoyo si hace falta.
-
-### No
-
-1. culpar,
-2. regañar primero,
-3. responder al agresor,
-4. borrar todo sin revisar,
-5. minimizar lo ocurrido.
+| Sí conviene | No conviene |
+| --- | --- |
+| Escuchar, creerle y guardar pruebas. | Culpar, regañar primero o minimizar lo ocurrido. |
+| Usar bloqueo y reporte. | Responder al agresor o borrar todo sin revisar. |
+| Pedir apoyo si hace falta. | Manejar solo una situación con amenazas, sextorsión o riesgo físico. |
 
 ---
 
-## Caja de conceptos clave
-
-**Bloquear**: impedir que una persona vuelva a contactar o ver al menor desde la plataforma.
-
-**Reportar**: avisar a la plataforma que una conducta viola sus reglas o pone en riesgo a alguien.
-
-**Evidencia**: capturas, mensajes, perfiles, fechas y otros datos que ayudan a demostrar lo ocurrido.
-
-**Sextorsión**: chantaje usando imágenes o contenido íntimo.
-
-**Escalamiento**: pasar del manejo familiar al apoyo de escuela, plataforma o autoridades según la gravedad.
+![Caja de conceptos clave: bloquear, reportar, evidencia, sextorsión y escalamiento.](/article-images/videojuegos/M4A2.2.png)
 
 ---
 
 ## Microactividad de 1 minuto
 
-Imagina que tu hijo te enseña un chat incómodo.
-
-1. ¿Lo primero que harías sería regañarlo?
-2. ¿Responderías al agresor?
-3. ¿O le pedirías que te muestre qué pasó para entenderlo bien?
+Imagina que tu hijo te enseña un chat incómodo. Antes de regañar o responder al agresor, pregúntate: **¿puedo pedirle que me muestre qué pasó para entenderlo bien?**
 
 La respuesta más protectora empieza por escuchar, entender y luego actuar.
 
@@ -523,10 +423,10 @@ Cuando ya hubo una interacción de riesgo, la meta no es reaccionar con miedo, s
 
 Por eso, la respuesta más útil combina calma, escucha, bloqueo o reporte cuando corresponde, y escalamiento a la escuela o a autoridades si la seguridad del menor está comprometida.`,
             type: 'article',
-            duration: 12,
+            duration: 11,
             platforms: ['Roblox', 'Minecraft'],
             riskAreas: ['Privacidad Avanzada'],
-            teaches: ['evidencia', 'bloquear', 'reportar', 'escuela', 'autoridades', 'sextorsión', 'escalamiento', 'capturas de pantalla']
+            teaches: ['evidencia', 'bloquear', 'reportar', 'escuela', 'autoridades', 'sextorsión', 'escalamiento', 'capturas de pantalla', 'chat de voz', 'voice chat']
         });
 
         const l4_4 = await getOrCreateLesson(mod4._id, courseGames._id, {
@@ -537,6 +437,7 @@ Este video ordena la respuesta familiar después de una interacción de riesgo p
 
 ## Qué conviene observar
 * Qué capturas o datos vale la pena guardar antes de borrar o bloquear.
+* Cómo documentar un incidente si ocurrió por voz y no por mensajes escritos.
 * En qué momento reportar dentro de la plataforma no es suficiente.
 * Cuándo conviene acudir a escuela, apoyo profesional o autoridades.`,
             type: 'video',
@@ -544,7 +445,7 @@ Este video ordena la respuesta familiar después de una interacción de riesgo p
             duration: 2,
             platforms: ['Roblox', 'Minecraft'],
             riskAreas: ['Privacidad Avanzada'],
-            teaches: ['evidencia', 'capturas de pantalla', 'bloquear', 'reportar', 'autoridades']
+            teaches: ['evidencia', 'capturas de pantalla', 'bloquear', 'reportar', 'autoridades', 'chat de voz', 'voice chat']
         });
 
         mod4.lessonOrder = [l4_1._id, l4_2._id, l4_3._id, l4_4._id];
@@ -658,12 +559,25 @@ Este video ordena la respuesta familiar después de una interacción de riesgo p
                     { text: 'Le piden al menor guardar un secreto con alguien del juego', isCorrect: true },
                     { text: 'Le preguntan por su escuela o dirección', isCorrect: true },
                     { text: 'Alguien amenaza con publicar algo si no obedece', isCorrect: true },
+                    { text: 'Le piden seguir la conversación por voz, llamada privada u otra app', isCorrect: true },
                     { text: 'Cambió el color de su avatar', isCorrect: false },
                     { text: 'Le cuenta a sus padres con quién juega', isCorrect: false },
                     { text: 'Quiere desbloquear un logro nuevo en el juego', isCorrect: false }
                 ],
                 explanation: 'Tip: Secretos, petición de datos personales y amenazas son señales claras de manipulación o acoso que requieren revisión inmediata.',
                 points: 15
+            },
+            {
+                text: 'Caso: El menor cuenta que en una experiencia con chat de voz alguien lo insultó, le pidió su edad real y luego le dijo que siguieran hablando por otra app. No hay mensajes escritos. ¿Qué debería hacer la familia?',
+                type: 'case_study',
+                options: [
+                    { text: 'No hacer nada porque sin captura de texto no hay forma de reportar.', isCorrect: false },
+                    { text: 'Documentar usuario, experiencia, fecha, lo que se dijo, bloquear/reportar y revisar si Voice Chat debe quedar desactivado.', isCorrect: true },
+                    { text: 'Pedir al menor que vuelva a entrar para grabar mejor la conversación.', isCorrect: false },
+                    { text: 'Responder por voz al usuario para advertirle que ya fue descubierto.', isCorrect: false }
+                ],
+                explanation: 'En incidentes por voz, la evidencia puede ser contextual: usuario, experiencia, hora, relato del menor y acciones de bloqueo o reporte. No conviene reexponer al menor para conseguir más prueba.',
+                points: 10
             },
             {
                 text: 'Completa correctamente cada frase.',

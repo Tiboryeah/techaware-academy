@@ -61,16 +61,17 @@ module.exports = async function seedGamesFinalQuiz(context) {
             text: 'Modulo 2. Completa las frases sobre supervision parental en Roblox.',
             type: 'fill_blanks',
             metadata: {
-                sentence: 'Para supervisar Roblox de forma correcta, la cuenta del adulto debe estar [blank1] con la del menor. La plataforma pide verificar la [blank2] del adulto para activar privilegios parentales. La [blank3] de contenido ayuda a decidir que experiencias puede abrir el menor. El [blank4] mensual de gasto ayuda a controlar compras impulsivas.',
-                bank: ['enlazada', 'edad', 'madurez', 'limite'],
+                sentence: 'Para supervisar Roblox de forma correcta, la cuenta del adulto debe estar [blank1] con la del menor. La plataforma pide verificar la [blank2] del adulto para activar privilegios parentales. La [blank3] de contenido ayuda a decidir que experiencias puede abrir el menor. El [blank4] mensual de gasto ayuda a controlar compras impulsivas. Voice Chat es una funcion de [blank5] que requiere revisar edad, elegibilidad y madurez.',
+                bank: ['enlazada', 'edad', 'madurez', 'limite', 'comunicacion'],
                 correctAnswer: {
                     blank1: 'enlazada',
                     blank2: 'edad',
                     blank3: 'madurez',
-                    blank4: 'limite'
+                    blank4: 'limite',
+                    blank5: 'comunicacion'
                 }
             },
-            explanation: 'Este reactivo se basa en cuenta adulta enlazada, verificacion de edad, madurez de contenido y limite mensual de gasto.',
+            explanation: 'Este reactivo se basa en cuenta adulta enlazada, verificacion de edad, madurez de contenido, limite mensual de gasto y Voice Chat como funcion de comunicacion avanzada.',
             platform: 'Roblox',
             riskArea: 'Seguridad de Cuenta',
             points: 10
@@ -84,6 +85,7 @@ module.exports = async function seedGamesFinalQuiz(context) {
                     'Madurez de contenido',
                     'Experience Chat',
                     'Direct Chat',
+                    'Voice Chat',
                     'Conexiones',
                     'Tiempo de pantalla',
                     'Limite mensual de gasto',
@@ -92,7 +94,7 @@ module.exports = async function seedGamesFinalQuiz(context) {
                 categories: ['Cuenta parental', 'Contenido y comunicacion', 'Supervision y consumo'],
                 correctAnswer: {
                     'Cuenta parental': ['Cuenta adulta enlazada'],
-                    'Contenido y comunicacion': ['Madurez de contenido', 'Experience Chat', 'Direct Chat', 'Conexiones'],
+                    'Contenido y comunicacion': ['Madurez de contenido', 'Experience Chat', 'Direct Chat', 'Voice Chat', 'Conexiones'],
                     'Supervision y consumo': ['Tiempo de pantalla', 'Limite mensual de gasto', 'Bloquear y reportar']
                 }
             },

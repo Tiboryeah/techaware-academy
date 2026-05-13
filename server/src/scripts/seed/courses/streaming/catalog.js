@@ -82,8 +82,6 @@ Twitch es una plataforma enfocada principalmente en transmisiones en vivo.
 * Se sienten parte de una comunidad.
 * Pueden interactuar, aunque eso también implica riesgos.
 
-## Diferencias clave entre YouTube y Twitch
-
 ![Diferencias clave entre YouTube y Twitch: tipo de contenido, interacción, control del contenido y riesgo principal.](/article-images/streaming/M1A1.png)
 
 La diferencia, entonces, no es que YouTube solo tenga videos grabados ni que Twitch solo tenga contenido en vivo. La diferencia útil para una familia es dónde está el énfasis: YouTube suele funcionar más como biblioteca de videos para ver cuando se quiera, mientras Twitch suele girar más alrededor del directo, el chat y la comunidad.
@@ -236,8 +234,6 @@ Hoy, el streaming:
 
 Eso significa que el límite ya no lo pone la plataforma. En la mayoría de los casos, debe ponerlo el adulto.
 
-## ¿Cuándo se convierte en un problema?
-
 ![Señales de que el atractivo del streaming se vuelve un problema: el niño no quiere dejar de ver videos, se irrita al quitarle el dispositivo, descuida tareas, sueño o convivencia, y solo encuentra diversión en pantallas.](/article-images/streaming/M1A2.png)
 
 ## ¿Qué pueden hacer los padres?
@@ -279,8 +275,6 @@ YouTube y Twitch no muestran un solo tipo de contenido. Un niño puede pasar de 
 ## Lo más importante
 
 No todo el contenido entretiene de la misma forma ni tiene el mismo impacto. Algunos videos pueden enseñar, otros solo buscan mantener la atención, y otros pueden exponer al menor a conductas, lenguaje o dinámicas que no son adecuadas para su edad.
-
-## Tipos de contenido más comunes
 
 ![Tipos de contenido más comunes en YouTube y Twitch: gameplays, retos y bromas, reacciones, vlogs, tutoriales y educativos, y directos en vivo, con su atractivo y riesgo principal.](/article-images/streaming/M2A1.png)
 
@@ -324,8 +318,6 @@ A diferencia de un video grabado, aquí no hay revisión previa. Por eso, los di
 
 Un contenido puede parecer infantil por su portada, colores o tema, y aun así incluir lenguaje agresivo, bromas pesadas, publicidad oculta o dinámicas poco sanas.
 
-## Qué pueden hacer los padres
-
 ![Acciones para padres: preguntar qué ve y quién lo crea, revisar videos o canales, distinguir si el contenido enseña o solo engancha, poner atención al contenido en vivo y hablar sin regañar.](/article-images/streaming/M2A1.1.png)
 
 ## Preguntas útiles para conversar en casa
@@ -352,27 +344,23 @@ Lo que un niño ve en YouTube o Twitch no se queda solo en la pantalla. El conte
 
 No todo contenido afecta igual. Un tutorial, un directo con chat abierto y un video de bromas pesadas no tienen el mismo efecto. Por eso, para acompañar bien a un hijo, importa tanto qué ve como cómo lo ve, con qué frecuencia y en qué momento del día.
 
-## Cómo puede influir el contenido
-
 ![Cómo puede influir el contenido en emociones, conducta, autoimagen y rutina diaria, y qué conviene observar en cada área.](/article-images/streaming/M2A2.png)
 
 ## 1. El contenido puede influir en el estado de ánimo
 
-No toda experiencia digital es negativa. La Academia Americana de Pediatría reconoce que los entornos digitales también pueden favorecer conexión social y aprendizaje. Pero el impacto depende mucho del tipo de uso. Cuando el contenido es excesivo, agresivo o emocionalmente intenso, puede dejar al niño más irritable, más ansioso o más alterado.
+No toda experiencia digital es negativa. Los entornos digitales también pueden favorecer conexión social y aprendizaje, pero el impacto depende mucho del tipo de uso. Cuando el contenido es excesivo, agresivo o emocionalmente intenso, puede dejar al niño más irritable, más ansioso o más alterado.
 
 ## 2. Los niños aprenden también por imitación
 
-Cuando un menor ve con frecuencia a creadores que gritan, humillan, reaccionan con agresividad o se burlan para entretener, puede empezar a ver esas conductas como normales. La AAP recuerda que los mensajes mediáticos no solo entretienen: también influyen en el comportamiento.
+Cuando un menor ve con frecuencia a creadores que gritan, humillan, reaccionan con agresividad o se burlan para entretener, puede empezar a ver esas conductas como normales. Los mensajes mediáticos no solo entretienen: también enseñan formas de reaccionar, hablar y relacionarse.
 
 ## 3. La comparación también cuenta
 
-Muchos contenidos muestran vidas editadas, cuerpos idealizados, éxito constante o compras como parte de la normalidad. HealthyChildren advierte que estas imágenes idealizadas pueden afectar la autoestima y la imagen corporal en algunos jóvenes. Aunque el efecto no es igual en todos, sí es una señal a vigilar cuando el niño empieza a compararse demasiado o a sentir que su vida no alcanza.
+Muchos contenidos muestran vidas editadas, cuerpos idealizados, éxito constante o compras como parte de la normalidad. Estas imágenes pueden afectar la autoestima y la imagen corporal en algunos jóvenes. Aunque el efecto no es igual en todos, sí es una señal a vigilar cuando el niño empieza a compararse demasiado o a sentir que su vida no alcanza.
 
 ## 4. El problema no es solo el contenido, sino lo que desplaza
 
-El contenido puede parecer inofensivo, pero aun así convertirse en un problema si ocupa el lugar del sueño, el juego libre, la actividad física o la convivencia familiar. La AAP señala que diseños como autoplay, desplazamiento infinito y anuncios dirigidos están hechos para mantener la atención y pueden desplazar sueño, juego y tiempo en familia.
-
-## Señales de alerta
+El contenido puede parecer inofensivo, pero aun así convertirse en un problema si ocupa el lugar del sueño, el juego libre, la actividad física o la convivencia familiar. Diseños como autoplay, desplazamiento infinito y anuncios dirigidos están hechos para mantener la atención y pueden desplazar sueño, juego y tiempo en familia.
 
 ![Señales de alerta del impacto del streaming: irritación al dejar videos, imitación de creadores, comparación con influencers o streamers, pérdida de sueño o rutina, y abandono de otras actividades.](/article-images/streaming/M2A2.1.png)
 
@@ -386,7 +374,7 @@ El contenido puede parecer inofensivo, pero aun así convertirse en un problema 
 | Crear horarios y zonas sin pantallas | Protege sueño, convivencia y descanso |
 | Hablar de lo que es real, editado o exagerado | Fortalece pensamiento crítico |
 
-La AAP recomienda construir hábitos digitales sanos con reglas familiares, horarios sin pantallas, conversación abierta y elección de contenido de calidad. UNICEF también insiste en crear un entorno digital saludable en casa y apoyar al menor cuando tenga una experiencia negativa en línea.
+Para construir hábitos digitales sanos, conviene combinar reglas familiares, horarios sin pantallas, conversación abierta, elección de contenido de calidad y apoyo inmediato cuando el menor tenga una experiencia negativa en línea.
 
 ## Preguntas útiles para conversar en casa
 
@@ -396,7 +384,7 @@ La AAP recomienda construir hábitos digitales sanos con reglas familiares, hora
 4. ¿Has visto algo que te incomodó?
 5. ¿Te gustaría que viéramos juntos ese canal?
 
-Ver contenido junto al hijo puede abrir conversaciones que de otro modo no surgirían. HealthyChildren señala que el co-viewing ayuda a conectar y a hablar de temas que quizás el adulto no habría sabido cómo introducir.
+Ver contenido junto al hijo puede abrir conversaciones que de otro modo no surgirían. El co-viewing permite conectar con sus intereses y hablar de temas que quizás el adulto no habría sabido cómo introducir.
 
 ## Idea clave
 
@@ -408,23 +396,21 @@ En plataformas como YouTube y Twitch, el impacto no depende únicamente de la pa
 
     const module3Article1Content = `# Exposición a contenido inapropiado y algoritmos sin control
 
-Uno de los principales riesgos de YouTube y Twitch es que un niño puede llegar a contenido no adecuado para su edad sin buscarlo directamente. A veces ocurre por recomendaciones automáticas; otras, porque el contenido en vivo cambia muy rápido y no siempre puede filtrarse antes. UNICEF distingue este problema como un daño por contenido: cuando el menor recibe material sexual, violento o dañino como espectador.
+Uno de los principales riesgos de YouTube y Twitch es que un niño puede llegar a contenido no adecuado para su edad sin buscarlo directamente. A veces ocurre por recomendaciones automáticas; otras, porque el contenido en vivo cambia muy rápido y no siempre puede filtrarse antes. Este es un daño por contenido: el menor recibe material sexual, violento, dañino o demasiado adulto como espectador.
 
 ## Lo más importante
 
-El riesgo no siempre empieza con una búsqueda peligrosa. Muchas veces comienza con un video aparentemente normal y sigue con sugerencias cada vez más llamativas, más intensas o menos apropiadas para la edad del niño. La AAP advierte que funciones como algoritmos, desplazamiento infinito y recompensas digitales están diseñadas para mantener a los menores conectados por más tiempo.
-
-## Cómo aparece este riesgo
+El riesgo no siempre empieza con una búsqueda peligrosa. Muchas veces comienza con un video aparentemente normal y sigue con sugerencias cada vez más llamativas, más intensas o menos apropiadas para la edad del niño. Funciones como algoritmos, desplazamiento infinito y recompensas digitales están diseñadas para mantener a los usuarios conectados por más tiempo.
 
 ![Cómo aparece el riesgo de exposición a contenido inapropiado: recomendaciones automáticas, autoplay activado, contenido en vivo y plataformas más abiertas.](/article-images/streaming/M3A1.png)
 
 ## 1. Qué entendemos por contenido inapropiado
 
-No solo se trata de contenido sexual. También puede incluir violencia, lenguaje ofensivo, retos peligrosos, bromas humillantes, temas adultos, desinformación o mensajes que un niño aún no tiene madurez para procesar. UNICEF advierte que la exposición a contenido dañino puede afectar la seguridad y el bienestar de niños y adolescentes.
+No solo se trata de contenido sexual. También puede incluir violencia, lenguaje ofensivo, retos peligrosos, bromas humillantes, temas adultos, desinformación o mensajes que un niño aún no tiene madurez para procesar. La exposición repetida a contenido dañino puede afectar su seguridad, bienestar y forma de entender lo que es normal.
 
 ## 2. El algoritmo no cuida: recomienda
 
-El algoritmo busca mantener la atención del usuario. No piensa como un padre ni entiende el contexto emocional del niño. La AAP recomienda, especialmente en edades tempranas, desactivar autoplay para que el algoritmo no decida automáticamente qué verá después el menor. También señala que muchos entornos digitales están diseñados para captar atención con contenido corto, recompensas y desplazamiento continuo.
+El algoritmo busca mantener la atención del usuario. No piensa como un padre ni entiende el contexto emocional del niño. En edades tempranas, desactivar autoplay ayuda a que el siguiente video no lo decida automáticamente la plataforma. También conviene reducir notificaciones, contenido corto en cadena y navegación sin pausas.
 
 ## 3. YouTube puede ser más seguro, pero no infalible
 
@@ -443,8 +429,6 @@ Twitch está centrado en transmisiones en vivo, lo que reduce la posibilidad de 
 | Aparecen recomendaciones cada vez más problemáticas | El algoritmo puede acercar al menor a contenido que no buscó |
 | El entorno es supervisado, pero aparece algo inadecuado | Los sistemas de filtrado pueden cometer errores |
 
-## Qué pueden hacer los padres
-
 ![Acciones para padres frente al riesgo de exposición: desactivar autoplay, preferir entornos limitados, revisar historial y recomendaciones, evitar navegación en vivo sin supervisión y hablar sobre qué hacer si aparece algo incómodo.](/article-images/streaming/M3A1.1.png)
 
 ## Preguntas útiles para conversar en casa
@@ -454,7 +438,7 @@ Twitch está centrado en transmisiones en vivo, lo que reduce la posibilidad de 
 3. ¿Sabes cómo detener un video o salir de una transmisión?
 4. ¿Te gustaría que revisáramos juntos qué te recomienda la plataforma?
 
-La conversación abierta y frecuente sigue siendo una de las medidas más importantes. La AAP insiste en que la supervisión útil no se basa solo en bloquear, sino también en hablar sobre lo que el menor ve y cómo le afecta.
+La conversación abierta y frecuente sigue siendo una de las medidas más importantes. La supervisión útil no se basa solo en bloquear, sino también en hablar sobre lo que el menor ve, cómo le afecta y qué puede hacer si algo lo incomoda.
 
 ## Idea clave
 
@@ -466,13 +450,11 @@ En YouTube y Twitch, el riesgo de exposición no siempre viene de una decisión 
 
     const module3Article2Content = `# Interacción con desconocidos y riesgos en transmisiones en vivo
 
-Las transmisiones en vivo tienen un rasgo que las hace especialmente delicadas para niños y preadolescentes: no solo se mira contenido, también puede haber chat, comentarios, mensajes y sensación de cercanía con personas desconocidas. En ese entorno, el riesgo no siempre aparece como algo claramente peligroso desde el inicio; a veces empieza con una conversación aparentemente inocente. UNICEF recomienda mantener una comunicación abierta sobre con quién interactúan los menores y recordarles que el contacto ofensivo, discriminatorio o inapropiado nunca es aceptable.
+Las transmisiones en vivo tienen un rasgo que las hace especialmente delicadas para niños y preadolescentes: no solo se mira contenido, también puede haber chat, comentarios, mensajes y sensación de cercanía con personas desconocidas. En ese entorno, el riesgo no siempre aparece como algo claramente peligroso desde el inicio; a veces empieza con una conversación aparentemente inocente. Por eso conviene hablar con claridad sobre con quién interactúan y recordarles que el contacto ofensivo, discriminatorio o inapropiado nunca es aceptable.
 
 ## Lo más importante
 
-El problema no es solo hablar con extraños. El verdadero riesgo aparece cuando un niño no distingue bien las intenciones de otra persona, se siente presionado a seguir interactuando o guarda en secreto lo que ocurre en una transmisión, chat o mensaje. NCMEC explica que la captación sexual en línea puede incluir conversaciones sexuales, grooming, sextorsión o intentos de llevar el contacto a algo más grave.
-
-## Dónde puede aparecer el riesgo
+El problema no es solo hablar con extraños. El verdadero riesgo aparece cuando un niño no distingue bien las intenciones de otra persona, se siente presionado a seguir interactuando o guarda en secreto lo que ocurre en una transmisión, chat o mensaje. La captación sexual en línea puede incluir conversaciones sexuales, grooming, sextorsión o intentos de llevar el contacto a algo más grave.
 
 ![Dónde puede aparecer el riesgo de interacción en streaming: chat en vivo, comentarios y comunidad, relación con creadores y mensajes fuera de la plataforma.](/article-images/streaming/M3A2.png)
 
@@ -488,7 +470,7 @@ El problema no es solo hablar con extraños. El verdadero riesgo aparece cuando 
 
 **Mensajes fuera de la plataforma**: cuando alguien intenta mover la conversación a otra app o espacio menos visible para la familia.
 
-Esta síntesis recoge riesgos descritos por UNICEF, NCMEC y las propias plataformas, que distinguen entre contenido visto y contacto o interacción con otras personas en línea.
+Esta síntesis ayuda a distinguir entre dos riesgos diferentes: el contenido que el menor ve y el contacto que puede tener con otras personas en línea.
 
 ## 1. En un directo, todo pasa más rápido
 
@@ -496,7 +478,7 @@ A diferencia de un video grabado, en una transmisión en vivo no siempre hay rev
 
 ## 2. La cercanía digital puede confundir
 
-Un streamer puede saludar, responder nombres de usuario o leer mensajes en tiempo real. Para un adulto eso puede parecer una interacción superficial, pero para un niño puede sentirse como una relación cercana. Ese sentimiento de confianza puede hacer más difícil identificar límites, intenciones inadecuadas o intentos de manipulación. UNICEF insiste en que los niños necesitan reglas claras sobre cómo, cuándo y con quién interactúan en línea.
+Un streamer puede saludar, responder nombres de usuario o leer mensajes en tiempo real. Para un adulto eso puede parecer una interacción superficial, pero para un niño puede sentirse como una relación cercana. Ese sentimiento de confianza puede hacer más difícil identificar límites, intenciones inadecuadas o intentos de manipulación. Por eso los niños necesitan reglas claras sobre cómo, cuándo y con quién interactúan en línea.
 
 ## 3. El grooming no siempre parece una amenaza al principio
 
@@ -504,7 +486,7 @@ NCMEC explica que la captación sexual en línea abarca conductas como el groomi
 
 ## 4. El secreto es una señal importante
 
-UNICEF recomienda estar atentos si un hijo se muestra molesto, alterado o reservado con sus actividades en línea. El secretismo no prueba por sí solo que exista un riesgo grave, pero sí es una señal para acercarse, preguntar y acompañar. En temas de seguridad digital, muchas veces el cambio de comportamiento aparece antes que la explicación verbal.
+Conviene estar atentos si un hijo se muestra molesto, alterado o reservado con sus actividades en línea. El secretismo no prueba por sí solo que exista un riesgo grave, pero sí es una señal para acercarse, preguntar y acompañar. En temas de seguridad digital, muchas veces el cambio de comportamiento aparece antes que la explicación verbal.
 
 ## Señal de alerta
 
@@ -514,8 +496,6 @@ UNICEF recomienda estar atentos si un hijo se muestra molesto, alterado o reserv
 | Evita contar con quién habla | Puede haber secreto o presión dentro del chat |
 | Insiste en estar solo durante los directos | Aumenta el riesgo de interacción sin supervisión |
 | Cambia de humor después de conectarse | Puede haber contenido o contacto que lo altera |
-
-## Qué pueden hacer los padres
 
 ![Acciones para padres ante riesgos en transmisiones en vivo: hablar sobre interacciones, proteger datos personales, evitar uso autónomo en niños pequeños, preferir experiencias supervisadas y acordar salir y avisar si algo incomoda.](/article-images/streaming/M3A2.1.png)
 
@@ -527,7 +507,7 @@ UNICEF recomienda estar atentos si un hijo se muestra molesto, alterado o reserv
 4. ¿Te sentirías cómodo contándome si alguien te hace sentir raro o presionado?
 5. ¿Quieres que revisemos juntos cómo dejar de seguir un chat o salir de un directo?
 
-UNICEF recomienda precisamente abrir este tipo de conversación y reforzar que el menor puede acudir a un adulto de confianza si algo le parece raro, agresivo o inapropiado.
+Estas preguntas abren la conversación y refuerzan que el menor puede acudir a un adulto de confianza si algo le parece raro, agresivo o inapropiado.
 
 ## Idea clave
 
@@ -543,9 +523,7 @@ En YouTube y Twitch, ver contenido no siempre es solo mirar. Muchas funciones es
 
 ## Lo más importante
 
-El riesgo no siempre está en una gran compra. A veces empieza con una acción pequeña: pagar para que un mensaje resalte, mandar una animación, regalar una suscripción o usar moneda digital dentro del chat. Como ese gasto no se siente igual que entregar efectivo, puede pasar desapercibido más fácilmente, sobre todo si ya hay una tarjeta vinculada al dispositivo o a la cuenta. La FTC recomienda activar restricciones de compra, exigir contraseña o aprobación, y revisar métodos de pago vinculados para limitar cargos no deseados.
-
-## Formas comunes de gasto
+El riesgo no siempre está en una gran compra. A veces empieza con una acción pequeña: pagar para que un mensaje resalte, mandar una animación, regalar una suscripción o usar moneda digital dentro del chat. Como ese gasto no se siente igual que entregar efectivo, puede pasar desapercibido más fácilmente, sobre todo si ya hay una tarjeta vinculada al dispositivo o a la cuenta. Por eso conviene activar restricciones de compra, exigir contraseña o aprobación y revisar métodos de pago vinculados.
 
 ![Formas comunes de gasto en YouTube y Twitch: Super Chat, Super Stickers, membresías, suscripciones, gift subs y Bits o Cheers.](/article-images/streaming/M4A1.png)
 
@@ -571,7 +549,7 @@ No todo gasto ocurre una sola vez. YouTube indica que las membresías del canal 
 
 ## 3. La moneda digital hace menos visible el gasto
 
-Los Bits en Twitch son una forma de moneda digital comprada dentro de la plataforma. Este tipo de diseño puede volver el gasto menos evidente, porque el usuario ya no ve directamente dinero, sino iconos, cantidades o recompensas dentro del chat. La FTC advierte, en términos generales, que cuando hay una tarjeta vinculada y compras digitales disponibles, conviene activar restricciones o límites para evitar cargos no deseados.
+Los Bits en Twitch son una forma de moneda digital comprada dentro de la plataforma. Este tipo de diseño puede volver el gasto menos evidente, porque el usuario ya no ve directamente dinero, sino iconos, cantidades o recompensas dentro del chat. Si hay una tarjeta vinculada y compras digitales disponibles, las restricciones o límites reducen cargos no deseados.
 
 ## 4. El problema aumenta cuando el pago está a un clic
 
@@ -585,8 +563,6 @@ Google permite a los padres exigir aprobación para compras hechas mediante el s
 | Quiere comprar Bits, regalar subs o hacerse miembro | Puede no dimensionar que implica dinero real |
 | Ve estas funciones como apoyo, beneficio o participación | El gasto puede sentirse pequeño o normalizado |
 | No sabe si hay una tarjeta vinculada | Aumenta el riesgo de compras impulsivas o cargos no deseados |
-
-## Qué pueden hacer los padres
 
 ![Acciones para padres ante gastos en streaming: revisar tarjetas vinculadas, activar aprobación de compras, explicar el dinero real, evitar directos con pagos activos sin supervisión y revisar recibos.](/article-images/streaming/M4A1.1.png)
 
@@ -636,11 +612,11 @@ La publicidad en streaming puede tomar varias formas. YouTube permite a creadore
 
 ## 1. Un influencer puede sentirse más cercano que un anuncio
 
-La fuerza de este tipo de publicidad está en la confianza. Un niño puede sentir que conoce al creador, que comparte sus gustos o que le recomienda algo porque sí. Pero si hay un pago, regalo, patrocinio o beneficio económico, la FTC considera que esa relación debe explicarse claramente para no engañar al público.
+La fuerza de este tipo de publicidad está en la confianza. Un niño puede sentir que conoce al creador, que comparte sus gustos o que le recomienda algo porque sí. Pero si hay un pago, regalo, patrocinio o beneficio económico, esa relación debe explicarse claramente para que el público entienda que no es una recomendación neutral.
 
 ## 2. Aunque exista un aviso, un niño puede no comprenderlo
 
-YouTube muestra una divulgación cuando el creador declara una promoción pagada. Sin embargo, que exista un aviso no significa que un niño lo vea, lo lea o entienda qué implica. La FTC ha señalado precisamente que la publicidad digital puede desdibujar la línea entre anuncio y entretenimiento, y que eso afecta especialmente a niños y adolescentes.
+YouTube muestra una divulgación cuando el creador declara una promoción pagada. Sin embargo, que exista un aviso no significa que un niño lo vea, lo lea o entienda qué implica. La publicidad digital puede desdibujar la línea entre anuncio y entretenimiento, especialmente cuando aparece dentro de videos, retos, directos o recomendaciones de creadores.
 
 ## 3. Comprar mientras se mira reduce la distancia entre ver y gastar
 
@@ -659,8 +635,6 @@ Twitch reconoce como contenido de marca prácticas como gameplay patrocinado, un
 | Habla de códigos, enlaces o productos etiquetados como algo normal | Puede no distinguir entretenimiento de venta |
 | No identifica promociones pagadas o contenido patrocinado | La intención comercial puede estar pasando desapercibida |
 
-## Qué pueden hacer los padres
-
 ![Acciones para padres ante publicidad disfrazada: explicar que no toda recomendación es espontánea, preguntar si el creador gana algo, revisar promociones, hablar sobre enlaces y reforzar que gustar no obliga a comprar.](/article-images/streaming/M4A2.1.png)
 
 ## Preguntas útiles para conversar en casa
@@ -671,7 +645,7 @@ Twitch reconoce como contenido de marca prácticas como gameplay patrocinado, un
 4. ¿Qué diferencia hay entre recomendar algo y anunciarlo?
 5. ¿Te gustaría que revisáramos juntos cómo saber si un contenido está patrocinado?
 
-Estas preguntas ayudan a que el menor no reciba la publicidad de forma pasiva. La FTC insiste en que las divulgaciones deben ser claras precisamente porque la audiencia necesita entender cuándo hay una relación con una marca.
+Estas preguntas ayudan a que el menor no reciba la publicidad de forma pasiva. La idea central es que pueda notar cuándo hay una relación con una marca y entender que eso puede influir en lo que ve.
 
 ## Idea clave
 
@@ -687,9 +661,7 @@ Ver videos o directos no es lo mismo que desarrollar una adicción clínica, per
 
 ## Lo más importante
 
-El problema no siempre es cuántas horas ve, sino si el contenido y el diseño de la plataforma están desplazando sueño, ejercicio, juego, escuela o convivencia familiar. La AAP recomienda mirar la calidad del contenido, el contexto y la conversación familiar, no solo contar minutos.
-
-## Por qué cuesta tanto dejar de ver
+El problema no siempre es cuántas horas ve, sino si el contenido y el diseño de la plataforma están desplazando sueño, ejercicio, juego, escuela o convivencia familiar. Por eso conviene mirar la calidad del contenido, el contexto y la conversación familiar, no solo contar minutos.
 
 ![Factores por los que cuesta dejar de ver streaming: autoplay, recomendaciones infinitas, alertas nocturnas y contenido corto o estimulante.](/article-images/streaming/M5A1.png)
 
@@ -699,19 +671,17 @@ Cuando un niño termina un video y de inmediato aparece otro que también le int
 
 ## 2. La noche es un momento especialmente delicado
 
-HealthyChildren advierte que el uso de pantallas antes de dormir puede dificultar que los niños se relajen y retrasar el sueño, especialmente cuando hay autoplay, desplazamiento infinito o alertas nocturnas. También recomienda mantener los dispositivos fuera del dormitorio y apagarlos entre 30 y 60 minutos antes de dormir.
+El uso de pantallas antes de dormir puede dificultar que los niños se relajen y retrasar el sueño, especialmente cuando hay autoplay, desplazamiento infinito o alertas nocturnas. Una medida práctica es mantener los dispositivos fuera del dormitorio y apagarlos entre 30 y 60 minutos antes de dormir.
 
 ## 3. El uso problemático tiene señales visibles
 
-La guía de HealthyChildren sobre límites saludables y uso problemático de medios menciona varias señales de alerta: irritabilidad cuando no hay acceso a pantallas, interferencia con el sueño o el ejercicio, afectación de la participación familiar o escolar, y que el uso digital se convierta en la única actividad que el niño disfruta o de la que habla.
-
-## Señales de alerta
+Hay varias señales de alerta: irritabilidad cuando no hay acceso a pantallas, interferencia con el sueño o el ejercicio, afectación de la participación familiar o escolar, y que el uso digital se convierta en la única actividad que el niño disfruta o de la que habla.
 
 ![Señales de alerta de uso problemático del streaming: enojo al dejar el dispositivo, pérdida de sueño, hablar solo de streamers o canales, alejarse de otras actividades y dificultad para parar.](/article-images/streaming/M5A1.1.png)
 
 ## 4. El impacto también depende de lo que desplaza
 
-Cuando el streaming reduce horas de sueño, actividad física o convivencia, el problema ya no está solo en la pantalla, sino en el equilibrio general del día. La AAP insiste en que los hábitos digitales deben proteger actividades clave para el desarrollo y el bienestar.
+Cuando el streaming reduce horas de sueño, actividad física o convivencia, el problema ya no está solo en la pantalla, sino en el equilibrio general del día. Los hábitos digitales deben proteger actividades clave para el desarrollo y el bienestar.
 
 ## Qué pueden hacer los padres
 
@@ -723,7 +693,7 @@ Cuando el streaming reduce horas de sueño, actividad física o convivencia, el 
 | Crear horarios claros para ver contenido | Da estructura y previsibilidad |
 | Observar cambios de humor y rutina | Permite actuar antes de que el problema crezca |
 
-Estas recomendaciones coinciden con la AAP y HealthyChildren, que sugieren planes familiares de medios, reglas claras, ejemplo adulto y horarios sin pantallas, especialmente en la noche. UNICEF también recomienda establecer reglas claras y pasar tiempo con los hijos en su entorno digital para modelar hábitos sanos.
+Estas recomendaciones se vuelven más útiles cuando forman parte de un plan familiar: reglas claras, ejemplo adulto, horarios sin pantallas, especialmente en la noche, y momentos compartidos para modelar hábitos sanos.
 
 ## Preguntas útiles para conversar en casa
 
@@ -733,7 +703,7 @@ Estas recomendaciones coinciden con la AAP y HealthyChildren, que sugieren plane
 4. ¿Qué otra actividad te gusta además de ver videos o directos?
 5. ¿Te gustaría que juntos armáramos un horario para usar estas plataformas?
 
-Hacer preguntas abiertas ayuda más que empezar con regaños, porque permite entender si el contenido está funcionando como entretenimiento, hábito o forma de escapar del aburrimiento o del malestar. UNICEF sugiere observar si hay algo más detrás del uso excesivo y construir reglas familiares claras.
+Hacer preguntas abiertas ayuda más que empezar con regaños, porque permite entender si el contenido está funcionando como entretenimiento, hábito o forma de escapar del aburrimiento o del malestar. También permite detectar si hay algo más detrás del uso excesivo y construir reglas familiares claras.
 
 ## Idea clave
 
@@ -745,33 +715,29 @@ Cuando un padre detecta a tiempo irritabilidad, desvelo o pérdida de interés p
 
     const module5Article2Content = `# Estrategias para establecer límites sin conflicto
 
-Poner límites no tiene que convertirse en una pelea diaria. Cuando las reglas son claras, consistentes y se explican con calma, los niños entienden mejor qué se espera de ellos. La AAP recomienda que las familias construyan acuerdos concretos sobre el uso de pantallas, en lugar de depender solo de regaños o decisiones improvisadas.
+Poner límites no tiene que convertirse en una pelea diaria. Cuando las reglas son claras, consistentes y se explican con calma, los niños entienden mejor qué se espera de ellos. Funciona mejor construir acuerdos concretos sobre el uso de pantallas que depender solo de regaños o decisiones improvisadas.
 
 ## Lo más importante
 
-El objetivo no es ganarle al niño ni quitarle todo de golpe. Lo que mejor funciona es crear una rutina predecible, con reglas sencillas y realistas, donde el adulto también dé ejemplo. UNICEF señala que los límites funcionan mejor cuando tienen sentido para la familia y combinan reglas sobre tiempo, contenido y comportamiento en línea.
-
-## Qué suele reducir el conflicto
+El objetivo no es ganarle al niño ni quitarle todo de golpe. Lo que mejor funciona es crear una rutina predecible, con reglas sencillas y realistas, donde el adulto también dé ejemplo. Los límites funcionan mejor cuando tienen sentido para la familia y combinan reglas sobre tiempo, contenido y comportamiento en línea.
 
 ![Estrategias para reducir el conflicto al poner límites: reglas claras, horarios fijos, zonas sin pantallas, apagar autoplay y notificaciones, y acompañar en lugar de solo prohibir.](/article-images/streaming/M5A2.png)
 
 ## 1. Avisar antes funciona mejor que interrumpir de golpe
 
-Muchos conflictos aparecen cuando el niño siente que el límite llegó de repente. Una estrategia útil es avisar con anticipación: primero recordar cuánto tiempo queda y luego acompañar el cierre de la actividad. HealthyChildren recomienda planear el uso digital y no esperar a que el problema aparezca para poner una regla.
+Muchos conflictos aparecen cuando el niño siente que el límite llegó de repente. Una estrategia útil es avisar con anticipación: primero recordar cuánto tiempo queda y luego acompañar el cierre de la actividad. Planear el uso digital antes de que aparezca el problema reduce discusiones y ayuda a cerrar mejor.
 
 ## 2. Es mejor crear rutinas que castigos constantes
 
-Los límites suelen funcionar mejor cuando forman parte del día: por ejemplo, después de la tarea, nunca durante la comida y fuera del cuarto antes de dormir. La AAP sugiere establecer momentos y lugares sin pantallas, especialmente durante la cena, la tarea y antes de acostarse, porque eso fortalece la convivencia y protege el sueño.
+Los límites suelen funcionar mejor cuando forman parte del día: por ejemplo, después de la tarea, nunca durante la comida y fuera del cuarto antes de dormir. Establecer momentos y lugares sin pantallas fortalece la convivencia y protege el sueño.
 
 ## 3. El adulto también tiene que dar ejemplo
 
-Es difícil pedir autocontrol si los adultos usan el teléfono en la mesa, durante conversaciones o antes de dormir. UNICEF recomienda modelar hábitos digitales saludables, porque los niños aprenden observando tanto como escuchando reglas.
+Es difícil pedir autocontrol si los adultos usan el teléfono en la mesa, durante conversaciones o antes de dormir. Modelar hábitos digitales saludables es importante porque los niños aprenden observando tanto como escuchando reglas.
 
 ## 4. No todo debe ser no: también ayudan las reglas de sí
 
-UNICEF propone combinar reglas de no con reglas de sí. No solo se trata de prohibir ciertas conductas, sino también de enseñar qué sí se espera: avisar si algo incomoda, apagar la pantalla a una hora acordada o elegir contenido adecuado. Este enfoque reduce el tono de castigo y hace la norma más comprensible.
-
-## Señales de que el límite está mal planteado
+Conviene combinar reglas de no con reglas de sí. No solo se trata de prohibir ciertas conductas, sino también de enseñar qué sí se espera: avisar si algo incomoda, apagar la pantalla a una hora acordada o elegir contenido adecuado. Este enfoque reduce el tono de castigo y hace la norma más comprensible.
 
 ![Señales de que el límite está mal planteado: la regla cambia todos los días, solo se pone límite cuando hay enojo, el adulto rompe la misma regla, no hay alternativas fuera de pantalla y se requiere más acompañamiento.](/article-images/streaming/M5A2.1.png)
 
@@ -785,7 +751,7 @@ UNICEF propone combinar reglas de no con reglas de sí. No solo se trata de proh
 | Ofrecer otra actividad al terminar | Facilita la transición |
 | Mantener la regla con calma y consistencia | Da seguridad y baja la negociación constante |
 
-Estas medidas coinciden con las recomendaciones de HealthyChildren y UNICEF sobre planes familiares, rutinas previsibles, espacios sin pantallas y acompañamiento activo.
+Estas medidas hacen que los límites se sientan menos improvisados: plan familiar, rutinas previsibles, espacios sin pantallas y acompañamiento activo.
 
 ## Preguntas útiles para conversar en casa
 
@@ -795,7 +761,7 @@ Estas medidas coinciden con las recomendaciones de HealthyChildren y UNICEF sobr
 4. ¿Qué otra actividad te gustaría hacer cuando termine el tiempo?
 5. ¿Qué regla crees que también deberíamos cumplir los adultos?
 
-HealthyChildren recomienda hablar de límites como acuerdos familiares y no solo como imposiciones. Además, la disciplina positiva de la AAP insiste en usar palabras y acciones calmadas, con límites claros y consistentes.
+Hablar de límites como acuerdos familiares, y no solo como imposiciones, ayuda a bajar la resistencia. También conviene usar palabras y acciones calmadas, con límites claros y consistentes.
 
 ## Idea clave
 
@@ -813,9 +779,15 @@ Los controles parentales no eliminan todos los riesgos, pero sí ayudan a reduci
 
 No todas las plataformas ofrecen el mismo nivel de control. YouTube cuenta con herramientas parentales más completas para niños y preadolescentes; Twitch requiere más cautela en edades de primaria, porque su edad mínima global es de 13 años y su guía para familias está pensada para ayudar a adultos a acompañar a adolescentes en la plataforma.
 
-## Resumen rápido de herramientas útiles
-
 ![Resumen rápido de herramientas útiles para familias: YouTube Kids, cuenta supervisada, Family Link, aprobación de compras en Google Play, bloqueo de Whispers y reportes en Twitch.](/article-images/streaming/M6A1.png)
+
+## Comparación rápida de opciones
+
+| Opción | Para quién conviene | Qué permite | Límite importante |
+| --- | --- | --- | --- |
+| YouTube Kids | Niños más pequeños que necesitan una experiencia acotada | Biblioteca más limitada, bloqueo de videos, límites de tiempo y modo "Approved content only" | Ningún filtro es perfecto; conviene revisar y acompañar |
+| Experiencia supervisada de YouTube | Preadolescentes o menores con más madurez digital | Niveles de contenido, ajustes de bienestar digital y administración familiar desde Family Link | Usa la app principal de YouTube, por lo que requiere conversación y revisión periódica |
+| Twitch | Adolescentes de 13 años o más, con supervisión | Directos, comunidades, reportes, bloqueo de usuarios y control de Whispers | No es una plataforma para uso autónomo de niños pequeños; el contenido y el chat cambian en vivo |
 
 ## 1. YouTube: la opción más configurable para familias
 
@@ -857,8 +829,6 @@ Entre las herramientas oficiales destacadas por Twitch están la opción de bloq
 
 Un control parental bien activado no significa que ya no haga falta supervisión. YouTube advierte que sus sistemas no son perfectos y que incluso dentro de experiencias supervisadas pueden aparecer videos inadecuados; por eso recomienda considerar YouTube Kids cuando se busca una experiencia más limitada.
 
-## Qué pueden hacer los padres
-
 ![Acciones para padres con controles parentales: elegir YouTube Kids o experiencia supervisada, usar Family Link, activar aprobación de compras, preferir Approved content only, bloquear mensajes de desconocidos en Twitch y revisar ajustes.](/article-images/streaming/M6A1.1.png)
 
 ## Preguntas útiles para conversar en casa
@@ -881,33 +851,29 @@ Una buena configuración no busca vigilar todo, sino crear un entorno más segur
 
     const module6Article2Content = `# Supervisión activa: cómo acompañar sin invadir
 
-Supervisar no significa revisar cada movimiento del niño ni convertir internet en un espacio de desconfianza. Supervisar bien significa estar presente, interesarse por lo que ve, conversar con naturalidad y crear reglas que le den seguridad. La AAP recomienda pasar de una visión centrada solo en tiempo de pantalla a otra que también valore la calidad del contenido, el contexto y la comunicación familiar.
+Supervisar no significa revisar cada movimiento del niño ni convertir internet en un espacio de desconfianza. Supervisar bien significa estar presente, interesarse por lo que ve, conversar con naturalidad y crear reglas que le den seguridad. La mirada más útil no se centra solo en tiempo de pantalla: también valora la calidad del contenido, el contexto y la comunicación familiar.
 
 ## Lo más importante
 
-Cuando un padre acompaña sin invadir, el niño tiene más probabilidades de contar lo que ve, pedir ayuda si algo lo incomoda y aceptar mejor los límites. UNICEF recomienda pasar tiempo con los hijos en su entorno digital y modelar hábitos sanos, mientras que HealthyChildren destaca el co-viewing como una forma de abrir conversaciones y fortalecer la confianza.
-
-## Qué es supervisar de forma activa
+Cuando un padre acompaña sin invadir, el niño tiene más probabilidades de contar lo que ve, pedir ayuda si algo lo incomoda y aceptar mejor los límites. Pasar tiempo con los hijos en su entorno digital, modelar hábitos sanos y ver contenido juntos de vez en cuando abre conversaciones y fortalece la confianza.
 
 ![Comparación entre supervisión activa y vigilancia invasiva: preguntar, ver contenido juntos, explicar reglas, enseñar qué hacer si algo incomoda y ajustar límites según edad.](/article-images/streaming/M6A2.png)
 
 ## 1. Interesarse funciona mejor que interrogar
 
-Una pregunta simple como ¿qué canal te gusta? suele abrir más puertas que ¿qué estás viendo ahora?. HealthyChildren explica que ver contenido junto al niño ayuda a conocer sus intereses, iniciar conversaciones y fortalecer la relación, mientras que UNICEF recomienda crear oportunidades para interacciones digitales seguras y positivas dentro de la familia.
+Una pregunta simple como ¿qué canal te gusta? suele abrir más puertas que ¿qué estás viendo ahora?. Ver contenido junto al niño ayuda a conocer sus intereses, iniciar conversaciones y fortalecer la relación, sin convertir cada revisión en interrogatorio.
 
 ## 2. Acompañar no es estar encima todo el tiempo
 
-La supervisión activa no exige sentarse a ver cada video. Lo importante es mantener una presencia regular: conocer las plataformas que usa, revisar de vez en cuando configuraciones y hablar sobre experiencias buenas o incómodas. UNICEF recomienda revisar periódicamente ajustes de privacidad y combinar controles con alfabetización digital, no sustituir una cosa por la otra.
+La supervisión activa no exige sentarse a ver cada video. Lo importante es mantener una presencia regular: conocer las plataformas que usa, revisar de vez en cuando configuraciones y hablar sobre experiencias buenas o incómodas. Los controles técnicos funcionan mejor cuando se combinan con alfabetización digital, no cuando sustituyen la conversación.
 
 ## 3. El ejemplo del adulto pesa mucho
 
-Los niños aprenden también observando. UNICEF aconseja modelar hábitos saludables y cuidar lo que los adultos comparten o hacen en línea, y HealthyChildren recomienda incluir los hábitos de los propios padres en las conversaciones familiares sobre medios digitales.
+Los niños aprenden también observando. Por eso conviene modelar hábitos saludables, cuidar lo que los adultos comparten o hacen en línea e incluir los hábitos de los propios padres en las conversaciones familiares sobre medios digitales.
 
 ## 4. La confianza no elimina los límites
 
-Acompañar no significa dejar todo abierto. La AAP recomienda planes familiares de uso de medios, horarios claros, zonas sin pantallas y funciones como apagar autoplay y notificaciones para reducir el enganche. Esa estructura ayuda a que la supervisión no dependa solo de discusiones o castigos del momento.
-
-## Señales de que hace falta más acompañamiento
+Acompañar no significa dejar todo abierto. Los planes familiares de uso de medios, horarios claros, zonas sin pantallas y funciones como apagar autoplay o notificaciones reducen el enganche. Esa estructura ayuda a que la supervisión no dependa solo de discusiones o castigos del momento.
 
 ![Señales de que hace falta más acompañamiento: el niño evita contar qué ve, se altera después de conectarse, cambia rápido de pantalla, solo recibe límites con enojo y los adultos no conocen sus plataformas.](/article-images/streaming/M6A2.1.png)
 
@@ -921,7 +887,7 @@ Acompañar no significa dejar todo abierto. La AAP recomienda planes familiares 
 | Revisar ajustes de privacidad cada cierto tiempo | Reduce exposición innecesaria |
 | Explicar que siempre puede pedir ayuda sin miedo | Favorece la confianza |
 
-Estas medidas coinciden con UNICEF, que propone reglas claras, tiempo compartido en línea y revisión de privacidad, y con HealthyChildren, que recomienda co-viewing, planes familiares y hábitos digitales consistentes.
+Estas medidas funcionan mejor juntas: reglas claras, tiempo compartido en línea, revisión de privacidad, co-viewing ocasional, planes familiares y hábitos digitales consistentes.
 
 ## Preguntas útiles para conversar en casa
 
@@ -931,7 +897,7 @@ Estas medidas coinciden con UNICEF, que propone reglas claras, tiempo compartido
 4. ¿Te gustaría que veamos juntos ese contenido alguna vez?
 5. ¿Qué regla crees que nos ayudaría a usar mejor estas plataformas?
 
-HealthyChildren señala que compartir la experiencia digital ayuda a iniciar conversaciones que quizá no surgirían de otra forma, y UNICEF recomienda hablar de manera abierta sobre contenido, contactos y privacidad.
+Compartir la experiencia digital ayuda a iniciar conversaciones que quizá no surgirían de otra forma, especialmente sobre contenido, contactos y privacidad.
 
 ## Idea clave
 
@@ -949,17 +915,15 @@ YouTube y Twitch no tienen que usarse solo para pasar el tiempo. Bien acompañad
 
 Para niños de 6 a 12 años, YouTube suele ser la opción más útil para aprendizaje guiado, porque permite buscar tutoriales, explicaciones y contenido educativo con más control parental. Twitch puede aportar en temas creativos o en vivo, pero no es una plataforma pensada para que niños pequeños la usen de forma autónoma.
 
-## Qué puede aportar cada plataforma
-
 ![Qué puede aportar cada plataforma para aprendizaje: YouTube, YouTube Kids y Twitch, con beneficios y cuidados necesarios.](/article-images/streaming/M7A1.png)
 
 ## 1. Aprender también puede ser parte de la rutina digital
 
-No todo aprendizaje tiene que sentirse como clase. Un niño puede aprender a dibujar, seguir una receta sencilla, entender un experimento, practicar música o descubrir cómo funciona algo a través de videos bien elegidos. UNICEF recomienda introducir a los hijos a fuentes confiables de información y crear oportunidades de interacción digital positiva.
+No todo aprendizaje tiene que sentirse como clase. Un niño puede aprender a dibujar, seguir una receta sencilla, entender un experimento, practicar música o descubrir cómo funciona algo a través de videos bien elegidos. Lo importante es acercarlo a fuentes confiables y convertir la experiencia digital en una oportunidad positiva, no solo en consumo automático.
 
 ## 2. Ver juntos mejora más que dejar contenido educativo solo
 
-La AAP subraya que ver contenido juntos ayuda a que los niños hagan conexiones, desarrollen perspectiva y hablen de lo que ven. No basta con poner un video bueno: lo que realmente enriquece es comentar, preguntar y relacionarlo con la vida diaria.
+Ver contenido juntos ayuda a que los niños hagan conexiones, desarrollen perspectiva y hablen de lo que ven. No basta con poner un video bueno: lo que realmente enriquece es comentar, preguntar y relacionarlo con la vida diaria.
 
 ## 3. YouTube suele funcionar mejor para aprendizaje guiado
 
@@ -971,7 +935,7 @@ Twitch también tiene usos positivos: hay contenido en vivo de arte, música, es
 
 ## Señal de alerta
 
-Un contenido educativo no siempre lo es de verdad. Conviene revisar si enseña algo con claridad, si usa lenguaje apropiado, si evita presión comercial innecesaria y si deja al niño con una idea más clara, no solo más estimulado. La AAP recomienda ayudar a los niños a desarrollar pensamiento crítico frente a los medios, no consumir de forma pasiva.
+Un contenido educativo no siempre lo es de verdad. Conviene revisar si enseña algo con claridad, si usa lenguaje apropiado, si evita presión comercial innecesaria y si deja al niño con una idea más clara, no solo más estimulado. La meta es ayudar al menor a desarrollar pensamiento crítico frente a los medios, no consumir de forma pasiva.
 
 ## Qué pueden hacer los padres
 
@@ -983,9 +947,7 @@ Un contenido educativo no siempre lo es de verdad. Conviene revisar si enseña a
 | Preferir YouTube Kids o experiencias supervisadas en menores | Aumenta el control sobre el contenido |
 | Usar Twitch solo con supervisión y en casos puntuales | Reduce riesgos de interacción y exposición |
 
-Estas acciones están alineadas con la AAP y UNICEF: priorizar contenido de calidad, acompañar, conversar y construir hábitos digitales sanos en familia.
-
-## Ejemplos de uso positivo
+Estas acciones priorizan contenido de calidad, acompañamiento, conversación y hábitos digitales sanos en familia.
 
 ![Ejemplos de uso positivo del streaming: aprender una habilidad, despertar curiosidad, fomentar creatividad y desarrollar criterio.](/article-images/streaming/M7A1.1.png)
 
@@ -997,7 +959,7 @@ Estas acciones están alineadas con la AAP y UNICEF: priorizar contenido de cali
 4. ¿Crees que este video quería enseñar algo o solo entretener?
 5. ¿Te gustaría que armemos una lista de canales útiles juntos?
 
-Estas preguntas ayudan a pasar de un consumo pasivo a uno más reflexivo, algo que la AAP recomienda para fortalecer pensamiento crítico y una relación saludable con los medios.
+Estas preguntas ayudan a pasar de un consumo pasivo a uno más reflexivo y fortalecen una relación más saludable con los medios.
 
 ## Idea clave
 
@@ -1009,37 +971,33 @@ Cuando los padres eligen mejor el contenido, acompañan de vez en cuando y conec
 
     const module7Article2Content = `# Cómo enseñar a los hijos a cuestionar lo que ven en plataformas digitales
 
-En YouTube, Twitch y otras plataformas, no todo lo que parece real, útil o espontáneo lo es. Un video puede mezclar opinión, entretenimiento, publicidad, exageración o información incorrecta. Por eso, una de las habilidades más valiosas para un niño no es solo saber usar la plataforma, sino aprender a preguntarse qué está viendo, quién lo dice y con qué intención. UNICEF advierte que en internet las afirmaciones falsas pueden disfrazarse de hechos, y la AAP recomienda enseñar a los niños a pensar críticamente sobre lo que consumen.
+En YouTube, Twitch y otras plataformas, no todo lo que parece real, útil o espontáneo lo es. Un video puede mezclar opinión, entretenimiento, publicidad, exageración o información incorrecta. Por eso, una de las habilidades más valiosas para un niño no es solo saber usar la plataforma, sino aprender a preguntarse qué está viendo, quién lo dice y con qué intención. En internet, las afirmaciones falsas pueden disfrazarse de hechos, así que conviene enseñar pensamiento crítico desde edades tempranas.
 
 ## Lo más importante
 
-El objetivo no es que el niño desconfíe de todo, sino que aprenda a no creer automáticamente todo lo que ve. HealthyChildren señala que las conversaciones abiertas y regulares sobre medios ayudan a construir pensamiento crítico, y UNICEF recomienda acompañar las actividades digitales de los niños para fortalecer su capacidad de evaluar información.
-
-## Preguntas que ayudan a pensar mejor
+El objetivo no es que el niño desconfíe de todo, sino que aprenda a no creer automáticamente todo lo que ve. Las conversaciones abiertas y regulares sobre medios ayudan a construir pensamiento crítico y fortalecen su capacidad de evaluar información.
 
 ![Preguntas que ayudan a pensar mejor frente al contenido digital: quién hizo el video, qué intención tiene, si parece real o exagerado, cómo sabemos que es cierto y qué emoción provoca.](/article-images/streaming/M7A2.png)
 
 ## 1. Enseñar a mirar quién está hablando
 
-Un buen primer paso es enseñar a los hijos a fijarse en la fuente. HealthyChildren sugiere preguntar de dónde viene la información y si la persona, empresa o grupo que la comparte tiene algún objetivo. Esa simple pregunta ayuda a que el niño empiece a diferenciar entre alguien que busca explicar algo y alguien que quiere llamar la atención, convencer o vender.
+Un buen primer paso es enseñar a los hijos a fijarse en la fuente. Preguntar de dónde viene la información y si la persona, empresa o grupo que la comparte tiene algún objetivo ayuda a diferenciar entre alguien que busca explicar algo y alguien que quiere llamar la atención, convencer o vender.
 
 ## 2. Ayudarles a detectar intención
 
-Mucho contenido digital no está hecho solo para informar. Puede buscar entretener, emocionar, generar clics o impulsar una compra. La AAP recuerda que en edad escolar los niños ya empiezan a entender mejor ideas como publicidad, privacidad y lo que está bien o mal, y que hablar de eso de manera frecuente fortalece su criterio.
+Mucho contenido digital no está hecho solo para informar. Puede buscar entretener, emocionar, generar clics o impulsar una compra. En edad escolar, los niños ya pueden empezar a entender mejor ideas como publicidad, privacidad y lo que está bien o mal, y hablar de eso de manera frecuente fortalece su criterio.
 
 ## 3. Mostrar que parecer verdad no es lo mismo que ser verdad
 
-UNICEF explica que en redes y plataformas digitales la información falsa suele presentarse como si fuera un hecho. Por eso conviene enseñar a los niños a detenerse y revisar antes de compartir, repetir o creer algo. No se trata de volverlos expertos en verificación, sino de acostumbrarlos a hacer una pausa mental antes de aceptar un contenido como cierto.
+En redes y plataformas digitales, la información falsa suele presentarse como si fuera un hecho. Por eso conviene enseñar a los niños a detenerse y revisar antes de compartir, repetir o creer algo. No se trata de volverlos expertos en verificación, sino de acostumbrarlos a hacer una pausa mental antes de aceptar un contenido como cierto.
 
 ## 4. Conversar vale más que dar sermones
 
-HealthyChildren recomienda conversaciones abiertas y no solo lecciones largas. UNICEF también señala que las respuestas no culpabilizantes facilitan que los niños busquen guía de sus padres y hablen con más libertad sobre lo que viven en línea. Cuando el adulto pregunta con interés en vez de empezar juzgando, el niño suele contar más.
+Las conversaciones abiertas ayudan más que las lecciones largas. Las respuestas no culpabilizantes facilitan que los niños busquen guía de sus padres y hablen con más libertad sobre lo que viven en línea. Cuando el adulto pregunta con interés en vez de empezar juzgando, el niño suele contar más.
 
 ## Señal de alerta
 
-Conviene prestar atención si el niño repite todo lo que dice un creador como si fuera cierto, comparte información sin pensar, se deja llevar por títulos alarmistas o confunde claramente entretenimiento con realidad. UNICEF advierte que la desinformación puede influir en cómo los niños entienden el mundo, por lo que desarrollar habilidades de lectura crítica es una protección importante.
-
-## Qué pueden hacer los padres
+Conviene prestar atención si el niño repite todo lo que dice un creador como si fuera cierto, comparte información sin pensar, se deja llevar por títulos alarmistas o confunde claramente entretenimiento con realidad. La desinformación puede influir en cómo los niños entienden el mundo, por lo que desarrollar habilidades de lectura crítica es una protección importante.
 
 ![Acciones para padres para fomentar pensamiento crítico: ver videos juntos, preguntar cómo se sabe que algo es verdad, hablar de publicidad y edición, comparar fuentes y reaccionar con calma.](/article-images/streaming/M7A2.1.png)
 
@@ -1051,7 +1009,7 @@ Conviene prestar atención si el niño repite todo lo que dice un creador como s
 4. ¿Cómo podríamos comprobarlo?
 5. ¿Te ha pasado que un video parecía real y luego no lo era?
 
-HealthyChildren recomienda precisamente usar preguntas y actividades para promover pensamiento crítico, y UNICEF sugiere conversaciones abiertas sobre la vida digital y la veracidad de la información.
+Usar preguntas y actividades concretas promueve pensamiento crítico y abre conversaciones sobre la vida digital y la veracidad de la información.
 
 ## Idea clave
 
@@ -2553,7 +2511,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
         {
             title: 'Introducción al streaming y consumo infantil',
             description: 'Objetivo: Que los padres entiendan qué son las plataformas y por qué los niños las usan tanto.',
-            duration: '26 min',
+            duration: '14 min',
             riskAreas: ['Consumo infantil', 'Algoritmos y recomendaciones'],
             quiz: {
                 title: 'Examen del Módulo 1: Introducción al streaming y consumo infantil',
@@ -2565,7 +2523,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                 {
                     title: 'Artículo 1: ¿Qué son YouTube y Twitch y cómo funcionan?',
                     type: 'article',
-                    duration: 11,
+                    duration: 5,
                     content: module1Article1Content,
                     teaches: ['youtube', 'twitch', 'streaming', 'algoritmo', 'reproducción automática', 'chat en vivo', 'contenido inapropiado', 'consumo excesivo', 'rol de los padres'],
                 },
@@ -2579,7 +2537,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                 {
                     title: 'Artículo 2: ¿Por qué el streaming es tan atractivo para niños y adolescentes?',
                     type: 'article',
-                    duration: 11,
+                    duration: 5,
                     content: module1Article2Content,
                     teaches: ['recompensa inmediata', 'dopamina', 'contenido infinito', 'algoritmo', 'personalización', 'creadores', 'chat en vivo', 'límites', 'uso problemático'],
                 },
@@ -2595,7 +2553,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
         {
             title: 'Tipos de contenido y su impacto en los niños',
             description: 'Objetivo: Identificar qué ven los niños y cómo influye en su comportamiento.',
-            duration: '26 min',
+            duration: '15 min',
             riskAreas: ['Impacto del contenido', 'Conducta y emociones'],
             quiz: {
                 title: 'Examen del Módulo 2: Tipos de contenido y su impacto en los niños',
@@ -2607,7 +2565,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                 {
                     title: 'Artículo 1: Tipos de contenido en YouTube y Twitch (gameplays, retos, reacciones, vlogs)',
                     type: 'article',
-                    duration: 11,
+                    duration: 6,
                     content: module2Article1Content,
                     teaches: ['gameplays', 'retos y bromas', 'reacciones', 'vlogs', 'tutoriales', 'directos en vivo', 'lenguaje agresivo', 'imitación', 'comparación', 'consumismo', 'contenido educativo', 'supervisión del contenido'],
                 },
@@ -2621,7 +2579,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                 {
                     title: 'Artículo 2: Influencia del contenido en emociones, conducta y desarrollo',
                     type: 'article',
-                    duration: 11,
+                    duration: 5,
                     content: module2Article2Content,
                     teaches: ['emociones', 'conducta', 'autoimagen', 'rutina diaria', 'imitación', 'comparación', 'autoestima', 'sueño', 'convivencia', 'calidad del contenido', 'señales de alerta', 'acompañamiento adulto'],
                 },
@@ -2637,7 +2595,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
         {
             title: 'Riesgos en plataformas de streaming',
             description: 'Objetivo: Detectar los principales peligros digitales.',
-            duration: '26 min',
+            duration: '16 min',
             riskAreas: ['Riesgos en streaming', 'Interacción con desconocidos'],
             quiz: {
                 title: 'Examen del Módulo 3: Riesgos en plataformas de streaming',
@@ -2649,7 +2607,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                 {
                     title: 'Artículo 1: Exposición a contenido inapropiado y algoritmos sin control',
                     type: 'article',
-                    duration: 11,
+                    duration: 5,
                     content: module3Article1Content,
                     teaches: ['contenido inapropiado', 'recomendaciones automáticas', 'autoplay', 'contenido en vivo', 'exposición accidental', 'violencia', 'lenguaje ofensivo', 'retos peligrosos', 'desinformación', 'youtube kids', 'cuentas supervisadas', 'supervisión adulta'],
                 },
@@ -2663,7 +2621,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                 {
                     title: 'Artículo 2: Interacción con desconocidos y riesgos en transmisiones en vivo',
                     type: 'article',
-                    duration: 11,
+                    duration: 7,
                     content: module3Article2Content,
                     teaches: ['desconocidos', 'chat en vivo', 'comentarios', 'mensajes fuera de la plataforma', 'cercanía digital', 'grooming', 'sextorsión', 'datos personales', 'secretismo', 'supervisión en directos', 'pedir ayuda', 'límites seguros'],
                 },
@@ -2679,7 +2637,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
         {
             title: 'Monetización, publicidad y engaños',
             description: 'Objetivo: Comprender cómo las plataformas generan dinero y los riesgos asociados.',
-            duration: '26 min',
+            duration: '18 min',
             riskAreas: ['Monetización', 'Publicidad engañosa'],
             quiz: {
                 title: 'Examen del Módulo 4: Monetización, publicidad y engaños',
@@ -2691,7 +2649,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                 {
                     title: 'Artículo 1: Donaciones, suscripciones y gastos dentro de YouTube y Twitch',
                     type: 'article',
-                    duration: 11,
+                    duration: 7,
                     content: module4Article1Content,
                     teaches: ['super chat', 'super stickers', 'membresías', 'suscripciones', 'gift subs', 'bits', 'pagos recurrentes', 'moneda digital', 'tarjeta vinculada', 'aprobación de compras', 'compras impulsivas', 'dinero real'],
                 },
@@ -2705,7 +2663,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                 {
                     title: 'Artículo 2: Publicidad engañosa, influencers y contenido patrocinado',
                     type: 'article',
-                    duration: 11,
+                    duration: 7,
                     content: module4Article2Content,
                     teaches: ['publicidad integrada', 'influencers', 'promoción pagada', 'productos etiquetados', 'gameplay patrocinado', 'unboxing patrocinado', 'enlaces afiliados', 'contenido de marca', 'divulgación clara', 'intención comercial', 'pensamiento crítico', 'compra impulsiva'],
                 },
@@ -2721,7 +2679,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
         {
             title: 'Tiempo de pantalla y uso problemático',
             description: 'Objetivo: Detectar adicción digital y establecer límites saludables.',
-            duration: '26 min',
+            duration: '14 min',
             riskAreas: ['Tiempo de pantalla', 'Uso problemático'],
             quiz: {
                 title: 'Examen del Módulo 5: Tiempo de pantalla y uso problemático',
@@ -2733,7 +2691,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                 {
                     title: 'Artículo 1: Cómo el streaming puede generar adicción y dependencia',
                     type: 'article',
-                    duration: 11,
+                    duration: 5,
                     content: module5Article1Content,
                     teaches: ['uso problemático', 'autoplay', 'scroll infinito', 'alertas nocturnas', 'recompensa rápida', 'sueño', 'irritabilidad', 'autorregulación', 'desplazamiento de actividades', 'dispositivos fuera del cuarto', 'horarios claros', 'rutina'],
                 },
@@ -2747,7 +2705,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                 {
                     title: 'Artículo 2: Estrategias para establecer límites sin conflicto',
                     type: 'article',
-                    duration: 11,
+                    duration: 5,
                     content: module5Article2Content,
                     teaches: ['reglas claras', 'horarios fijos', 'zonas sin pantallas', 'autoplay', 'notificaciones', 'avisar antes', 'rutinas', 'ejemplo adulto', 'reglas de sí', 'plan familiar de pantallas', 'alternativas fuera de pantalla', 'consistencia'],
                 },
@@ -2755,6 +2713,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                     title: 'Video 2: Cómo crear reglas familiares de uso digital',
                     type: 'video',
                     duration: 2,
+                    videoUrl: 'https://www.youtube.com/watch?v=iiClhVC9kNg',
                     teaches: ['reglas familiares', 'uso digital', 'límites'],
                 },
             ],
@@ -2762,7 +2721,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
         {
             title: 'Control parental y acompañamiento',
             description: 'Objetivo: Dar herramientas prácticas para supervisión efectiva.',
-            duration: '26 min',
+            duration: '17 min',
             riskAreas: ['Control parental', 'Acompañamiento familiar'],
             quiz: {
                 title: 'Examen del Módulo 6: Control parental y acompañamiento',
@@ -2774,7 +2733,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                 {
                     title: 'Artículo 1: Controles parentales en YouTube y Twitch (configuración y uso)',
                     type: 'article',
-                    duration: 11,
+                    duration: 8,
                     content: module6Article1Content,
                     teaches: [
                         'controles parentales',
@@ -2797,12 +2756,13 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                     title: 'Video 1: Paso a paso para activar controles parentales',
                     type: 'video',
                     duration: 2,
+                    videoUrl: 'https://www.youtube.com/watch?v=mZ47c_VLGRk',
                     teaches: ['activar controles parentales', 'configuración', 'familia'],
                 },
                 {
                     title: 'Artículo 2: Supervisión activa: cómo acompañar sin invadir',
                     type: 'article',
-                    duration: 11,
+                    duration: 5,
                     content: module6Article2Content,
                     teaches: [
                         'supervisión activa',
@@ -2823,6 +2783,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                     title: 'Video 2: Cómo hablar con tus hijos sobre lo que ven en internet',
                     type: 'video',
                     duration: 2,
+                    videoUrl: 'https://www.youtube.com/watch?v=skUNNjOA8Ro',
                     teaches: ['conversación familiar', 'internet', 'acompañamiento'],
                 },
             ],
@@ -2830,7 +2791,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
         {
             title: 'Uso positivo y educación digital',
             description: 'Objetivo: Transformar el streaming en una herramienta educativa.',
-            duration: '24 min',
+            duration: '15 min',
             riskAreas: ['Uso positivo', 'Educación digital'],
             quiz: {
                 title: 'Examen del Módulo 7: Uso positivo y educación digital',
@@ -2842,7 +2803,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                 {
                     title: 'Artículo 1: Cómo usar YouTube y Twitch para aprender (contenido educativo)',
                     type: 'article',
-                    duration: 10,
+                    duration: 6,
                     content: module7Article1Content,
                     teaches: [
                         'aprendizaje guiado',
@@ -2865,12 +2826,13 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                     title: 'Video 1: Ejemplos de canales educativos recomendados',
                     type: 'video',
                     duration: 2,
+                    videoUrl: 'https://www.youtube.com/watch?v=SgvXFtfuAvM',
                     teaches: ['canales educativos', 'aprendizaje', 'recomendaciones'],
                 },
                 {
                     title: 'Artículo 2: Fomentar pensamiento crítico en niños frente al contenido digital',
                     type: 'article',
-                    duration: 10,
+                    duration: 5,
                     content: module7Article2Content,
                     teaches: [
                         'pensamiento crítico',
@@ -2892,6 +2854,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
                     title: 'Video 2: Cómo enseñar a los niños a cuestionar lo que ven',
                     type: 'video',
                     duration: 2,
+                    videoUrl: 'https://www.youtube.com/watch?v=AqkwrC4kVog',
                     teaches: ['preguntar', 'cuestionar contenido', 'educación digital'],
                 },
             ],
@@ -2978,7 +2941,7 @@ async function seedStreamingCourse(context) {
                 'Educación digital',
             ],
             status: 'published',
-            duration: '3 horas',
+            duration: '1 hora 49 min',
         });
         console.log(`(+) Course Created: ${desiredCourseTitle}`);
     } else {
