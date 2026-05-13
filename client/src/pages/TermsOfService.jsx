@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
     FileText,
@@ -23,6 +24,10 @@ const principles = [
     {
         title: 'Protección de datos',
         desc: 'El tratamiento de información debe mantenerse alineado con la política de privacidad y el enfoque de cuidado infantil.',
+    },
+    {
+        title: 'Cuenta de adulto',
+        desc: 'El registro debe ser realizado por madres, padres, tutores o personas adultas responsables.',
     },
     {
         title: 'Acompañamiento, no sustitución',
@@ -61,7 +66,7 @@ const TermsOfService = () => {
                         transition={{ delay: 0.2 }}
                         className="text-gray-500 dark:text-gray-400 text-lg italic font-medium"
                     >
-                        Última actualización: 11 de abril de 2026
+                        Última actualización: 13 de mayo de 2026
                     </motion.p>
                 </div>
             </div>
@@ -102,7 +107,8 @@ const TermsOfService = () => {
                         <p className="text-gray-600 dark:text-gray-400 leading-relaxed font-medium italic">
                             La plataforma está pensada para madres, padres y tutores. El uso del
                             servicio debe orientarse al cuidado, formación y supervisión responsable
-                            de menores en entornos digitales.
+                            de menores en entornos digitales. Niñas, niños y adolescentes no deben
+                            crear cuentas propias en Kuxipilli.
                         </p>
                     </motion.article>
                 </section>
@@ -160,14 +166,18 @@ const TermsOfService = () => {
                             <strong>2. Cuenta y acceso.</strong> El usuario es responsable de la
                             información registrada en su cuenta y del resguardo de sus credenciales.
                             La verificación por correo y la recuperación de acceso forman parte del
-                            esquema normal de seguridad del servicio.
+                            esquema normal de seguridad del servicio. La cuenta debe pertenecer a una
+                            persona adulta responsable, y no debe compartirse con menores ni con
+                            terceros.
                         </p>
 
                         <p>
                             <strong>3. Contenido y recursos.</strong> Los materiales de la
                             plataforma tienen un propósito formativo. No sustituyen atención legal,
                             psicológica, médica ni intervención especializada cuando un caso lo
-                            requiera.
+                            requiera. El usuario debe contrastar la orientación recibida con fuentes
+                            oficiales, la escuela, profesionales o autoridades cuando la situación lo
+                            amerite.
                         </p>
 
                         <p>
@@ -182,20 +192,57 @@ const TermsOfService = () => {
                             <strong>5. Reportes y conducta.</strong> Los reportes enviados deben
                             realizarse de buena fe y con información suficiente para comprender el
                             contexto. No está permitido usar esta función para difamar, acosar o
-                            compartir información innecesariamente sensible.
+                            compartir información innecesariamente sensible. Los reportes no son un
+                            canal de emergencia; si existe peligro inmediato, deben priorizarse la
+                            protección del menor, la conservación de evidencia y el contacto con la
+                            plataforma, escuela o autoridad correspondiente.
                         </p>
 
                         <p>
-                            <strong>6. Limitación de responsabilidad.</strong> Kuxipilli es una
+                            <strong>6. Privacidad y datos.</strong> Al crear una cuenta, el usuario
+                            acepta que sus datos se traten conforme a la{' '}
+                            <Link to="/privacidad" className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">
+                                Política de Privacidad
+                            </Link>
+                            . El usuario debe evitar ingresar datos sensibles o excesivos de menores
+                            en chats, reportes o formularios. Para dudas sobre privacidad o seguimiento
+                            puede escribir a{' '}
+                            <a
+                                href="mailto:contacto.techawarekids@gmail.com"
+                                className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline"
+                            >
+                                contacto.techawarekids@gmail.com
+                            </a>
+                            .
+                        </p>
+
+                        <p>
+                            <strong>7. Propiedad intelectual.</strong> Los textos, evaluaciones,
+                            rutas de aprendizaje, diseños, logotipos y materiales de Kuxipilli se
+                            ofrecen para uso educativo dentro de la plataforma. No está permitido
+                            copiar, redistribuir o explotar comercialmente el contenido sin
+                            autorización.
+                        </p>
+
+                        <p>
+                            <strong>8. Suspensión o restricción.</strong> Kuxipilli puede limitar o
+                            suspender cuentas cuando detecte abuso, uso fraudulento, intentos de
+                            vulnerar el sistema, reportes maliciosos o conductas contrarias a estos
+                            términos.
+                        </p>
+
+                        <p>
+                            <strong>9. Limitación de responsabilidad.</strong> Kuxipilli es una
                             herramienta educativa de apoyo. Las decisiones sobre supervisión,
                             intervención y cuidado siguen correspondiendo al adulto responsable.
                         </p>
 
                         <p>
-                            <strong>7. Cambios en el servicio.</strong> La plataforma puede
+                            <strong>10. Cambios en el servicio.</strong> La plataforma puede
                             actualizar contenidos, diseño, proveedores tecnológicos o políticas para
                             mantener coherencia con el proyecto técnico y las necesidades de
-                            seguridad digital.
+                            seguridad digital. Cuando los cambios sean relevantes, se reflejarán en
+                            estas páginas y en la fecha de actualización.
                         </p>
                     </div>
 

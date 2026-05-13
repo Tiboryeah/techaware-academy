@@ -25,7 +25,7 @@ const Register = () => {
         e.preventDefault();
 
         if (!acceptedTerms) {
-            setError('Debes aceptar los Términos y Condiciones para registrarte.');
+            setError('Debes aceptar los Términos y Condiciones y la Política de Privacidad para registrarte.');
             return;
         }
 
@@ -232,7 +232,7 @@ const Register = () => {
                             >
                                 {acceptedTerms && <Check className="w-4 h-4 text-white" />}
                             </button>
-                            <label className="text-xs text-gray-500 dark:text-gray-400 font-medium italic">
+                            <label className="text-xs text-gray-500 dark:text-gray-400 font-medium italic leading-relaxed">
                                 Acepto los{' '}
                                 <button
                                     type="button"
@@ -240,7 +240,14 @@ const Register = () => {
                                     className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline"
                                 >
                                     Términos y Condiciones
-                                </button>
+                                </button>{' '}
+                                y la{' '}
+                                <Link
+                                    to="/privacidad"
+                                    className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline"
+                                >
+                                    Política de Privacidad
+                                </Link>
                             </label>
                         </div>
 

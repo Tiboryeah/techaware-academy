@@ -2013,3 +2013,107 @@ TT_Academia/
   - Las imágenes actuales son `3:1`; mantener esa proporción evita recorte/deformación.
   - Si se desea reducir altura del encabezado, conviene regenerar banners a una proporción más panorámica y dejar zona segura inferior izquierda para texto.
 
+---
+
+## Actualización sesión 2026-05-13 — Landing, previews sociales, legales y despliegue GitHub
+
+### 1. Preview social al compartir `kuxipilli.com`
+- Archivo editado:
+  - `client/index.html`
+- Se agregaron metadatos para que WhatsApp, Facebook, Discord y otras plataformas puedan generar tarjeta de vista previa:
+  - `meta description`
+  - `og:type`, `og:locale`, `og:url`, `og:site_name`
+  - `og:title`, `og:description`, `og:image`, `og:image:secure_url`
+  - dimensiones y alt de imagen Open Graph
+  - `twitter:card`, `twitter:title`, `twitter:description`, `twitter:image`
+- Título HTML actualizado:
+  - `Kuxipilli | Educación digital parental`
+- Descripción principal:
+  - `Plataforma educativa para madres, padres y tutores sobre prevención de riesgos digitales en videojuegos, redes sociales y streaming.`
+- Descripción Open Graph:
+  - `Educación digital para madres, padres y tutores: videojuegos, redes sociales, streaming y prevención de riesgos en línea.`
+- Imagen usada:
+  - `https://kuxipilli.com/logo_v2.png`
+- Nota:
+  - WhatsApp puede cachear previews. Para forzar refresco temporal puede probarse `https://kuxipilli.com/?v=2`.
+
+### 2. Landing pública — tamaño de fuente del hero
+- Archivo editado:
+  - `client/src/pages/Home.jsx`
+- Se aumentó ligeramente la fuente solo en el inicio público, antes de iniciar sesión:
+  - etiqueta superior `Educación digital parental · México`
+  - párrafo descriptivo del hero
+  - botones `Comenzar gratis` y `Ya tengo cuenta`
+- No se modificó el dashboard ni la vista del usuario autenticado.
+
+### 3. Tarjetas de programas con imágenes personalizadas
+- Archivos/recursos agregados:
+  - `client/public/images/tarjetajuegos.png`
+  - `client/public/images/tarjetaredes.png`
+  - `client/public/images/tarjetastreaming.png`
+- Archivo editado:
+  - `client/src/pages/Home.jsx`
+- Se reemplazó el fondo sombreado/gradiente estático de las tarjetas de `Videojuegos`, `Redes Sociales` y `Streaming` por imágenes reales del estilo Kuxipilli.
+- Se mantuvo overlay oscuro con gradiente para conservar legibilidad de:
+  - icono
+  - título
+  - chips de plataformas
+  - número de módulos
+
+### 4. Políticas, términos y consentimiento de registro
+- Archivos editados:
+  - `client/src/pages/PrivacyPolicy.jsx`
+  - `client/src/pages/TermsOfService.jsx`
+  - `client/src/components/TermsModal.jsx`
+  - `client/src/pages/Register.jsx`
+- Se revisó la política de privacidad, términos del servicio y modal de términos del registro.
+- Se ampliaron los textos para reflejar mejor la operación real:
+  - cuentas para madres, padres y tutores, no para menores
+  - datos tratados: nombre, correo, hash de contraseña, avatar opcional, progreso, evaluaciones, acreditaciones, recomendaciones, chatbot, reportes, actividad y metadatos técnicos
+  - finalidades: cuenta, autenticación, verificación, recuperación, progreso, recomendaciones, reportes, seguridad y prevención de abuso
+  - proveedores/servicios externos: Netlify, Render, MongoDB Atlas, Resend, Google/Gemini y servicios de video
+  - conservación/eliminación
+  - medidas de seguridad
+  - chatbot, reportes y datos de menores
+  - cookies/almacenamiento local
+  - derechos ARCO
+  - propiedad intelectual
+  - suspensión por abuso
+  - reportes no son canal de emergencia
+- Fecha actualizada:
+  - `13 de mayo de 2026`
+- En registro, el checkbox ahora indica que el usuario acepta:
+  - `Términos y Condiciones`
+  - `Política de Privacidad`
+- Se agregó enlace directo a `/privacidad` desde el texto de aceptación.
+- Referencias revisadas:
+  - Ley Federal de Protección de Datos Personales en Posesión de los Particulares.
+  - Elementos generales de aviso de privacidad y derechos ARCO.
+
+### 5. Correo de contacto confirmado
+- Correo encontrado en `server/.env`:
+  - `contacto.techawarekids@gmail.com`
+- Confirmación técnica:
+  - `server/src/routes/report.routes.js` envía notificaciones de reportes a `process.env.ADMIN_EMAIL || process.env.EMAIL_USER`.
+  - Como `EMAIL_USER=contacto.techawarekids@gmail.com`, ese correo funciona como contacto/fallback de reportes.
+- Se agregó el correo explícitamente en:
+  - política de privacidad
+  - términos del servicio
+  - modal de términos de registro
+
+### 6. Archivos auxiliares/locales nuevos listos para GitHub
+- Archivos locales nuevos incluidos para facilitar ejecución en otra PC:
+  - `README_EJECUTAR_LOCAL.md`
+  - `setup-local-windows.ps1`
+  - `start-local-windows.ps1`
+  - `start-local-windows.bat`
+- Scripts de mantenimiento nuevos:
+  - `server/src/scripts/activate-badges.js`
+  - `server/src/scripts/calculate-durations.js`
+- Revisión previa:
+  - No se agregó `server/.env` ni secretos reales al commit.
+  - Los scripts de setup usan placeholders o valores locales.
+
+### 7. Validación
+- `npm run build` ejecutado correctamente en `client` después de los cambios.
+- Persiste únicamente la advertencia normal de Vite por chunks mayores a 500 kB; no bloquea el build.

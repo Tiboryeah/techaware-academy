@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const TermsModal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
@@ -23,7 +24,7 @@ const TermsModal = ({ isOpen, onClose }) => {
 
                 <div className="p-6 overflow-y-auto text-gray-700 dark:text-gray-300 space-y-4 text-sm leading-relaxed">
                     <p>
-                        <strong>Última actualización: abril de 2026</strong>
+                        <strong>Última actualización: 13 de mayo de 2026</strong>
                     </p>
 
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white">1. Finalidad de la plataforma</h3>
@@ -47,6 +48,11 @@ const TermsModal = ({ isOpen, onClose }) => {
                         asistente virtual y reportes enviados por el usuario. Esta información se gestiona
                         conforme a la política de privacidad.
                     </p>
+                    <p>
+                        La cuenta debe ser creada y utilizada por una madre, padre, tutor o persona
+                        adulta responsable. La plataforma no está diseñada para que niñas, niños o
+                        adolescentes creen cuentas propias.
+                    </p>
 
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white">4. Asistente virtual y recursos externos</h3>
                     <p>
@@ -55,11 +61,28 @@ const TermsModal = ({ isOpen, onClose }) => {
                         menores en chats o formularios.
                     </p>
 
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">5. Cambios</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">5. Reportes y casos urgentes</h3>
+                    <p>
+                        Los reportes ayudan a orientar y documentar situaciones, pero no son un
+                        canal de emergencia. Si un menor está en peligro, se debe priorizar el
+                        bloqueo, la conservación de evidencia y el contacto con la escuela,
+                        plataforma o autoridad correspondiente. Para seguimiento general puedes
+                        escribir a{' '}
+                        <a href="mailto:contacto.techawarekids@gmail.com" className="font-bold text-indigo-600 dark:text-indigo-400 hover:underline">
+                            contacto.techawarekids@gmail.com
+                        </a>
+                        .
+                    </p>
+
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">6. Privacidad y cambios</h3>
                     <p>
                         Los términos pueden actualizarse para reflejar mejoras del sistema, cambios
                         funcionales o ajustes alineados con el documento técnico y la operación real
-                        de la plataforma.
+                        de la plataforma. También debes revisar la{' '}
+                        <Link to="/privacidad" onClick={onClose} className="font-bold text-indigo-600 dark:text-indigo-400 hover:underline">
+                            Política de Privacidad
+                        </Link>
+                        , que explica qué datos se tratan y con qué finalidad.
                     </p>
                 </div>
 

@@ -13,6 +13,31 @@ import {
 
 const sections = [
     {
+        icon: <ShieldCheck className="w-6 h-6 text-indigo-500" />,
+        title: 'Responsable y alcance',
+        content: (
+            <>
+                <p>
+                    Kuxipilli es el responsable del tratamiento de los datos personales que se
+                    recaban dentro de la plataforma web kuxipilli.com. Este aviso aplica al registro,
+                    inicio de sesión, cursos, evaluaciones, chatbot, reportes y formularios de
+                    contacto.
+                </p>
+                <p>
+                    Para dudas sobre privacidad o para ejercer derechos relacionados con tus datos,
+                    puedes usar la sección de contacto de la plataforma o escribir a{' '}
+                    <a
+                        href="mailto:contacto.techawarekids@gmail.com"
+                        className="font-bold text-indigo-600 dark:text-indigo-400 hover:underline"
+                    >
+                        contacto.techawarekids@gmail.com
+                    </a>
+                    .
+                </p>
+            </>
+        ),
+    },
+    {
         icon: <Database className="w-6 h-6 text-indigo-500" />,
         title: 'Qué datos tratamos',
         content: (
@@ -22,7 +47,9 @@ const sections = [
                     personalizar la experiencia, la plataforma puede almacenar datos como nombre,
                     correo electrónico, contraseña protegida mediante hash, progreso académico,
                     resultados de evaluaciones, conversaciones del asistente virtual y reportes enviados por
-                    el usuario.
+                    el usuario. También puede conservar avatar opcional, fecha de creación de cuenta,
+                    estado de verificación, actividad de aprendizaje y metadatos técnicos necesarios
+                    para seguridad y diagnóstico del servicio.
                 </p>
                 <p>
                     La aplicación no está diseñada para que niñas, niños o adolescentes creen una
@@ -45,7 +72,8 @@ const sections = [
                     <li>permitir inicio de sesión, verificación y recuperación de acceso,</li>
                     <li>guardar avance, calificaciones y acreditaciones,</li>
                     <li>mostrar rutas de repaso y recomendaciones dentro de la plataforma,</li>
-                    <li>mantener historial del asistente virtual y atender reportes enviados por familias.</li>
+                    <li>mantener historial del asistente virtual y atender reportes enviados por familias,</li>
+                    <li>prevenir abuso, errores técnicos, accesos no autorizados y uso indebido del servicio.</li>
                 </ul>
                 <p>
                     No usamos los datos para vender perfiles de usuario ni para una explotación
@@ -62,7 +90,9 @@ const sections = [
                 <p>
                     La aplicación puede apoyarse en servicios externos para funcionar correctamente,
                     entre ellos infraestructura de despliegue, base de datos, correo transaccional,
-                    videos embebidos y el asistente conversacional basado en Gemini.
+                    videos embebidos y el asistente conversacional basado en Gemini. En la operación
+                    actual esto puede incluir proveedores como Netlify, Render, MongoDB Atlas,
+                    Resend, Google/Gemini y servicios de video cuando se muestran recursos externos.
                 </p>
                 <p>
                     Cuando el usuario utiliza el asistente virtual o interactúa con recursos audiovisuales,
@@ -70,6 +100,26 @@ const sections = [
                     por proveedores tecnológicos vinculados a la operación de Kuxipilli. Ese uso se
                     limita al funcionamiento de la plataforma y al cumplimiento de sus fines
                     educativos.
+                </p>
+            </>
+        ),
+    },
+    {
+        icon: <FileText className="w-6 h-6 text-indigo-500" />,
+        title: 'Conservación y eliminación',
+        content: (
+            <>
+                <p>
+                    Los datos de cuenta, progreso, evaluaciones, recomendaciones y acreditaciones se
+                    conservan mientras la cuenta esté activa o mientras sean necesarios para operar la
+                    experiencia educativa. Los reportes y conversaciones pueden conservarse para dar
+                    seguimiento, prevenir abuso y mantener trazabilidad del caso.
+                </p>
+                <p>
+                    El usuario puede solicitar revisión, corrección o eliminación de información
+                    cuando resulte procedente. Algunas bitácoras técnicas o registros mínimos pueden
+                    conservarse por seguridad, integridad del sistema o cumplimiento de obligaciones
+                    aplicables.
                 </p>
             </>
         ),
@@ -83,13 +133,35 @@ const sections = [
                     Kuxipilli aplica medidas razonables de seguridad acordes con su arquitectura
                     técnica. Entre ellas se encuentran autenticación de usuarios, contraseñas
                     almacenadas mediante hash, control de acceso a rutas protegidas y separación
-                    entre cliente, servidor y base de datos.
+                    entre cliente, servidor y base de datos. También se aplican límites de uso,
+                    validaciones de entrada, conexión HTTPS en producción y reducción de datos
+                    personales en el chatbot cuando se detectan correos o teléfonos.
                 </p>
                 <p>
                     Aunque se adoptan buenas prácticas para reducir riesgos, ningún servicio web
                     puede garantizar seguridad absoluta. Por ello, también es importante que el
                     usuario proteja su cuenta, evite compartir credenciales y no publique datos
                     sensibles de terceros.
+                </p>
+            </>
+        ),
+    },
+    {
+        icon: <AlertTriangle className="w-6 h-6 text-indigo-500" />,
+        title: 'Chatbot, reportes y datos de menores',
+        content: (
+            <>
+                <p>
+                    El asistente virtual y los reportes son herramientas de orientación educativa.
+                    No sustituyen apoyo legal, psicológico, médico, escolar ni intervención de
+                    autoridades cuando exista riesgo real o inmediato para un menor.
+                </p>
+                <p>
+                    Si necesitas describir una situación, evita incluir nombres completos,
+                    domicilio, escuela, teléfonos, fotografías íntimas, contraseñas u otros datos
+                    que identifiquen directamente a una niña, niño o adolescente. Cuando sea
+                    necesario conservar evidencia, hazlo fuera de la plataforma y con apoyo de un
+                    adulto responsable o autoridad competente.
                 </p>
             </>
         ),
@@ -114,6 +186,24 @@ const sections = [
         ),
     },
     {
+        icon: <Database className="w-6 h-6 text-indigo-500" />,
+        title: 'Cookies y almacenamiento local',
+        content: (
+            <>
+                <p>
+                    La plataforma puede usar almacenamiento local del navegador para mantener la
+                    sesión, recordar preferencias y operar la experiencia del usuario. También pueden
+                    generarse registros técnicos del servidor para seguridad, diagnóstico y
+                    funcionamiento.
+                </p>
+                <p>
+                    Si se incorporan herramientas de analítica, publicidad o seguimiento de terceros,
+                    esta política deberá actualizarse para explicar su finalidad y opciones de control.
+                </p>
+            </>
+        ),
+    },
+    {
         icon: <FileText className="w-6 h-6 text-indigo-500" />,
         title: 'Marco de referencia y derechos',
         content: (
@@ -126,8 +216,22 @@ const sections = [
                     datos personales.
                 </p>
                 <p>
-                    Si en el futuro la plataforma incorpora nuevos tipos de datos o funcionalidades,
-                    esta política deberá actualizarse para reflejar esos cambios de forma clara.
+                    Puedes solicitar acceso, rectificación, cancelación u oposición respecto de tus
+                    datos personales, así como revocar el consentimiento cuando proceda. La solicitud
+                    debe permitir identificar la cuenta, el dato o tratamiento relacionado y el medio
+                    para recibir respuesta. Puedes enviarla desde la sección de contacto o al correo{' '}
+                    <a
+                        href="mailto:contacto.techawarekids@gmail.com"
+                        className="font-bold text-indigo-600 dark:text-indigo-400 hover:underline"
+                    >
+                        contacto.techawarekids@gmail.com
+                    </a>
+                    .
+                </p>
+                <p>
+                    Si en el futuro la plataforma incorpora nuevos tipos de datos, finalidades,
+                    proveedores o funcionalidades, esta política deberá actualizarse para reflejar
+                    esos cambios de forma clara.
                 </p>
             </>
         ),
@@ -165,7 +269,7 @@ const PrivacyPolicy = () => {
                         transition={{ delay: 0.2 }}
                         className="text-gray-500 dark:text-gray-400 text-lg italic font-medium"
                     >
-                        Última actualización: 11 de abril de 2026
+                        Última actualización: 13 de mayo de 2026
                     </motion.p>
                 </div>
             </div>
@@ -181,8 +285,8 @@ const PrivacyPolicy = () => {
                         <p className="text-xl leading-relaxed italic">
                             Kuxipilli es una plataforma educativa para familias. Esta política
                             explica, en términos claros, qué información utiliza la aplicación,
-                            para qué la necesita y qué cuidados se esperan tanto del sistema como
-                            del propio usuario.
+                            para qué la necesita, con qué proveedores puede apoyarse y qué derechos
+                            conserva el usuario sobre sus datos.
                         </p>
                         <div className="flex items-start gap-4 p-5 rounded-3xl bg-amber-50 dark:bg-amber-500/10 border border-amber-100 dark:border-amber-500/20">
                             <AlertTriangle className="w-6 h-6 text-amber-500 flex-shrink-0 mt-0.5" />

@@ -461,7 +461,7 @@ const Home = () => {
           <div className="absolute bottom-[-20%] right-[-10%] w-[80%] h-[80%] bg-purple-500/5 dark:bg-purple-500/10 rounded-full blur-[150px] opacity-50" />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-24 md:pt-32 pb-12 text-center space-y-8 sm:space-y-12">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-indigo-500/5 dark:bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 font-black text-[10px] tracking-[0.3em] uppercase">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-indigo-500/5 dark:bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400 font-black text-[11px] sm:text-xs tracking-[0.3em] uppercase">
             <ShieldCheck className="w-3 h-3" /> Educación digital parental · México
           </motion.div>
           <div className="space-y-6">
@@ -474,16 +474,16 @@ const Home = () => {
               Protege a tu hijo/a en internet.
             </motion.p>
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }}
-              className="max-w-2xl mx-auto text-lg text-gray-500 dark:text-gray-400 leading-relaxed">
+              className="max-w-2xl mx-auto text-xl text-gray-500 dark:text-gray-400 leading-relaxed">
               La plataforma educativa para madres, padres y tutores que quieren entender los riesgos reales de los videojuegos, redes sociales y streaming, para actuar con criterio.
             </motion.p>
           </div>
           <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.6 }}
             className="flex flex-col sm:flex-row justify-center gap-4 px-4 sm:px-0">
-            <Link to="/registro" className="px-10 py-4 bg-indigo-600 text-white font-black text-xs uppercase tracking-[0.2em] rounded-2xl shadow-[0_20px_50px_rgba(79,70,229,0.3)] hover:bg-indigo-700 hover:-translate-y-1 transition-all active:scale-95">
+            <Link to="/registro" className="px-10 py-4 bg-indigo-600 text-white font-black text-sm uppercase tracking-[0.2em] rounded-2xl shadow-[0_20px_50px_rgba(79,70,229,0.3)] hover:bg-indigo-700 hover:-translate-y-1 transition-all active:scale-95">
               Comenzar gratis
             </Link>
-            <Link to="/iniciar-sesion" className="px-10 py-4 bg-white dark:bg-[#161b22] text-gray-900 dark:text-white font-black text-xs uppercase tracking-[0.2em] rounded-2xl border border-gray-200 dark:border-gray-700 shadow-lg hover:-translate-y-1 transition-all active:scale-95">
+            <Link to="/iniciar-sesion" className="px-10 py-4 bg-white dark:bg-[#161b22] text-gray-900 dark:text-white font-black text-sm uppercase tracking-[0.2em] rounded-2xl border border-gray-200 dark:border-gray-700 shadow-lg hover:-translate-y-1 transition-all active:scale-95">
               Ya tengo cuenta
             </Link>
           </motion.div>
@@ -643,6 +643,7 @@ const Home = () => {
               title: 'Videojuegos',
               platforms: ['Roblox', 'Minecraft'],
               modules: 6,
+              image: '/images/tarjetajuegos.png',
               topics: ['Seguridad de cuenta', 'Compras digitales', 'Grooming en chats', 'Bienestar digital'],
               gradient: 'from-[#1c0e0e] to-[#1a1014]',
               accent: 'bg-red-500/80',
@@ -657,6 +658,7 @@ const Home = () => {
               title: 'Redes Sociales',
               platforms: ['TikTok', 'Discord', 'Instagram'],
               modules: 7,
+              image: '/images/tarjetaredes.png',
               topics: ['Privacidad y huella digital', 'Ciberacoso', 'Contacto con desconocidos', 'Desinformación'],
               gradient: 'from-[#130e1c] to-[#0f0e1a]',
               accent: 'bg-violet-500/80',
@@ -671,6 +673,7 @@ const Home = () => {
               title: 'Streaming',
               platforms: ['YouTube', 'Twitch'],
               modules: 7,
+              image: '/images/tarjetastreaming.png',
               topics: ['Consumo infantil seguro', 'Monetización engañosa', 'Tiempo de pantalla', 'Control parental'],
               gradient: 'from-[#0e0e1c] to-[#0d0f1a]',
               accent: 'bg-indigo-500/80',
@@ -689,10 +692,16 @@ const Home = () => {
               transition={{ delay: i * 0.1 }}
               className="bg-[#111318] border border-white/5 rounded-[2rem] overflow-hidden shadow-xl flex flex-col">
 
-              {/* Header oscuro con acento de color */}
-              <div className={`relative bg-gradient-to-br ${prog.gradient} p-8 pb-10`}>
-                <div className="absolute inset-0 bg-black/40" />
-                <div className="absolute bottom-[-30%] right-[-10%] w-48 h-48 rounded-full bg-white/5 blur-3xl pointer-events-none" />
+              {/* Header con imagen del programa */}
+              <div className={`relative bg-gradient-to-br ${prog.gradient} p-8 pb-10 overflow-hidden`}>
+                <img
+                  src={prog.image}
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-cover"
+                  draggable={false}
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/25" />
+                <div className="absolute inset-0 bg-black/20" />
                 <div className="relative z-10 space-y-4">
                   <div className="flex items-center justify-between">
                     <div className={`w-12 h-12 rounded-2xl ${prog.iconBg} border border-white/10 flex items-center justify-center`}>
