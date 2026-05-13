@@ -1196,6 +1196,28 @@ Valida que el correo tenga: usuario + `@` + dominio + `.` + TLD de al menos 2 le
 
 ---
 
+### 12. Corrección de commits incompletos — build de Netlify roto
+
+Durante la sesión se detectó que varios archivos habían quedado sin subir a GitHub en commits anteriores, lo que causó un fallo de build en Netlify:
+
+**Error:** `Could not resolve "../components/PlatformIcons" from "src/pages/RealCases.jsx"`
+
+**Causa raíz:** al hacer commits por sesión, se seleccionaron solo los archivos de esa sesión y se omitieron archivos de sesiones anteriores que estaban en estado `untracked` o `modified`.
+
+**Commits correctivos aplicados (2026-05-12):**
+
+| Commit | Archivos | Descripción |
+|---|---|---|
+| `da3240f` | App.jsx, Layout.jsx, RealCases.jsx, CaseDetail.jsx, resource.routes.js | Rutas públicas de casos y guías sin login |
+| `8bbf3f8` | 40 archivos en `client/public/images/` y `client/public/article-images/videojuegos/` y `lesson-banners/` | Imágenes de badges, trofeo, artículos videojuegos, banners |
+| `c7b937b` | PlatformIcons.jsx, CourseDetail.jsx, Dashboard.jsx, LessonView.jsx, lessonBanner.js, Resource.js, seeds (games/social/streaming), resources.js | Componente faltante que rompía el build + cambios pendientes de sesiones anteriores |
+
+**Estado del repositorio tras los commits:** limpio. Solo quedan sin subir scripts de utilidad local (`activate-badges.js`, `calculate-durations.js`, `setup-local-windows.ps1`, `start-local-windows.*`) que no afectan el build ni la app.
+
+**Lección:** al stagear archivos para commit, revisar siempre `git status --short` completo para no dejar archivos `??` (untracked) o ` M` (modified) que dependencias del frontend importen directamente.
+
+---
+
 ## Archivos relevantes del repositorio
 
 ```
