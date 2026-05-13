@@ -81,6 +81,13 @@ function App() {
                                 <Route path="privacy" element={<Navigate to="/privacidad" replace />} />
                                 <Route path="terms" element={<Navigate to="/terminos" replace />} />
 
+                                {/* Rutas públicas — sin login */}
+                                <Route path="casos-y-guias" element={<RealCases />} />
+                                <Route path="casos" element={<Navigate to="/casos-y-guias" replace />} />
+                                <Route path="casos/:id" element={<CaseDetail />} />
+                                <Route path="cases" element={<Navigate to="/casos-y-guias" replace />} />
+                                <Route path="cases/:id" element={<LegacyCaseRedirect />} />
+
                                 <Route element={<ProtectedRoute />}>
                                     <Route path="cursos" element={<Modules />} />
                                     <Route path="cursos/:id" element={<CourseDetail />} />
@@ -91,17 +98,12 @@ function App() {
                                     />
                                     <Route path="evaluacion/:id" element={<QuizTaker />} />
                                     <Route path="panel" element={<Dashboard />} />
-                                    <Route path="casos-y-guias" element={<RealCases />} />
-                                    <Route path="casos" element={<Navigate to="/casos-y-guias" replace />} />
-                                    <Route path="casos/:id" element={<CaseDetail />} />
                                     <Route path="perfil" element={<Profile />} />
                                     <Route path="modules" element={<Navigate to="/cursos" replace />} />
                                     <Route path="courses/:id" element={<LegacyCourseRedirect />} />
                                     <Route path="lessons/:id" element={<LegacyLessonRedirect />} />
                                     <Route path="quiz/:id" element={<LegacyQuizRedirect />} />
                                     <Route path="dashboard" element={<Navigate to="/panel" replace />} />
-                                    <Route path="cases" element={<Navigate to="/casos-y-guias" replace />} />
-                                    <Route path="cases/:id" element={<LegacyCaseRedirect />} />
                                     <Route path="profile" element={<Navigate to="/perfil" replace />} />
                                 </Route>
 

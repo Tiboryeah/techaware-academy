@@ -11,7 +11,7 @@ import avatarUrl from '../utils/avatarUrl';
 const NAV_LINKS = [
     { name: 'Inicio',        path: '/',             Icon: LayoutDashboard, protected: false },
     { name: 'Cursos',        path: '/cursos',        Icon: BookOpen,        protected: true  },
-    { name: 'Casos y guías', path: '/casos-y-guias', Icon: Shield,          protected: true  },
+    { name: 'Casos y guías', path: '/casos-y-guias', Icon: Shield,          protected: false },
 ];
 
 const Layout = () => {

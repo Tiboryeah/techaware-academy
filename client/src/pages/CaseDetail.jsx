@@ -17,20 +17,23 @@ import {
     Link,
     Target,
     Check,
+    Skull,
+    HeartCrack,
+    EyeOff,
 } from 'lucide-react';
 import NotFound from './NotFound';
 import api from '../services/api';
 
 const caseIcons = {
-    Ciberacoso: <UserX className="w-5 h-5" />,
-    Fraudes: <AlertTriangle className="w-5 h-5" />,
-    Grooming: <ShieldCheck className="w-5 h-5" />,
-    'Retos virales': <AlertTriangle className="w-5 h-5" />,
-    'Explotación digital': <ShieldCheck className="w-5 h-5" />,
-    Suicidio: <AlertTriangle className="w-5 h-5" />,
-    'Violencia en vivo': <AlertTriangle className="w-5 h-5" />,
-    'Grooming fatal': <ShieldCheck className="w-5 h-5" />,
+    'Grooming fatal':      <Skull className="w-5 h-5" />,
+    Suicidio:              <HeartCrack className="w-5 h-5" />,
+    Ciberacoso:            <UserX className="w-5 h-5" />,
+    Grooming:              <EyeOff className="w-5 h-5" />,
+    'Explotación digital': <EyeOff className="w-5 h-5" />,
+    'Retos virales':       <AlertTriangle className="w-5 h-5" />,
+    'Violencia en vivo':   <AlertTriangle className="w-5 h-5" />,
     'Contenido camuflado': <AlertTriangle className="w-5 h-5" />,
+    Fraudes:               <AlertTriangle className="w-5 h-5" />,
 };
 
 const SectionHeader = ({ eyebrow, title, icon }) => (
@@ -221,10 +224,11 @@ const CaseDetail = () => {
                             </div>
 
                             <div className="p-5 sm:p-8 md:p-10 space-y-8">
-                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                                     <FactCard label="Plataforma" value={caseItem.platform || 'Caso digital'} />
                                     <FactCard label="Riesgo" value={caseItem.riskLevel || 'Sin clasificar'} tone="red" />
                                     <FactCard label="Edad" value={caseItem.ageRange || 'Menor de edad'} tone="gray" />
+                                    {caseItem.caseDate && <FactCard label="Fecha del caso" value={caseItem.caseDate} tone="gray" />}
                                 </div>
 
                                 <div className="p-6 sm:p-8 rounded-[2rem] bg-[#fafafb] dark:bg-[#0a0c10] border border-gray-100 dark:border-gray-800">
@@ -233,6 +237,29 @@ const CaseDetail = () => {
                                         {caseItem.fullContent}
                                     </p>
                                 </div>
+
+                                {caseItem.videoUrl && (() => {
+                                    const match = caseItem.videoUrl.match(/(?:youtu\.be\/|v=|embed\/)([^#&?]{11})/);
+                                    const videoId = match?.[1];
+                                    if (!videoId) return null;
+                                    return (
+                                        <div className="rounded-[1.5rem] overflow-hidden border border-indigo-500/20 dark:border-indigo-500/20 shadow-xl shadow-indigo-500/10">
+                                            <div className="flex items-center gap-3 px-5 py-4 bg-indigo-600 dark:bg-indigo-600/90">
+                                                <div className="w-2 h-2 rounded-full bg-white/60" />
+                                                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/90">Caso animado</p>
+                                            </div>
+                                            <div className="aspect-video w-full bg-black">
+                                                <iframe
+                                                    className="w-full h-full"
+                                                    src={`https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`}
+                                                    title={`Video animado: ${caseItem.title}`}
+                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                    allowFullScreen
+                                                />
+                                            </div>
+                                        </div>
+                                    );
+                                })()}
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="p-6 rounded-2xl border border-amber-200/70 dark:border-amber-500/20 bg-amber-50 dark:bg-amber-500/10">

@@ -11,44 +11,50 @@ import {
     UserX,
     AlertTriangle,
     ShieldCheck,
+    Skull,
+    HeartCrack,
+    EyeOff,
     Gamepad2,
-    Video,
-    MessageCircle,
-    Instagram,
-    Youtube,
-    Tv,
     Mail,
 } from 'lucide-react';
+import { PlatformIcon } from '../components/PlatformIcons';
 import api from '../services/api';
 
 const caseIcons = {
-    Ciberacoso: <UserX className="w-5 h-5" />,
-    Fraudes: <AlertTriangle className="w-5 h-5" />,
-    Grooming: <ShieldCheck className="w-5 h-5" />,
-    'Retos virales': <AlertTriangle className="w-5 h-5" />,
-    'Explotación digital': <ShieldCheck className="w-5 h-5" />,
-    Suicidio: <AlertTriangle className="w-5 h-5" />,
-    'Violencia en vivo': <AlertTriangle className="w-5 h-5" />,
-    'Grooming fatal': <ShieldCheck className="w-5 h-5" />,
+    'Grooming fatal':      <Skull className="w-5 h-5" />,
+    Suicidio:              <HeartCrack className="w-5 h-5" />,
+    Ciberacoso:            <UserX className="w-5 h-5" />,
+    Grooming:              <EyeOff className="w-5 h-5" />,
+    'Explotación digital': <EyeOff className="w-5 h-5" />,
+    'Retos virales':       <AlertTriangle className="w-5 h-5" />,
+    'Violencia en vivo':   <AlertTriangle className="w-5 h-5" />,
     'Contenido camuflado': <AlertTriangle className="w-5 h-5" />,
+    Fraudes:               <AlertTriangle className="w-5 h-5" />,
 };
 
-const guideIcons = {
-    Roblox: <Gamepad2 className="w-6 h-6 text-red-500" />,
-    Minecraft: <Gamepad2 className="w-6 h-6 text-green-600" />,
-    TikTok: <Video className="w-6 h-6 text-pink-500" />,
-    Discord: <MessageCircle className="w-6 h-6 text-indigo-500" />,
-    Instagram: <Instagram className="w-6 h-6 text-purple-600" />,
-    YouTube: <Youtube className="w-6 h-6 text-red-600" />,
-    Twitch: <Tv className="w-6 h-6 text-purple-700" />,
-    'Videojuegos en línea': <Gamepad2 className="w-6 h-6 text-cyan-500" />,
-};
+const KNOWN_PLATFORMS = ['Roblox', 'Minecraft', 'TikTok', 'Discord', 'Instagram', 'YouTube', 'Twitch'];
+
+const PlatformBadgeIcon = ({ platform }) =>
+    KNOWN_PLATFORMS.includes(platform)
+        ? <PlatformIcon platform={platform} className="w-4 h-4" />
+        : <Gamepad2 className="w-4 h-4 text-cyan-500" />;
 
 const caseStyles = {
     red: 'bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20',
     yellow: 'bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 border-yellow-500/20',
     indigo: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20',
     purple: 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20',
+};
+
+const platformIconStyles = {
+    TikTok:               'bg-gray-200 text-gray-700 border-gray-300 dark:bg-gray-900 dark:text-white dark:border-gray-700',
+    YouTube:              'bg-red-600/15 text-red-600 dark:text-red-400 border-red-500/30',
+    Twitch:               'bg-purple-600/15 text-purple-600 dark:text-purple-400 border-purple-500/30',
+    Minecraft:            'bg-green-600/15 text-green-600 dark:text-green-400 border-green-500/30',
+    Roblox:               'bg-blue-600/15 text-blue-600 dark:text-blue-400 border-blue-500/30',
+    Instagram:            'bg-pink-600/15 text-pink-600 dark:text-pink-400 border-pink-500/30',
+    Discord:              'bg-indigo-600/15 text-indigo-600 dark:text-indigo-400 border-indigo-500/30',
+    'Videojuegos en línea': 'bg-cyan-600/15 text-cyan-600 dark:text-cyan-400 border-cyan-500/30',
 };
 
 const guideDots = {
@@ -137,8 +143,8 @@ const RealCases = () => {
             casesState.items.map((item) => ({
                 ...item,
                 icon: caseIcons[item.category] || <Info className="w-5 h-5" />,
-                platformIcon: guideIcons[item.platform] || null,
                 style: caseStyles[item.color] || caseStyles.indigo,
+                platformStyle: platformIconStyles[item.platform] || caseStyles[item.color] || caseStyles.indigo,
             })),
         [casesState.items]
     );
@@ -147,7 +153,7 @@ const RealCases = () => {
         () =>
             guidesState.items.map((item) => ({
                 ...item,
-                icon: guideIcons[item.platform] || <Info className="w-6 h-6 text-indigo-500" />,
+                icon: <PlatformBadgeIcon platform={item.platform} />,
                 dotClass: guideDots[item.color] || guideDots.indigo,
             })),
         [guidesState.items]
@@ -251,7 +257,7 @@ const RealCases = () => {
                                                 >
                                                     <div className="p-5 sm:p-8 flex-grow space-y-6">
                                                         <div className="flex justify-between items-center">
-                                                            <div className={`p-3 rounded-2xl ${item.style}`}>{item.icon}</div>
+                                                            <div className={`p-3 rounded-2xl border ${item.platformStyle}`}>{item.icon}</div>
                                                             <span className={`text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full border ${item.style}`}>
                                                                 {item.category}
                                                             </span>
@@ -269,11 +275,14 @@ const RealCases = () => {
                                                                 Edad: {item.ageRange}
                                                             </div>
                                                         ) : null}
+                                                        {item.caseDate ? (
+                                                            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-gray-800 text-[10px] font-black uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                                                                📅 {item.caseDate}
+                                                            </div>
+                                                        ) : null}
                                                         {item.platform ? (
                                                             <div className="inline-flex items-center gap-2 px-3 py-2 rounded-2xl bg-gray-50 dark:bg-[#0a0c10] border border-gray-100 dark:border-gray-800 text-[10px] font-black uppercase tracking-widest text-gray-500 dark:text-gray-400">
-                                                                {item.platformIcon ? (
-                                                                    <span className="scale-75 origin-center">{item.platformIcon}</span>
-                                                                ) : null}
+                                                                <PlatformBadgeIcon platform={item.platform} />
                                                                 {item.platform}
                                                             </div>
                                                         ) : null}
