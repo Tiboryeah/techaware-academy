@@ -7,7 +7,6 @@ import {
     Zap,
     Lightbulb,
     Clock,
-    Shield,
     Users,
     UserX,
     AlertTriangle,
@@ -151,10 +150,15 @@ const CaseDetail = () => {
             <main className="max-w-7xl mx-auto px-4 pt-8 sm:pt-12">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-16">
                     <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="lg:col-span-4 space-y-8">
-                        <div className="relative p-6 sm:p-10 bg-gradient-to-br from-indigo-600 to-indigo-900 rounded-[2rem] sm:rounded-[3rem] text-white shadow-2xl overflow-hidden">
-                            <div className="absolute top-0 right-0 p-8 opacity-10">
-                                <Shield className="w-32 h-32 rotate-12" />
-                            </div>
+                        <div className="relative p-6 sm:p-10 rounded-[2rem] sm:rounded-[3rem] text-white shadow-2xl overflow-hidden bg-indigo-950">
+                            <img
+                                src="/images/casosbaner.png"
+                                alt=""
+                                className="absolute inset-0 w-full h-full object-cover"
+                                draggable={false}
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/28 to-black/62" />
+                            <div className="absolute inset-0 bg-gradient-to-r from-black/36 via-transparent to-black/18" />
                             <div className="space-y-6 relative z-10">
                                 <div className="flex flex-wrap gap-2">
                                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-[10px] font-black uppercase tracking-widest border border-white/20">

@@ -6,7 +6,7 @@ const buildSocialCatalog = () => {
             videoUrl: 'https://www.youtube.com/watch?v=3L41XcuR4cU',
         },
         module1Video2: {
-            videoUrl: 'https://www.youtube.com/watch?v=nmK7VyE_CoY',
+            videoUrl: 'https://www.youtube.com/watch?v=A-6qo67gStk',
         },
         module2Video1: {
             videoUrl: 'https://www.youtube.com/watch?v=e5XfhUBf378',
@@ -15,10 +15,10 @@ const buildSocialCatalog = () => {
             videoUrl: 'https://www.youtube.com/watch?v=FzcX1OCECsg',
         },
         module3Video1: {
-            videoUrl: 'https://www.youtube.com/watch?v=ZoP2Z2rxYHQ',
+            videoUrl: 'https://www.youtube.com/watch?v=EMAzhQ7KP3c',
         },
         module3Video2: {
-            videoUrl: 'https://www.youtube.com/watch?v=50PZAj0XcoM',
+            videoUrl: 'https://www.youtube.com/watch?v=i3FkPevwwgc',
         },
         module4Video1: {
             videoUrl: 'https://www.youtube.com/watch?v=3-3qS47w-cc',

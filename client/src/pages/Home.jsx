@@ -10,7 +10,6 @@ import {
   BookOpen,
   Clock,
   CheckCircle,
-  Youtube,
   ShieldCheck,
   MessageSquare,
   Search,
@@ -95,6 +94,35 @@ const FloatingLogo = ({ src, top, left, size, duration, delay, yRange, xRange, r
   />
 );
 
+const RESOURCE_ROTATION_DAYS = 3;
+const FEATURED_RESOURCE_COUNT = 3;
+
+const getRotatingResources = (items) => {
+  if (!Array.isArray(items) || items.length === 0) return [];
+
+  const sortedItems = [...items].sort((a, b) => {
+    const orderA = Number.isFinite(a.order) ? a.order : 999;
+    const orderB = Number.isFinite(b.order) ? b.order : 999;
+    return orderA - orderB || String(a.title || '').localeCompare(String(b.title || ''));
+  });
+
+  const rotationWindow = Math.floor(Date.now() / (RESOURCE_ROTATION_DAYS * 24 * 60 * 60 * 1000));
+  const startIndex = rotationWindow % sortedItems.length;
+
+  return Array.from({ length: Math.min(FEATURED_RESOURCE_COUNT, sortedItems.length) }, (_, index) => (
+    sortedItems[(startIndex + index) % sortedItems.length]
+  ));
+};
+
+const getResourceLink = (resource) => `/casos/${resource.slug}`;
+
+const getYoutubeEmbedUrl = (url) => {
+  if (!url) return '';
+
+  const match = String(url).match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?/]+)/);
+  return match?.[1] ? `https://www.youtube.com/embed/${match[1]}` : '';
+};
+
 const Home = () => {
   const { user } = useContext(AuthContext);
   const [progress, setProgress] = useState({ completed: 0, total: 0 });
@@ -102,6 +130,8 @@ const Home = () => {
   const [loadingNext, setLoadingNext] = useState(true);
   const [roadmapCourses, setRoadmapCourses] = useState([]);
   const [expandedCourse, setExpandedCourse] = useState(null);
+  const [featuredResources, setFeaturedResources] = useState([]);
+  const [loadingFeaturedResources, setLoadingFeaturedResources] = useState(true);
   const navigate = useNavigate();
   const [platformStats, setPlatformStats] = useState({ courses: 0, lessons: 0, cases: 0, loaded: false });
 
@@ -195,6 +225,36 @@ const Home = () => {
         setPlatformStats({ courses, lessons, cases, loaded: true });
       })
       .catch(() => setPlatformStats({ courses: 3, lessons: 42, cases: 3, loaded: true }));
+  }, [user]);
+
+  // Featured resources for authenticated home. Rotates every 3 days.
+  useEffect(() => {
+    if (!user) {
+      setFeaturedResources([]);
+      setLoadingFeaturedResources(false);
+      return;
+    }
+
+    let cancelled = false;
+    setLoadingFeaturedResources(true);
+
+    api.get('/api/resources?type=case&limit=50')
+      .then((res) => {
+        if (cancelled) return;
+        const resources = Array.isArray(res.data?.data)
+          ? res.data.data.filter((resource) => getYoutubeEmbedUrl(resource.videoUrl))
+          : [];
+        setFeaturedResources(getRotatingResources(resources));
+      })
+      .catch((err) => {
+        console.error('Error fetching featured resources:', err);
+        if (!cancelled) setFeaturedResources([]);
+      })
+      .finally(() => {
+        if (!cancelled) setLoadingFeaturedResources(false);
+      });
+
+    return () => { cancelled = true; };
   }, [user]);
 
   const percentage = progress.total > 0 ? Math.round((progress.completed / progress.total) * 100) : 0;
@@ -402,30 +462,83 @@ const Home = () => {
           <div className="space-y-6 sm:space-y-12">
             <div className="flex items-center gap-3 sm:gap-4">
               <div className="h-1 w-10 sm:w-12 bg-indigo-600 rounded-full" />
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-gray-900 dark:text-white uppercase tracking-tighter">Educación Multimedia</h2>
+              <div>
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-gray-900 dark:text-white uppercase tracking-tighter">CASOS REALES ANIMADOS</h2>
+              </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
-              {[
-                { id: '4-V7vXkHkf0', title: 'Cómo activar los controles parentales en Roblox', channel: 'Resuelve En Un Click', time: '3 min' },
-                { id: '6NB8NAFwis4', title: 'Cómo usar Microsoft Family Safety', channel: 'Entorno Simple', time: '4 min' },
-                { id: 'tuoHAYJdetw', title: 'Cómo configurar YouTube para niños', channel: 'Cómo hacer', time: '5 min' }
-              ].map((video, idx) => (
-                <motion.div key={idx} initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: 0.1 * idx }} className="group bg-white dark:bg-[#161b22] rounded-[2rem] sm:rounded-[3rem] overflow-hidden border border-gray-100 dark:border-gray-800 shadow-2xl transition-all hover:border-indigo-500/30">
-                  <div className="relative aspect-video">
-                    <iframe className="w-full h-full object-cover" src={`https://www.youtube.com/embed/${video.id}`} title={video.title} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
-                    <div className="absolute bottom-4 right-4 bg-black/80 backdrop-blur-md px-3 py-1.5 rounded-xl text-[10px] font-black text-white flex items-center gap-2 border border-white/10">
-                      <Clock className="w-3 h-3 text-indigo-400" /> {video.time}
+              {loadingFeaturedResources ? (
+                Array.from({ length: 3 }).map((_, idx) => (
+                  <div key={idx} className="h-80 bg-white dark:bg-[#161b22] rounded-[2rem] sm:rounded-[3rem] border border-gray-100 dark:border-gray-800 shadow-xl animate-pulse" />
+                ))
+              ) : featuredResources.length === 0 ? (
+                <div className="md:col-span-3 bg-white dark:bg-[#161b22] rounded-[2rem] border border-gray-100 dark:border-gray-800 p-8 text-center text-gray-500 dark:text-gray-400 font-bold">
+                  Aún no hay videos de casos reales disponibles para mostrar.
+                </div>
+              ) : featuredResources.map((resource, idx) => {
+                const embedUrl = getYoutubeEmbedUrl(resource.videoUrl);
+                const detailLink = getResourceLink(resource);
+
+                return (
+                  <motion.div
+                    key={resource.slug || idx}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.1 * idx }}
+                    className="group bg-white dark:bg-[#161b22] rounded-[2rem] sm:rounded-[3rem] overflow-hidden border border-gray-100 dark:border-gray-800 shadow-2xl transition-all hover:border-indigo-500/30 flex flex-col"
+                  >
+                    <div className="relative aspect-video bg-gradient-to-br from-indigo-950 via-slate-900 to-violet-950 overflow-hidden">
+                      {embedUrl ? (
+                        <iframe
+                          className="w-full h-full object-cover"
+                          src={embedUrl}
+                          title={resource.title}
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      ) : (
+                        <Link to={detailLink} className="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
+                          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(99,102,241,0.45),transparent_32%),radial-gradient(circle_at_80%_60%,rgba(236,72,153,0.28),transparent_30%)]" />
+                          <div className="relative w-16 h-16 rounded-2xl bg-white/15 border border-white/20 backdrop-blur-md flex items-center justify-center text-white shadow-2xl group-hover:scale-110 transition-transform">
+                            <Play className="w-7 h-7 fill-current" />
+                          </div>
+                          <p className="relative mt-4 text-[10px] font-black uppercase tracking-[0.24em] text-indigo-100">
+                            Reproducción inmediata
+                          </p>
+                        </Link>
+                      )}
+                      <div className="absolute bottom-4 right-4 bg-black/80 backdrop-blur-md px-3 py-1.5 rounded-xl text-[10px] font-black text-white flex items-center gap-2 border border-white/10">
+                        <Clock className="w-3 h-3 text-indigo-400" /> Caso real
+                      </div>
                     </div>
-                  </div>
-                  <div className="p-5 sm:p-6 md:p-8 space-y-3 sm:space-y-4">
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white leading-tight min-h-[3rem] group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{video.title}</h3>
-                    <div className="flex items-center gap-3 text-[10px] text-gray-500 dark:text-gray-400 font-black uppercase tracking-widest border-t border-gray-100 dark:border-gray-800 pt-6">
-                      <div className="p-2 bg-red-500/10 text-red-500 rounded-lg"><Youtube className="w-4 h-4" /></div>
-                      {video.channel}
+                    <div className="p-5 sm:p-6 md:p-8 space-y-4 flex flex-col flex-1">
+                      <div className="flex flex-wrap gap-2">
+                        <span className="text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
+                          {resource.platform || 'Kuxipilli'}
+                        </span>
+                        <span className="text-[9px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full bg-gray-500/10 text-gray-500 dark:text-gray-400 border border-gray-500/20">
+                          {resource.category || 'Caso'}
+                        </span>
+                      </div>
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white leading-tight min-h-[3rem] group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                        {resource.title}
+                      </h3>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-3 flex-1">
+                        {resource.summary || resource.description || resource.content}
+                      </p>
+                      <Link
+                        to={detailLink}
+                        className="mt-auto flex items-center justify-center gap-2 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs uppercase tracking-widest transition-all active:scale-95"
+                      >
+                        <Play className="w-4 h-4 fill-current" />
+                        Reproducir caso
+                      </Link>
                     </div>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </div>
