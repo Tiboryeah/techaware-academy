@@ -760,11 +760,11 @@ const Home = () => {
               topics: ['Seguridad de cuenta', 'Compras digitales', 'Grooming en chats', 'Bienestar digital'],
               gradient: 'from-[#1c0e0e] to-[#1a1014]',
               accent: 'bg-red-500/80',
-              iconBg: 'bg-red-500/15',
-              chipColor: 'bg-red-500/15 text-red-300 border-red-500/20',
-              moduleBg: 'bg-red-500/10 text-red-300',
-              checkColor: 'text-red-400',
-              btnClass: 'bg-red-500/10 text-red-300 border border-red-500/30 hover:bg-red-500 hover:text-white hover:border-red-500',
+              iconBg: 'bg-red-50 dark:bg-red-500/15 text-red-600 dark:text-red-400 border-red-100 dark:border-white/10',
+              chipColor: 'bg-red-50 dark:bg-red-500/15 text-red-700 dark:text-red-300 border-red-100 dark:border-red-500/20',
+              moduleBg: 'bg-red-50 dark:bg-red-500/10 text-red-700 dark:text-red-300',
+              checkColor: 'text-red-500 dark:text-red-400',
+              btnClass: 'bg-red-50 text-red-700 border border-red-100 hover:bg-red-500 hover:text-white hover:border-red-500 dark:bg-red-500/10 dark:text-red-300 dark:border-red-500/30 dark:hover:bg-red-500 dark:hover:text-white dark:hover:border-red-500',
             },
             {
               icon: <MessageSquare className="w-7 h-7 text-violet-400" />,
@@ -775,11 +775,11 @@ const Home = () => {
               topics: ['Privacidad y huella digital', 'Ciberacoso', 'Contacto con desconocidos', 'Desinformación'],
               gradient: 'from-[#130e1c] to-[#0f0e1a]',
               accent: 'bg-violet-500/80',
-              iconBg: 'bg-violet-500/15',
-              chipColor: 'bg-violet-500/15 text-violet-300 border-violet-500/20',
-              moduleBg: 'bg-violet-500/10 text-violet-300',
-              checkColor: 'text-violet-400',
-              btnClass: 'bg-violet-500/10 text-violet-300 border border-violet-500/30 hover:bg-violet-600 hover:text-white hover:border-violet-600',
+              iconBg: 'bg-violet-50 dark:bg-violet-500/15 text-violet-600 dark:text-violet-400 border-violet-100 dark:border-white/10',
+              chipColor: 'bg-violet-50 dark:bg-violet-500/15 text-violet-700 dark:text-violet-300 border-violet-100 dark:border-violet-500/20',
+              moduleBg: 'bg-violet-50 dark:bg-violet-500/10 text-violet-700 dark:text-violet-300',
+              checkColor: 'text-violet-500 dark:text-violet-400',
+              btnClass: 'bg-violet-50 text-violet-700 border border-violet-100 hover:bg-violet-600 hover:text-white hover:border-violet-600 dark:bg-violet-500/10 dark:text-violet-300 dark:border-violet-500/30 dark:hover:bg-violet-600 dark:hover:text-white dark:hover:border-violet-600',
             },
             {
               icon: <Play className="w-7 h-7 text-indigo-400" />,
@@ -790,11 +790,11 @@ const Home = () => {
               topics: ['Consumo infantil seguro', 'Monetización engañosa', 'Tiempo de pantalla', 'Control parental'],
               gradient: 'from-[#0e0e1c] to-[#0d0f1a]',
               accent: 'bg-indigo-500/80',
-              iconBg: 'bg-indigo-500/15',
-              chipColor: 'bg-indigo-500/15 text-indigo-300 border-indigo-500/20',
-              moduleBg: 'bg-indigo-500/10 text-indigo-300',
-              checkColor: 'text-indigo-400',
-              btnClass: 'bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 hover:bg-indigo-600 hover:text-white hover:border-indigo-600',
+              iconBg: 'bg-indigo-50 dark:bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 border-indigo-100 dark:border-white/10',
+              chipColor: 'bg-indigo-50 dark:bg-indigo-500/15 text-indigo-700 dark:text-indigo-300 border-indigo-100 dark:border-indigo-500/20',
+              moduleBg: 'bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-300',
+              checkColor: 'text-indigo-500 dark:text-indigo-400',
+              btnClass: 'bg-indigo-50 text-indigo-700 border border-indigo-100 hover:bg-indigo-600 hover:text-white hover:border-indigo-600 dark:bg-indigo-500/10 dark:text-indigo-300 dark:border-indigo-500/30 dark:hover:bg-indigo-600 dark:hover:text-white dark:hover:border-indigo-600',
             },
           ].map((prog, i) => (
             <motion.div key={i}
@@ -803,21 +803,21 @@ const Home = () => {
               whileHover={{ y: -6 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="bg-[#111318] border border-white/5 rounded-[2rem] overflow-hidden shadow-xl flex flex-col">
+              className="bg-white dark:bg-[#111318] border border-gray-200/80 dark:border-white/5 rounded-[2rem] overflow-hidden shadow-xl shadow-gray-200/70 dark:shadow-black/30 flex flex-col">
 
               {/* Header con imagen del programa */}
               <div className={`relative bg-gradient-to-br ${prog.gradient} p-8 pb-10 overflow-hidden`}>
                 <img
                   src={prog.image}
                   alt=""
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="absolute inset-0 w-full h-full object-cover opacity-[0.1] saturate-[0.42] brightness-[1.32] contrast-[0.72] dark:opacity-100 dark:saturate-100 dark:brightness-100 dark:contrast-100 transition-[filter,opacity] duration-500"
                   draggable={false}
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/25" />
-                <div className="absolute inset-0 bg-black/20" />
+                <div className="absolute inset-0 bg-gradient-to-r from-white/96 via-white/88 to-white/64 dark:from-black/80 dark:via-black/55 dark:to-black/25" />
+                <div className="absolute inset-0 bg-gradient-to-b from-white/88 via-white/72 to-gray-50/95 dark:from-black/20 dark:via-black/20 dark:to-black/20" />
                 <div className="relative z-10 space-y-4">
                   <div className="flex items-center justify-between">
-                    <div className={`w-12 h-12 rounded-2xl ${prog.iconBg} border border-white/10 flex items-center justify-center`}>
+                    <div className={`w-12 h-12 rounded-2xl ${prog.iconBg} border flex items-center justify-center`}>
                       {prog.icon}
                     </div>
                     <span className={`text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full ${prog.moduleBg}`}>
@@ -825,7 +825,7 @@ const Home = () => {
                     </span>
                   </div>
                   <div>
-                    <h3 className="text-2xl font-black text-white leading-tight">{prog.title}</h3>
+                    <h3 className="text-2xl font-black text-gray-950 dark:text-white leading-tight">{prog.title}</h3>
                     <div className="flex flex-wrap gap-1.5 mt-2">
                       {prog.platforms.map(p => (
                         <span key={p} className={`text-[10px] font-black px-2.5 py-1 rounded-full border ${prog.chipColor}`}>

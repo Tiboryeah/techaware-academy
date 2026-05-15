@@ -1,28 +1,35 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useParams } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { ToastProvider } from './context/ToastContext';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
-import Modules from './pages/Modules';
-import Home from './pages/Home';
-import Dashboard from './pages/Dashboard';
-import QuizTaker from './pages/QuizTaker';
-import RealCases from './pages/RealCases';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import CourseDetail from './pages/CourseDetail';
-import LessonView from './pages/LessonView';
-import CaseDetail from './pages/CaseDetail';
-import PrivacyPolicy from './pages/PrivacyPolicy';
-import TermsOfService from './pages/TermsOfService';
-import Profile from './pages/Profile';
-import ContactPage from './pages/ContactPage';
-import ForgotPassword from './pages/ForgotPassword';
-import ResetPassword from './pages/ResetPassword';
-import VerifyAccount from './pages/VerifyAccount';
-import NotFound from './pages/NotFound';
+
+const Modules = lazy(() => import('./pages/Modules'));
+const Home = lazy(() => import('./pages/Home'));
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const QuizTaker = lazy(() => import('./pages/QuizTaker'));
+const RealCases = lazy(() => import('./pages/RealCases'));
+const Login = lazy(() => import('./pages/Login'));
+const Register = lazy(() => import('./pages/Register'));
+const CourseDetail = lazy(() => import('./pages/CourseDetail'));
+const LessonView = lazy(() => import('./pages/LessonView'));
+const CaseDetail = lazy(() => import('./pages/CaseDetail'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const TermsOfService = lazy(() => import('./pages/TermsOfService'));
+const Profile = lazy(() => import('./pages/Profile'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+const ForgotPassword = lazy(() => import('./pages/ForgotPassword'));
+const ResetPassword = lazy(() => import('./pages/ResetPassword'));
+const VerifyAccount = lazy(() => import('./pages/VerifyAccount'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+
+const RouteFallback = () => (
+    <div className="min-h-[60vh] flex items-center justify-center bg-[#fafafb] dark:bg-[#0a0c10] transition-colors">
+        <div className="h-10 w-10 rounded-full border-4 border-indigo-100 border-t-indigo-600 dark:border-gray-800 dark:border-t-indigo-400 animate-spin" />
+    </div>
+);
 
 function LegacyTokenRedirect({ basePath }) {
     const { token } = useParams();
@@ -56,7 +63,8 @@ function App() {
             <AuthProvider>
                 <ToastProvider>
                     <Router>
-                        <Routes>
+                        <Suspense fallback={<RouteFallback />}>
+                            <Routes>
                             <Route path="/" element={<Layout />}>
                                 <Route index element={<Home />} />
                                 <Route path="iniciar-sesion" element={<Login />} />
@@ -109,7 +117,8 @@ function App() {
 
                                 <Route path="*" element={<NotFound />} />
                             </Route>
-                        </Routes>
+                            </Routes>
+                        </Suspense>
                     </Router>
                 </ToastProvider>
             </AuthProvider>

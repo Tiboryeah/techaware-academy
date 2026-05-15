@@ -4,8 +4,6 @@ import AuthContext from '../context/AuthContext';
 import api from '../services/api';
 import avatarUrl from '../utils/avatarUrl';
 import { motion } from 'framer-motion';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 import {
     LayoutDashboard,
     Trophy,
@@ -82,6 +80,10 @@ const Dashboard = () => {
     };
 
     const generateCertificate = async (courseName, category) => {
+        const pdfLibsPromise = Promise.all([
+            import('html2canvas'),
+            import('jspdf'),
+        ]);
         const lowerCat = category?.toLowerCase() || '';
         let competencies = [];
 
@@ -169,7 +171,7 @@ const Dashboard = () => {
                 img.onerror = () => resolve('');
                 img.src = rawDataUrl;
             });
-        } catch (_) { /* si falla, el logo queda en blanco */ }
+        } catch { /* si falla, el logo queda en blanco */ }
 
         const container = document.createElement('div');
         container.style.cssText = 'position:fixed;left:-9999px;top:-9999px;z-index:-1;';
@@ -263,11 +265,13 @@ const Dashboard = () => {
                 img.onerror = resolve;
             });
         }));
+        const [{ default: html2canvas }, jsPdfModule] = await pdfLibsPromise;
+        const JsPDF = jsPdfModule.default || jsPdfModule.jsPDF;
         const canvas = await html2canvas(certEl, { scale: 2, useCORS: true, allowTaint: false, backgroundColor: '#ffffff' });
         document.body.removeChild(container);
 
         const imgData = canvas.toDataURL('image/png');
-        const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+        const doc = new JsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
         const pdfW = doc.internal.pageSize.getWidth();
         const pdfH = doc.internal.pageSize.getHeight();
         doc.addImage(imgData, 'PNG', 0, 0, pdfW, pdfH);

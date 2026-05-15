@@ -91,22 +91,29 @@ const QuizTaker = () => {
     useEffect(() => {
         if (quiz && quiz.questions[currentQuestionIndex]) {
             const currentQ = quiz.questions[currentQuestionIndex];
-            if (currentQ.type === 'order_sequence' && !answers[currentQ._id]) {
-                const shuffled = shuffleArray(currentQ.metadata.items);
-                setAnswers(prev => ({ ...prev, [currentQ._id]: shuffled }));
-            }
-            if (currentQ.type === 'drag_drop' && !answers[`${currentQ._id}_order`]) {
-                const values = currentQ.metadata.pairs.map(p => p.value);
-                const shuffled = shuffleArray(values);
-                const resultObj = {};
-                currentQ.metadata.pairs.forEach((p, i) => {
-                    resultObj[p.key] = shuffled[i];
+            if (currentQ.type === 'order_sequence') {
+                setAnswers((prev) => {
+                    if (prev[currentQ._id]) return prev;
+                    return { ...prev, [currentQ._id]: shuffleArray(currentQ.metadata.items) };
                 });
-                setAnswers(prev => ({ 
-                    ...prev, 
-                    [`${currentQ._id}_order`]: shuffled,
-                    [currentQ._id]: resultObj 
-                }));
+            }
+            if (currentQ.type === 'drag_drop') {
+                setAnswers((prev) => {
+                    if (prev[`${currentQ._id}_order`]) return prev;
+
+                    const values = currentQ.metadata.pairs.map(p => p.value);
+                    const shuffled = shuffleArray(values);
+                    const resultObj = {};
+                    currentQ.metadata.pairs.forEach((p, i) => {
+                        resultObj[p.key] = shuffled[i];
+                    });
+
+                    return {
+                        ...prev,
+                        [`${currentQ._id}_order`]: shuffled,
+                        [currentQ._id]: resultObj,
+                    };
+                });
             }
         }
         window.scrollTo(0, 0);
@@ -137,16 +144,18 @@ const QuizTaker = () => {
                 return Array.isArray(answer) && answer.length > 0;
             case 'drag_drop':
                 return question.metadata.pairs.every(pair => !!answer[pair.key]);
-            case 'fill_blanks':
+            case 'fill_blanks': {
                 const blankCount = (question.metadata.sentence.match(/\[blank\d+\]/g) || []).length;
                 const bank = (question.metadata.bank || []).map(b => b.toLowerCase());
                 const currentAnswers = Object.values(answer || {});
                 return currentAnswers.length === blankCount && 
                        currentAnswers.every(v => v && bank.includes(v.trim().toLowerCase()));
-            case 'drop_down':
+            }
+            case 'drop_down': {
                 const ddBlankCount = (question.metadata.sentence.match(/\[blank\d+\]/g) || []).length;
                 const ddFilledCount = Object.values(answer).filter(v => !!v).length;
                 return ddFilledCount === ddBlankCount;
+            }
             case 'order_sequence':
                 return Array.isArray(answer) && answer.length === question.metadata.items.length;
             case 'match_columns':
@@ -1130,8 +1139,6 @@ const QuizTaker = () => {
     const firstUnansweredIndex = quiz.questions.findIndex((question) =>
         !isQuestionAnswered(question, answers[question._id])
     );
-    const currentQuestionAnswered = isQuestionAnswered(currentQuestion, answers[currentQuestion._id]);
-
     const navigateToQuestion = (targetIndex) => {
         if (targetIndex < 0 || targetIndex >= quiz.questions.length) {
             return;

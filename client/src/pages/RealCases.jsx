@@ -34,10 +34,19 @@ const caseIcons = {
 
 const KNOWN_PLATFORMS = ['Roblox', 'Minecraft', 'TikTok', 'Discord', 'Instagram', 'YouTube', 'Twitch'];
 
-const PlatformBadgeIcon = ({ platform }) =>
-    KNOWN_PLATFORMS.includes(platform)
-        ? <PlatformIcon platform={platform} className="w-4 h-4" />
-        : <Gamepad2 className="w-4 h-4 text-cyan-500" />;
+const PlatformBadgeIcon = ({ platform }) => {
+    if (platform === 'Roblox') {
+        return (
+            <svg className="w-6 h-6 text-slate-700 dark:text-slate-100" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M6.38 2.5 21.5 6.38 17.62 21.5 2.5 17.62 6.38 2.5Zm4.43 7.06-1.25 4.87 4.87 1.25 1.25-4.87-4.87-1.25Z" />
+            </svg>
+        );
+    }
+
+    return KNOWN_PLATFORMS.includes(platform)
+        ? <PlatformIcon platform={platform} className="w-6 h-6" />
+        : <Gamepad2 className="w-6 h-6 text-cyan-500" />;
+};
 
 const caseStyles = {
     red: 'bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20',
@@ -69,6 +78,17 @@ const sectionTabs = [
     { key: 'casos', label: 'Casos reales' },
     { key: 'guias', label: 'Guías prácticas' },
 ];
+
+const visualCardImageClass =
+    'absolute inset-0 w-full h-full object-cover opacity-[0.08] saturate-[0.35] brightness-[1.35] contrast-[0.72] dark:opacity-70 dark:saturate-100 dark:brightness-100 dark:contrast-100 transition-[filter,opacity] duration-500';
+
+const visualModalImageClass =
+    'absolute inset-0 w-full h-full object-cover opacity-[0.08] saturate-[0.35] brightness-[1.35] contrast-[0.72] dark:opacity-65 dark:saturate-100 dark:brightness-100 dark:contrast-100 transition-[filter,opacity] duration-500';
+
+const guideIconShellClass = (platform) =>
+    platform === 'Roblox'
+        ? 'bg-slate-100 border-slate-200 text-slate-700 dark:bg-black/35 dark:border-white/10 dark:text-cyan-100'
+        : 'bg-indigo-50 dark:bg-black/35 border-indigo-100 dark:border-white/10 text-indigo-700 dark:text-cyan-100';
 
 const EmptyState = ({ message }) => (
     <div className="p-10 bg-white dark:bg-[#161b22] rounded-[2.5rem] border border-gray-100 dark:border-gray-800 text-center text-gray-500 dark:text-gray-400">
@@ -253,16 +273,16 @@ const RealCases = () => {
                                                     whileInView={{ opacity: 1, scale: 1 }}
                                                     viewport={{ once: true }}
                                                     transition={{ delay: idx * 0.08 }}
-                                                    className="relative bg-[#111827] rounded-[2.5rem] border border-white/10 shadow-xl overflow-hidden flex flex-col text-white"
+                                                    className="relative bg-white dark:bg-[#111827] rounded-[2.5rem] border border-gray-200/80 dark:border-white/10 shadow-xl shadow-gray-200/70 dark:shadow-black/30 overflow-hidden flex flex-col text-gray-900 dark:text-white"
                                                 >
                                                     <img
                                                         src="/images/casosbaner.png"
                                                         alt=""
-                                                        className="absolute inset-0 w-full h-full object-cover opacity-70"
+                                                        className={visualCardImageClass}
                                                         draggable={false}
                                                     />
-                                                    <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/34 to-black/78" />
-                                                    <div className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/12 to-black/25" />
+                                                    <div className="absolute inset-0 bg-gradient-to-b from-white/96 via-white/90 to-indigo-50/92 dark:from-black/55 dark:via-black/34 dark:to-black/78" />
+                                                    <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/70 to-indigo-100/55 dark:from-black/45 dark:via-black/12 dark:to-black/25" />
                                                     <div className="relative z-10 p-5 sm:p-8 flex-grow space-y-6">
                                                         <div className="flex justify-between items-center">
                                                             <div className={`p-3 rounded-2xl border ${item.platformStyle}`}>{item.icon}</div>
@@ -270,57 +290,57 @@ const RealCases = () => {
                                                                 {item.category}
                                                             </span>
                                                         </div>
-                                                        <h3 className="text-2xl font-black text-white leading-tight drop-shadow-sm">
+                                                        <h3 className="text-2xl font-black text-gray-950 dark:text-white leading-tight dark:drop-shadow-sm">
                                                             {item.title}
                                                         </h3>
                                                         {item.subLabel ? (
-                                                            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/15 text-[10px] font-black uppercase tracking-widest text-indigo-100">
+                                                            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 dark:bg-white/10 border border-indigo-100 dark:border-white/15 text-[10px] font-black uppercase tracking-widest text-indigo-700 dark:text-indigo-100">
                                                                 {item.subLabel}
                                                             </div>
                                                         ) : null}
                                                         {item.ageRange ? (
-                                                            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/15 text-[10px] font-black uppercase tracking-widest text-indigo-100">
+                                                            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 dark:bg-white/10 border border-indigo-100 dark:border-white/15 text-[10px] font-black uppercase tracking-widest text-indigo-700 dark:text-indigo-100">
                                                                 Edad: {item.ageRange}
                                                             </div>
                                                         ) : null}
                                                         {item.caseDate ? (
-                                                            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 border border-white/15 text-[10px] font-black uppercase tracking-widest text-indigo-100/80">
+                                                            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-50 dark:bg-white/10 border border-indigo-100 dark:border-white/15 text-[10px] font-black uppercase tracking-widest text-indigo-700/80 dark:text-indigo-100/80">
                                                                 📅 {item.caseDate}
                                                             </div>
                                                         ) : null}
                                                         {item.platform ? (
-                                                            <div className="inline-flex items-center gap-2 px-3 py-2 rounded-2xl bg-black/35 border border-white/10 text-[10px] font-black uppercase tracking-widest text-indigo-100">
+                                                            <div className="inline-flex items-center gap-2 px-3 py-2 rounded-2xl bg-gray-950/[0.04] dark:bg-black/35 border border-gray-200 dark:border-white/10 text-[10px] font-black uppercase tracking-widest text-indigo-700 dark:text-indigo-100">
                                                                 <PlatformBadgeIcon platform={item.platform} />
                                                                 {item.platform}
                                                             </div>
                                                         ) : null}
-                                                        <p className="text-sm italic text-indigo-50/85 border-l-2 border-indigo-300/50 pl-4">
+                                                        <p className="text-sm italic text-gray-600 dark:text-indigo-50/85 border-l-2 border-indigo-300/70 dark:border-indigo-300/50 pl-4">
                                                             "{item.summary}"
                                                         </p>
-                                                        <p className="text-sm text-white leading-relaxed">
+                                                        <p className="text-sm text-gray-700 dark:text-white leading-relaxed">
                                                             {item.content}
                                                         </p>
                                                         <div className="space-y-3 pt-4">
-                                                            <h4 className="text-[10px] font-black uppercase tracking-widest text-indigo-200 flex items-center gap-2">
+                                                            <h4 className="text-[10px] font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-200 flex items-center gap-2">
                                                                 <Lightbulb className="w-3 h-3" /> Recomendaciones
                                                             </h4>
                                                             <ul className="space-y-2">
                                                                 {item.tips.map((tip, tipIdx) => (
                                                                     <li
                                                                         key={tipIdx}
-                                                                        className="flex items-start gap-3 text-xs text-indigo-50/80"
+                                                                        className="flex items-start gap-3 text-xs text-gray-600 dark:text-indigo-50/80"
                                                                     >
-                                                                        <div className="mt-1 w-1.5 h-1.5 rounded-full bg-indigo-300 flex-shrink-0" />
+                                                                        <div className="mt-1 w-1.5 h-1.5 rounded-full bg-indigo-500 dark:bg-indigo-300 flex-shrink-0" />
                                                                         {tip}
                                                                     </li>
                                                                 ))}
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <div className="relative z-10 p-6 bg-black/35 border-t border-white/10 backdrop-blur-sm">
+                                                    <div className="relative z-10 p-6 bg-gray-950/[0.03] dark:bg-black/35 border-t border-gray-100 dark:border-white/10 backdrop-blur-sm">
                                                         <button
                                                             onClick={() => navigate(`/casos/${item.slug}`)}
-                                                            className="w-full flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-widest text-indigo-100 hover:text-white transition-colors"
+                                                            className="w-full flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-widest text-indigo-700 hover:text-indigo-900 dark:text-indigo-100 dark:hover:text-white transition-colors"
                                                         >
                                                             Ver análisis completo <ArrowRight className="w-4 h-4" />
                                                         </button>
@@ -396,46 +416,46 @@ const RealCases = () => {
                                                     initial={{ opacity: 0, scale: 0.96 }}
                                                     whileInView={{ opacity: 1, scale: 1 }}
                                                     viewport={{ once: true }}
-                                                    className="relative bg-[#101820] p-5 sm:p-8 rounded-[2rem] sm:rounded-[3rem] border border-white/10 shadow-2xl flex flex-col overflow-hidden text-white"
+                                                    className="relative bg-white dark:bg-[#101820] p-5 sm:p-8 rounded-[2rem] sm:rounded-[3rem] border border-gray-200/80 dark:border-white/10 shadow-2xl shadow-gray-200/70 dark:shadow-black/30 flex flex-col overflow-hidden text-gray-900 dark:text-white"
                                                 >
                                                     <img
                                                         src="/images/baner_guias.png"
                                                         alt=""
-                                                        className="absolute inset-0 w-full h-full object-cover opacity-70"
+                                                        className={visualCardImageClass}
                                                         draggable={false}
                                                     />
-                                                    <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/75" />
-                                                    <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/10 to-black/20" />
+                                                    <div className="absolute inset-0 bg-gradient-to-b from-white/96 via-white/90 to-indigo-50/92 dark:from-black/50 dark:via-black/30 dark:to-black/75" />
+                                                    <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/70 to-indigo-100/55 dark:from-black/40 dark:via-black/10 dark:to-black/20" />
                                                     <div className="relative z-10 flex-grow space-y-6">
                                                         <div className="flex justify-between items-start">
-                                                            <div className="p-4 bg-black/35 rounded-2xl border border-white/10 text-cyan-100">
+                                                            <div className={`p-4 rounded-2xl border ${guideIconShellClass(guide.platform)}`}>
                                                                 {guide.icon}
                                                             </div>
-                                                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-100/70">
+                                                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 dark:text-indigo-100/70">
                                                                 Guía práctica
                                                             </span>
                                                         </div>
                                                         <div>
                                                             <div className="flex items-center gap-2 mb-2">
                                                                 <div className={`w-2 h-2 rounded-full ${guide.dotClass}`} />
-                                                                <span className="text-[10px] font-black uppercase tracking-widest text-cyan-200">
+                                                                <span className="text-[10px] font-black uppercase tracking-widest text-indigo-600 dark:text-cyan-200">
                                                                     {guide.platform}
                                                                 </span>
                                                             </div>
-                                                            <h3 className="text-xl font-black text-white leading-tight drop-shadow-sm">
+                                                            <h3 className="text-xl font-black text-gray-950 dark:text-white leading-tight dark:drop-shadow-sm">
                                                                 {guide.title}
                                                             </h3>
-                                                            <p className="text-xs italic text-indigo-50/80 mt-2 leading-relaxed">
+                                                            <p className="text-xs italic text-gray-600 dark:text-indigo-50/80 mt-2 leading-relaxed">
                                                                 {guide.description}
                                                             </p>
                                                         </div>
-                                                        <div className="space-y-3 pt-4 border-t border-white/10">
+                                                        <div className="space-y-3 pt-4 border-t border-gray-100 dark:border-white/10">
                                                             {guide.steps.map((step, stepIdx) => (
                                                                 <div
                                                                     key={stepIdx}
-                                                                    className="flex items-start gap-4 text-[10px] font-bold text-indigo-50/80"
+                                                                    className="flex items-start gap-4 text-[10px] font-bold text-gray-700 dark:text-indigo-50/80"
                                                                 >
-                                                                    <span className="flex-shrink-0 w-4 h-4 rounded-md bg-indigo-400/20 text-indigo-100 flex items-center justify-center text-[8px] font-black">
+                                                                    <span className="flex-shrink-0 w-4 h-4 rounded-md bg-indigo-100 dark:bg-indigo-400/20 text-indigo-700 dark:text-indigo-100 flex items-center justify-center text-[8px] font-black">
                                                                         {stepIdx + 1}
                                                                     </span>
                                                                     <span className="flex-grow pt-0.5">{step}</span>
@@ -445,7 +465,7 @@ const RealCases = () => {
                                                     </div>
                                                     <button
                                                         onClick={() => setSelectedGuide(guide)}
-                                                        className="relative z-10 mt-8 w-full inline-flex items-center justify-center gap-3 px-6 py-4 bg-black/45 hover:bg-indigo-600 text-indigo-50 hover:text-white font-black text-[10px] uppercase tracking-[0.2em] rounded-2xl border border-white/10 transition-all backdrop-blur-sm"
+                                                        className="relative z-10 mt-8 w-full inline-flex items-center justify-center gap-3 px-6 py-4 bg-gray-950 hover:bg-indigo-600 dark:bg-black/45 dark:hover:bg-indigo-600 text-white font-black text-[10px] uppercase tracking-[0.2em] rounded-2xl border border-gray-950 dark:border-white/10 transition-all backdrop-blur-sm"
                                                     >
                                                         Ver detalles <ExternalLink className="w-3.5 h-3.5" />
                                                     </button>
@@ -485,32 +505,32 @@ const RealCases = () => {
                                 initial={{ opacity: 0, scale: 0.95, y: 10 }}
                                 animate={{ opacity: 1, scale: 1, y: 0 }}
                                 exit={{ opacity: 0, scale: 0.95, y: 10 }}
-                                className="relative w-full max-w-3xl bg-[#101820] rounded-[2rem] sm:rounded-[3.5rem] shadow-2xl overflow-hidden border border-white/10 my-auto text-white"
+                                className="relative w-full max-w-3xl bg-white dark:bg-[#101820] rounded-[2rem] sm:rounded-[3.5rem] shadow-2xl overflow-hidden border border-gray-200 dark:border-white/10 my-auto text-gray-900 dark:text-white"
                             >
                                 <img
                                     src="/images/baner_guias.png"
                                     alt=""
-                                    className="absolute inset-0 w-full h-full object-cover opacity-65"
+                                    className={visualModalImageClass}
                                     draggable={false}
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-b from-black/48 via-black/34 to-black/82" />
-                                <div className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/12 to-black/24" />
+                                <div className="absolute inset-0 bg-gradient-to-b from-white/96 via-white/90 to-indigo-50/94 dark:from-black/48 dark:via-black/34 dark:to-black/82" />
+                                <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/72 to-indigo-100/55 dark:from-black/45 dark:via-black/12 dark:to-black/24" />
                                 <button
                                     onClick={() => setSelectedGuide(null)}
-                                    className="absolute top-8 right-8 p-3 text-indigo-100/70 hover:text-white transition-colors z-20"
+                                    className="absolute top-8 right-8 p-3 text-gray-500 hover:text-gray-900 dark:text-indigo-100/70 dark:hover:text-white transition-colors z-20"
                                 >
                                     <X className="w-6 h-6" />
                                 </button>
                                 <div className="relative z-10 p-6 sm:p-14 space-y-8 sm:space-y-10">
                                     <div className="flex flex-col md:flex-row gap-8 items-start">
-                                        <div className="p-6 bg-black/35 rounded-3xl border border-white/10 text-cyan-100">
+                                        <div className={`p-6 rounded-3xl border ${guideIconShellClass(selectedGuide.platform)}`}>
                                             {selectedGuide.icon}
                                         </div>
                                         <div>
-                                            <span className="text-[10px] font-black text-cyan-200 uppercase tracking-widest">
+                                            <span className="text-[10px] font-black text-indigo-600 dark:text-cyan-200 uppercase tracking-widest">
                                                 {selectedGuide.platform}
                                             </span>
-                                            <h3 className="text-2xl sm:text-4xl font-black text-white tracking-tighter leading-tight mt-2 drop-shadow-sm">
+                                            <h3 className="text-2xl sm:text-4xl font-black text-gray-950 dark:text-white tracking-tighter leading-tight mt-2 dark:drop-shadow-sm">
                                                 {selectedGuide.title}
                                             </h3>
                                         </div>
@@ -518,23 +538,23 @@ const RealCases = () => {
                                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10">
                                         <div className="space-y-8">
                                             <div>
-                                                <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-200 mb-4 flex items-center gap-2">
+                                                <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-200 mb-4 flex items-center gap-2">
                                                     <Info className="w-3.5 h-3.5" /> Por qué importa
                                                 </h4>
-                                                <p className="text-sm text-indigo-50/80 leading-relaxed font-medium italic">
+                                                <p className="text-sm text-gray-600 dark:text-indigo-50/80 leading-relaxed font-medium italic">
                                                     "{selectedGuide.details?.fullContent}"
                                                 </p>
                                             </div>
-                                            <div className="p-6 bg-white/10 rounded-3xl border border-white/10 backdrop-blur-sm">
-                                                <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-200 mb-3">
+                                            <div className="p-6 bg-indigo-50 dark:bg-white/10 rounded-3xl border border-indigo-100 dark:border-white/10 backdrop-blur-sm">
+                                                <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-200 mb-3">
                                                     Ruta de configuración
                                                 </h4>
-                                                <p className="text-sm font-black text-indigo-50">
+                                                <p className="text-sm font-black text-gray-800 dark:text-indigo-50">
                                                     {selectedGuide.details?.setupPath}
                                                 </p>
                                             </div>
                                             <div>
-                                                <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-200 mb-4 flex items-center gap-2">
+                                                <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-200 mb-4 flex items-center gap-2">
                                                     <CheckCircle2 className="w-3.5 h-3.5" /> Pasos técnicos
                                                 </h4>
                                                 <div className="space-y-4">
@@ -543,7 +563,7 @@ const RealCases = () => {
                                                             <span className="flex-shrink-0 w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center text-[10px] font-black">
                                                                 {idx + 1}
                                                             </span>
-                                                            <p className="text-xs font-bold text-indigo-50/85 pt-2">
+                                                            <p className="text-xs font-bold text-gray-700 dark:text-indigo-50/85 pt-2">
                                                                 {step}
                                                             </p>
                                                         </div>
@@ -552,24 +572,24 @@ const RealCases = () => {
                                             </div>
                                         </div>
                                         <div className="space-y-8">
-                                            <div className="p-6 sm:p-8 bg-black/45 rounded-[2rem] sm:rounded-[2.5rem] border border-white/10 space-y-4 backdrop-blur-sm">
+                                            <div className="p-6 sm:p-8 bg-gray-950/[0.04] dark:bg-black/45 rounded-[2rem] sm:rounded-[2.5rem] border border-gray-100 dark:border-white/10 space-y-4 backdrop-blur-sm">
                                                 <div className="flex items-center gap-3">
                                                     <div className="p-2 bg-yellow-500/20 rounded-lg">
                                                         <Lightbulb className="w-5 h-5 text-yellow-500" />
                                                     </div>
-                                                    <h4 className="text-xs font-black uppercase tracking-widest text-white">
+                                                    <h4 className="text-xs font-black uppercase tracking-widest text-gray-950 dark:text-white">
                                                         Consejo del experto
                                                     </h4>
                                                 </div>
-                                                <p className="text-sm text-indigo-50/75 italic leading-relaxed">
+                                                <p className="text-sm text-gray-600 dark:text-indigo-50/75 italic leading-relaxed">
                                                     "{selectedGuide.details?.expertTip}"
                                                 </p>
                                             </div>
-                                            <div className="p-6 bg-emerald-500/10 rounded-3xl border border-emerald-400/20 backdrop-blur-sm">
-                                                <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-200 mb-4">
+                                            <div className="p-6 bg-emerald-50 dark:bg-emerald-500/10 rounded-3xl border border-emerald-100 dark:border-emerald-400/20 backdrop-blur-sm">
+                                                <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-600 dark:text-indigo-200 mb-4">
                                                     Riesgos que ayuda a reducir
                                                 </h4>
-                                                <p className="text-xs font-bold text-emerald-200">
+                                                <p className="text-xs font-bold text-emerald-700 dark:text-emerald-200">
                                                     {selectedGuide.details?.riskAnalysis}
                                                 </p>
                                             </div>

@@ -51,7 +51,7 @@ const LessonView = () => {
                         moduleId: lessonData.moduleId
                     });
                     setCompletedLessons(progressData.progress.completedLessons);
-                } catch (completeError) {
+                } catch {
                     const { data: progress } = await api.get(`/api/progress/course/${courseId}`);
                     setCompletedLessons(progress.completedLessons);
                 }
@@ -64,7 +64,7 @@ const LessonView = () => {
         fetchData();
     }, [id, location.state]);
 
-    const [scrollProgress, setScrollProgress] = useState(0);
+    const [, setScrollProgress] = useState(0);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -525,7 +525,7 @@ const LessonView = () => {
                             </div>
 
                             <div className="max-h-[300px] sm:max-h-[500px] overflow-y-auto playlist-container transition-colors custom-scrollbar">
-                                {moduleLessons.map((item, index) => {
+                                {moduleLessons.map((item) => {
                                     const isCompleted = completedLessons.some(id => String(id) === String(item._id));
                                     const isActive = item._id === lesson._id;
 

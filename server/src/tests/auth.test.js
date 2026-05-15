@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const express = require('express');
 const User = require('../models/User');
+
+jest.mock('../utils/sendEmail', () => jest.fn().mockResolvedValue(true));
+
 const authRoutes = require('../routes/auth.routes');
 
 let mongoServer;
@@ -32,7 +35,7 @@ describe('Auth Endpoints', () => {
             });
 
         expect(res.statusCode).toEqual(201);
-        expect(res.body).toHaveProperty('message', 'Por favor, revisa tu correo para verificar tu cuenta.');
+        expect(res.body).toHaveProperty('message', 'Revisa tu correo para verificar tu cuenta con el código enviado.');
 
         const user = await User.findOne({ email: 'test@example.com' });
         expect(user).toBeTruthy();
@@ -48,14 +51,16 @@ describe('Auth Endpoints', () => {
             });
 
         expect(res.statusCode).toEqual(401);
-        expect(res.body.message).toContain('verifique su correo');
+        expect(res.body.message).toContain('Verifica tu correo electrónico');
     });
 
-    it('Should verify user with token', async () => {
+    it('Should verify user with code', async () => {
         const user = await User.findOne({ email: 'test@example.com' });
-        const token = user.verificationToken;
+        const code = user.verificationToken;
 
-        const res = await request(app).get(`/api/auth/verify/${token}`);
+        const res = await request(app)
+            .post('/api/auth/verify')
+            .send({ email: 'test@example.com', code });
 
         expect(res.statusCode).toEqual(200);
         const updatedUser = await User.findById(user._id);

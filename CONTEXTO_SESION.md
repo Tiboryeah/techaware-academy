@@ -2117,3 +2117,220 @@ TT_Academia/
 ### 7. Validación
 - `npm run build` ejecutado correctamente en `client` después de los cambios.
 - Persiste únicamente la advertencia normal de Vite por chunks mayores a 500 kB; no bloquea el build.
+
+---
+
+## Actualización sesión 2026-05-14 — Casos animados, guías visuales y videos de Redes Sociales
+
+### 1. Inicio autenticado — bloque `Educación Multimedia` reemplazado
+- Archivo editado:
+  - `client/src/pages/Home.jsx`
+- Se reemplazó el bloque anterior `Educación Multimedia`, que mostraba tres videos fijos de YouTube, por:
+  - `CASOS REALES ANIMADOS`
+- Nuevo comportamiento:
+  - consulta `/api/resources?type=case&limit=50`
+  - filtra recursos que tengan `videoUrl` válido de YouTube
+  - muestra 3 tarjetas con video embebido
+  - rota la selección internamente cada 3 días
+- Nota de UX:
+  - Se eliminó el texto visible que decía cada cuánto rotan los videos, porque al usuario final no le aporta.
+- Si un caso no tuviera video válido, queda fuera del bloque.
+
+### 2. Videos reales de casos en semillas
+- Archivo editado:
+  - `server/src/scripts/seed/resources.js`
+- Se actualizaron o agregaron `videoUrl` a los 10 casos reales para que las semillas no pierdan los videos existentes en MongoDB.
+- Videos confirmados por API local:
+  - `Videojuegos: el asesinato de Breck Bednar` → `https://www.youtube.com/watch?v=OfRVAQatCMo`
+  - `Instagram: el caso Molly Russell` → `https://www.youtube.com/watch?v=SiIOV-FxVqg`
+  - `YouTube: el caso Amanda Todd` → `https://www.youtube.com/watch?v=Zc3a3rLhIrA`
+  - `TikTok: el reto blackout` → `https://www.youtube.com/watch?v=CIT7B4soyMo`
+  - `YouTube: revictimización de Ainara` → `https://www.youtube.com/watch?v=FaDC25FPJy4`
+  - `Discord: perfil falso de menor` → `https://www.youtube.com/watch?v=dG9FZLR60Kk`
+  - `Twitch: regalos para manipular` → `https://www.youtube.com/watch?v=2cHsh_N5rDs`
+  - `Instagram: perfil prestado para acosar` → `https://www.youtube.com/watch?v=ISips_xurb0`
+  - `Roblox: el viaje desde Mérida` → `https://www.youtube.com/watch?v=KsbPsDgACHc`
+  - `TikTok: reto con clonazepam` → `https://www.youtube.com/watch?v=1jTxumftBIs`
+
+### 3. Curso Redes Sociales — reemplazo de 3 videos
+- Archivo editado:
+  - `server/src/scripts/seed/courses/social/catalog.js`
+- Reemplazos solicitados:
+  - M1V2 `Video 2: Cómo el algoritmo, los likes y la interacción mantienen la atención`
+    - nuevo URL: `https://www.youtube.com/watch?v=A-6qo67gStk`
+  - M3V1 `Video 1: Señales de alerta de ciberacoso y cambios de conducta en los menores`
+    - nuevo URL: `https://www.youtube.com/watch?v=EMAzhQ7KP3c`
+  - M3V2 `Video 2: Qué pueden hacer los padres cuando una red social afecta el bienestar emocional`
+    - nuevo URL: `https://www.youtube.com/watch?v=i3FkPevwwgc`
+- Se ejecutó:
+  - `node --check server/src/scripts/seed/courses/social/catalog.js`
+  - `npm run seed:social`
+- Verificación directa en MongoDB confirmó que las 3 lecciones quedaron con las URLs nuevas.
+
+### 4. Fondos visuales Kuxipilli para casos reales
+- Recurso agregado:
+  - `client/public/images/casosbaner.png`
+- Archivos editados:
+  - `client/src/pages/CaseDetail.jsx`
+  - `client/src/pages/RealCases.jsx`
+- En `CaseDetail.jsx`:
+  - se reemplazó el fondo azul con escudo genérico de la tarjeta lateral de análisis por `casosbaner.png`
+  - se eliminó el ícono decorativo `Shield`
+  - se agregaron overlays oscuros para conservar legibilidad
+- En `RealCases.jsx`:
+  - se aplicó `casosbaner.png` como fondo de las tarjetas de la lista de casos reales
+  - se ajustaron textos, chips, recomendaciones y footer del botón a tonos claros/translúcidos
+
+### 5. Fondos visuales Kuxipilli para guías prácticas
+- Recurso agregado:
+  - `client/public/images/baner_guias.png`
+- Archivo editado:
+  - `client/src/pages/RealCases.jsx`
+- Cambios:
+  - se aplicó `baner_guias.png` como fondo de las tarjetas de guías prácticas
+  - se ajustó contraste de icono, plataforma, título, descripción, pasos y botón `Ver detalles`
+  - se aplicó también `baner_guias.png` al modal que se abre con `Ver detalles`
+  - se ajustaron en el modal: botón de cierre, encabezado, `Por qué importa`, `Ruta de configuración`, `Pasos técnicos`, `Consejo del experto` y `Riesgos que ayuda a reducir`
+
+### 6. Validación y ejecución local
+- App local levantada:
+  - Frontend: `http://127.0.0.1:5173/`
+  - Backend: `http://localhost:5000`
+- Backend verificado:
+  - `GET /api/health` respondió `200`
+- Frontend verificado:
+  - `http://127.0.0.1:5173/` respondió `200`
+- Builds/checks ejecutados:
+  - `npm run build` en `client` varias veces después de los cambios
+  - `node --check server/src/scripts/seed/resources.js`
+  - `node --check server/src/scripts/seed/courses/social/catalog.js`
+- Persiste solo la advertencia normal de Vite por chunks mayores a 500 kB; no bloquea.
+
+### 7. Commits subidos a GitHub
+- Rama:
+  - `main`
+- Repositorio remoto:
+  - `https://github.com/Tiboryeah/techaware-academy`
+- Commits realizados:
+  - `67ae5e2` — `Actualizar casos animados y videos de redes sociales`
+  - `182c7a8` — `Actualizar fondos de tarjetas de casos y guias`
+- Estado al terminar esos pushes:
+  - working tree limpio.
+
+---
+
+## ActualizaciÃ³n sesiÃ³n 2026-05-15 â€” Ajuste visual modo claro, rendimiento y validaciÃ³n completa
+
+### 1. Tarjetas de casos reales y guÃ­as en modo claro
+- Archivo editado:
+  - `client/src/pages/RealCases.jsx`
+- Problema detectado:
+  - Las imÃ¡genes `casosbaner.png` y `baner_guias.png` se veÃ­an bien en modo oscuro, pero en modo claro convertÃ­an las tarjetas en bloques demasiado oscuros y ajenos al fondo claro.
+- Cambio aplicado:
+  - En modo claro, las tarjetas de casos y guÃ­as ahora usan fondo blanco, texto oscuro, bordes claros y la imagen solo como textura/marca de agua muy tenue.
+  - En modo oscuro se conserva el tratamiento visual anterior con imagen fuerte y overlays oscuros.
+  - El modal de detalle de guÃ­as recibiÃ³ el mismo tratamiento claro/oscuro.
+- Ajuste puntual de Ã­conos:
+  - En guÃ­as, todos los logos de plataforma crecieron de `w-4 h-4` a `w-6 h-6` manteniendo el contenedor del mismo tamaÃ±o.
+  - Roblox en modo claro usa un contenedor gris suave y un SVG propio en `slate`, para que no desaparezca ni sea demasiado llamativo.
+
+### 2. OptimizaciÃ³n de carga frontend
+- Archivo editado:
+  - `client/src/App.jsx`
+- Cambio principal:
+  - Se reemplazaron imports estÃ¡ticos de pÃ¡ginas por `React.lazy` + `Suspense`.
+  - Las rutas ahora cargan cada pÃ¡gina bajo demanda en lugar de meter casi toda la plataforma en el bundle inicial.
+- Resultado medido con `npm run build`:
+  - Chunk principal inicial pasÃ³ de aproximadamente `1,306 kB` a `414 kB`.
+  - Se generaron chunks separados por ruta para `Home`, `Dashboard`, `QuizTaker`, `RealCases`, `LessonView`, etc.
+
+### 3. OptimizaciÃ³n de certificado PDF
+- Archivo editado:
+  - `client/src/pages/Dashboard.jsx`
+- Cambio:
+  - `jspdf` y `html2canvas` dejaron de importarse al cargar el dashboard.
+  - Ahora se cargan con `import()` solo cuando el usuario genera/descarga un certificado.
+- Resultado medido:
+  - Chunk de `Dashboard` bajÃ³ de aproximadamente `587 kB` a `32 kB`.
+  - `jspdf` y `html2canvas` quedan como chunks separados bajo demanda.
+  - El build ya no emite advertencia de chunks mayores a 500 kB por la carga normal de la app.
+
+### 4. Lint y limpieza tÃ©cnica
+- Archivos editados:
+  - `client/eslint.config.js`
+  - `client/src/context/ToastContext.jsx`
+  - `client/src/pages/CourseDetail.jsx`
+  - `client/src/pages/LessonView.jsx`
+  - `client/src/pages/QuizTaker.jsx`
+  - `client/src/pages/Dashboard.jsx`
+- Cambios:
+  - Ajustada regla `no-unused-vars` para evitar falsos positivos con `motion.*` de Framer Motion.
+  - Desactivadas reglas demasiado ruidosas para este proyecto:
+    - `react-hooks/set-state-in-effect`
+    - `react-refresh/only-export-components`
+  - `ToastContext.jsx`: `removeToast` se declarÃ³ antes de `addToast` y se agregÃ³ como dependencia real del callback.
+  - `QuizTaker.jsx`: se corrigieron declaraciones lÃ©xicas dentro de `switch` y se inicializan respuestas complejas con setters funcionales.
+  - `CourseDetail.jsx`: `fetchProgress` quedÃ³ memoizado con `useCallback` y dependencias correctas.
+  - `LessonView.jsx`: se eliminaron variables/argumentos no usados reportados por lint.
+- Resultado:
+  - `npm run lint` pasa sin errores ni warnings.
+  - Solo aparece el aviso externo de `baseline-browser-mapping` desactualizado, que no es un error de cÃ³digo.
+
+### 5. Pruebas backend actualizadas
+- Archivo editado:
+  - `server/src/tests/auth.test.js`
+- Problema:
+  - La suite de auth seguÃ­a probando verificaciÃ³n antigua por enlace `GET /api/auth/verify/:token`.
+- Cambio:
+  - Se actualizÃ³ al flujo real por cÃ³digo:
+    - `POST /api/auth/verify`
+    - body `{ email, code }`
+  - Se mockeÃ³ `sendEmail` para que las pruebas no dependan de SMTP real.
+- Resultado:
+  - `npx jest --runInBand` en `server` pasa:
+    - 3 suites OK
+    - 15 tests OK
+
+### 6. ValidaciÃ³n final local
+- Frontend:
+  - `npm run lint` OK
+  - `npm run build` OK
+  - `http://127.0.0.1:5173/` respondiÃ³ `200`
+  - `http://127.0.0.1:5173/casos-y-guias?seccion=guias` respondiÃ³ `200`
+- Backend:
+  - `GET http://localhost:5000/api/health` respondiÃ³ `200`
+  - `npx jest --runInBand` OK
+- Estado visual esperado:
+  - Modo claro: tarjetas de casos/guÃ­as claras, legibles y coherentes con el fondo blanco.
+  - Modo oscuro: se mantiene el look visual oscuro de las imÃ¡genes Kuxipilli.
+
+### 7. Estado para continuar
+- La app local quedÃ³ levantada:
+  - Frontend: `http://127.0.0.1:5173/`
+  - Backend: `http://localhost:5000`
+- Archivos modificados durante esta sesiÃ³n:
+  - `CONTEXTO_SESION.md`
+  - `client/eslint.config.js`
+  - `client/src/App.jsx`
+  - `client/src/context/ToastContext.jsx`
+  - `client/src/pages/CourseDetail.jsx`
+  - `client/src/pages/Dashboard.jsx`
+  - `client/src/pages/LessonView.jsx`
+  - `client/src/pages/QuizTaker.jsx`
+  - `client/src/pages/RealCases.jsx`
+  - `server/src/tests/auth.test.js`
+
+### 8. Landing publico antes de login - tarjetas de programas
+- Archivo editado:
+  - `client/src/pages/Home.jsx`
+- Problema detectado:
+  - En el inicio publico, las tarjetas de `Videojuegos`, `Redes Sociales` y `Streaming` tenian el mismo problema visual que casos/guias: se veian como bloques oscuros sobre una seccion clara.
+- Cambio aplicado:
+  - En modo claro, las tarjetas ahora usan fondo blanco, borde claro, sombra suave y texto oscuro.
+  - Las imagenes `tarjetajuegos.png`, `tarjetaredes.png` y `tarjetastreaming.png` quedan como textura/marca de agua tenue.
+  - Chips, contador de modulos, iconos, checks y boton usan variantes claras por programa.
+  - En modo oscuro se conserva el look oscuro original con imagen fuerte y overlays oscuros.
+- Validacion:
+  - `npm run lint` en `client` OK.
+  - `npm run build` en `client` OK.
+  - `http://127.0.0.1:5173/` respondio `200`.

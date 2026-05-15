@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useCallback, useState, useEffect, useContext } from 'react';
 import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
 import api from '../services/api';
 import AuthContext from '../context/AuthContext';
@@ -20,14 +20,14 @@ const CourseDetail = () => {
         typeof document !== 'undefined' && document.body.classList.contains('kuxibot-open')
     ));
 
-    const fetchProgress = async () => {
+    const fetchProgress = useCallback(async () => {
         try {
             const { data: progressData } = await api.get(`/api/progress/course/${id}`);
             setProgress(progressData);
         } catch (err) {
             setProgress({ completedModules: [], completedLessons: [], isCourseCompleted: false });
         }
-    };
+    }, [id]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -48,7 +48,7 @@ const CourseDetail = () => {
         };
         window.addEventListener('focus', onFocus);
         return () => window.removeEventListener('focus', onFocus);
-    }, [id]);
+    }, [id, fetchProgress]);
 
     useEffect(() => {
         if (loading || !course || !location.state?.scrollToLessonId) return;
@@ -232,7 +232,7 @@ const CourseDetail = () => {
                                         </p>
 
                                         <div className="space-y-3 mb-5 sm:mb-8">
-                                            {module.lessonOrder.map((lesson, lIdx) => {
+                                            {module.lessonOrder.map((lesson) => {
                                                 const isLessonCompleted = progress?.completedLessons.includes(lesson._id);
                                                 return (
                                                     <Link
