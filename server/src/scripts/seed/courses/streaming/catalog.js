@@ -2959,7 +2959,7 @@ async function seedStreamingCourse(context) {
             'Educación digital',
         ];
         courseStreaming.status = 'published';
-        courseStreaming.duration = '3 horas';
+        courseStreaming.duration = '1 hora 49 min';
         await courseStreaming.save();
         console.log(`(.) Course Updated: ${desiredCourseTitle}`);
     }
