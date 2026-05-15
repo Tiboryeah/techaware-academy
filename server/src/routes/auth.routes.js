@@ -377,6 +377,8 @@ router.post('/reset-with-code', authLimiter, async (req, res) => {
         }
 
         user.passHash = newPassword;
+        user.isVerified = true;
+        user.verificationToken = undefined;
         user.resetPasswordToken = undefined;
         user.resetPasswordExpire = undefined;
 
@@ -409,6 +411,8 @@ router.put('/reset-password/:resettoken', async (req, res) => {
         }
 
         user.passHash = req.body.password;
+        user.isVerified = true;
+        user.verificationToken = undefined;
         user.resetPasswordToken = undefined;
         user.resetPasswordExpire = undefined;
 
