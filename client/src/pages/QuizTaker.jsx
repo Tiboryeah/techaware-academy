@@ -119,6 +119,35 @@ const QuizTaker = () => {
         window.scrollTo(0, 0);
     }, [currentQuestionIndex, quiz]);
 
+    // Restaurar progreso guardado cuando el quiz termina de cargarse
+    useEffect(() => {
+        if (!quiz || result) return;
+        const key = `kuxipilli_quiz_${quiz._id}`;
+        const raw = localStorage.getItem(key);
+        if (!raw) return;
+        try {
+            const { savedAnswers } = JSON.parse(raw);
+            if (!savedAnswers || Object.keys(savedAnswers).length === 0) return;
+            setAnswers(savedAnswers);
+            // Reanudar en la primera pregunta sin respuesta
+            const firstPending = quiz.questions.findIndex(
+                (q) => !savedAnswers[q._id.toString()]
+            );
+            setCurrentQuestionIndex(firstPending >= 0 ? firstPending : quiz.questions.length - 1);
+        } catch {
+            localStorage.removeItem(key);
+        }
+    }, [quiz]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    // Persistir respuestas en localStorage mientras el quiz está en progreso
+    useEffect(() => {
+        if (!quiz || result || Object.keys(answers).length === 0) return;
+        localStorage.setItem(
+            `kuxipilli_quiz_${quiz._id}`,
+            JSON.stringify({ savedAnswers: answers })
+        );
+    }, [answers, quiz, result]);
+
     const handleOptionSelect = (questionId, optionId) => {
         setAnswers({ ...answers, [questionId]: optionId });
     };
@@ -176,6 +205,7 @@ const QuizTaker = () => {
     const isQuizComplete = quiz?.questions.every(q => isQuestionAnswered(q, answers[q._id]));
 
     const handleRetry = () => {
+        if (quiz) localStorage.removeItem(`kuxipilli_quiz_${quiz._id}`);
         setAnswers({});
         setCurrentQuestionIndex(0);
         setResult(null);
@@ -412,6 +442,7 @@ const QuizTaker = () => {
         setIsSubmitting(true);
         try {
             const { data } = await api.post(`/api/quiz/${quiz._id}/submit`, { answers });
+            localStorage.removeItem(`kuxipilli_quiz_${quiz._id}`);
             setResult(data);
 
             // Fetch expert recommendations (RF4)
