@@ -53,9 +53,9 @@ module.exports = async function seedDiagnosticQuiz(context) {
             riskArea: 'Gasto Controlado',
             options: [
                 { text: 'Comprar de inmediato para que no se sienta excluido del grupo.', isCorrect: false },
-                { text: 'Explicar que Robux equivale a dinero real, revisar límites o métodos de pago y decidir con calma si esa compra tiene sentido.', isCorrect: true },
-                { text: 'Prestarle la tarjeta para que aprenda a administrarse solo.', isCorrect: false },
-                { text: 'Decirle que en internet todo es gratis si sabe buscar bien.', isCorrect: false },
+                { text: 'Explicar que Robux es dinero real y evaluar con calma si esa compra tiene sentido.', isCorrect: true },
+                { text: 'Prestarle la tarjeta para que aprenda a administrar el dinero por sí solo.', isCorrect: false },
+                { text: 'Decirle que en internet hay muchas formas gratuitas de conseguir lo mismo.', isCorrect: false },
             ],
             explanation: 'La idea clave no es solo decir que no, sino hacer visible que la moneda virtual sigue siendo dinero real y que la presión social no debería decidir una compra.',
             points: 10,
@@ -63,7 +63,7 @@ module.exports = async function seedDiagnosticQuiz(context) {
         {
             text: 'Instrucción: Relaciona cada red social con lo que más la caracteriza.',
             type: 'match_columns',
-            platform: 'TikTok',
+            platform: 'Redes Sociales',
             riskArea: 'Uso digital',
             metadata: {
                 left: ['TikTok', 'Discord', 'Instagram'],
@@ -131,7 +131,7 @@ module.exports = async function seedDiagnosticQuiz(context) {
         {
             text: 'Completa la frase sobre controles parentales en streaming.',
             type: 'drop_down',
-            platform: 'YouTube',
+            platform: 'Streaming',
             riskArea: 'Control parental',
             metadata: {
                 sentence: 'Para niños pequeños, [blank1] ofrece una experiencia más limitada. En YouTube, una cuenta [blank2] permite usar la app principal con filtros según edad. En Twitch, el mayor riesgo suele estar en la [blank3] con otras personas. Ningún control sustituye la [blank4] adulta.',
@@ -158,7 +158,7 @@ module.exports = async function seedDiagnosticQuiz(context) {
             metadata: {
                 items: [
                     'Cuenta adulta enlazada de Roblox',
-                    'Microsoft Family Safety',
+                    'Microsoft Family Safety (Xbox)',
                     'Family Pairing',
                     'Teen Accounts',
                     'Family Center',
@@ -169,7 +169,7 @@ module.exports = async function seedDiagnosticQuiz(context) {
                 correctAnswer: {
                     Videojuegos: [
                         'Cuenta adulta enlazada de Roblox',
-                        'Microsoft Family Safety',
+                        'Microsoft Family Safety (Xbox)',
                     ],
                     'Redes Sociales': [
                         'Family Pairing',
@@ -216,9 +216,9 @@ module.exports = async function seedDiagnosticQuiz(context) {
             riskArea: 'Publicidad',
             options: [
                 { text: 'Si la creadora parece cercana, entonces no puede haber interés comercial.', isCorrect: false },
-                { text: 'La etiqueta indica que hay una relación con una marca, así que conviene leer esa recomendación como contenido influido comercialmente.', isCorrect: true },
+                { text: 'La etiqueta confirma una relación comercial con la marca, así que esa recomendación debe leerse como publicidad.', isCorrect: true },
                 { text: 'La etiqueta solo sirve para decorar la publicación y no cambia nada.', isCorrect: false },
-                { text: 'Toda publicación con un producto visible es automáticamente falsa.', isCorrect: false },
+                { text: 'Toda publicación que muestra un producto con entusiasmo es automáticamente engañosa.', isCorrect: false },
             ],
             explanation: 'La meta no es desconfiar de todo, sino enseñar a distinguir cuándo una recomendación también está empujando una venta o una marca.',
             points: 10,
@@ -245,10 +245,10 @@ module.exports = async function seedDiagnosticQuiz(context) {
             platform: 'Twitch',
             riskArea: 'Monetización y publicidad',
             options: [
-                { text: 'Permitirlo porque no es una compra real, solo una reacción dentro del chat.', isCorrect: false },
-                { text: 'Explicar que Bits y regalos digitales equivalen a dinero real, revisar si hay métodos de pago guardados y ofrecer formas de participar sin gastar.', isCorrect: true },
-                { text: 'Comprar una cantidad grande para que aprenda más rápido cómo funciona la plataforma.', isCorrect: false },
-                { text: 'Decirle que gastar por atención del creador siempre vale la pena si se emociona mucho.', isCorrect: false },
+                { text: 'Permitirlo porque los Bits no son una compra real, solo una forma de reaccionar en el chat.', isCorrect: false },
+                { text: 'Aclarar que los Bits son dinero real y que pagar para obtener atención del streamer merece pensarse dos veces.', isCorrect: true },
+                { text: 'Comprar una cantidad grande para que entienda desde el principio cómo funciona el sistema de donaciones.', isCorrect: false },
+                { text: 'Decirle que gastar para que el streamer lo note es la mejor forma de participar en la comunidad.', isCorrect: false },
             ],
             explanation: 'En streaming, gastar puede sentirse como apoyo o participación, pero detrás de Bits, gifts o suscripciones sigue habiendo dinero real y posibles compras impulsivas.',
             points: 10,

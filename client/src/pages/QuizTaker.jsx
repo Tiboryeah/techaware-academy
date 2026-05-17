@@ -59,8 +59,8 @@ const QuizTaker = () => {
                 const endpoint = isDiagnosticRoute ? '/api/quiz/diagnostic' : `/api/quiz/${id}`;
                 const { data } = await api.get(endpoint);
                 
-                // US08: Ensure question items are NOT in a predictable order
-                const shuffledQuestions = data.questions.map(q => {
+                // US08: Ensure question items AND question order are NOT predictable
+                const shuffledQuestions = shuffleArray([...data.questions]).map(q => {
                     const newQ = { ...q };
                     if (newQ.metadata) {
                         if (newQ.metadata.bank) newQ.metadata.bank = shuffleArray(newQ.metadata.bank);

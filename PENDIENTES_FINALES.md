@@ -8,9 +8,9 @@
 
 ## ESTADO GENERAL
 
-- Capítulos 1–5: ✅ Correcciones previas aplicadas correctamente
-- Capítulo 6: ✅ Base correcta, PERO con 6 errores nuevos (mayo 2026) confirmados en docx
-- Capítulo 7: 🔴 NO existe en el documento — texto completo ya redactado en sesión anterior
+- Capítulos 1–5: ✅ Correctos y verificados
+- Capítulo 6: ✅ Completo con todas las correcciones y funciones nuevas aplicadas
+- Capítulo 7: ✅ COMPLETO — escrito y aplicado en sesión 2026-05-15
 
 ---
 
@@ -56,19 +56,30 @@
 - [x] **C6-0** — §4.5.3 DS-03: RF8 incorrecto eliminado ✅
 - [x] **C6-1** — §6.2.5 Progress routes: RF8 incorrecto eliminado, queda solo RF7 ✅
 - [x] **C6-2** — §6.2.8 Resources routes: Protegido → Público en ambos GET ✅
-- [ ] **C6-3** — §6.2.9 Seed: agregar nota sobre cálculo real de duraciones (WPM 150 + bonus imagen 0.5 min)
+- [x] **C6-3** — §6.2.9 Seed: nota WPM agregada ✅
 - [x] **C6-4** — §6.3.1 Tabla rutas SPA: /casos-y-guias y /casos/:id → Público ✅
-- [ ] **C6-5** — §6.3.2 Auth UI: agregar validación email en Register + cooldown 30 s en VerifyAccount
-- [ ] **C6-6** — §6.3.3 Dashboard: actualizar párrafo de badges (imágenes personalizadas, no íconos Lucide)
-- [ ] **C6-7** — §6.3.4 LessonView: agregar fix de H1 duplicado + título de módulo en sidebar
-- [ ] **C6-8** — §6.3.4 CourseDetail: agregar nota sobre `copa_acreditada.png` en badge de acreditación
-- [ ] **C6-9** — §6.3.7 RealCases: renovación completa (íconos plataforma SVG, íconos categoría semánticos, videos animados, fechas de caso, acceso público)
-- [ ] **C6-10** — §6.4 DA table: agregar DA15 (acceso público a casos/guías) y DA16 (duraciones por WPM)
+- [x] **C6-5** — §6.3.2 validación email Register + cooldown VerifyAccount ✅
+- [x] **C6-6** — §6.3.3 Dashboard: badges con imágenes personalizadas ✅
+- [x] **C6-7** — §6.3.4 LessonView: H1 skip + título módulo en sidebar ✅
+- [x] **C6-8** — §6.3.4 CourseDetail: copa_acreditada.png badge ✅
+- [x] **C6-9** — §6.3.7 RealCases: íconos SVG, semánticos, videos animados, fechas, acceso público ✅
+- [x] **C6-10** — §6.4 DA table: DA12–DA15 agregadas, intro actualizada a quince ✅
 
 ---
 
-### CAPÍTULO 7 — Completo faltante
-- [ ] **C7** — Pegar capítulo 7 completo (texto ya redactado en sesión 2026-05-14)
+### CAPÍTULO 7 ✅ COMPLETO
+- [x] **C7-1** §7.1 Estrategia de pruebas ✅
+- [x] **C7-2** §7.2 + subsecciones 7.2.1/7.2.2/7.2.3 + tabla resumen ✅
+- [x] **C7-3** §7.3 con 4 subsecciones + tabla scripts ✅
+- [x] **C7-4** §7.4 con 3 subsecciones + 3 tablas de vectores ✅
+- [x] **C7-5** §7.5 con 3 subsecciones + 3 tablas de métricas ✅
+- [x] **C7-6** §7.6 con 3 subsecciones ✅
+- [x] **C7-7** §7.7 con 2 subsecciones + tabla resultados 15/15 ✅
+- [x] **C7-8** §7.8 tabla B01–B13 + cierre del capítulo ✅
+
+### ANTES DEL CAPÍTULO 7 — 2 erratas que aún faltan
+- [x] **E-A** — §4.3: 'e Flujo' → 'de Flujo' corregido ✅ (índice se actualiza al final automáticamente)
+- [x] **E-B** — §5.6 Tabla 26: 'Escalado horizontal' → rate limiting + stateless ✅
   - §7.1 Estrategia de pruebas
   - §7.2 Pruebas automatizadas (auth 3 casos, quiz 9 casos, chatbot 3 casos)
   - §7.3 Pruebas manuales (Postman + BD)
@@ -80,10 +91,21 @@
 
 ---
 
-### PENDIENTES MENORES (presentación final)
+### BIBLIOGRAFÍA Y GLOSARIO ✅ COMPLETO
+- [x] 57 referencias originales — correspondencia 1:1 con cuerpo ✅
+- [x] [11] Wikipedia → Hinduja & Patchin (Cyberbullying Research Center) — pendiente aplicar
+- [x] Tabla 2 Glosario: 5 citas faltantes agregadas [58]-[62] ✅
+- [x] Tabla 2 Glosario: 5 términos nuevos agregados (SPA, React, Node.js, MongoDB, Sharp) [63]-[67] ✅
+- [x] Bibliografía extendida a 67 referencias — 67 en cuerpo / 67 en bibliografía ✅
+
+### PENDIENTES FINALES
 - [ ] **M1** — Reemplazar todas las "Tabla X" con números reales consecutivos
-- [ ] **M2** — Reemplazar "Il. X" en §4.3 con números reales
-- [ ] **M3** — Actualizar índice de ilustraciones con Il. 8b
+- [ ] **M2** — Reemplazar "Il. X" en §4.3 con números reales; asignar números a Il. 8b, DFD P3, DFD P5 y las 24 ilustraciones nuevas de §6.3.9
+- [ ] **M3** — Actualizar índices (F9 en Word al finalizar)
+- [x] **F1** — §6.3.9 Pantallas del sistema implementado: texto completo redactado (7 subsecciones, 24 ilustraciones) ✅ 2026-05-17
+- [x] **F2a** — Anexo A: Manual de usuario — 6 figuras propias (modo oscuro) + referencias cruzadas a §6.3.9 ✅ 2026-05-17
+- [x] **F2b** — Anexo B: Manual de instalación / despliegue local y producción ✅ 2026-05-17
+- [x] **F3** — [11] Wikipedia → Hinduja & Patchin aplicado en §2.2 y bibliografía ✅ 2026-05-17
 
 ---
 
