@@ -1,3 +1,4 @@
+/** Traduce el tipo interno de lección a su etiqueta visible en español. */
 export const getLessonTypeLabel = (type) => {
     switch (type) {
         case 'article':
@@ -20,6 +21,10 @@ const lessonTitlePrefixPatterns = {
     ],
 };
 
+/**
+ * Elimina el prefijo numérico del título de una lección para mostrarlo limpio en la UI.
+ * Ej: "Artículo 1: Qué es Roblox" → "Qué es Roblox"
+ */
 export const getLessonDisplayTitle = (title = '', type) => {
     if (!title) return '';
 

@@ -97,6 +97,11 @@ const PLATFORM_COURSE_MAP = {
     Twitch: 'Streaming',
 };
 
+/**
+ * Recupera un quiz con sus preguntas y mezcla el orden de las opciones.
+ * @param {object} filter - Filtro de Mongoose para Quiz.findOne
+ * @returns {object|null} Quiz plano con opciones mezcladas, o null si no existe
+ */
 const getQuizPayload = async (filter) => {
     const quiz = await Quiz.findOne(filter).populate('questions');
 
@@ -418,6 +423,13 @@ const selectLessonsForWrongQuestionDetails = async ({
         : selected;
 };
 
+/**
+ * Califica un intento de quiz y construye el detalle por pregunta.
+ * El nivel de riesgo se asigna en español (Alto/Medio/Bajo) para respetar el dominio.
+ * @param {object} quiz - Documento Quiz con preguntas populadas
+ * @param {object} answers - Respuestas del usuario indexadas por questionId
+ * @returns {{ score, passed, correctCount, riskLevel, errorsByArea, errorsByPlatform, questionDetails }}
+ */
 const evaluateQuizSubmission = (quiz, answers = {}) => {
     let weightedScore = 0;
     let totalPossiblePoints = 0;
@@ -489,6 +501,11 @@ const saveAttempt = async ({ userId, quizId, answers, evaluation }) =>
         errorsByPlatform: evaluation.errorsByPlatform,
     });
 
+/**
+ * Persiste una recomendación basada en las preguntas falladas de un intento.
+ * Solo aplica para quizzes de scope 'diagnostic' o 'module'; los de 'course' no generan recomendaciones.
+ * Si no hay lecciones que superen el umbral de relevancia, no se crea ningún documento.
+ */
 const saveRecommendation = async ({
     userId,
     attempt,
@@ -524,6 +541,10 @@ const saveRecommendation = async ({
     });
 };
 
+/**
+ * Elimina las recomendaciones anteriores cuando el usuario aprueba un quiz.
+ * Evita que el dashboard muestre recomendaciones de módulos ya superados.
+ */
 const clearRecommendationsForQuiz = async ({ userId, quizId }) => {
     const attempts = await Attempt.find({ userId, quizId })
         .select('_id')
@@ -538,6 +559,11 @@ const clearRecommendationsForQuiz = async ({ userId, quizId }) => {
     });
 };
 
+/**
+ * Devuelve la recomendación más reciente del usuario para la card del dashboard.
+ * @param {string} userId
+ * @returns {object|null}
+ */
 const getLatestRecommendation = async (userId) =>
     Recommendation.findOne({ userId })
         .sort({ createdAt: -1 })
@@ -700,6 +726,14 @@ const updateProgressForApprovedQuiz = async ({ userId, quiz, occurredAt }) => {
     return { updated };
 };
 
+/**
+ * Punto de entrada principal para procesar un intento de quiz.
+ * Califica, persiste el Attempt, registra en ActivityLog, actualiza Progress
+ * y gestiona las recomendaciones (guarda si falla, elimina si aprueba).
+ * Los quizzes de scope 'course' no generan recomendaciones ni detalle por pregunta.
+ * @param {{ quizId: string, userId: string, answers: object }} params
+ * @returns {object|null} Resultado del intento o null si el quiz no existe
+ */
 const submitQuizAttempt = async ({ quizId, userId, answers = {} }) => {
     const quiz = await Quiz.findById(quizId).populate('questions');
 
@@ -829,6 +863,13 @@ const aggregateCourseBreakdown = (platformBreakdown = []) => {
         });
 };
 
+/**
+ * Construye las recomendaciones inmediatas para la pantalla de resultados del quiz.
+ * Si el usuario aprobó, devuelve listas vacías. Si falló, devuelve áreas y plataformas
+ * donde cometió más errores junto con el desglose por curso.
+ * @param {string} attemptId
+ * @returns {object|null}
+ */
 const getAttemptRecommendations = async (attemptId) => {
     const attempt = await Attempt.findById(attemptId).populate('quizId', 'scope refId minPassing');
 

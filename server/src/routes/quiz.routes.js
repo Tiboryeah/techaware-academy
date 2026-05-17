@@ -11,43 +11,30 @@ const {
 
 const router = express.Router();
 
-// @desc    Get diagnostic quiz
-// @route   GET /api/quiz/diagnostic
-// @access  Public (or Private)
+// Debe ir antes de /:id para que Express no lo interprete como un ID
 router.get('/diagnostic', protect, async (req, res) => {
     try {
         const quiz = await getDiagnosticQuizPayload();
-
-        if (!quiz) {
-            return res.status(404).json({ message: 'Diagnostic quiz not found' });
-        }
-
+        if (!quiz) return res.status(404).json({ message: 'Diagnóstico no encontrado' });
         res.json(quiz);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
 
-// @desc    Get recommendations for an attempt (Expert System - RF4)
-// @route   GET /api/quiz/recommendations/:attemptId
-// @access  Private
+// Recomendaciones inmediatas al terminar un intento (pantalla de resultados)
 router.get('/recommendations/:attemptId', protect, async (req, res) => {
     try {
         const recommendations = await getAttemptRecommendations(req.params.attemptId);
-
-        if (!recommendations) {
-            return res.status(404).json({ message: 'Attempt not found' });
-        }
-
+        if (!recommendations) return res.status(404).json({ message: 'Intento no encontrado' });
         res.json(recommendations);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
 
-// @desc    Get latest recommendation for current user
-// @route   GET /api/quiz/my-recommendations
-// @access  Private
+// Última recomendación persistida del usuario (card del dashboard)
+// Debe ir antes de /:id
 router.get('/my-recommendations', protect, async (req, res) => {
     try {
         const rec = await getLatestRecommendation(req.user._id);
@@ -57,26 +44,16 @@ router.get('/my-recommendations', protect, async (req, res) => {
     }
 });
 
-// @desc    Get quiz by ID
-// @route   GET /api/quiz/:id
-// @access  Public
 router.get('/:id', protect, async (req, res) => {
     try {
         const quiz = await getQuizPayloadById(req.params.id);
-
-        if (!quiz) {
-            return res.status(404).json({ message: 'Quiz not found' });
-        }
-
+        if (!quiz) return res.status(404).json({ message: 'Quiz no encontrado' });
         res.json(quiz);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
 
-// @desc    Submit quiz attempt
-// @route   POST /api/quiz/:id/submit
-// @access  Private
 router.post('/:id/submit', protect, async (req, res) => {
     try {
         const result = await submitQuizAttempt({
@@ -84,11 +61,7 @@ router.post('/:id/submit', protect, async (req, res) => {
             userId: req.user._id,
             answers: req.body?.answers || {},
         });
-
-        if (!result) {
-            return res.status(404).json({ message: 'Quiz not found' });
-        }
-
+        if (!result) return res.status(404).json({ message: 'Quiz no encontrado' });
         res.status(201).json(result);
     } catch (error) {
         res.status(500).json({ message: error.message });

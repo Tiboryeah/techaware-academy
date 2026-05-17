@@ -1,5 +1,4 @@
-// Maps lesson platforms and riskAreas to visual themes for article/guide banners.
-// Replace gradientFrom/gradientTo with AI-generated image URLs when ready.
+// Mapea la plataforma y área de riesgo de una lección a su tema visual (gradiente, imagen de banner).
 
 const PLATFORM_THEMES = {
     Roblox: {

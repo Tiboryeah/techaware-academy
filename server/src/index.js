@@ -54,9 +54,9 @@ app.get('/api/health', healthCheckHandler);
 if (process.env.NODE_ENV === 'production') {
     app.use(limiter);
 } else {
-    // Relaxed limiter for development to avoid blocking the USER during testing
+    // Límite relajado en desarrollo para no interrumpir las pruebas locales
     app.use(rateLimit({
-        windowMs: 1 * 60 * 1000, // 1 minute
+        windowMs: 1 * 60 * 1000,
         max: 1000,
         message: 'Rate limit relaxed for development.'
     }));
