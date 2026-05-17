@@ -1291,7 +1291,7 @@ const QuizTaker = () => {
                                     ))
                                 ) : currentQuestion.type === 'drag_drop' ? (
                                     <div className="space-y-4">
-                                        <p className="text-center text-[10px] text-gray-500 italic mb-1">Desplaza hacia arriba o abajo las fichas de la derecha para alinearlas con su concepto.</p>
+                                        <p className="text-center text-[10px] text-gray-500 italic mb-1">Mantén presionada y arrastra cada ficha para alinearla con su concepto.</p>
                                         <div className="grid grid-cols-1 md:grid-cols-[1fr_40px_1fr] gap-3 items-start">
                                             {/* Fixed Labels */}
                                             <div className="space-y-3">
@@ -1318,6 +1318,7 @@ const QuizTaker = () => {
                                                         dragSnapToOrigin={true}
                                                         dragElastic={0}
                                                         animate={{ x: 0, y: 0 }}
+                                                        style={{ touchAction: 'none' }}
                                                         onDragEnd={(e, info) => {
                                                             const height = 80 + 12; // card height + gap
                                                             const moveIndex = Math.round(info.offset.y / height);
@@ -1354,8 +1355,8 @@ const QuizTaker = () => {
                                                         <span className="text-[11px] md:text-xs font-bold text-gray-800 dark:text-gray-200 leading-tight flex-1">
                                                             {val}
                                                         </span>
-                                                        <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                            <GripVertical className="w-3 h-3 text-gray-400" />
+                                                        <div className="flex-shrink-0 opacity-50 group-hover:opacity-100 transition-opacity">
+                                                            <GripVertical className="w-4 h-4 text-gray-400" />
                                                         </div>
                                                     </motion.div>
                                                 ))}
