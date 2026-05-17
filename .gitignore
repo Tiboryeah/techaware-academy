@@ -43,3 +43,18 @@ pdf_extracted.txt
 # Targeted seed utility (local dev only)
 server/src/scripts/seed-target.js
 
+
+# Notas internas de sesion
+CONTEXTO_SESION.md
+PENDIENTES_FINALES.md
+
+# Config local de Claude Code
+.claude/
+
+# Archivos temporales locales
+_doc_text.txt
+capturas/
+capturas_reporte/
+capturas_anexos/
+capturas*.js
+*.local.*.log
