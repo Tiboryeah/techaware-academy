@@ -154,7 +154,7 @@ const CaseDetail = () => {
                             <img
                                 src="/images/casosbaner.png"
                                 alt=""
-                                className="absolute inset-0 w-full h-full object-cover"
+                                className="absolute inset-0 w-full h-full object-cover opacity-60 brightness-[2] dark:opacity-100 dark:brightness-100 transition-all duration-500"
                                 draggable={false}
                             />
                             <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/28 to-black/62" />
@@ -222,7 +222,7 @@ const CaseDetail = () => {
                             <div className="p-5 sm:p-8 md:p-10 border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-white/[0.03]">
                                 <SectionHeader
                                     eyebrow="Análisis completo"
-                                    title="Qué ocurrió y por qué importa"
+                                    title="¿Qué ocurrió y por qué importa?"
                                     icon={<BookOpen className="w-5 h-5" />}
                                 />
                             </div>

@@ -236,7 +236,7 @@ const Layout = () => {
                 <Outlet />
             </main>
 
-            <footer className="bg-white dark:bg-[#0a0c10] border-t border-gray-200 dark:border-gray-800 py-8 sm:py-12 pb-24 sm:pb-12">
+            <footer className="bg-white dark:bg-[#0a0c10] border-t border-gray-200 dark:border-gray-800 py-8 sm:py-12 pb-24">
                 <div className="max-w-7xl mx-auto px-4 flex flex-col items-center gap-6 text-center sm:flex-row sm:flex-wrap sm:justify-between sm:items-center sm:text-left">
                     <div className="flex items-center gap-2">
                         <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-200 dark:border-gray-700">
@@ -247,7 +247,7 @@ const Layout = () => {
                     <div className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm">
                         &copy; 2026 Kuxipilli. Educando para un futuro digital más seguro.
                     </div>
-                    <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 sm:gap-6">
+                    <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 sm:gap-6 sm:pr-20">
                         <Link to="/privacidad"  className="text-gray-400 hover:text-indigo-500 transition-colors uppercase tracking-widest font-bold text-[10px] min-h-[44px] flex items-center px-1">Política</Link>
                         <Link to="/terminos"    className="text-gray-400 hover:text-indigo-500 transition-colors uppercase tracking-widest font-bold text-[10px] min-h-[44px] flex items-center px-1">Términos</Link>
                         <Link to="/contactanos" className="text-gray-400 hover:text-indigo-500 transition-colors uppercase tracking-widest font-bold text-[10px] min-h-[44px] flex items-center px-1">Contáctanos</Link>

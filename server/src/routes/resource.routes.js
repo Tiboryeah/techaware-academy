@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
         const skip  = (page - 1) * limit;
 
         const [data, total] = await Promise.all([
-            Resource.find(filter).sort({ order: 1, createdAt: 1 }).skip(skip).limit(limit),
+            Resource.find(filter).sort({ createdAt: -1 }).skip(skip).limit(limit),
             Resource.countDocuments(filter),
         ]);
 

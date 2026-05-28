@@ -158,16 +158,20 @@ const RealCases = () => {
     const casesState  = usePaginatedResources('case');
     const guidesState = usePaginatedResources('guide');
 
-    const normalizedCases = useMemo(
-        () =>
-            casesState.items.map((item) => ({
+    const normalizedCases = useMemo(() => {
+        const extractYear = (dateStr) => {
+            const years = (dateStr || '').match(/\d{4}/g);
+            return years ? Math.max(...years.map(Number)) : 0;
+        };
+        return casesState.items
+            .map((item) => ({
                 ...item,
                 icon: caseIcons[item.category] || <Info className="w-5 h-5" />,
                 style: caseStyles[item.color] || caseStyles.indigo,
                 platformStyle: platformIconStyles[item.platform] || caseStyles[item.color] || caseStyles.indigo,
-            })),
-        [casesState.items]
-    );
+            }))
+            .sort((a, b) => extractYear(b.caseDate) - extractYear(a.caseDate));
+    }, [casesState.items]);
 
     const normalizedGuides = useMemo(
         () =>

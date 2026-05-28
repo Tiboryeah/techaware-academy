@@ -2,6 +2,10 @@
 
 @variant dark (&:where(.dark, .dark *));
 
+html {
+  overflow-x: hidden;
+}
+
 @media (max-width: 639px) {
   body.kuxibot-open .mobile-chatbot-sensitive {
     opacity: 0 !important;

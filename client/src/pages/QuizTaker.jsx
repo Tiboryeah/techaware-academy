@@ -1233,7 +1233,7 @@ const QuizTaker = () => {
                                     onClick={() => navigateToQuestion(firstUnansweredIndex)}
                                     className="w-full md:w-auto px-4 py-2 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-100 dark:border-indigo-500/20 text-indigo-600 dark:text-indigo-300 font-black text-[10px] uppercase tracking-widest hover:bg-indigo-600 hover:text-white transition-all"
                                 >
-                                    Ir a la pendiente {firstUnansweredIndex + 1}
+                                    Continuar en pregunta {firstUnansweredIndex + 1}
                                 </button>
                             ) : (
                                 <div className="w-full md:w-auto px-4 py-2 rounded-xl bg-green-50 dark:bg-green-500/10 border border-green-100 dark:border-green-500/20 text-green-600 dark:text-green-300 font-black text-[10px] uppercase tracking-widest text-center">
@@ -1322,12 +1322,16 @@ const QuizTaker = () => {
                                     ))
                                 ) : currentQuestion.type === 'drag_drop' ? (
                                     <div className="space-y-4">
-                                        <p className="text-center text-[10px] text-gray-500 italic mb-1">Mantén presionada y arrastra cada ficha para alinearla con su concepto.</p>
+                                        <div className="text-center space-y-1">
+                                            <p className="text-[10px] text-gray-500 italic">Arrastra las fichas para reordenarlas. Cada número de ficha debe coincidir con el número del concepto.</p>
+                                            <p className="text-[10px] text-indigo-500 font-black uppercase tracking-widest md:hidden">← Conceptos arriba · Fichas abajo →</p>
+                                        </div>
                                         <div className="grid grid-cols-1 md:grid-cols-[1fr_40px_1fr] gap-3 items-start">
                                             {/* Fixed Labels */}
                                             <div className="space-y-3">
                                                 {currentQuestion.metadata.pairs.map((pair, idx) => (
-                                                    <div key={idx} className="min-h-[80px] h-auto p-4 bg-white dark:bg-[#0a0c10] border-2 border-dashed border-gray-100 dark:border-gray-800 rounded-3xl flex items-center justify-center font-black text-[10px] uppercase tracking-widest text-indigo-600 dark:text-indigo-400 text-center">
+                                                    <div key={idx} className="min-h-[80px] h-auto p-4 bg-white dark:bg-[#0a0c10] border-2 border-dashed border-gray-100 dark:border-gray-800 rounded-3xl flex items-center gap-3 font-black text-[10px] uppercase tracking-widest text-indigo-600 dark:text-indigo-400 text-center">
+                                                        <span className="flex-shrink-0 w-6 h-6 rounded-full bg-indigo-100 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-300 flex items-center justify-center text-[10px] font-black">{idx + 1}</span>
                                                         {pair.key}
                                                     </div>
                                                 ))}
@@ -1380,9 +1384,9 @@ const QuizTaker = () => {
                                                         }}
                                                         className="min-h-[80px] h-auto p-4 bg-white dark:bg-[#161b22] border-2 border-indigo-500/20 rounded-3xl cursor-grab active:cursor-grabbing flex items-center gap-4 group shadow-lg shadow-indigo-500/5 hover:border-indigo-500 select-none"
                                                     >
-                                                        <div className="p-2 bg-indigo-500/10 rounded-xl flex-shrink-0">
-                                                            <Layers className="w-3 h-3 text-indigo-500" />
-                                                        </div>
+                                                        <span className="flex-shrink-0 w-6 h-6 rounded-full bg-indigo-100 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-300 flex items-center justify-center text-[10px] font-black">
+                                                            {idx + 1}
+                                                        </span>
                                                         <span className="text-[11px] md:text-xs font-bold text-gray-800 dark:text-gray-200 leading-tight flex-1">
                                                             {val}
                                                         </span>
