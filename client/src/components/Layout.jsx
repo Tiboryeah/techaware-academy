@@ -5,7 +5,7 @@ import ThemeContext from '../context/ThemeContext';
 import Chatbot from './Chatbot';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sun, Moon, LogOut, User as UserIcon, Settings, Menu, X, LayoutDashboard, BookOpen, Shield } from 'lucide-react';
-import logo from '../assets/logo_v2.webp';
+import logo from '../assets/logo_v2_sm.webp';
 import avatarUrl from '../utils/avatarUrl';
 
 const NAV_LINKS = [
@@ -248,9 +248,9 @@ const Layout = () => {
                         &copy; 2026 Kuxipilli. Educando para un futuro digital más seguro.
                     </div>
                     <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 sm:gap-6 sm:pr-20">
-                        <Link to="/privacidad"  className="text-gray-400 hover:text-indigo-500 transition-colors uppercase tracking-widest font-bold text-[10px] min-h-[44px] flex items-center px-1">Política</Link>
-                        <Link to="/terminos"    className="text-gray-400 hover:text-indigo-500 transition-colors uppercase tracking-widest font-bold text-[10px] min-h-[44px] flex items-center px-1">Términos</Link>
-                        <Link to="/contactanos" className="text-gray-400 hover:text-indigo-500 transition-colors uppercase tracking-widest font-bold text-[10px] min-h-[44px] flex items-center px-1">Contáctanos</Link>
+                        <Link to="/privacidad"  className="text-gray-500 hover:text-indigo-500 transition-colors uppercase tracking-widest font-bold text-[10px] min-h-[44px] flex items-center px-1">Política</Link>
+                        <Link to="/terminos"    className="text-gray-500 hover:text-indigo-500 transition-colors uppercase tracking-widest font-bold text-[10px] min-h-[44px] flex items-center px-1">Términos</Link>
+                        <Link to="/contactanos" className="text-gray-500 hover:text-indigo-500 transition-colors uppercase tracking-widest font-bold text-[10px] min-h-[44px] flex items-center px-1">Contáctanos</Link>
                     </div>
                 </div>
             </footer>
