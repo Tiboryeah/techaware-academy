@@ -3,9 +3,18 @@
   command = "npm run build"
   publish = "dist"
 
-# Evita que Netlify inyecte snippets en archivos XML y TXT
 [build.processing]
   skip_processing = false
+
+# Seguridad HTTP — aplicado a todas las rutas
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://techaware-academy.onrender.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com; img-src 'self' data: blob: https:; font-src 'self'; object-src 'none'; frame-ancestors 'none'"
 
 [[headers]]
   for = "/sitemap.xml"
