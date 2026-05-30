@@ -5,6 +5,17 @@ import { ThemeProvider } from './context/ThemeContext';
 import { ToastProvider } from './context/ToastContext';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
+import AdminRoute from './components/AdminRoute';
+import AdminLayout from './components/AdminLayout';
+
+const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
+const AdminUsuarios = lazy(() => import('./pages/admin/AdminUsuarios'));
+const AdminReportes = lazy(() => import('./pages/admin/AdminReportes'));
+const AdminCursos = lazy(() => import('./pages/admin/AdminCursos'));
+const AdminLecciones = lazy(() => import('./pages/admin/AdminLecciones'));
+const AdminPreguntas = lazy(() => import('./pages/admin/AdminPreguntas'));
+const AdminCasos = lazy(() => import('./pages/admin/AdminCasos'));
+const AdminRecursos = lazy(() => import('./pages/admin/AdminRecursos'));
 
 const Modules = lazy(() => import('./pages/Modules'));
 const Home = lazy(() => import('./pages/Home'));
@@ -65,6 +76,20 @@ function App() {
                     <Router>
                         <Suspense fallback={<RouteFallback />}>
                             <Routes>
+                            {/* Admin routes — separate layout, role=Admin required */}
+                            <Route element={<AdminRoute />}>
+                                <Route path="/admin" element={<AdminLayout />}>
+                                    <Route index element={<AdminDashboard />} />
+                                    <Route path="usuarios" element={<AdminUsuarios />} />
+                                    <Route path="reportes" element={<AdminReportes />} />
+                                    <Route path="cursos" element={<AdminCursos />} />
+                                    <Route path="lecciones" element={<AdminLecciones />} />
+                                    <Route path="preguntas" element={<AdminPreguntas />} />
+                                    <Route path="casos" element={<AdminCasos />} />
+                                    <Route path="recursos" element={<AdminRecursos />} />
+                                </Route>
+                            </Route>
+
                             <Route path="/" element={<Layout />}>
                                 <Route index element={<Home />} />
                                 <Route path="iniciar-sesion" element={<Login />} />
