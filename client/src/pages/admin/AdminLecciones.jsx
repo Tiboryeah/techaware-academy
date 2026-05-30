@@ -114,11 +114,13 @@ const AdminLecciones = () => {
                                         className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-slate-200 outline-none focus:border-indigo-500/50" />
                                 </div>
                             )}
-                            <div>
-                                <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1 block">Contenido (Markdown)</label>
-                                <textarea value={editForm.content ?? ''} onChange={(e) => setEditForm(f => ({ ...f, content: e.target.value }))}
-                                    rows={8} className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-slate-200 outline-none focus:border-indigo-500/50 resize-none font-mono" />
-                            </div>
+                            {editForm.type !== 'video' && (
+                                <div>
+                                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1 block">Contenido (Markdown)</label>
+                                    <textarea value={editForm.content ?? ''} onChange={(e) => setEditForm(f => ({ ...f, content: e.target.value }))}
+                                        rows={8} className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-slate-200 outline-none focus:border-indigo-500/50 resize-none font-mono" />
+                                </div>
+                            )}
                             <div className="flex gap-3">
                                 <button onClick={saveEdit} disabled={saving}
                                     className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold transition-colors">
