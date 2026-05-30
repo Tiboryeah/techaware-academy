@@ -53,7 +53,7 @@ const StatItem = ({ icon, label, value, isText }) => {
       <div className={`${isText ? 'text-2xl sm:text-[2rem]' : 'text-2xl sm:text-3xl'} font-black text-gray-900 dark:text-white tabular-nums tracking-tighter`}>
         {isText ? value : count}
       </div>
-      <div className="max-w-[10rem] mx-auto text-[9px] sm:text-[10px] font-black uppercase tracking-[0.22em] text-gray-400 leading-relaxed">{label}</div>
+      <div className="max-w-[10rem] mx-auto text-[9px] sm:text-[10px] font-black uppercase tracking-[0.22em] text-gray-600 dark:text-gray-400 leading-relaxed">{label}</div>
     </div>
   );
 };
