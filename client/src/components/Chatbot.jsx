@@ -256,7 +256,7 @@ const Chatbot = () => {
             </AnimatePresence>
 
             {/* Toggle Button */}
-            <AnimatePresence>
+            <AnimatePresence mode="popLayout">
                 {!isOpen && (
                     <motion.button
                         initial={{ opacity: 0, scale: 0.92 }}
