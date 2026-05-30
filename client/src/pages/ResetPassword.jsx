@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Lock, ArrowRight, CheckCircle, Eye, EyeOff } from 'lucide-react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../services/api';
-import logo from '../assets/logo_v2.png';
+import logo from '../assets/logo_v2.webp';
 
 const ResetPassword = () => {
     const [password, setPassword] = useState('');

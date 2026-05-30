@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import logo from '../assets/logo_v2.png';
+import logo from '../assets/logo_v2.webp';
 import {
   Shield,
   Lock,
@@ -281,13 +282,29 @@ const Home = () => {
       }
     }
 
+    const jsonLd = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Kuxipilli",
+      "url": "https://kuxipilli.com",
+      "description": "Plataforma educativa para madres, padres y tutores sobre prevención de riesgos digitales en niños de 6 a 12 años.",
+      "inLanguage": "es-MX"
+    });
+
     return (
       <div className="min-h-screen bg-[#fafafb] dark:bg-[#0a0c10] transition-colors duration-500">
+      <Helmet>
+        <title>Kuxipilli | Educación digital parental</title>
+        <meta name="description" content="Plataforma educativa para madres, padres y tutores sobre prevención de riesgos digitales en videojuegos, redes sociales y streaming." />
+        <meta name="keywords" content="seguridad digital niños, control parental, grooming, ciberacoso, riesgos redes sociales, videojuegos niños, educación digital México" />
+        <link rel="canonical" href="https://kuxipilli.com/" />
+        <script type="application/ld+json">{jsonLd}</script>
+      </Helmet>
         <div className="max-w-7xl mx-auto px-4 py-8 sm:py-12 sm:px-6 lg:px-8 space-y-12 sm:space-y-16">
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="relative overflow-hidden bg-white dark:bg-[#161b22] rounded-[2rem] sm:rounded-[3rem] p-5 sm:p-8 md:p-10 shadow-2xl border border-gray-100 dark:border-gray-800">
             <div className="absolute inset-0 pointer-events-none">
               <img
-                src="/images/kuxipilli-dashboard-bg.png"
+                src="/images/kuxipilli-dashboard-bg.webp"
                 alt=""
                 className="w-full h-full object-cover"
                 draggable={false}
@@ -756,7 +773,7 @@ const Home = () => {
               title: 'Videojuegos',
               platforms: ['Roblox', 'Minecraft'],
               modules: 6,
-              image: '/images/tarjetajuegos.png',
+              image: '/images/tarjetajuegos.webp',
               topics: ['Seguridad de cuenta', 'Compras digitales', 'Grooming en chats', 'Bienestar digital'],
               gradient: 'from-[#1c0e0e] to-[#1a1014]',
               accent: 'bg-red-500/80',
@@ -771,7 +788,7 @@ const Home = () => {
               title: 'Redes Sociales',
               platforms: ['TikTok', 'Discord', 'Instagram'],
               modules: 7,
-              image: '/images/tarjetaredes.png',
+              image: '/images/tarjetaredes.webp',
               topics: ['Privacidad y huella digital', 'Ciberacoso', 'Contacto con desconocidos', 'Desinformación'],
               gradient: 'from-[#130e1c] to-[#0f0e1a]',
               accent: 'bg-violet-500/80',
@@ -786,7 +803,7 @@ const Home = () => {
               title: 'Streaming',
               platforms: ['YouTube', 'Twitch'],
               modules: 7,
-              image: '/images/tarjetastreaming.png',
+              image: '/images/tarjetastreaming.webp',
               topics: ['Consumo infantil seguro', 'Monetización engañosa', 'Tiempo de pantalla', 'Control parental'],
               gradient: 'from-[#0e0e1c] to-[#0d0f1a]',
               accent: 'bg-indigo-500/80',

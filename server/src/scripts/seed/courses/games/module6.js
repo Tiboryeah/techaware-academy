@@ -20,7 +20,7 @@ Este artículo deja una idea muy clara: el problema no siempre es jugar mucho, s
 
 ---
 
-![No todo se resume a cuántas horas juega: el foco real está en qué está dejando de hacer el menor por jugar.](/article-images/videojuegos/M6A1.png)
+![No todo se resume a cuántas horas juega: el foco real está en qué está dejando de hacer el menor por jugar.](/article-images/videojuegos/M6A1.webp)
 
 ---
 
@@ -39,7 +39,7 @@ Dormir poco puede asociarse con problemas de atención y conducta, peor rendimie
 
 ---
 
-![Jugar de noche cambia más cosas de las que parece: pantallas antes de dormir pueden afectar descanso, convivencia y aprendizaje.](/article-images/videojuegos/M6A1.1.png)
+![Jugar de noche cambia más cosas de las que parece: pantallas antes de dormir pueden afectar descanso, convivencia y aprendizaje.](/article-images/videojuegos/M6A1.1.webp)
 
 ---
 
@@ -125,7 +125,7 @@ Desde la prevención, conviene preguntar al menor qué le gusta de sus juegos, q
 
 ---
 
-![Checklist rápido: preguntas para distinguir uso saludable y uso problemático en sueño, escuela, actividad física, intereses y control emocional.](/article-images/videojuegos/M6A1.2.png)
+![Checklist rápido: preguntas para distinguir uso saludable y uso problemático en sueño, escuela, actividad física, intereses y control emocional.](/article-images/videojuegos/M6A1.2.webp)
 
 ---
 
@@ -191,7 +191,7 @@ Este artículo transmite una idea central: acompañar no es solo controlar. En b
 
 ---
 
-![Acompañar empieza por interesarse de verdad: preguntar con curiosidad real ayuda a orientar mejor.](/article-images/videojuegos/M6A2.png)
+![Acompañar empieza por interesarse de verdad: preguntar con curiosidad real ayuda a orientar mejor.](/article-images/videojuegos/M6A2.webp)
 
 ---
 
@@ -249,7 +249,7 @@ Estas preguntas convierten la supervisión en una conversación concreta sobre g
 
 ---
 
-![Del control al acompañamiento: control distante, acompañamiento activo, reglas visibles y conversación frecuente.](/article-images/videojuegos/M6A2.1.png)
+![Del control al acompañamiento: control distante, acompañamiento activo, reglas visibles y conversación frecuente.](/article-images/videojuegos/M6A2.1.webp)
 
 ---
 

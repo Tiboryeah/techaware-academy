@@ -20,7 +20,7 @@ Este artículo no busca generar pánico, sino ayudar a madres, padres y tutores 
 
 ---
 
-![Lo primero: mantener la calma y escuchar cuando un menor cuenta una interacción de riesgo.](/article-images/videojuegos/M4A1.png)
+![Lo primero: mantener la calma y escuchar cuando un menor cuenta una interacción de riesgo.](/article-images/videojuegos/M4A1.webp)
 
 ---
 
@@ -135,7 +135,7 @@ Una forma útil de leer el riesgo es pensar en un semáforo de señales:
 
 ---
 
-![Cortar la interacción sin escalar el conflicto. Acciones útiles: mutear, bloquear, reportar y salir del chat o servidor si hace falta.](/article-images/videojuegos/M4A1.1.png)
+![Cortar la interacción sin escalar el conflicto. Acciones útiles: mutear, bloquear, reportar y salir del chat o servidor si hace falta.](/article-images/videojuegos/M4A1.1.webp)
 
 ---
 
@@ -243,7 +243,7 @@ Este artículo enseña algo muy concreto: cuando el riesgo ya ocurrió, la prime
 
 ---
 
-![Lo primero: mantener la calma y escuchar cuando un menor cuenta una interacción de riesgo.](/article-images/videojuegos/M4A2.png)
+![Lo primero: mantener la calma y escuchar cuando un menor cuenta una interacción de riesgo.](/article-images/videojuegos/M4A2.webp)
 
 ---
 
@@ -264,7 +264,7 @@ Cuando el adulto no entiende una app, un juego o una expresión, también convie
 
 ---
 
-![Cortar la interacción sin escalar el conflicto. Acciones útiles: mutear, bloquear, reportar y salir del chat o servidor si hace falta.](/article-images/videojuegos/M4A2.1.png)
+![Cortar la interacción sin escalar el conflicto. Acciones útiles: mutear, bloquear, reportar y salir del chat o servidor si hace falta.](/article-images/videojuegos/M4A2.1.webp)
 
 ---
 
@@ -403,7 +403,7 @@ Una forma simple de recordar la secuencia correcta es esta:
 
 ---
 
-![Caja de conceptos clave: bloquear, reportar, evidencia, sextorsión y escalamiento.](/article-images/videojuegos/M4A2.2.png)
+![Caja de conceptos clave: bloquear, reportar, evidencia, sextorsión y escalamiento.](/article-images/videojuegos/M4A2.2.webp)
 
 ---
 

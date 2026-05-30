@@ -23,7 +23,7 @@ Minecraft se divide en dos grandes "familias": **Java Edition** y **Bedrock Edit
 | **Java Edition** | Computadoras Windows, macOS y Linux. | Servidores externos, mods y comunidades más abiertas. | A qué servidores entra el menor, qué mods instala y qué comunidad frecuenta. |
 | **Bedrock Edition** | Consolas, celulares, tablets y Windows. | Cross-play, Marketplace y controles vinculados a Microsoft/Xbox Family. | Privacidad, permisos de multijugador, Realms, amistades y compras. |
 
-![Mini glosario para padres sobre Minecraft: Java Edition, Bedrock Edition, cross-play, Marketplace y servidor público.](/article-images/videojuegos/M3A1.png)
+![Mini glosario para padres sobre Minecraft: Java Edition, Bedrock Edition, cross-play, Marketplace y servidor público.](/article-images/videojuegos/M3A1.webp)
 
 ### Edición Java (Java Edition)
 Es la versión original para computadoras (Windows, macOS, Linux). 
@@ -67,7 +67,7 @@ Es la opción intermedia: más social que el juego solitario, pero mucho más se
 
 No todas las formas de juego conllevan el mismo nivel de exposición. Podemos clasificar el riesgo según el nivel de interacción social:
 
-![Semáforo de riesgo en Minecraft: verde para juego individual o multijugador local, amarillo para Realms o servidores privados con amistades conocidas y rojo para servidores públicos masivos.](/article-images/videojuegos/M3A1.1.png)
+![Semáforo de riesgo en Minecraft: verde para juego individual o multijugador local, amarillo para Realms o servidores privados con amistades conocidas y rojo para servidores públicos masivos.](/article-images/videojuegos/M3A1.1.webp)
 
 > **Regla de Oro**: Antes de permitir el multijugador, asegúrese de conocer si su hijo está en un mundo compartido solo con amigos o en un servidor abierto a todo el mundo.`,
             type: 'article',
@@ -114,7 +114,7 @@ Entender esto ahorra horas de frustración intentando arreglar "errores" que, en
 
 Esta es la pregunta más frecuente en soporte técnico. Si el menor ya tiene el juego pero no puede unirse a un mundo compartido, suele deberse a que la cuenta infantil no tiene los permisos necesarios en la configuración de familia de Microsoft.
 
-![Diagnóstico para Minecraft: revisar grupo familiar, permiso Join Multiplayer Games, permiso Can join Realms y configuración de amigos o Gamertags.](/article-images/videojuegos/M3A2.png)
+![Diagnóstico para Minecraft: revisar grupo familiar, permiso Join Multiplayer Games, permiso Can join Realms y configuración de amigos o Gamertags.](/article-images/videojuegos/M3A2.webp)
 
 Minecraft y Xbox separan las acciones básicas en permisos granulares: unirse a partidas multijugador, entrar a Realms y agregar amistades mediante Gamertag.
 
@@ -157,7 +157,7 @@ En versiones recientes (especialmente Bedrock), Minecraft ha incluido **Realms S
 
 ---
 
-![Checklist de revisión prioritaria para Minecraft: gestión familiar, permisos de juego, filtros sociales y lista de amigos.](/article-images/videojuegos/M3A2.1.png)
+![Checklist de revisión prioritaria para Minecraft: gestión familiar, permisos de juego, filtros sociales y lista de amigos.](/article-images/videojuegos/M3A2.1.webp)
 
 > **Recuerda**: Supervisar Minecraft no es solo elegir mundos; es configurar la llave maestra de la cuenta Microsoft que abre las puertas de la interacción social.`,
             type: 'article',

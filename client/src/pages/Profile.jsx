@@ -20,7 +20,7 @@ import api from '../services/api';
 import avatarUrl from '../utils/avatarUrl';
 import AuthContext from '../context/AuthContext';
 import { ToastContext } from '../context/ToastContext';
-import logo from '../assets/logo_v2.png';
+import logo from '../assets/logo_v2.webp';
 
 const VIEWPORT = 320;
 const EXPORT_SIZE = 600;

@@ -4,7 +4,7 @@ import api from '../services/api';
 import TermsModal from '../components/TermsModal';
 import { motion } from 'framer-motion';
 import { User, Mail, Lock, UserPlus, Check, Eye, EyeOff } from 'lucide-react';
-import logo from '../assets/logo_v2.png';
+import logo from '../assets/logo_v2.webp';
 
 const Register = () => {
     const [name, setName] = useState('');

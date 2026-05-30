@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -132,8 +133,42 @@ const CaseDetail = () => {
         }
     };
 
+    const pageTitle = caseItem ? `${caseItem.title} | Kuxipilli` : 'Caso real | Kuxipilli';
+    const pageDesc  = caseItem?.summary || 'Caso documentado de riesgo digital para menores. Guía de prevención para padres y tutores.';
+    const canonical = caseItem ? `https://kuxipilli.com/casos/${caseItem.slug}` : 'https://kuxipilli.com/casos-y-guias';
+
+    const jsonLd = caseItem ? {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": caseItem.title,
+      "description": pageDesc,
+      "url": canonical,
+      "inLanguage": "es-MX",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Kuxipilli",
+        "url": "https://kuxipilli.com"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Seguridad digital infantil"
+      }
+    } : null;
+
     return (
         <div className="min-h-screen bg-[#fafafb] dark:bg-[#0a0c10] text-gray-900 dark:text-gray-100 pb-20 transition-colors duration-500">
+        {caseItem && (
+          <Helmet>
+            <title>{pageTitle}</title>
+            <meta name="description" content={pageDesc} />
+            <link rel="canonical" href={canonical} />
+            <meta property="og:title" content={pageTitle} />
+            <meta property="og:description" content={pageDesc} />
+            <meta property="og:url" content={canonical} />
+            <meta property="og:type" content="article" />
+            {jsonLd && <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>}
+          </Helmet>
+        )}
             <div className="sticky top-0 z-50 bg-white/80 dark:bg-[#0a0c10]/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
                 <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
                     <button onClick={() => navigate('/casos-y-guias?seccion=casos')} className="flex items-center gap-2 text-sm font-black uppercase tracking-widest text-gray-500 hover:text-indigo-600 transition-colors group">
@@ -152,7 +187,7 @@ const CaseDetail = () => {
                     <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="lg:col-span-4 space-y-8">
                         <div className="relative p-6 sm:p-10 rounded-[2rem] sm:rounded-[3rem] text-white shadow-2xl overflow-hidden bg-indigo-950">
                             <img
-                                src="/images/casosbaner.png"
+                                src="/images/casosbaner.webp"
                                 alt=""
                                 className="absolute inset-0 w-full h-full object-cover opacity-60 brightness-[2] dark:opacity-100 dark:brightness-100 transition-all duration-500"
                                 draggable={false}

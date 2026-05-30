@@ -5,7 +5,7 @@ import ThemeContext from '../context/ThemeContext';
 import Chatbot from './Chatbot';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sun, Moon, LogOut, User as UserIcon, Settings, Menu, X, LayoutDashboard, BookOpen, Shield } from 'lucide-react';
-import logo from '../assets/logo_v2.png';
+import logo from '../assets/logo_v2.webp';
 import avatarUrl from '../utils/avatarUrl';
 
 const NAV_LINKS = [

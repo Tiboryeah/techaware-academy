@@ -143,7 +143,7 @@ const Dashboard = () => {
         // Pre-cargar logo y recortarlo en círculo via canvas (html2canvas no soporta overflow:hidden + border-radius)
         let logoDataUrl = '';
         try {
-            const logoRes = await fetch(window.location.origin + '/logo_v2.png');
+            const logoRes = await fetch(window.location.origin + '/logo_v2.webp');
             const blob = await logoRes.blob();
             const rawDataUrl = await new Promise((resolve) => {
                 const reader = new FileReader();
@@ -353,21 +353,21 @@ const Dashboard = () => {
 
     const badges = courses.map(course => {
         const isCompleted = progressData?.completedCourseIds?.some(id => String(id) === String(course._id));
-        let imageColor = '/images/badge_videojuegos.png';
-        let imageGray  = '/images/badgegris_videojuegos.png';
+        let imageColor = '/images/badge_videojuegos.webp';
+        let imageGray  = '/images/badgegris_videojuegos.webp';
         let color = "indigo";
 
         if (course.category?.toLowerCase() === 'videojuegos') {
-            imageColor = '/images/badge_videojuegos.png';
-            imageGray  = '/images/badgegris_videojuegos.png';
+            imageColor = '/images/badge_videojuegos.webp';
+            imageGray  = '/images/badgegris_videojuegos.webp';
             color = "purple";
         } else if (course.category?.toLowerCase() === 'redes sociales') {
-            imageColor = '/images/badge_redes_sociales.png';
-            imageGray  = '/images/badgegris_redes.png';
+            imageColor = '/images/badge_redes_sociales.webp';
+            imageGray  = '/images/badgegris_redes.webp';
             color = "pink";
         } else if (course.category?.toLowerCase() === 'streaming') {
-            imageColor = '/images/badge_streaming.png';
-            imageGray  = '/images/badgegris_streaming.png';
+            imageColor = '/images/badge_streaming.webp';
+            imageGray  = '/images/badgegris_streaming.webp';
             color = "red";
         }
 

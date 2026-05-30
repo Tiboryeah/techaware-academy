@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -197,6 +198,12 @@ const RealCases = () => {
 
     return (
         <div className="min-h-screen bg-[#fafafb] dark:bg-[#0a0c10] text-gray-900 dark:text-gray-100 py-10 sm:py-16 px-4 sm:px-6 lg:px-8 transition-colors duration-500">
+        <Helmet>
+          <title>Casos reales y guías de prevención | Kuxipilli</title>
+          <meta name="description" content="Casos documentados de grooming, ciberacoso y riesgos digitales en Roblox, TikTok, Instagram, Discord y YouTube. Guías prácticas para padres y tutores." />
+          <meta name="keywords" content="casos grooming niños, ciberacoso real, riesgos TikTok menores, grooming Roblox, seguridad digital guías padres" />
+          <link rel="canonical" href="https://kuxipilli.com/casos-y-guias" />
+        </Helmet>
             <div className="max-w-7xl mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
@@ -280,7 +287,7 @@ const RealCases = () => {
                                                     className="relative bg-white dark:bg-[#111827] rounded-[2.5rem] border border-gray-200/80 dark:border-white/10 shadow-xl shadow-gray-200/70 dark:shadow-black/30 overflow-hidden flex flex-col text-gray-900 dark:text-white"
                                                 >
                                                     <img
-                                                        src="/images/casosbaner.png"
+                                                        src="/images/casosbaner.webp"
                                                         alt=""
                                                         className={visualCardImageClass}
                                                         draggable={false}
@@ -423,7 +430,7 @@ const RealCases = () => {
                                                     className="relative bg-white dark:bg-[#101820] p-5 sm:p-8 rounded-[2rem] sm:rounded-[3rem] border border-gray-200/80 dark:border-white/10 shadow-2xl shadow-gray-200/70 dark:shadow-black/30 flex flex-col overflow-hidden text-gray-900 dark:text-white"
                                                 >
                                                     <img
-                                                        src="/images/baner_guias.png"
+                                                        src="/images/baner_guias.webp"
                                                         alt=""
                                                         className={visualCardImageClass}
                                                         draggable={false}
@@ -512,7 +519,7 @@ const RealCases = () => {
                                 className="relative w-full max-w-3xl bg-white dark:bg-[#101820] rounded-[2rem] sm:rounded-[3.5rem] shadow-2xl overflow-hidden border border-gray-200 dark:border-white/10 my-auto text-gray-900 dark:text-white"
                             >
                                 <img
-                                    src="/images/baner_guias.png"
+                                    src="/images/baner_guias.webp"
                                     alt=""
                                     className={visualModalImageClass}
                                     draggable={false}

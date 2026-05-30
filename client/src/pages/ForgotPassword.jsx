@@ -4,7 +4,7 @@ import { Mail, ArrowRight, ArrowLeft, Key, Lock, CheckCircle, Eye, EyeOff } from
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { ToastContext } from '../context/ToastContext';
-import logo from '../assets/logo_v2.png';
+import logo from '../assets/logo_v2.webp';
 
 const ForgotPassword = () => {
     const navigate = useNavigate();

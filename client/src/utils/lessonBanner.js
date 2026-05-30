@@ -55,15 +55,15 @@ const PLATFORM_THEMES = {
 const COURSE_BANNERS = [
     {
         platforms: ['Roblox', 'Minecraft'],
-        image: '/lesson-banners/videojuegos/videojuegos.png',
+        image: '/lesson-banners/videojuegos/videojuegos.webp',
     },
     {
         platforms: ['TikTok', 'Discord', 'Instagram'],
-        image: '/lesson-banners/redes-sociales/redes.png',
+        image: '/lesson-banners/redes-sociales/redes.webp',
     },
     {
         platforms: ['YouTube', 'Twitch'],
-        image: '/lesson-banners/streaming/streaming.png',
+        image: '/lesson-banners/streaming/streaming.webp',
     },
 ];
 

@@ -85,7 +85,7 @@ const Modules = () => {
                 return {
                     icon: <GamesPlatformIcons />,
                     gradient: 'from-purple-600 to-cyan-500',
-                    image: '/images/gaming.png',
+                    image: '/images/gaming.webp',
                     accent: 'text-cyan-600 dark:text-cyan-400',
                     bgAccent: 'bg-cyan-500/10',
                     highlights: [
@@ -97,7 +97,7 @@ const Modules = () => {
                 return {
                     icon: <SocialPlatformIcons />,
                     gradient: 'from-pink-600 to-blue-500',
-                    image: '/images/social.png',
+                    image: '/images/social.webp',
                     accent: 'text-pink-600 dark:text-pink-400',
                     bgAccent: 'bg-pink-500/10',
                     highlights: [
@@ -109,7 +109,7 @@ const Modules = () => {
                 return {
                     icon: <StreamingPlatformIcons />,
                     gradient: 'from-red-600 to-indigo-500',
-                    image: '/images/streaming.png',
+                    image: '/images/streaming.webp',
                     accent: 'text-red-600 dark:text-red-400',
                     bgAccent: 'bg-red-500/10',
                     highlights: [
@@ -121,7 +121,7 @@ const Modules = () => {
                 return {
                     icon: <BookOpen className="w-6 h-6" />,
                     gradient: 'from-blue-600 to-indigo-500',
-                    image: '/images/gaming.png',
+                    image: '/images/gaming.webp',
                     accent: 'text-blue-600 dark:text-blue-400',
                     bgAccent: 'bg-blue-500/10',
                     highlights: [

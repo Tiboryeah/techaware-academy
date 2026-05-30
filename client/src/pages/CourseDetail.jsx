@@ -132,7 +132,7 @@ const CourseDetail = () => {
             {/* Header / Hero */}
             <div className="relative min-h-[340px] sm:min-h-0 sm:h-[340px] md:h-[400px] overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-b from-indigo-600/20 to-transparent dark:to-[#0a0c10] z-10" />
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-5 dark:opacity-20" />
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.webp')] opacity-5 dark:opacity-20" />
 
                 <div className="relative z-20 max-w-7xl mx-auto px-4 h-full flex flex-col justify-end pt-24 pb-7 sm:pt-0 sm:pb-12">
                     <div className="flex flex-col md:flex-row justify-between items-end gap-8">
@@ -173,7 +173,7 @@ const CourseDetail = () => {
                                     animate={{ opacity: 1, scale: 1, rotate: 0 }}
                                     className="px-6 py-4 bg-yellow-500/10 border border-yellow-500/20 rounded-3xl flex items-center gap-4 shadow-2xl shadow-yellow-500/10 overflow-visible"
                                 >
-                                    <img src="/images/copa_acreditada.png" alt="Copa acreditada" className="w-28 h-28 object-contain flex-shrink-0 -my-6" style={{ filter: 'drop-shadow(0 4px 12px rgba(180,83,9,0.45))' }} />
+                                    <img src="/images/copa_acreditada.webp" alt="Copa acreditada" className="w-28 h-28 object-contain flex-shrink-0 -my-6" style={{ filter: 'drop-shadow(0 4px 12px rgba(180,83,9,0.45))' }} />
                                     <div>
                                         <p className="text-yellow-600 dark:text-yellow-500 font-black text-xl uppercase tracking-tighter leading-tight">Curso Acreditado</p>
                                         <p className="text-yellow-600/70 dark:text-yellow-500/70 text-xs font-bold font-serif italic">Maestría Digital Alcanzada</p>

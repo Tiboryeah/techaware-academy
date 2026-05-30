@@ -4,7 +4,7 @@ import AuthContext from '../context/AuthContext';
 import { ToastContext } from '../context/ToastContext';
 import { motion } from 'framer-motion';
 import { Mail, Lock, ArrowRight, Eye, EyeOff } from 'lucide-react';
-import logo from '../assets/logo_v2.png';
+import logo from '../assets/logo_v2.webp';
 
 const Login = () => {
     const [email, setEmail] = useState('');

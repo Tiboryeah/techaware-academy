@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+Allow: /casos-y-guias
+Allow: /casos/
+
+Disallow: /dashboard
+Disallow: /cursos/
+Disallow: /lecciones/
+Disallow: /perfil
+Disallow: /diagnostico
+Disallow: /examen/
+Disallow: /login
+Disallow: /registro
+Disallow: /verificar
+Disallow: /recuperar-contrasena
+Disallow: /restablecer-contrasena
+
+Sitemap: https://kuxipilli.com/sitemap.xml

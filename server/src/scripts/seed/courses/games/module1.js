@@ -27,7 +27,7 @@ Antes de avanzar, una familia necesita ubicar cinco conceptos que sí aparecerá
 
 Una forma simple de verlo es esta:
 
-![Cómo funciona un juego en línea: el menor entra desde un dispositivo, inicia sesión con su cuenta, la información viaja por internet, un servidor coordina la partida y aparecen funciones como multijugador, chat y compras dentro del juego.](/article-images/videojuegos/M1A1.png)
+![Cómo funciona un juego en línea: el menor entra desde un dispositivo, inicia sesión con su cuenta, la información viaja por internet, un servidor coordina la partida y aparecen funciones como multijugador, chat y compras dentro del juego.](/article-images/videojuegos/M1A1.webp)
 
 ## Qué conviene revisar antes de autorizar un juego
 
@@ -70,7 +70,7 @@ Esta guía existe para que los conceptos del examen salgan exactamente de algo q
 | **Compra dentro del juego** | Pago digital por moneda virtual, objetos, mejoras o acceso. | Si usa dinero real, si hay límite de gasto y si el menor pide permiso. |
 | **Multijugador** | Función que permite jugar con otras personas. | Con quién juega el menor y qué tan abierto está ese entorno. |
 
-![Ruta visual de un juego en línea: dispositivo, cuenta, internet, servidor, multijugador y chat, y compras.](/article-images/videojuegos/M1G1.png)
+![Ruta visual de un juego en línea: dispositivo, cuenta, internet, servidor, multijugador y chat, y compras.](/article-images/videojuegos/M1G1.webp)
 
 ## Regla práctica
 
@@ -110,7 +110,7 @@ Este video muestra cómo se ven y cómo se sienten Roblox y Minecraft cuando un 
 
 Antes de comparar ambas plataformas, conviene aclarar algunos términos que se usarán durante el curso:
 
-![Mini glosario para padres: sandbox, experiencia de Roblox, Realm, Bedrock Edition y Java Edition.](/article-images/videojuegos/M1A2.png)
+![Mini glosario para padres: sandbox, experiencia de Roblox, Realm, Bedrock Edition y Java Edition.](/article-images/videojuegos/M1A2.webp)
 
 ## 1. Plataforma vs sandbox
 
@@ -124,7 +124,7 @@ La supervisión cambia porque Roblox concentra el riesgo en experiencias sociale
 
 La economía digital también se revisa distinto en cada plataforma:
 
-![Comparación de economía y compras: Roblox usa Robux para contenido dentro de experiencias y Minecraft Bedrock usa Minecoins en Marketplace.](/article-images/videojuegos/M1A2.1.png)
+![Comparación de economía y compras: Roblox usa Robux para contenido dentro de experiencias y Minecraft Bedrock usa Minecoins en Marketplace.](/article-images/videojuegos/M1A2.1.webp)
 
 ## 4. Qué pregunta una familia antes de dejar jugar
 

@@ -58,7 +58,7 @@ TikTok, Discord e Instagram no solo entretienen. También organizan cómo los me
 
 Por eso, para supervisarlas bien, no basta con saber sus nombres. Hay que entender qué hacen, cómo atrapan la atención y qué tipo de interacción permiten.
 
-![Comparación visual entre TikTok, Discord e Instagram: TikTok se centra en videos cortos recomendados por algoritmo, Discord en chats, servidores, voz, video y comunidades, e Instagram en perfil, fotos, videos, historias y mensajes.](/article-images/redes-sociales/RedesArticulo1.png)
+![Comparación visual entre TikTok, Discord e Instagram: TikTok se centra en videos cortos recomendados por algoritmo, Discord en chats, servidores, voz, video y comunidades, e Instagram en perfil, fotos, videos, historias y mensajes.](/article-images/redes-sociales/RedesArticulo1.webp)
 
 ## Mini glosario para padres
 
@@ -125,7 +125,7 @@ Un error común es pensar que "si solo está viendo cosas" no hay riesgo. En una
 
 Cada plataforma abre riesgos distintos, aunque desde fuera parezcan parte del mismo tiempo de pantalla.
 
-![Acciones para padres: identificar qué plataforma usa más el menor, entender la función principal de cada app, revisar herramientas parentales oficiales, distinguir entre ver, publicar e interactuar, y acompañar antes de prohibir.](/article-images/redes-sociales/RedesArticulo1.2.png)
+![Acciones para padres: identificar qué plataforma usa más el menor, entender la función principal de cada app, revisar herramientas parentales oficiales, distinguir entre ver, publicar e interactuar, y acompañar antes de prohibir.](/article-images/redes-sociales/RedesArticulo1.2.webp)
 
 ## Preguntas útiles para conversar en casa
 
@@ -180,7 +180,7 @@ Estas plataformas no solo muestran contenido. También organizan la experiencia 
 
 Aunque funcionan distinto, las tres logran algo parecido: hacer que el menor sienta que siempre hay algo interesante, alguien con quien interactuar o una respuesta que esperar.
 
-![Factores que hacen atractivas a las redes sociales: recompensa rápida, pertenencia, reconocimiento, personalización y expresión personal.](/article-images/redes-sociales/RedesArticulo2.png)
+![Factores que hacen atractivas a las redes sociales: recompensa rápida, pertenencia, reconocimiento, personalización y expresión personal.](/article-images/redes-sociales/RedesArticulo2.webp)
 
 ## 1. TikTok atrae por velocidad y personalización
 
@@ -246,7 +246,7 @@ Una red puede empezar siendo atractiva por motivos sanos, como expresarse, apren
 * le cuesta detenerse,
 * o deja de lado sueño, escuela o convivencia por seguir conectado.
 
-![Acciones para padres: preguntar qué le gusta de cada app, distinguir si busca entretenerse, hablar o publicar, revisar herramientas familiares oficiales, hablar de likes, seguidores y presión social, y observar si la app desplaza sueño, escuela o convivencia.](/article-images/redes-sociales/RedesArticulo2.2.png)
+![Acciones para padres: preguntar qué le gusta de cada app, distinguir si busca entretenerse, hablar o publicar, revisar herramientas familiares oficiales, hablar de likes, seguidores y presión social, y observar si la app desplaza sueño, escuela o convivencia.](/article-images/redes-sociales/RedesArticulo2.2.webp)
 
 ## Preguntas útiles para conversar en casa
 
@@ -304,7 +304,7 @@ Muchos niños creen que solo comparten datos cuando escriben su nombre, su edad 
 
 La privacidad no depende solo de una publicación. También depende de pequeños datos que, juntos, dicen mucho.
 
-![Tipos de datos que pueden quedar expuestos: datos de perfil, red de contactos, contenido publicado, ubicación y contexto, actividad dentro de la app y permisos del dispositivo.](/article-images/redes-sociales/M2A1.png)
+![Tipos de datos que pueden quedar expuestos: datos de perfil, red de contactos, contenido publicado, ubicación y contexto, actividad dentro de la app y permisos del dispositivo.](/article-images/redes-sociales/M2A1.webp)
 
 ## 1. El perfil ya dice mucho
 
@@ -399,7 +399,7 @@ Un menor puede decir "yo no comparto nada personal" y aun así tener visibles:
 
 La exposición muchas veces no viene de una sola publicación, sino de la suma de varios detalles pequeños.
 
-![Acciones para padres: revisar junto al menor su perfil y configuración de privacidad, limitar permisos de cámara, micrófono, contactos, fotos y ubicación, confirmar si la cuenta es pública o privada, revisar quién puede enviar mensajes o solicitudes, y hablar de huella digital y rastro de información.](/article-images/redes-sociales/M2A1.1.png)
+![Acciones para padres: revisar junto al menor su perfil y configuración de privacidad, limitar permisos de cámara, micrófono, contactos, fotos y ubicación, confirmar si la cuenta es pública o privada, revisar quién puede enviar mensajes o solicitudes, y hablar de huella digital y rastro de información.](/article-images/redes-sociales/M2A1.1.webp)
 
 ## Preguntas útiles para conversar en casa
 
@@ -459,7 +459,7 @@ La huella digital no se forma solo con publicaciones grandes o claramente import
 
 Por eso conviene enseñar a pensar antes de publicar, reaccionar o compartir.
 
-![Cómo se construye la huella digital: subir fotos o videos, comentar o reaccionar, seguir cuentas o unirse a grupos, compartir ubicación o contexto, y mantener perfiles muy abiertos.](/article-images/redes-sociales/M2A2.png)
+![Cómo se construye la huella digital: subir fotos o videos, comentar o reaccionar, seguir cuentas o unirse a grupos, compartir ubicación o contexto, y mantener perfiles muy abiertos.](/article-images/redes-sociales/M2A2.webp)
 
 ## 1. Lo que se publica puede durar más de lo que parece
 
@@ -527,7 +527,7 @@ En realidad, la huella digital suele ser más amplia e incluye:
 * contactos,
 * y contenidos que otros guardaron o difundieron.
 
-![Acciones para padres sobre huella digital: hablar con el menor antes de publicar, revisar juntos privacidad y visibilidad, explicar que una captura o reenvío puede multiplicar el alcance, preguntar si estaría cómodo viendo ese contenido en un año, y cuidar lo que los adultos publican sobre él.](/article-images/redes-sociales/M2A2.1.png)
+![Acciones para padres sobre huella digital: hablar con el menor antes de publicar, revisar juntos privacidad y visibilidad, explicar que una captura o reenvío puede multiplicar el alcance, preguntar si estaría cómodo viendo ese contenido en un año, y cuidar lo que los adultos publican sobre él.](/article-images/redes-sociales/M2A2.1.webp)
 
 ## Preguntas útiles para conversar en casa
 
@@ -582,7 +582,7 @@ En TikTok, Discord e Instagram el ciberacoso puede tomar formas distintas porque
 
 Por eso no basta con preguntar si alguien lo molestó. Conviene entender dónde pasó, cómo pasó y con quién ocurrió.
 
-![Cómo puede aparecer el ciberacoso en TikTok, Discord e Instagram: comentarios hirientes, ataques, burlas, hostigamiento, exclusión, mensajes ofensivos y cuentas falsas.](/article-images/redes-sociales/M3A1.png)
+![Cómo puede aparecer el ciberacoso en TikTok, Discord e Instagram: comentarios hirientes, ataques, burlas, hostigamiento, exclusión, mensajes ofensivos y cuentas falsas.](/article-images/redes-sociales/M3A1.webp)
 
 ## 1. En TikTok, el daño suele ser más visible
 
@@ -628,7 +628,7 @@ Muchos menores no cuentan lo que les pasa de inmediato. A veces sienten:
 
 Por eso conviene fijarse también en cambios de conducta y no esperar solo una confesión directa.
 
-![Señales de alerta de ciberacoso: tristeza, irritabilidad o ansiedad después de usar la app, evitar una red o abandonar grupos, borrar publicaciones, esconder la pantalla y cambios en sueño, ánimo o rutina.](/article-images/redes-sociales/M3A1.1.png)
+![Señales de alerta de ciberacoso: tristeza, irritabilidad o ansiedad después de usar la app, evitar una red o abandonar grupos, borrar publicaciones, esconder la pantalla y cambios en sueño, ánimo o rutina.](/article-images/redes-sociales/M3A1.1.webp)
 
 ## Qué pueden hacer los padres
 
@@ -694,7 +694,7 @@ En la práctica, la presión puede aparecer cuando el menor:
 * siente que debe encajar,
 * o empieza a depender demasiado de la reacción de los demás.
 
-![Cómo se vive la presión social en TikTok, Instagram y Discord: vistas, likes, viralidad, comparación, imagen personal, seguidores, pertenencia a grupos y miedo a quedarse fuera.](/article-images/redes-sociales/M3A2.png)
+![Cómo se vive la presión social en TikTok, Instagram y Discord: vistas, likes, viralidad, comparación, imagen personal, seguidores, pertenencia a grupos y miedo a quedarse fuera.](/article-images/redes-sociales/M3A2.webp)
 
 ## 1. Compararse se vuelve muy fácil
 
@@ -742,7 +742,7 @@ No todos los menores viven las redes igual. Lo importante es observar:
 
 Cuando la comparación o la presión social afectan el sueño, la convivencia, el ánimo o la seguridad personal, ya no se trata solo de entretenimiento.
 
-![Señales de alerta de presión social: comparación constante, malestar si una publicación no recibe reacción, hablar demasiado de seguidores o popularidad, cambiar imagen o conducta para encajar y sentirse peor después de usar la app.](/article-images/redes-sociales/M3A2.1.png)
+![Señales de alerta de presión social: comparación constante, malestar si una publicación no recibe reacción, hablar demasiado de seguidores o popularidad, cambiar imagen o conducta para encajar y sentirse peor después de usar la app.](/article-images/redes-sociales/M3A2.1.webp)
 
 ## Qué pueden hacer los padres
 
@@ -807,7 +807,7 @@ No todas las plataformas exponen al menor al mismo tipo de contacto.
 
 Por eso no basta con decir “no hables con extraños”. Conviene enseñar qué tipo de contacto debe llamar la atención, qué datos no se comparten y cuándo hay que salir de la conversación.
 
-![Cómo puede aparecer el riesgo de contacto con desconocidos: en TikTok por comentarios repetidos o seguidores insistentes, en Instagram por solicitudes de mensaje o cuentas que generan confianza rápido, y en Discord por servidores, mensajes directos, voz o video.](/article-images/redes-sociales/M4A1.png)
+![Cómo puede aparecer el riesgo de contacto con desconocidos: en TikTok por comentarios repetidos o seguidores insistentes, en Instagram por solicitudes de mensaje o cuentas que generan confianza rápido, y en Discord por servidores, mensajes directos, voz o video.](/article-images/redes-sociales/M4A1.webp)
 
 ## 1. En TikTok, el contacto puede empezar desde la visibilidad del contenido
 
@@ -849,7 +849,7 @@ Una interacción de riesgo no siempre empieza con una amenaza evidente. Puede co
 
 Por eso conviene enseñar a reconocer patrones de manipulación, no solo a desconfiar de una persona que “se ve rara”.
 
-![Señales de alerta en contacto con desconocidos: muchos mensajes de alguien que no conoce, petición de pasar a otra app o guardar secreto, cambios de humor, esconder chats o borrar mensajes, y compartir información personal por presión.](/article-images/redes-sociales/M4A1.1.png)
+![Señales de alerta en contacto con desconocidos: muchos mensajes de alguien que no conoce, petición de pasar a otra app o guardar secreto, cambios de humor, esconder chats o borrar mensajes, y compartir información personal por presión.](/article-images/redes-sociales/M4A1.1.webp)
 
 ## Qué pueden hacer los padres
 
@@ -919,7 +919,7 @@ En la práctica, conviene prestar atención cuando una relación en línea:
 * pide privacidad excesiva,
 * o empieza a presionar al menor para demostrar confianza.
 
-![Cómo puede empezar el grooming o contacto manipulador: en TikTok con comentarios insistentes, seguimiento constante o intento de pasar a mensajes; en Instagram con respuestas a historias, mensajes privados o cuentas que generan confianza rápido; y en Discord con mensajes directos, servidores, voz o video.](/article-images/redes-sociales/M4A2.png)
+![Cómo puede empezar el grooming o contacto manipulador: en TikTok con comentarios insistentes, seguimiento constante o intento de pasar a mensajes; en Instagram con respuestas a historias, mensajes privados o cuentas que generan confianza rápido; y en Discord con mensajes directos, servidores, voz o video.](/article-images/redes-sociales/M4A2.webp)
 
 ## 1. No empieza con contenido sexual de inmediato
 
@@ -973,7 +973,7 @@ Aun así, si el menor acepta el contacto o no reconoce la manipulación, el ries
 | Le insisten en mandar fotos, videos o pruebas de confianza | Es una señal grave |
 | Cambia de app para hablar con la misma persona | Puede estar moviendo la conversación a un espacio más privado |
 
-![Acciones para padres ante grooming y manipulación: explicar que ningún adulto o desconocido debe pedir secretos, fotos íntimas o pruebas de confianza, revisar mensajes y solicitudes, enseñar a bloquear y reportar, reforzar que no se castiga por contar algo incómodo y guardar capturas si hubo presión.](/article-images/redes-sociales/M4A2.1.png)
+![Acciones para padres ante grooming y manipulación: explicar que ningún adulto o desconocido debe pedir secretos, fotos íntimas o pruebas de confianza, revisar mensajes y solicitudes, enseñar a bloquear y reportar, reforzar que no se castiga por contar algo incómodo y guardar capturas si hubo presión.](/article-images/redes-sociales/M4A2.1.webp)
 
 ## Preguntas útiles para conversar en casa
 
@@ -1030,7 +1030,7 @@ A veces llega sin que lo busquen:
 
 Por eso, la mejor prevención combina configuración, supervisión y conversación.
 
-![Cómo puede aparecer contenido inapropiado en cada plataforma: en TikTok por recomendaciones del feed, directos, comentarios, búsquedas y hashtags; en Instagram por Reels, explorar, perfiles sugeridos, mensajes, comentarios y contenido sensible; y en Discord por mensajes directos, servidores, canales, archivos compartidos e imágenes sensibles.](/article-images/redes-sociales/M5A1.png)
+![Cómo puede aparecer contenido inapropiado en cada plataforma: en TikTok por recomendaciones del feed, directos, comentarios, búsquedas y hashtags; en Instagram por Reels, explorar, perfiles sugeridos, mensajes, comentarios y contenido sensible; y en Discord por mensajes directos, servidores, canales, archivos compartidos e imágenes sensibles.](/article-images/redes-sociales/M5A1.webp)
 
 ## 1. En TikTok, el riesgo suele venir del flujo continuo
 
@@ -1090,7 +1090,7 @@ Por eso conviene hablar no solo de lo que el menor busca, sino también de lo qu
 | Revisar historial, recomendaciones y comunidades de vez en cuando | Permite detectar patrones antes de que crezcan |
 | Hablar con claridad sobre qué hacer si aparece algo incómodo | Le da al menor una respuesta práctica e inmediata |
 
-![Preguntas útiles para conversar en casa sobre contenido inapropiado: si alguna vez apareció algo que no quería ver, si sabe salir, bloquear o reportar, qué haría ante una imagen o video incómodo, si hay una app o grupo con contenido raro o fuerte, y si quiere revisar filtros en familia.](/article-images/redes-sociales/M5A1.1.png)
+![Preguntas útiles para conversar en casa sobre contenido inapropiado: si alguna vez apareció algo que no quería ver, si sabe salir, bloquear o reportar, qué haría ante una imagen o video incómodo, si hay una app o grupo con contenido raro o fuerte, y si quiere revisar filtros en familia.](/article-images/redes-sociales/M5A1.1.webp)
 
 ## Idea clave
 
@@ -1139,7 +1139,7 @@ Además, muchas plataformas facilitan descubrir, comentar, reenviar o repetir co
 
 Las tres plataformas del curso tienen mecánicas distintas, pero comparten algo: facilitan que una idea o un reto se repita rápido.
 
-![Por qué los retos virales, rumores y desinformación se propagan tan rápido: TikTok refuerza contenido parecido con el algoritmo, Instagram facilita repetir tendencias por perfiles, comentarios y mensajes, y Discord hace circular información rápido en servidores y chats.](/article-images/redes-sociales/M5A2.png)
+![Por qué los retos virales, rumores y desinformación se propagan tan rápido: TikTok refuerza contenido parecido con el algoritmo, Instagram facilita repetir tendencias por perfiles, comentarios y mensajes, y Discord hace circular información rápido en servidores y chats.](/article-images/redes-sociales/M5A2.webp)
 
 ## 1. Los menores no siempre buscan informarse; muchas veces buscan pertenecer
 
@@ -1192,7 +1192,7 @@ Aquí el problema no es solo creer algo falso, sino sentir presión para:
 * compartirlo,
 * o reaccionar rápido sin pensar si es seguro o verdadero.
 
-![Señales de alerta frente a retos virales, rumores y desinformación: comparte contenido sin leerlo bien, repite rumores como hechos, se deja llevar por títulos alarmistas, siente urgencia por hacer lo que todos hacen y no puede responder quién hizo el contenido o por qué.](/article-images/redes-sociales/M5A2.1.png)
+![Señales de alerta frente a retos virales, rumores y desinformación: comparte contenido sin leerlo bien, repite rumores como hechos, se deja llevar por títulos alarmistas, siente urgencia por hacer lo que todos hacen y no puede responder quién hizo el contenido o por qué.](/article-images/redes-sociales/M5A2.1.webp)
 
 ## Qué pueden hacer los padres
 
@@ -1257,7 +1257,7 @@ La clave para los padres no es prohibir toda recomendación de influencers, sino
 * una promoción,
 * y un contenido influido por una marca.
 
-![Cómo suele verse la publicidad disfrazada en cada plataforma: en TikTok un creador habla de una marca, usa un producto o hace un video promocional como parte normal del contenido; en Instagram un reel, historia o publicación muestra una marca, etiqueta un negocio o usa paid partnership.](/article-images/redes-sociales/M6A1.png)
+![Cómo suele verse la publicidad disfrazada en cada plataforma: en TikTok un creador habla de una marca, usa un producto o hace un video promocional como parte normal del contenido; en Instagram un reel, historia o publicación muestra una marca, etiqueta un negocio o usa paid partnership.](/article-images/redes-sociales/M6A1.webp)
 
 ## Mini glosario para padres
 
@@ -1334,7 +1334,7 @@ La influencia comercial también moldea gustos, admiración y presión por consu
 | Empieza a desear productos solo por verlos en creadores favoritos | La influencia comercial ya está afectando su criterio |
 | Asocia popularidad con sinceridad o necesidad | Está mezclando admiración con confianza automática |
 
-![Acciones para padres ante publicidad disfrazada: enseñar a buscar etiquetas como Paid partnership o Promotional content, preguntar si lo muestra porque le gusta o porque le pagan, explicar que un influencer puede estar vendiendo aunque parezca cercano, ver publicaciones juntos y recordar que popular no significa sincero ni necesario.](/article-images/redes-sociales/M6A1.1.png)
+![Acciones para padres ante publicidad disfrazada: enseñar a buscar etiquetas como Paid partnership o Promotional content, preguntar si lo muestra porque le gusta o porque le pagan, explicar que un influencer puede estar vendiendo aunque parezca cercano, ver publicaciones juntos y recordar que popular no significa sincero ni necesario.](/article-images/redes-sociales/M6A1.1.webp)
 
 ## Preguntas útiles para conversar en casa
 
@@ -1390,7 +1390,7 @@ El riesgo no siempre está en una compra grande. Muchas veces empieza con una ac
 
 Como estas funciones están integradas al contenido y a la conversación, pueden sentirse más impulsivas que una compra tradicional.
 
-![Cómo aparece el gasto en cada plataforma: en TikTok mediante Coins y Gifts en videos o directos, en Instagram mediante Stars, Gifts y gifting de ciertas suscripciones, y en Discord mediante Nitro, Nitro Basic y regalos de suscripción.](/article-images/redes-sociales/M6A2.png)
+![Cómo aparece el gasto en cada plataforma: en TikTok mediante Coins y Gifts en videos o directos, en Instagram mediante Stars, Gifts y gifting de ciertas suscripciones, y en Discord mediante Nitro, Nitro Basic y regalos de suscripción.](/article-images/redes-sociales/M6A2.webp)
 
 ## Mini glosario para padres
 
@@ -1453,7 +1453,7 @@ El gasto puede seguir entrando por:
 * regalos de suscripción,
 * o funciones sociales que el menor ve como normales.
 
-![Señales de alerta sobre compras impulsivas: habla de recargar, mandar regalos o comprar stars sin pensar en dinero real, pide acceso a métodos de pago solo por un momento, ve Coins, Stars o regalos como algo pequeño, quiere gastar para apoyar o pertenecer, y no sabe si hay una tarjeta guardada.](/article-images/redes-sociales/M62.1.png)
+![Señales de alerta sobre compras impulsivas: habla de recargar, mandar regalos o comprar stars sin pensar en dinero real, pide acceso a métodos de pago solo por un momento, ve Coins, Stars o regalos como algo pequeño, quiere gastar para apoyar o pertenecer, y no sabe si hay una tarjeta guardada.](/article-images/redes-sociales/M62.1.webp)
 
 ## Qué pueden hacer los padres
 
@@ -1516,7 +1516,7 @@ No todas las plataformas se supervisan igual.
 
 Por eso, la mejor decisión no es aplicar la misma regla a todas, sino usar las herramientas propias de cada app.
 
-![Resumen rápido de controles útiles: TikTok usa Family Pairing, límites de tiempo, filtros y Restricted Mode; Instagram usa Teen Accounts, cuenta privada, límites de mensajes, contenido sensible y supervisión; Discord usa Family Center, solicitudes, DMs y filtros.](/article-images/redes-sociales/M7A1.png)
+![Resumen rápido de controles útiles: TikTok usa Family Pairing, límites de tiempo, filtros y Restricted Mode; Instagram usa Teen Accounts, cuenta privada, límites de mensajes, contenido sensible y supervisión; Discord usa Family Center, solicitudes, DMs y filtros.](/article-images/redes-sociales/M7A1.webp)
 
 ## Mini glosario para padres
 
@@ -1635,7 +1635,7 @@ Si el menor no entiende:
 
 la protección queda incompleta aunque la configuración sea correcta.
 
-![Acciones para padres en controles parentales: activar Family Pairing, Teen Accounts o Family Center según la app, revisar mensajes, privacidad y tiempo de uso, mantener filtros protectores, explicar cada límite y ajustar reglas según edad y madurez.](/article-images/redes-sociales/M7A1.1.png)
+![Acciones para padres en controles parentales: activar Family Pairing, Teen Accounts o Family Center según la app, revisar mensajes, privacidad y tiempo de uso, mantener filtros protectores, explicar cada límite y ajustar reglas según edad y madurez.](/article-images/redes-sociales/M7A1.1.webp)
 
 ## Preguntas útiles para conversar en casa
 
@@ -1687,7 +1687,7 @@ La supervisión útil no busca enterarse de cada detalle, sino reducir riesgos y
 
 Cuando un padre solo aparece para castigar o revisar a escondidas, el menor aprende a ocultar. Cuando el adulto conversa, explica reglas y mantiene presencia constante, el menor tiene más probabilidades de contar lo que le pasa.
 
-![Diferencia entre acompañar y vigilar en exceso: acompañar implica preguntar qué le gusta de una aplicación, ver contenido juntos, explicar reglas, revisar configuraciones con el menor y ajustar límites según edad y madurez; vigilar en exceso implica revisar sin avisar, intervenir solo cuando hay problema, imponer reglas sin contexto, cambiar ajustes sin hablarlo y aplicar siempre el mismo control.](/article-images/redes-sociales/M7A2.png)
+![Diferencia entre acompañar y vigilar en exceso: acompañar implica preguntar qué le gusta de una aplicación, ver contenido juntos, explicar reglas, revisar configuraciones con el menor y ajustar límites según edad y madurez; vigilar en exceso implica revisar sin avisar, intervenir solo cuando hay problema, imponer reglas sin contexto, cambiar ajustes sin hablarlo y aplicar siempre el mismo control.](/article-images/redes-sociales/M7A2.webp)
 
 ## 1. Interesarse funciona mejor que interrogar
 
@@ -1745,7 +1745,7 @@ Conviene poner atención si el menor:
 
 También conviene revisar si las reglas quedaron desactualizadas para la edad o el momento que vive.
 
-![Acciones para padres para acompañar sin vigilar en exceso: pedir que muestre cuentas, canales o servidores favoritos, revisar juntos privacidad, mensajes y tiempo de uso, acordar momentos para hablar de lo que pasa en línea, usar controles parentales como apoyo y dejar claro que pedir ayuda no traerá castigo automático.](/article-images/redes-sociales/M7A2.1.png)
+![Acciones para padres para acompañar sin vigilar en exceso: pedir que muestre cuentas, canales o servidores favoritos, revisar juntos privacidad, mensajes y tiempo de uso, acordar momentos para hablar de lo que pasa en línea, usar controles parentales como apoyo y dejar claro que pedir ayuda no traerá castigo automático.](/article-images/redes-sociales/M7A2.1.webp)
 
 ## Preguntas útiles para conversar en casa
 

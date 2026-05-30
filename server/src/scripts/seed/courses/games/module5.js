@@ -22,11 +22,11 @@ Las **In-Game Purchases** son ofertas dentro del juego para comprar bienes o ser
 
 ---
 
-![Qué son las microtransacciones: compras pequeñas o medianas dentro de un juego y ejemplos de In-Game Purchases como moneda virtual, contenido visual y accesos.](/article-images/videojuegos/M5A1.png)
+![Qué son las microtransacciones: compras pequeñas o medianas dentro de un juego y ejemplos de In-Game Purchases como moneda virtual, contenido visual y accesos.](/article-images/videojuegos/M5A1.webp)
 
 ---
 
-![Qué es Robux: moneda oficial de Roblox para adquirir contenido virtual dentro de sus servicios.](/article-images/videojuegos/M5A1.1.png)
+![Qué es Robux: moneda oficial de Roblox para adquirir contenido virtual dentro de sus servicios.](/article-images/videojuegos/M5A1.1.webp)
 
 ---
 
@@ -40,7 +40,7 @@ Cuando se gasta Robux en contenido virtual dentro del Marketplace o dentro de un
 
 ---
 
-![Qué son Minecoins: moneda digital usada en Minecraft Marketplace para comprar contenido en Minecraft Bedrock Edition.](/article-images/videojuegos/M5A1.2.png)
+![Qué son Minecoins: moneda digital usada en Minecraft Marketplace para comprar contenido en Minecraft Bedrock Edition.](/article-images/videojuegos/M5A1.2.webp)
 
 ---
 
@@ -220,7 +220,7 @@ Además, los add-ons de Marketplace suelen venir de **trusted Minecraft partners
 
 ---
 
-![Qué es un add-on: contenido de Minecraft que cambia cómo se ve o se comporta el juego dentro de Bedrock Edition.](/article-images/videojuegos/M5A2.png)
+![Qué es un add-on: contenido de Minecraft que cambia cómo se ve o se comporta el juego dentro de Bedrock Edition.](/article-images/videojuegos/M5A2.webp)
 
 ---
 
@@ -257,7 +257,7 @@ En términos prácticos, lo no oficial suele incluir mods de Java de terceros, d
 
 ---
 
-![Por qué importa tanto la fuente de descarga: al salir del ecosistema oficial aumenta la responsabilidad de revisar seguridad, permisos e instalación.](/article-images/videojuegos/M5A2.1.png)
+![Por qué importa tanto la fuente de descarga: al salir del ecosistema oficial aumenta la responsabilidad de revisar seguridad, permisos e instalación.](/article-images/videojuegos/M5A2.1.webp)
 
 ---
 
@@ -303,7 +303,7 @@ Una forma útil de ordenar este tema es pensar en tres bloques:
 
 ---
 
-![Caja de conceptos clave: Marketplace, add-on, mod, Bedrock Edition, Java Edition, descarga de terceros, skin pack, texture pack, world y mash-up pack.](/article-images/videojuegos/M5A2.2.png)
+![Caja de conceptos clave: Marketplace, add-on, mod, Bedrock Edition, Java Edition, descarga de terceros, skin pack, texture pack, world y mash-up pack.](/article-images/videojuegos/M5A2.2.webp)
 
 ---
 

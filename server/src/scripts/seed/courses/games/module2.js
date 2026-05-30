@@ -26,7 +26,7 @@ A diferencia de un control de acceso tradicional, la supervisión parental en es
 
 La cuenta con privilegios parentales funciona como un perfil de adulto que permite aprobar acciones específicas del menor y administrar configuraciones críticas de seguridad. Para entender qué aporta este vínculo, conviene separar requisito, función y riesgo:
 
-![Requisitos y beneficios de una cuenta con privilegios parentales en Roblox: cuenta propia del adulto, fecha de nacimiento, verificación de identidad y vínculo con la cuenta infantil.](/article-images/videojuegos/M2A1.png)
+![Requisitos y beneficios de una cuenta con privilegios parentales en Roblox: cuenta propia del adulto, fecha de nacimiento, verificación de identidad y vínculo con la cuenta infantil.](/article-images/videojuegos/M2A1.webp)
 
 ---
 
@@ -70,7 +70,7 @@ Existen dos rutas principales para establecer este vínculo técnico:
 
 ---
 
-![Beneficios técnicos de la vinculación: administrar controles desde el dispositivo del adulto, acceder a métricas de uso y conexiones, y preparar acceso a contenido, privacidad y límites de gasto.](/article-images/videojuegos/M2A1.1.png)
+![Beneficios técnicos de la vinculación: administrar controles desde el dispositivo del adulto, acceder a métricas de uso y conexiones, y preparar acceso a contenido, privacidad y límites de gasto.](/article-images/videojuegos/M2A1.1.webp)
 
 ---
 
@@ -127,7 +127,7 @@ Este video acompaña la activación de la cuenta adulta enlazada y muestra dónd
 
 Para establecer una cultura de seguridad efectiva, conviene seguir un orden lógico de configuración: primero el contenido, luego la comunicación y, finalmente, la gestión de tiempo y gasto. El panel parental centraliza controles para ajustar la madurez de las experiencias, filtrar el chat, limitar el acceso a servidores privados y fijar topes mensuales de consumo.
 
-![Mini glosario para padres sobre controles de Roblox: madurez de contenido, Experience Chat, Direct Chat, Parties, Private Servers y conexiones.](/article-images/videojuegos/M2A2.png)
+![Mini glosario para padres sobre controles de Roblox: madurez de contenido, Experience Chat, Direct Chat, Parties, Private Servers y conexiones.](/article-images/videojuegos/M2A2.webp)
 
 ---
 
@@ -153,7 +153,7 @@ Roblox utiliza un sistema de etiquetas de contenido para que los tutores determi
 
 La interacción social es el núcleo de Roblox, por lo que la gestión del chat es una de las tareas más críticas del tutor. La plataforma emplea un sistema de chat filtrado que bloquea automáticamente contenido inapropiado y el intercambio de datos personales.
 
-![Reglas de consentimiento en Roblox: menores de 5 a 9 años requieren consentimiento parental para Experience Chat, menores de 13 años para Direct Chat y algunas funciones avanzadas requieren verificación de edad.](/article-images/videojuegos/M2A2.1.png)
+![Reglas de consentimiento en Roblox: menores de 5 a 9 años requieren consentimiento parental para Experience Chat, menores de 13 años para Direct Chat y algunas funciones avanzadas requieren verificación de edad.](/article-images/videojuegos/M2A2.1.webp)
 
 ---
 
