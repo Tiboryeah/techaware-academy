@@ -106,7 +106,7 @@ const Chatbot = () => {
     };
 
     return (
-        <div className="fixed bottom-3 left-3 right-3 z-[140] flex flex-col items-end sm:bottom-6 sm:left-auto sm:right-6">
+        <>
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
@@ -114,7 +114,7 @@ const Chatbot = () => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 16 }}
                         transition={{ duration: 0.18, ease: 'easeOut' }}
-                        className="flex h-[calc(100vh-8.25rem)] max-h-[calc(100vh-8.25rem)] w-full flex-col overflow-hidden rounded-[1.5rem] border border-gray-200/70 bg-white/98 shadow-[0_24px_70px_-28px_rgba(2,6,23,0.8)] backdrop-blur-xl dark:border-white/10 dark:bg-[#0d1117]/98 sm:mb-6 sm:h-[580px] sm:max-h-[calc(100vh-6rem)] sm:w-[420px] sm:rounded-[2.25rem]"
+                        className="fixed bottom-3 left-3 right-3 z-[140] flex h-[calc(100vh-8.25rem)] max-h-[calc(100vh-8.25rem)] flex-col overflow-hidden rounded-[1.5rem] border border-gray-200/70 bg-white/98 shadow-[0_24px_70px_-28px_rgba(2,6,23,0.8)] backdrop-blur-xl dark:border-white/10 dark:bg-[#0d1117]/98 sm:bottom-6 sm:left-auto sm:right-6 sm:h-[580px] sm:max-h-[calc(100vh-6rem)] sm:w-[420px] sm:rounded-[2.25rem]"
                     >
                         {/* Header */}
                         <div className="relative shrink-0 overflow-hidden border-b border-white/10 bg-[linear-gradient(135deg,#4f46e5_0%,#7c3aed_58%,#a21caf_100%)] px-4 py-3 text-white shadow-[inset_0_-1px_0_rgba(255,255,255,0.08)] sm:px-5 sm:py-4.5">
@@ -255,8 +255,8 @@ const Chatbot = () => {
                 )}
             </AnimatePresence>
 
-            {/* Toggle Button */}
-            <AnimatePresence mode="popLayout">
+            {/* Toggle Button — fixed independently so it never shares layout with the window */}
+            <AnimatePresence>
                 {!isOpen && (
                     <motion.button
                         initial={{ opacity: 0, scale: 0.92 }}
@@ -265,14 +265,14 @@ const Chatbot = () => {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => setIsOpen(true)}
-                        className="group relative flex h-16 w-16 items-center justify-center bg-transparent transition-all duration-500 active:scale-90"
+                        className="fixed bottom-3 right-3 z-[140] group flex h-16 w-16 items-center justify-center bg-transparent transition-all duration-500 active:scale-90 sm:bottom-6 sm:right-6"
                     >
                         <img src={logo} alt="Abrir Kuxibot" className="h-full w-full scale-[1.3] object-contain drop-shadow-2xl transition-transform duration-300 group-hover:scale-[1.45]" />
                         <span className="absolute right-2 top-2 h-4 w-4 rounded-full border-2 border-white bg-red-500 shadow-lg dark:border-gray-900" />
                     </motion.button>
                 )}
             </AnimatePresence>
-        </div>
+        </>
     );
 };
 
