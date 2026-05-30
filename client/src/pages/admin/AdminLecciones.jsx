@@ -91,21 +91,14 @@ const AdminLecciones = () => {
                                 <input value={editForm.title ?? ''} onChange={(e) => setEditForm(f => ({ ...f, title: e.target.value }))}
                                     className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-slate-200 outline-none focus:border-indigo-500/50" />
                             </div>
-                            <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1 block">Tipo</label>
-                                    <select value={editForm.type ?? ''} onChange={(e) => setEditForm(f => ({ ...f, type: e.target.value }))}
-                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-slate-200 outline-none focus:border-indigo-500/50">
-                                        <option value="article">Artículo</option>
-                                        <option value="video">Video</option>
-                                        <option value="guide">Guía</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1 block">Orden</label>
-                                    <input type="number" value={editForm.order ?? ''} onChange={(e) => setEditForm(f => ({ ...f, order: Number(e.target.value) }))}
-                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-slate-200 outline-none focus:border-indigo-500/50" />
-                                </div>
+                            <div>
+                                <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1 block">Tipo</label>
+                                <select value={editForm.type ?? ''} onChange={(e) => setEditForm(f => ({ ...f, type: e.target.value }))}
+                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-slate-200 outline-none focus:border-indigo-500/50">
+                                    <option value="article">Artículo</option>
+                                    <option value="video">Video</option>
+                                    <option value="guide">Guía</option>
+                                </select>
                             </div>
                             {editForm.type === 'video' && (
                                 <div>
