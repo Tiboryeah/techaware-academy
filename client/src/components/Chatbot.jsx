@@ -110,9 +110,10 @@ const Chatbot = () => {
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: 24, scale: 0.98 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 24, scale: 0.98 }}
+                        initial={{ opacity: 0, y: 16 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 16 }}
+                        transition={{ duration: 0.18, ease: 'easeOut' }}
                         className="flex h-[calc(100vh-8.25rem)] max-h-[calc(100vh-8.25rem)] w-full flex-col overflow-hidden rounded-[1.5rem] border border-gray-200/70 bg-white/98 shadow-[0_24px_70px_-28px_rgba(2,6,23,0.8)] backdrop-blur-xl dark:border-white/10 dark:bg-[#0d1117]/98 sm:mb-6 sm:h-[580px] sm:max-h-[calc(100vh-6rem)] sm:w-[420px] sm:rounded-[2.25rem]"
                     >
                         {/* Header */}
