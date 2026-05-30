@@ -14,3 +14,16 @@ html {
     transform: translate3d(-1.5rem, 0, 0) scale(0.94) !important;
   }
 }
+
+/* Floating background logos — CSS animation runs on compositor thread (no TBT) */
+@keyframes kxFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%       { transform: translateY(-16px) rotate(3deg); }
+  66%       { transform: translateY(-8px) rotate(-2deg); }
+}
+.kx-float {
+  animation-name: kxFloat;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}

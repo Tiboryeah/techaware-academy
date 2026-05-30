@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import logo from '../assets/logo_v2.webp';
+import logo from '../assets/logo_v2_sm.webp';
 import {
   Shield,
   Lock,
@@ -73,25 +73,13 @@ const StatsGrid = ({ stats }) => (
   </motion.div>
 );
 
-const FloatingLogo = ({ src, top, left, size, duration, delay, yRange, xRange, rotate }) => (
-  <motion.img
+const FloatingLogo = ({ src, top, left, size, duration, delay }) => (
+  <img
     src={src}
     alt=""
     draggable={false}
-    style={{ top, left, width: size, height: size }}
-    className="absolute opacity-[0.045] dark:opacity-[0.06] pointer-events-none select-none object-contain"
-    animate={{
-      y: [0, yRange, 0],
-      x: [0, xRange, 0],
-      rotate: [0, rotate, 0],
-    }}
-    transition={{
-      duration,
-      delay,
-      repeat: Infinity,
-      repeatType: 'loop',
-      ease: 'easeInOut',
-    }}
+    style={{ top, left, width: size, height: size, animationDuration: `${duration}s`, animationDelay: `${delay}s` }}
+    className="absolute opacity-[0.045] dark:opacity-[0.06] pointer-events-none select-none object-contain kx-float"
   />
 );
 
@@ -827,6 +815,7 @@ const Home = () => {
                 <img
                   src={prog.image}
                   alt=""
+                  loading="lazy"
                   className="absolute inset-0 w-full h-full object-cover opacity-[0.1] saturate-[0.42] brightness-[1.32] contrast-[0.72] dark:opacity-100 dark:saturate-100 dark:brightness-100 dark:contrast-100 transition-[filter,opacity] duration-500"
                   draggable={false}
                 />
