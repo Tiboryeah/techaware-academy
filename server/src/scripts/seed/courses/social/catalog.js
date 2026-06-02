@@ -3573,11 +3573,12 @@ Nota: este video usa un enlace temporal mientras se integra el material audiovis
 };
 
 async function seedSocialCourse(context) {
-    const { getOrCreateCourse, getOrCreateModule, getOrCreateLesson, getOrCreateQuiz, models } = context;
+    const { getOrCreateCourse, getOrCreateModule, getOrCreateLesson, getOrCreateQuiz, assertCanResetCourseContent, models } = context;
     const { Lesson, Module, Quiz, Question } = models;
     const { courseConfig, moduleDefinitions, finalQuizDefinition } = buildSocialCatalog();
 
     const courseSocial = await getOrCreateCourse(courseConfig);
+    await assertCanResetCourseContent(courseSocial._id, courseSocial.title);
 
     const existingModules = await Module.find({ courseId: courseSocial._id }).select('_id');
     const existingModuleIds = existingModules.map((module) => module._id);

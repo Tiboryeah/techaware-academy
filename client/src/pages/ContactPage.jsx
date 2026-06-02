@@ -369,12 +369,12 @@ const ContactPage = () => {
                             </div>
                         ) : null}
 
-                        <div className="space-y-3">
+                        <div className="flex flex-col items-start gap-3">
                             <label className="text-[10px] font-black uppercase tracking-widest text-indigo-500 ml-2">¿Cuentan con evidencia?</label>
                             <button
                                 type="button"
                                 onClick={() => handleChange('evidenceAvailable', !formData.evidenceAvailable)}
-                                className={`w-full md:w-auto px-5 py-4 rounded-2xl border text-left font-bold transition-all ${
+                                className={`w-full sm:w-auto min-w-[11rem] px-5 py-4 rounded-2xl border text-center font-bold transition-all ${
                                     formData.evidenceAvailable
                                         ? 'bg-indigo-600 text-white border-indigo-600'
                                         : 'bg-gray-50 dark:bg-[#0a0c10] text-gray-600 dark:text-gray-300 border-gray-100 dark:border-gray-800'

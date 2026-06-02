@@ -7,7 +7,7 @@ const seedModule6 = require('./module6');
 const seedFinalQuiz = require('./finalQuiz');
 
 module.exports = async function seedModule(context) {
-    const { getOrCreateCourse, models } = context;
+    const { getOrCreateCourse, assertCanResetCourseContent, models } = context;
     const { Lesson, Module, Quiz } = models;
 
     const courseGames = await getOrCreateCourse({
@@ -19,6 +19,8 @@ module.exports = async function seedModule(context) {
         status: 'published',
         duration: '1 hora 58 min',
     });
+
+    await assertCanResetCourseContent(courseGames._id, courseGames.title);
 
     await Lesson.deleteMany({ courseId: courseGames._id });
     await Module.deleteMany({ courseId: courseGames._id });

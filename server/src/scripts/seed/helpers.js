@@ -5,6 +5,49 @@ const Lesson = require('../../models/Lesson');
 const Quiz = require('../../models/Quiz');
 const Question = require('../../models/Question');
 const Resource = require('../../models/Resource');
+const Progress = require('../../models/Progress');
+
+const allowsProgressReset = () =>
+    process.env.ALLOW_PROGRESS_RESET === 'true' ||
+    process.env.ALLOW_DESTRUCTIVE_SEED === 'true';
+
+const assertCanResetCourseContent = async (courseId, label = 'este curso') => {
+    if (allowsProgressReset()) return;
+
+    const affectedProgress = await Progress.countDocuments({
+        courseId,
+        $or: [
+            { completedLessons: { $exists: true, $ne: [] } },
+            { completedModules: { $exists: true, $ne: [] } },
+            { isCourseCompleted: true },
+        ],
+    });
+
+    if (affectedProgress > 0) {
+        throw new Error(
+            `[seed safety] No se puede borrar/recrear contenido de ${label} porque ${affectedProgress} registro(s) de progreso dependen de sus IDs. Edita el contenido existente desde Admin o, si realmente quieres resetear progreso, ejecuta con ALLOW_PROGRESS_RESET=true.`
+        );
+    }
+};
+
+const assertCanResetModuleContent = async (moduleId, label = 'este módulo') => {
+    if (allowsProgressReset()) return;
+
+    const lessons = await Lesson.find({ moduleId }).select('_id');
+    const lessonIds = lessons.map((lesson) => lesson._id);
+    const affectedProgress = await Progress.countDocuments({
+        $or: [
+            { completedModules: moduleId },
+            { completedLessons: { $in: lessonIds } },
+        ],
+    });
+
+    if (affectedProgress > 0) {
+        throw new Error(
+            `[seed safety] No se puede borrar/recrear contenido de ${label} porque ${affectedProgress} registro(s) de progreso dependen de sus IDs. Edita el contenido existente desde Admin o, si realmente quieres resetear progreso, ejecuta con ALLOW_PROGRESS_RESET=true.`
+        );
+    }
+};
 
 const syncAdminUser = async () => {
     const adminEmail = process.env.ADMIN_SEED_EMAIL || 'admin@example.com';
@@ -120,6 +163,8 @@ module.exports = {
     getOrCreateLesson,
     getOrCreateQuiz,
     getOrCreateResource,
+    assertCanResetCourseContent,
+    assertCanResetModuleContent,
     models: {
         Course,
         Module,
@@ -127,5 +172,6 @@ module.exports = {
         Quiz,
         Question,
         Resource,
+        Progress,
     },
 };

@@ -2880,7 +2880,7 @@ Enseñar a cuestionar lo que se ve en internet es una de las formas más útiles
 };
 
 async function seedStreamingCourse(context) {
-    const { getOrCreateModule, getOrCreateLesson, getOrCreateQuiz, models } = context;
+    const { getOrCreateModule, getOrCreateLesson, getOrCreateQuiz, assertCanResetCourseContent, assertCanResetModuleContent, models } = context;
     const { Course, Lesson, Module, Quiz, Question } = models;
     const {
         desiredCourseTitle,
@@ -2903,11 +2903,13 @@ async function seedStreamingCourse(context) {
     };
 
     const purgeModuleArtifacts = async (moduleId) => {
+        await assertCanResetModuleContent(moduleId, `módulo ${moduleId}`);
         await Lesson.deleteMany({ moduleId });
         await purgeQuizArtifacts({ refId: moduleId, scope: 'module' });
     };
 
     const purgeCourseArtifacts = async (courseId) => {
+        await assertCanResetCourseContent(courseId, `curso ${courseId}`);
         const modules = await Module.find({ courseId }).select('_id');
 
         for (const moduleRecord of modules) {

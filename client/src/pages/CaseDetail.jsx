@@ -36,6 +36,8 @@ const caseIcons = {
     Fraudes:               <AlertTriangle className="w-5 h-5" />,
 };
 
+const CASES_RETURN_POSITION_KEY = 'kuxipilli:cases-return-position';
+
 const SectionHeader = ({ eyebrow, title, icon }) => (
     <div className="flex items-start gap-4">
         <div className="w-11 h-11 rounded-2xl bg-indigo-600/10 text-indigo-600 dark:text-indigo-300 border border-indigo-600/15 flex items-center justify-center flex-shrink-0">
@@ -133,6 +135,31 @@ const CaseDetail = () => {
         }
     };
 
+    const handleBackToCases = () => {
+        const fallbackPath = '/casos-y-guias?seccion=casos';
+        const rawPosition = window.sessionStorage.getItem(CASES_RETURN_POSITION_KEY);
+
+        if (!rawPosition) {
+            navigate(fallbackPath);
+            return;
+        }
+
+        try {
+            const position = JSON.parse(rawPosition);
+            const isExpired = Date.now() - Number(position.at || 0) > 30 * 60 * 1000;
+            const returnPath = typeof position.path === 'string' ? position.path : '';
+
+            if (!isExpired && returnPath.startsWith('/casos-y-guias')) {
+                navigate(returnPath);
+                return;
+            }
+        } catch {
+            window.sessionStorage.removeItem(CASES_RETURN_POSITION_KEY);
+        }
+
+        navigate(fallbackPath);
+    };
+
     const pageTitle = caseItem ? `${caseItem.title} | Kuxipilli` : 'Caso real | Kuxipilli';
     const pageDesc  = caseItem?.summary || 'Caso documentado de riesgo digital para menores. Guía de prevención para padres y tutores.';
     const canonical = caseItem ? `https://kuxipilli.com/casos/${caseItem.slug}` : 'https://kuxipilli.com/casos-y-guias';
@@ -171,7 +198,7 @@ const CaseDetail = () => {
         )}
             <div className="sticky top-0 z-50 bg-white/80 dark:bg-[#0a0c10]/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
                 <div className="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
-                    <button onClick={() => navigate('/casos-y-guias?seccion=casos')} className="flex items-center gap-2 text-sm font-black uppercase tracking-widest text-gray-500 hover:text-indigo-600 transition-colors group">
+                    <button onClick={handleBackToCases} className="flex items-center gap-2 text-sm font-black uppercase tracking-widest text-gray-500 hover:text-indigo-600 transition-colors group">
                         <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
                         Volver a casos y guías
                     </button>

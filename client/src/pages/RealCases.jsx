@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     Info,
@@ -98,6 +98,7 @@ const EmptyState = ({ message }) => (
 );
 
 const PAGE_SIZE = 9;
+const CASES_RETURN_POSITION_KEY = 'kuxipilli:cases-return-position';
 
 const usePaginatedResources = (type) => {
     const [items, setItems]             = useState([]);
@@ -148,11 +149,37 @@ const usePaginatedResources = (type) => {
         }
     };
 
-    return { items, total, hasNextPage, loading, loadingMore, error, loadMore };
+    const loadUntilPage = async (targetPage) => {
+        if (loadingMore || targetPage <= page) return;
+
+        try {
+            setLoadingMore(true);
+            let currentPage = page;
+            let canLoadMore = hasNextPage;
+
+            while (currentPage < targetPage && canLoadMore) {
+                const nextPage = currentPage + 1;
+                const res = await api.get(`/api/resources?type=${type}&page=${nextPage}&limit=${PAGE_SIZE}`);
+                setItems((prev) => [...prev, ...res.data.data]);
+                setTotal(res.data.total);
+                setHasNextPage(res.data.hasNextPage);
+                setPage(nextPage);
+                currentPage = nextPage;
+                canLoadMore = res.data.hasNextPage;
+            }
+        } catch {
+            // Keep the already loaded items visible; manual scrolling still works.
+        } finally {
+            setLoadingMore(false);
+        }
+    };
+
+    return { items, total, hasNextPage, loading, loadingMore, error, page, loadMore, loadUntilPage };
 };
 
 const RealCases = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const [searchParams, setSearchParams] = useSearchParams();
     const [selectedGuide, setSelectedGuide] = useState(null);
 
@@ -186,6 +213,19 @@ const RealCases = () => {
 
     const activeSection = searchParams.get('seccion') === 'guias' ? 'guias' : 'casos';
 
+    const saveCaseReturnPosition = () => {
+        window.sessionStorage.setItem(
+            CASES_RETURN_POSITION_KEY,
+            JSON.stringify({
+                path: `${location.pathname}${location.search}`,
+                section: activeSection,
+                page: casesState.page,
+                y: window.scrollY,
+                at: Date.now(),
+            })
+        );
+    };
+
     const handleSectionChange = (section) => {
         const nextParams = new URLSearchParams(searchParams);
         if (section === 'guias') {
@@ -195,6 +235,38 @@ const RealCases = () => {
         }
         setSearchParams(nextParams, { replace: true });
     };
+
+    useEffect(() => {
+        const rawPosition = window.sessionStorage.getItem(CASES_RETURN_POSITION_KEY);
+        if (!rawPosition || activeSection !== 'casos' || casesState.loading || guidesState.loading) return;
+
+        let position;
+        try {
+            position = JSON.parse(rawPosition);
+        } catch {
+            window.sessionStorage.removeItem(CASES_RETURN_POSITION_KEY);
+            return;
+        }
+
+        const isExpired = Date.now() - Number(position.at || 0) > 30 * 60 * 1000;
+        const isSamePage = position.path === `${location.pathname}${location.search}`;
+        if (isExpired || !isSamePage) {
+            window.sessionStorage.removeItem(CASES_RETURN_POSITION_KEY);
+            return;
+        }
+
+        if (position.page && casesState.page < position.page) {
+            casesState.loadUntilPage(position.page);
+            return;
+        }
+
+        window.sessionStorage.removeItem(CASES_RETURN_POSITION_KEY);
+        window.requestAnimationFrame(() => {
+            window.requestAnimationFrame(() => {
+                window.scrollTo({ top: Number(position.y) || 0, behavior: 'auto' });
+            });
+        });
+    }, [activeSection, casesState, guidesState.loading, location.pathname, location.search]);
 
     return (
         <div className="min-h-screen bg-[#fafafb] dark:bg-[#0a0c10] text-gray-900 dark:text-gray-100 py-10 sm:py-16 px-4 sm:px-6 lg:px-8 transition-colors duration-500">
@@ -350,7 +422,10 @@ const RealCases = () => {
                                                     </div>
                                                     <div className="relative z-10 p-6 bg-gray-950/[0.03] dark:bg-black/35 border-t border-gray-100 dark:border-white/10 backdrop-blur-sm">
                                                         <button
-                                                            onClick={() => navigate(`/casos/${item.slug}`)}
+                                                            onClick={() => {
+                                                                saveCaseReturnPosition();
+                                                                navigate(`/casos/${item.slug}`);
+                                                            }}
                                                             className="w-full flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-widest text-indigo-700 hover:text-indigo-900 dark:text-indigo-100 dark:hover:text-white transition-colors"
                                                         >
                                                             Ver análisis completo <ArrowRight className="w-4 h-4" />
