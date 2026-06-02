@@ -23,6 +23,48 @@ import {
     BookOpen
 } from 'lucide-react';
 
+const DASHBOARD_CACHE_MS = 5000;
+let dashboardDataCache = null;
+let dashboardDataPromise = null;
+
+const loadDashboardData = async () => {
+    if (dashboardDataCache && Date.now() - dashboardDataCache.timestamp < DASHBOARD_CACHE_MS) {
+        return dashboardDataCache.data;
+    }
+
+    if (dashboardDataPromise) {
+        return dashboardDataPromise;
+    }
+
+    dashboardDataPromise = (async () => {
+        const timestamp = Date.now();
+        const [progressRes, coursesRes, recRes, latestRes] = await Promise.all([
+            api.get(`/api/progress/summary/all?t=${timestamp}`),
+            api.get(`/api/content/courses?t=${timestamp}`),
+            api.get('/api/quiz/my-recommendations').catch(() => ({ data: null })),
+            api.get(`/api/content/latest-update?t=${timestamp}`).catch(() => ({ data: null })),
+        ]);
+
+        const data = {
+            progress: progressRes.data,
+            courses: coursesRes.data,
+            recommendations: recRes.data,
+            latestUpdate: latestRes.data,
+        };
+
+        dashboardDataCache = {
+            timestamp: Date.now(),
+            data,
+        };
+
+        return data;
+    })().finally(() => {
+        dashboardDataPromise = null;
+    });
+
+    return dashboardDataPromise;
+};
+
 const Dashboard = () => {
     const { user, logout } = useContext(AuthContext);
     const [progressData, setProgressData] = useState(null);
@@ -34,18 +76,12 @@ const Dashboard = () => {
 
     const fetchData = async () => {
         try {
-            const timestamp = Date.now();
-            const [progressRes, coursesRes, recRes, latestRes] = await Promise.all([
-                api.get(`/api/progress/summary/all?t=${timestamp}`),
-                api.get(`/api/content/courses?t=${timestamp}`),
-                api.get('/api/quiz/my-recommendations').catch(() => ({ data: null })),
-                api.get(`/api/content/latest-update?t=${timestamp}`).catch(() => ({ data: null })),
-            ]);
-            console.log("[Dashboard] Summary Data:", progressRes.data);
-            setProgressData(progressRes.data);
-            setCourses(coursesRes.data);
-            setRecommendations(recRes.data);
-            setLatestUpdate(latestRes.data);
+            const data = await loadDashboardData();
+            console.log("[Dashboard] Summary Data:", data.progress);
+            setProgressData(data.progress);
+            setCourses(data.courses);
+            setRecommendations(data.recommendations);
+            setLatestUpdate(data.latestUpdate);
         } catch (error) {
             console.error("Error fetching dashboard data:", error);
         } finally {
@@ -586,7 +622,7 @@ const Dashboard = () => {
                                                             {act.title}
                                                         </p>
                                                         <p className="text-[10px] text-gray-500 uppercase font-black tracking-widest">
-                                                            {timeAgo(act.date)} � {activityConfig.detail}
+                                                            {timeAgo(act.date)} - {activityConfig.detail}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -811,5 +847,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-

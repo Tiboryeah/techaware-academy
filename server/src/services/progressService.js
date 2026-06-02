@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const Progress = require('../models/Progress');
 const Module = require('../models/Module');
 const Course = require('../models/Course');
+const Lesson = require('../models/Lesson');
 const Quiz = require('../models/Quiz');
 const Attempt = require('../models/Attempt');
 const { getRecentActivity } = require('./activityLogService');
@@ -16,26 +17,49 @@ const toIdString = (value) => String(value);
 const buildPublishedLearningGraph = async () => {
     const courses = await Course.find({ status: 'published' })
         .sort({ createdAt: 1 })
-        .populate({
-            path: 'modules',
-            populate: {
-                path: 'lessonOrder',
-            },
-        });
+        .select('_id title')
+        .lean();
 
     const publishedCourseIds = courses.map((course) => course._id);
     const publishedCourseIdsSet = new Set(publishedCourseIds.map(toIdString));
 
     const publishedModules = await Module.find({ courseId: { $in: publishedCourseIds } })
-        .select('_id courseId lessonOrder');
+        .sort({ createdAt: 1 })
+        .select('_id courseId title quizId lessonOrder')
+        .lean();
     const publishedModuleIdsSet = new Set(publishedModules.map((module) => toIdString(module._id)));
 
     const validLessonIdsSet = new Set(
         publishedModules.flatMap((module) => (module.lessonOrder || []).map((lessonId) => toIdString(lessonId)))
     );
 
+    const lessons = await Lesson.find({ _id: { $in: [...validLessonIdsSet] } })
+        .select('_id title')
+        .lean();
+    const lessonById = new Map(lessons.map((lesson) => [toIdString(lesson._id), lesson]));
+    const modulesByCourseId = new Map();
+
+    publishedModules.forEach((module) => {
+        const courseId = toIdString(module.courseId);
+        const normalizedModule = {
+            ...module,
+            lessonOrder: (module.lessonOrder || []).map((lessonId) => {
+                const lesson = lessonById.get(toIdString(lessonId));
+                return lesson || { _id: lessonId, title: 'Lección' };
+            }),
+        };
+
+        if (!modulesByCourseId.has(courseId)) {
+            modulesByCourseId.set(courseId, []);
+        }
+        modulesByCourseId.get(courseId).push(normalizedModule);
+    });
+
     return {
-        courses,
+        courses: courses.map((course) => ({
+            ...course,
+            modules: modulesByCourseId.get(toIdString(course._id)) || [],
+        })),
         publishedModules,
         publishedCourseIds,
         publishedCourseIdsSet,

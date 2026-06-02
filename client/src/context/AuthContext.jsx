@@ -3,6 +3,31 @@ import api from '../services/api';
 
 const AuthContext = createContext();
 
+let profileRequest = null;
+let profileCache = null;
+
+const loadAuthenticatedUser = async (token) => {
+    if (profileCache?.token === token) {
+        return profileCache.user;
+    }
+
+    if (profileRequest?.token === token) {
+        return profileRequest.promise;
+    }
+
+    const promise = api.get('/api/auth/profile')
+        .then(({ data }) => {
+            profileCache = { token, user: data };
+            return data;
+        })
+        .finally(() => {
+            profileRequest = null;
+        });
+
+    profileRequest = { token, promise };
+    return promise;
+};
+
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -12,7 +37,7 @@ export const AuthProvider = ({ children }) => {
             const token = localStorage.getItem('token');
             if (token) {
                 try {
-                    const { data } = await api.get('/api/auth/profile');
+                    const data = await loadAuthenticatedUser(token);
                     setUser(data);
                 } catch (error) {
                     // Only clear the token if the server explicitly rejects it (401).
@@ -43,6 +68,8 @@ export const AuthProvider = ({ children }) => {
 
     const logout = () => {
         localStorage.removeItem('token');
+        profileCache = null;
+        profileRequest = null;
         setUser(null);
     };
 

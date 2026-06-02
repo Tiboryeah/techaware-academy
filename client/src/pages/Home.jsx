@@ -450,7 +450,7 @@ const Home = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {[
-              { icon: <BarChart3 className="text-blue-500" />, title: 'Mi Panel', desc: 'Ver estadísticas detalladas de seguridad.', link: '/panel' },
+              { icon: <BarChart3 className="text-blue-500" />, title: 'Mi Panel', desc: 'Revisa tu avance y próximas recomendaciones.', link: '/panel' },
               { icon: <Target className="text-purple-500" />, title: 'Explorar Cursos', desc: 'Aprende nuevas técnicas de protección.', link: '/cursos' },
               { icon: <ShieldCheck className="text-indigo-500" />, title: 'Casos y guías', desc: 'Analiza incidentes reales y consulta guías prácticas.', link: '/casos-y-guias' }
             ].map((card, i) => (

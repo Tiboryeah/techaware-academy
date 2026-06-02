@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
+    Award,
     Camera,
     CheckCircle2,
     Eye,
@@ -26,6 +27,14 @@ const VIEWPORT = 320;
 const EXPORT_SIZE = 600;
 const roleLabels = { Parent: 'Padre', Admin: 'Administrador' };
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+const passwordInputClassName = "h-14 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 pr-12 text-sm font-semibold text-slate-950 outline-none transition focus:border-cyan-500 focus:bg-white focus:ring-4 focus:ring-cyan-500/10 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-white dark:focus:bg-white/[0.06] dark:[color-scheme:dark] dark:[&:-webkit-autofill]:[-webkit-box-shadow:0_0_0_1000px_#171d26_inset] dark:[&:-webkit-autofill]:[-webkit-text-fill-color:#ffffff]";
+
+const getBadgeImage = (category = '') => {
+    const normalized = category.toLowerCase();
+    if (normalized === 'redes sociales') return '/images/badge_redes_sociales.webp';
+    if (normalized === 'streaming') return '/images/badge_streaming.webp';
+    return '/images/badge_videojuegos.webp';
+};
 
 const readFileAsDataUrl = (file) =>
     new Promise((resolve, reject) => {
@@ -71,6 +80,7 @@ const Profile = () => {
     const [cropX, setCropX] = useState(0);
     const [cropY, setCropY] = useState(0);
     const [isCropLoading, setIsCropLoading] = useState(false);
+    const [unlockedBadges, setUnlockedBadges] = useState([]);
 
     const gestureRef = useRef({
         isDragging: false,
@@ -94,6 +104,42 @@ const Profile = () => {
         if (!user) return;
         setName(user.name || '');
         setManagedPreview(user.avatar ? avatarUrl(user.avatar) : null);
+    }, [user]);
+
+    useEffect(() => {
+        if (!user) return;
+
+        let isMounted = true;
+
+        const loadUnlockedBadges = async () => {
+            try {
+                const timestamp = Date.now();
+                const [progressRes, coursesRes] = await Promise.all([
+                    api.get(`/api/progress/summary/all?t=${timestamp}`),
+                    api.get(`/api/content/courses?t=${timestamp}`),
+                ]);
+                const completedCourseIds = new Set(
+                    (progressRes.data?.completedCourseIds || []).map((id) => String(id))
+                );
+                const badges = (coursesRes.data || [])
+                    .filter((course) => completedCourseIds.has(String(course._id)))
+                    .map((course) => ({
+                        id: course._id,
+                        title: course.title,
+                        image: getBadgeImage(course.category),
+                    }));
+
+                if (isMounted) setUnlockedBadges(badges);
+            } catch (error) {
+                if (isMounted) setUnlockedBadges([]);
+            }
+        };
+
+        loadUnlockedBadges();
+
+        return () => {
+            isMounted = false;
+        };
     }, [user]);
 
     useEffect(() => () => {
@@ -362,16 +408,25 @@ const Profile = () => {
                                     </p>
                                 </div>
 
-                                <div className="mt-6 grid grid-cols-2 gap-3">
-                                    <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 dark:border-white/[0.08] dark:bg-white/[0.03]">
-                                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">Estado</p>
-                                        <p className="mt-1 text-sm font-black text-emerald-600 dark:text-emerald-400">Activa</p>
+                                {unlockedBadges.length > 0 && (
+                                    <div className="mt-6 border-t border-slate-200 pt-5 dark:border-white/[0.08]">
+                                        <div className="mb-3 flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">
+                                            <Award className="h-3.5 w-3.5 text-cyan-600 dark:text-cyan-300" />
+                                            Medallas desbloqueadas
+                                        </div>
+                                        <div className="flex flex-wrap gap-3">
+                                            {unlockedBadges.map((badge) => (
+                                                <img
+                                                    key={badge.id}
+                                                    src={badge.image}
+                                                    alt={badge.title}
+                                                    title={badge.title}
+                                                    className="h-12 w-12 rounded-full object-contain drop-shadow-[0_10px_18px_rgba(15,23,42,0.22)]"
+                                                />
+                                            ))}
+                                        </div>
                                     </div>
-                                    <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 dark:border-white/[0.08] dark:bg-white/[0.03]">
-                                        <p className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">Datos</p>
-                                        <p className="mt-1 text-sm font-black text-slate-900 dark:text-white">Minimos</p>
-                                    </div>
-                                </div>
+                                )}
                             </div>
                         </section>
 
@@ -463,7 +518,7 @@ const Profile = () => {
                                 <div className="space-y-2">
                                     <label className="block text-[11px] font-black uppercase tracking-[0.22em] text-slate-500 dark:text-slate-400">Contrasena actual</label>
                                     <div className="relative">
-                                        <input type={showCurrent ? 'text' : 'password'} value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} className="h-14 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 pr-12 text-sm font-semibold text-slate-950 outline-none transition focus:border-cyan-500 focus:bg-white focus:ring-4 focus:ring-cyan-500/10 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-white" placeholder="********" />
+                                        <input type={showCurrent ? 'text' : 'password'} value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)} className={passwordInputClassName} placeholder="********" />
                                         <button type="button" onClick={() => setShowCurrent(v => !v)} className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-lg text-slate-400 transition hover:bg-slate-100 hover:text-cyan-600 dark:hover:bg-white/[0.06] dark:hover:text-cyan-300" aria-label="Mostrar u ocultar contrasena actual">{showCurrent ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}</button>
                                     </div>
                                 </div>
@@ -472,14 +527,14 @@ const Profile = () => {
                                     <div className="space-y-2">
                                         <label className="block text-[11px] font-black uppercase tracking-[0.22em] text-slate-500 dark:text-slate-400">Nueva contrasena</label>
                                         <div className="relative">
-                                            <input type={showNew ? 'text' : 'password'} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className="h-14 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 pr-12 text-sm font-semibold text-slate-950 outline-none transition focus:border-cyan-500 focus:bg-white focus:ring-4 focus:ring-cyan-500/10 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-white" placeholder="********" />
+                                            <input type={showNew ? 'text' : 'password'} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className={passwordInputClassName} placeholder="********" />
                                             <button type="button" onClick={() => setShowNew(v => !v)} className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-lg text-slate-400 transition hover:bg-slate-100 hover:text-cyan-600 dark:hover:bg-white/[0.06] dark:hover:text-cyan-300" aria-label="Mostrar u ocultar nueva contrasena">{showNew ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}</button>
                                         </div>
                                     </div>
                                     <div className="space-y-2">
                                         <label className="block text-[11px] font-black uppercase tracking-[0.22em] text-slate-500 dark:text-slate-400">Confirmar nueva</label>
                                         <div className="relative">
-                                            <input type={showConfirm ? 'text' : 'password'} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="h-14 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 pr-12 text-sm font-semibold text-slate-950 outline-none transition focus:border-cyan-500 focus:bg-white focus:ring-4 focus:ring-cyan-500/10 dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-white" placeholder="********" />
+                                            <input type={showConfirm ? 'text' : 'password'} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className={passwordInputClassName} placeholder="********" />
                                             <button type="button" onClick={() => setShowConfirm(v => !v)} className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-lg text-slate-400 transition hover:bg-slate-100 hover:text-cyan-600 dark:hover:bg-white/[0.06] dark:hover:text-cyan-300" aria-label="Mostrar u ocultar confirmacion">{showConfirm ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}</button>
                                         </div>
                                     </div>

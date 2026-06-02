@@ -7,11 +7,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Sun, Moon, LogOut, User as UserIcon, Settings, Menu, X, LayoutDashboard, BookOpen, Shield } from 'lucide-react';
 import logo from '../assets/logo_v2_sm.webp';
 import avatarUrl from '../utils/avatarUrl';
+import { PlatformIcon } from './PlatformIcons';
 
 const NAV_LINKS = [
     { name: 'Inicio',        path: '/',             Icon: LayoutDashboard, protected: false },
     { name: 'Cursos',        path: '/cursos',        Icon: BookOpen,        protected: true  },
     { name: 'Casos y guías', path: '/casos-y-guias', Icon: Shield,          protected: false },
+];
+
+const SOCIAL_LINKS = [
+    { name: 'Instagram', url: 'https://www.instagram.com/kuxipilli/' },
+    { name: 'TikTok', url: 'https://www.tiktok.com/@kuxipilli' },
 ];
 
 const Layout = () => {
@@ -246,6 +252,21 @@ const Layout = () => {
                     </div>
                     <div className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm">
                         &copy; 2026 Kuxipilli. Educando para un futuro digital más seguro.
+                    </div>
+                    <div className="flex items-center gap-3" aria-label="Redes sociales oficiales">
+                        {SOCIAL_LINKS.map((social) => (
+                            <a
+                                key={social.name}
+                                href={social.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 text-gray-500 transition-colors hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-600 dark:border-gray-800 dark:text-gray-400 dark:hover:border-indigo-500/40 dark:hover:bg-indigo-500/10 dark:hover:text-indigo-300"
+                                aria-label={`Kuxipilli en ${social.name}`}
+                                title={social.name}
+                            >
+                                <PlatformIcon platform={social.name} className="h-5 w-5" />
+                            </a>
+                        ))}
                     </div>
                     <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 sm:gap-6 sm:pr-20">
                         <Link to="/privacidad"  className="text-gray-500 hover:text-indigo-500 transition-colors uppercase tracking-widest font-bold text-[10px] min-h-[44px] flex items-center px-1">Política</Link>
