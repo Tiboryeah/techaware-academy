@@ -22,6 +22,32 @@ export default defineConfig({
         id: '/?source=pwa',
         orientation: 'portrait',
         categories: ['education', 'parenting'],
+        dir: 'ltr',
+        prefer_related_applications: false,
+        display_override: ['standalone', 'window-controls-overlay'],
+        screenshots: [
+          {
+            src: 'og-image.jpg',
+            sizes: '1200x630',
+            type: 'image/jpeg',
+            form_factor: 'wide',
+            label: 'Kuxipilli - Educación Digital Parental'
+          }
+        ],
+        shortcuts: [
+          {
+            name: 'Mi Panel',
+            short_name: 'Panel',
+            url: '/panel',
+            description: 'Ver mi avance y recomendaciones'
+          },
+          {
+            name: 'Explorar Cursos',
+            short_name: 'Cursos',
+            url: '/cursos',
+            description: 'Explorar cursos disponibles'
+          }
+        ],
         icons: [
           {
             src: 'pwa-192x192.png',
