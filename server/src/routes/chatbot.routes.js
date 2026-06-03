@@ -114,8 +114,13 @@ const buildKuxipilliContext = async () => {
             return acc;
         }, {});
 
+        const guides = resources.filter((resource) => resource.type === 'guide');
+        const cases = resources.filter((resource) => resource.type === 'case');
+
         const lines = [
             STATIC_PLATFORM_CONTEXT,
+            `Totales publicados: ${courses.length} cursos, ${modules.length} modulos, ${lessons.length} lecciones, ${cases.length} casos reales y ${guides.length} guias practicas.`,
+            `Dato prioritario: si el usuario pregunta cuantos casos reales hay en Kuxipilli, responde que hay ${cases.length} casos reales publicados.`,
             'Contenido publicado en la plataforma:',
         ];
 
@@ -131,9 +136,6 @@ const buildKuxipilliContext = async () => {
                 lines.push(`  Modulo ${moduleIndex + 1}: ${module.title}. ${compactText(module.description, 180)} Lecciones: ${lessonTitles.join('; ') || 'sin lecciones listadas'}.`);
             });
         });
-
-        const guides = resources.filter((resource) => resource.type === 'guide');
-        const cases = resources.filter((resource) => resource.type === 'case');
 
         if (guides.length) {
             lines.push(`Guias practicas: ${guides.map((guide) => `${guide.title} (${guide.platform || guide.category || 'seguridad digital'}): ${compactText(guide.summary || guide.description, 140)}`).join(' | ')}`);
@@ -155,6 +157,10 @@ const buildKuxipilliContext = async () => {
 // useful even when both Gemini and Groq are unavailable.
 // ---------------------------------------------------------------------------
 const FALLBACK_RULES = [
+    {
+        match: ['cuantos casos', 'cuÃ¡ntos casos', 'cantidad de casos', 'numero de casos', 'nÃºmero de casos'],
+        reply: 'Kuxipilli tiene 10 casos reales publicados. Cubren riesgos como grooming, ciberacoso, retos virales, sextorsion, estafas, bienestar emocional y contacto con desconocidos en plataformas como Roblox, Discord, Instagram, TikTok, YouTube y Twitch.',
+    },
     {
         match: ['kuxipilli', 'kuxibot', 'que es kuxipilli', 'quÃ© es kuxipilli', 'cursos', 'modulos', 'mÃ³dulos', 'guias', 'guÃ­as', 'casos reales'],
         reply: 'Kuxipilli es una plataforma educativa para madres, padres y tutores sobre seguridad digital infantil. Ofrece cursos de videojuegos, redes sociales y streaming, con modulos, lecciones, evaluaciones, guias practicas, casos reales y Kuxibot para orientar dudas dentro de ese enfoque.',
