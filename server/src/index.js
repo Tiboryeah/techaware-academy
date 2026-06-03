@@ -35,7 +35,7 @@ const limiter = rateLimit({
 // Middleware
 const allowedOrigins = process.env.ALLOWED_ORIGINS
     ? process.env.ALLOWED_ORIGINS.split(',').map((o) => o.trim())
-    : ['https://kuxipilli.com', 'https://www.kuxipilli.com', 'http://localhost:5173', 'http://localhost:3000'];
+    : ['https://kuxipilli.com', 'https://www.kuxipilli.com', 'http://localhost:5173', 'http://localhost:3000', 'http://localhost', 'capacitor://localhost'];
 
 app.use(cors({
     origin: (origin, callback) => {
