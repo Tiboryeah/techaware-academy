@@ -4,6 +4,10 @@ const Groq = require('groq-sdk');
 
 const Conversation = require('../models/Conversation');
 const Message = require('../models/Message');
+const Course = require('../models/Course');
+const Module = require('../models/Module');
+const Lesson = require('../models/Lesson');
+const Resource = require('../models/Resource');
 const { protect } = require('../middleware/authMiddleware');
 
 const router = express.Router();
@@ -31,11 +35,130 @@ REGLAS CRÍTICAS:
 7. No uses formato Markdown para títulos o negritas. Escribe en texto plano. Si necesitas enumerar, usa listas normales como "1. ", "2. ".
 8. No te presentes ni saludes al inicio. Ve directo a la respuesta.`;
 
+const ENRICHED_SYSTEM_INSTRUCTION = `Eres "Kuxibot", el asistente experto de Kuxipilli. Tu mision es orientar sobre seguridad digital infantil, ciberacoso, alfabetizacion digital y acompanamiento parental.
+
+REGLAS CRITICAS:
+1. Puedes responder sobre Kuxipilli, sus cursos, modulos, lecciones, guias, casos reales, evaluaciones y recursos. Todo eso forma parte del alcance del sistema.
+2. Tambien puedes responder temas relacionados con ciberseguridad, alfabetizacion digital y acompanamiento parental. Si el usuario pregunta sobre otros temas, redirigelo con amabilidad a los objetivos del sistema.
+3. Tu tono debe ser profesional, empatico y claro.
+4. Siempre prioriza la seguridad fisica y emocional del menor.
+5. Si detectas senales de grooming o peligro inminente, indica pasos de proteccion, recomienda no seguir interactuando con el sospechoso y sugiere buscar apoyo formal.
+6. Responde siempre en espanol.
+7. Tus respuestas deben ser breves y concisas: maximo 2 o 3 parrafos cortos.
+8. No uses formato Markdown para titulos o negritas. Escribe en texto plano. Si necesitas enumerar, usa listas normales como "1. ", "2. ".
+9. No te presentes ni saludes al inicio. Ve directo a la respuesta.
+10. Cuando el usuario pregunte por contenidos de Kuxipilli, usa la base de conocimiento de Kuxipilli incluida abajo. Si falta un dato exacto, dilo con claridad y ofrece orientar por curso, plataforma o tipo de riesgo.`;
+
+const STATIC_PLATFORM_CONTEXT = `Base de conocimiento de Kuxipilli:
+Kuxipilli es una plataforma educativa para madres, padres y tutores. Ayuda a entender riesgos digitales reales y acompanar mejor a ninas, ninos y adolescentes en videojuegos, redes sociales y streaming.
+El nombre Kuxipilli une dos lenguas originarias de Mexico: "kuXi", asociado a vida, y "pilli", asociado a nino. La idea central es proteger y acompanar la vida del nino detras de cada pantalla.
+La plataforma ofrece cursos, modulos, lecciones, evaluaciones, guias practicas, casos reales y un asistente conversacional llamado Kuxibot.
+Cursos principales:
+1. Videojuegos en Linea: Roblox y Minecraft. Revisa cuentas, privacidad, chat, compras, estafas, descargas, bienestar digital y acompanamiento familiar.
+2. Redes Sociales: TikTok, Discord e Instagram. Revisa privacidad, huella digital, ciberacoso, grooming, retos virales, publicidad, compras, bienestar digital y control parental.
+3. Plataformas de Streaming: YouTube y Twitch. Revisa consumo infantil, algoritmos, contenido inapropiado, chats en vivo, monetizacion, publicidad, tiempo de pantalla, control parental y uso positivo.
+Guias practicas disponibles: Roblox, Minecraft, TikTok, Discord, Instagram, YouTube y Twitch.
+Casos reales disponibles: grooming, ciberacoso, retos virales, sextorsion, estafas y riesgos de contacto con desconocidos en plataformas como Roblox, Discord, Instagram, TikTok, YouTube y Twitch.`;
+
+const compactText = (value = '', maxLength = 280) => {
+    const text = String(value || '').replace(/\s+/g, ' ').trim();
+    return text.length > maxLength ? `${text.slice(0, maxLength - 1)}...` : text;
+};
+
+const joinList = (items = []) => items.filter(Boolean).join(', ');
+
+const buildSystemInstruction = (platformContext) => (
+    `${ENRICHED_SYSTEM_INSTRUCTION}\n\n${platformContext || STATIC_PLATFORM_CONTEXT}`
+);
+
+const buildKuxipilliContext = async () => {
+    try {
+        const [courses, resources] = await Promise.all([
+            Course.find({ status: 'published' })
+                .select('title description category platforms riskAreas duration')
+                .sort({ createdAt: 1 })
+                .lean(),
+            Resource.find({ isPublished: true, type: { $in: ['case', 'guide'] } })
+                .select('type title slug summary description category platform riskLevel tips steps tags')
+                .sort({ type: 1, order: 1, createdAt: 1 })
+                .lean(),
+        ]);
+
+        if (!courses.length && !resources.length) {
+            return STATIC_PLATFORM_CONTEXT;
+        }
+
+        const courseIds = courses.map((course) => course._id);
+        const [modules, lessons] = await Promise.all([
+            Module.find({ courseId: { $in: courseIds } })
+                .select('courseId title description duration lessonOrder createdAt')
+                .sort({ createdAt: 1 })
+                .lean(),
+            Lesson.find({ courseId: { $in: courseIds } })
+                .select('courseId moduleId title type duration platforms riskAreas teaches createdAt')
+                .sort({ createdAt: 1 })
+                .lean(),
+        ]);
+
+        const modulesByCourse = modules.reduce((acc, module) => {
+            const key = module.courseId.toString();
+            acc[key] = acc[key] || [];
+            acc[key].push(module);
+            return acc;
+        }, {});
+
+        const lessonsByModule = lessons.reduce((acc, lesson) => {
+            const key = lesson.moduleId.toString();
+            acc[key] = acc[key] || [];
+            acc[key].push(lesson);
+            return acc;
+        }, {});
+
+        const lines = [
+            STATIC_PLATFORM_CONTEXT,
+            'Contenido publicado en la plataforma:',
+        ];
+
+        courses.forEach((course, index) => {
+            const courseModules = modulesByCourse[course._id.toString()] || [];
+            lines.push(`${index + 1}. Curso: ${course.title}. ${compactText(course.description)} Categoria: ${course.category || 'general'}. Plataformas: ${joinList(course.platforms) || 'varias'}. Riesgos: ${joinList(course.riskAreas) || 'seguridad digital'}. Duracion: ${course.duration || 'no especificada'}.`);
+
+            courseModules.forEach((module, moduleIndex) => {
+                const moduleLessons = lessonsByModule[module._id.toString()] || [];
+                const lessonTitles = moduleLessons
+                    .map((lesson) => `${lesson.type || 'leccion'}: ${lesson.title}`)
+                    .slice(0, 6);
+                lines.push(`  Modulo ${moduleIndex + 1}: ${module.title}. ${compactText(module.description, 180)} Lecciones: ${lessonTitles.join('; ') || 'sin lecciones listadas'}.`);
+            });
+        });
+
+        const guides = resources.filter((resource) => resource.type === 'guide');
+        const cases = resources.filter((resource) => resource.type === 'case');
+
+        if (guides.length) {
+            lines.push(`Guias practicas: ${guides.map((guide) => `${guide.title} (${guide.platform || guide.category || 'seguridad digital'}): ${compactText(guide.summary || guide.description, 140)}`).join(' | ')}`);
+        }
+
+        if (cases.length) {
+            lines.push(`Casos reales: ${cases.map((item) => `${item.title} (${item.platform || item.category || 'caso real'}): ${compactText(item.summary || item.description, 140)}`).join(' | ')}`);
+        }
+
+        return compactText(lines.join('\n'), 12000);
+    } catch (error) {
+        console.error('[Chatbot] Could not build Kuxipilli context:', error.message);
+        return STATIC_PLATFORM_CONTEXT;
+    }
+};
+
 // ---------------------------------------------------------------------------
 // Expanded static fallback — covers all major topics so the chatbot remains
 // useful even when both Gemini and Groq are unavailable.
 // ---------------------------------------------------------------------------
 const FALLBACK_RULES = [
+    {
+        match: ['kuxipilli', 'kuxibot', 'que es kuxipilli', 'quÃ© es kuxipilli', 'cursos', 'modulos', 'mÃ³dulos', 'guias', 'guÃ­as', 'casos reales'],
+        reply: 'Kuxipilli es una plataforma educativa para madres, padres y tutores sobre seguridad digital infantil. Ofrece cursos de videojuegos, redes sociales y streaming, con modulos, lecciones, evaluaciones, guias practicas, casos reales y Kuxibot para orientar dudas dentro de ese enfoque.',
+    },
     // Saludo / presentación
     {
         match: ['hola', 'buenos días', 'buenas tardes', 'buenas noches', 'saludos'],
@@ -138,7 +261,7 @@ const isRetryableGeminiError = (error) => {
     return status === 429 || status === 500 || status === 503;
 };
 
-const generateGeminiReply = async ({ apiKey, chatHistory, text }) => {
+const generateGeminiReply = async ({ apiKey, chatHistory, text, platformContext }) => {
     const genAI = new GoogleGenerativeAI(apiKey);
     let lastError;
 
@@ -146,7 +269,7 @@ const generateGeminiReply = async ({ apiKey, chatHistory, text }) => {
         try {
             const model = genAI.getGenerativeModel({
                 model: modelName,
-                systemInstruction: SYSTEM_INSTRUCTION,
+                systemInstruction: buildSystemInstruction(platformContext),
             });
 
             const chat = model.startChat({ history: chatHistory });
@@ -173,12 +296,12 @@ const generateGeminiReply = async ({ apiKey, chatHistory, text }) => {
 // ---------------------------------------------------------------------------
 // Groq fallback
 // ---------------------------------------------------------------------------
-const generateGroqReply = async ({ apiKey, chatHistory, text }) => {
+const generateGroqReply = async ({ apiKey, chatHistory, text, platformContext }) => {
     const groq = new Groq({ apiKey });
 
     // Convert Gemini-style history to OpenAI-style messages
     const messages = [
-        { role: 'system', content: SYSTEM_INSTRUCTION },
+        { role: 'system', content: buildSystemInstruction(platformContext) },
         ...chatHistory.map((m) => ({
             role: m.role === 'model' ? 'assistant' : 'user',
             content: m.parts[0].text,
@@ -220,6 +343,7 @@ router.post('/message', protect, async (req, res) => {
     const isMock = process.env.USE_MOCK_AI === 'true' || (!geminiKey || geminiKey === 'your_gemini_api_key');
 
     console.log(`[Chatbot] Request from ${userId} | Mock: ${isMock} | Groq available: ${!!groqKey}`);
+    const platformContext = await buildKuxipilliContext();
 
     // ── Mock / no API key ──────────────────────────────────────────────────
     if (isMock) {
@@ -289,6 +413,7 @@ router.post('/message', protect, async (req, res) => {
             apiKey: geminiKey,
             chatHistory,
             text: anonymizedText,
+            platformContext,
         });
 
         const botMsg = await Message.create({
@@ -316,6 +441,7 @@ router.post('/message', protect, async (req, res) => {
                     apiKey: groqKey,
                     chatHistory,
                     text: anonymizedText,
+                    platformContext,
                 });
 
                 const botMsg = await Message.create({

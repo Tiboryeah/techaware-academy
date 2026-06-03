@@ -82,4 +82,16 @@ describe('Chatbot Expert System (RF2 / RF12 / RN-07)', () => {
         expect(response.statusCode).toEqual(200);
         expect(response.body.botMessage.text.toLowerCase()).toContain('seguridad digital');
     });
+
+    it('Should answer basic questions about Kuxipilli without leaving scope', async () => {
+        process.env.USE_MOCK_AI = 'true';
+
+        const response = await request(app)
+            .post('/api/chatbot/message')
+            .send({ text: 'Que es Kuxipilli y que cursos tiene?' });
+
+        expect(response.statusCode).toEqual(200);
+        expect(response.body.botMessage.text.toLowerCase()).toContain('kuxipilli');
+        expect(response.body.botMessage.text.toLowerCase()).toContain('cursos');
+    });
 });
