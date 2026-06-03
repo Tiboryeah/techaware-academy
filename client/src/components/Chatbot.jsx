@@ -3,7 +3,7 @@ import { MessageCircle, X, Send, ShieldCheck, Sparkles, User, Zap } from 'lucide
 import { motion, AnimatePresence } from 'framer-motion';
 import api from '../services/api';
 import AuthContext from '../context/AuthContext';
-import logo from '../assets/logo_v2.webp';
+import logo from '../assets/logo_v2_sm.webp';
 
 const Chatbot = () => {
     const { user } = useContext(AuthContext);
