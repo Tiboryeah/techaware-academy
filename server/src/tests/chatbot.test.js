@@ -39,11 +39,11 @@ describe('Chatbot Expert System (RF2 / RF12 / RN-07)', () => {
 
         const response = await request(app)
             .post('/api/chatbot/message')
-            .send({ text: '¿Qué es el grooming?' });
+            .send({ text: 'hola' });
 
         expect(response.statusCode).toEqual(200);
         expect(response.body).toHaveProperty('botMessage');
-        expect(response.body.botMessage.text.toLowerCase()).toContain('grooming');
+        expect(response.body.botMessage.text.toLowerCase()).toContain('seguridad digital');
         expect(response.body.isMock).toBe(true);
 
         const conversationCount = await Conversation.countDocuments();
@@ -51,6 +51,21 @@ describe('Chatbot Expert System (RF2 / RF12 / RN-07)', () => {
 
         expect(conversationCount).toEqual(1);
         expect(messageCount).toEqual(1);
+    });
+
+    it('Should answer verified knowledge questions without using AI tokens', async () => {
+        process.env.USE_MOCK_AI = 'true';
+
+        const response = await request(app)
+            .post('/api/chatbot/message')
+            .send({ text: 'Que es grooming?' });
+
+        expect(response.statusCode).toEqual(200);
+        expect(response.body.provider).toBe('knowledge_base');
+        expect(response.body.sourceIds).toContain('grooming');
+        expect(response.body.botMessage.text.toLowerCase()).toContain('grooming');
+        expect(response.body.botMessage.text).toContain('Fuente:');
+        expect(response.body).toHaveProperty('userMessage');
     });
 
     it('Should persist conversation history and maintain context (RF12)', async () => {
@@ -64,7 +79,7 @@ describe('Chatbot Expert System (RF2 / RF12 / RN-07)', () => {
 
         const response = await request(app)
             .post('/api/chatbot/message')
-            .send({ text: '¿Cómo activo el PIN?', conversationId: conversation._id });
+            .send({ text: 'Como activo el PIN?', conversationId: conversation._id });
 
         expect(response.statusCode).toEqual(200);
 

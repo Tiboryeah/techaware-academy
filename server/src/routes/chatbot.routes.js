@@ -9,6 +9,7 @@ const Module = require('../models/Module');
 const Lesson = require('../models/Lesson');
 const Resource = require('../models/Resource');
 const { protect } = require('../middleware/authMiddleware');
+const { getKnowledgeResponse } = require('../services/chatbotKnowledgeService');
 
 const router = express.Router();
 
@@ -349,7 +350,39 @@ router.post('/message', protect, async (req, res) => {
     const isMock = process.env.USE_MOCK_AI === 'true' || (!geminiKey || geminiKey === 'your_gemini_api_key');
 
     console.log(`[Chatbot] Request from ${userId} | Mock: ${isMock} | Groq available: ${!!groqKey}`);
-    const platformContext = await buildKuxipilliContext();
+
+    const knowledgeResult = getKnowledgeResponse(text);
+    if (knowledgeResult) {
+        let conversation;
+        if (conversationId) {
+            conversation = await Conversation.findById(conversationId);
+        } else {
+            conversation = await Conversation.create({ userId });
+        }
+
+        const userMsg = await Message.create({
+            conversationId: conversation._id,
+            sender: 'user',
+            text,
+        });
+
+        const botMsg = await Message.create({
+            conversationId: conversation._id,
+            sender: 'bot',
+            text: knowledgeResult.text,
+        });
+
+        conversation.lastActivityAt = Date.now();
+        await conversation.save();
+
+        return res.json({
+            conversationId: conversation._id,
+            userMessage: userMsg,
+            botMessage: botMsg,
+            provider: 'knowledge_base',
+            sourceIds: [knowledgeResult.entry.id],
+        });
+    }
 
     // ── Mock / no API key ──────────────────────────────────────────────────
     if (isMock) {
@@ -373,6 +406,8 @@ router.post('/message', protect, async (req, res) => {
             isMock: true,
         });
     }
+
+    const platformContext = await buildKuxipilliContext();
 
     // ── Build shared history ───────────────────────────────────────────────
     let conversation;
