@@ -11,8 +11,8 @@ import AdminLayout from './components/AdminLayout';
 const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard'));
 const AdminUsuarios = lazy(() => import('./pages/admin/AdminUsuarios'));
 const AdminReportes = lazy(() => import('./pages/admin/AdminReportes'));
-const AdminCursos = lazy(() => import('./pages/admin/AdminCursos'));
-const AdminLecciones = lazy(() => import('./pages/admin/AdminLecciones'));
+const AdminCursosPage = lazy(() => import('./pages/admin/AdminCursosPage'));
+const AdminLeccionesPage = lazy(() => import('./pages/admin/AdminLeccionesPage'));
 const AdminPreguntas = lazy(() => import('./pages/admin/AdminPreguntas'));
 const AdminCasos = lazy(() => import('./pages/admin/AdminCasos'));
 const AdminRecursos = lazy(() => import('./pages/admin/AdminRecursos'));
@@ -82,8 +82,11 @@ function App() {
                                     <Route index element={<AdminDashboard />} />
                                     <Route path="usuarios" element={<AdminUsuarios />} />
                                     <Route path="reportes" element={<AdminReportes />} />
-                                    <Route path="cursos" element={<AdminCursos />} />
-                                    <Route path="lecciones" element={<AdminLecciones />} />
+                                    <Route path="cursos" element={<AdminCursosPage />} />
+                                    <Route path="cursos/:moduleId" element={<AdminCursosPage />} />
+                                    <Route path="curso/:courseId" element={<AdminCursosPage />} />
+                                    <Route path="lecciones" element={<AdminLeccionesPage />} />
+                                    <Route path="lecciones/:id" element={<AdminLeccionesPage />} />
                                     <Route path="preguntas" element={<AdminPreguntas />} />
                                     <Route path="casos" element={<AdminCasos />} />
                                     <Route path="recursos" element={<AdminRecursos />} />

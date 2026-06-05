@@ -257,12 +257,33 @@ router.get('/courses', async (req, res) => {
     }
 });
 
+router.post('/courses', async (req, res) => {
+    try {
+        const { title, description, category } = req.body;
+        if (!title) return res.status(400).json({ message: 'El título es requerido' });
+        const course = new Course({
+            title,
+            description: description?.trim() || 'Descripción pendiente',
+            category: category?.trim() || 'general',
+        });
+        await course.save();
+        res.status(201).json({ message: 'Curso creado', course });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error al crear curso' });
+    }
+});
+
 router.patch('/courses/:id', async (req, res) => {
     try {
-        const { title, description } = req.body;
+        const allowed = ['title', 'description', 'image', 'category', 'platforms', 'status', 'duration'];
+        const updates = {};
+        for (const key of allowed) {
+            if (req.body[key] !== undefined) updates[key] = req.body[key];
+        }
         const course = await Course.findByIdAndUpdate(
             req.params.id,
-            { title, description },
+            updates,
             { new: true }
         );
         if (!course) return res.status(404).json({ message: 'Curso no encontrado' });
@@ -270,6 +291,70 @@ router.patch('/courses/:id', async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Error al actualizar curso' });
+    }
+});
+
+/* ─────────────────────────────────────────────
+   MODULES
+───────────────────────────────────────────── */
+router.get('/modules/:id', async (req, res) => {
+    try {
+        const mod = await Module.findById(req.params.id);
+        if (!mod) return res.status(404).json({ message: 'Módulo no encontrado' });
+        const lessons = await Lesson.find({ _id: { $in: mod.lessonOrder } })
+            .select('_id title type videoUrl duration');
+        // Preserve lessonOrder order
+        const lessonMap = Object.fromEntries(lessons.map(l => [l._id.toString(), l]));
+        const orderedLessons = (mod.lessonOrder || [])
+            .map(id => lessonMap[id.toString()])
+            .filter(Boolean);
+        res.json({ ...mod.toObject(), lessons: orderedLessons });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error al obtener módulo' });
+    }
+});
+
+router.post('/modules', async (req, res) => {
+    try {
+        const { courseId, title, description } = req.body;
+        if (!courseId || !title) return res.status(400).json({ message: 'courseId y title son requeridos' });
+        const mod = new Module({ courseId, title, description: description || '', lessonOrder: [] });
+        await mod.save();
+        res.status(201).json({ message: 'Módulo creado', module: mod });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error al crear módulo' });
+    }
+});
+
+router.patch('/modules/:id', async (req, res) => {
+    try {
+        const allowed = ['title', 'description', 'lessonOrder'];
+        const updates = {};
+        for (const key of allowed) {
+            if (req.body[key] !== undefined) updates[key] = req.body[key];
+        }
+        const mod = await Module.findByIdAndUpdate(req.params.id, updates, { new: true });
+        if (!mod) return res.status(404).json({ message: 'Módulo no encontrado' });
+        res.json({ message: 'Módulo actualizado', module: mod });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error al actualizar módulo' });
+    }
+});
+
+router.delete('/modules/:id', async (req, res) => {
+    try {
+        const mod = await Module.findById(req.params.id);
+        if (!mod) return res.status(404).json({ message: 'Módulo no encontrado' });
+        // Delete all lessons in this module
+        await Lesson.deleteMany({ moduleId: req.params.id });
+        await Module.findByIdAndDelete(req.params.id);
+        res.json({ message: 'Módulo eliminado' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error al eliminar módulo' });
     }
 });
 
@@ -316,15 +401,47 @@ router.get('/lessons/:id', async (req, res) => {
     }
 });
 
+router.post('/lessons', async (req, res) => {
+    try {
+        const { title, type, moduleId, courseId, videoUrl, content } = req.body;
+        if (!title || !type || !moduleId || !courseId) {
+            return res.status(400).json({ message: 'title, type, moduleId y courseId son requeridos' });
+        }
+        const lesson = new Lesson({
+            title, type, moduleId, courseId,
+            videoUrl: videoUrl || '', content: content || '',
+        });
+        await lesson.save();
+        await Module.findByIdAndUpdate(moduleId, { $push: { lessonOrder: lesson._id } });
+        res.status(201).json({ message: 'Lección creada', lesson });
+    } catch (err) {
+        console.error(err);
+        res.status(400).json({ message: err.message });
+    }
+});
+
 router.patch('/lessons/:id', async (req, res) => {
     try {
-        const allowed = ['title', 'content', 'type', 'order', 'videoUrl', 'duration'];
+        const allowed = ['title', 'content', 'type', 'videoUrl', 'duration', 'moduleId'];
         const updates = {};
         for (const key of allowed) {
             if (req.body[key] !== undefined) updates[key] = req.body[key];
         }
-        const lesson = await Lesson.findByIdAndUpdate(req.params.id, updates, { new: true });
+
+        const lesson = await Lesson.findById(req.params.id);
         if (!lesson) return res.status(404).json({ message: 'Lección no encontrada' });
+
+        if (updates.moduleId && updates.moduleId.toString() !== lesson.moduleId.toString()) {
+            const destination = await Module.findById(updates.moduleId);
+            if (!destination) return res.status(404).json({ message: 'Módulo destino no encontrado' });
+
+            await Module.findByIdAndUpdate(lesson.moduleId, { $pull: { lessonOrder: lesson._id } });
+            await Module.findByIdAndUpdate(destination._id, { $addToSet: { lessonOrder: lesson._id } });
+            updates.courseId = destination.courseId;
+        }
+
+        Object.assign(lesson, updates);
+        await lesson.save();
         res.json({ message: 'Lección actualizada', lesson });
     } catch (err) {
         console.error(err);
