@@ -9,7 +9,7 @@ const Module = require('../models/Module');
 const Lesson = require('../models/Lesson');
 const Resource = require('../models/Resource');
 const { protect } = require('../middleware/authMiddleware');
-const { getKnowledgeResponse } = require('../services/chatbotKnowledgeService');
+const { getKnowledgeResponse, getRelevantKnowledgeSnippet } = require('../services/chatbotKnowledgeService');
 
 const router = express.Router();
 
@@ -21,45 +21,41 @@ const GEMINI_MODELS = [
     'gemini-flash-latest',
 ].filter(Boolean);
 
-// llama-3.3-70b-versatile has the most generous free quota on Groq
-const GROQ_MODEL = process.env.GROQ_MODEL?.trim() || 'llama-3.3-70b-versatile';
+const GROQ_MODELS = [
+    process.env.GROQ_MODEL?.trim(),
+    'groq/compound-mini',
+    'openai/gpt-oss-20b',
+    'qwen/qwen3.6-27b',
+].filter(Boolean);
 
-const SYSTEM_INSTRUCTION = `Eres "Kuxibot", el asistente experto de Kuxipilli. Tu misión es orientar sobre seguridad digital infantil, ciberacoso y acompañamiento parental.
+const ENRICHED_SYSTEM_INSTRUCTION = `Eres "Kuxibot", el asistente virtual experto y compañero de seguridad digital infantil de la plataforma Kuxipilli.
+Tu propósito es orientar, acompañar y brindar recomendaciones prácticas, claras y tranquilizadoras a madres, padres y tutores sobre el bienestar y la protección de niñas, niños y adolescentes en internet, videojuegos (Roblox, Minecraft), redes sociales (TikTok, Discord, Instagram) y plataformas de video (YouTube, Twitch).
 
-REGLAS CRÍTICAS:
-1. Solo puedes responder temas relacionados con ciberseguridad, alfabetización digital y acompañamiento parental. Si el usuario pregunta sobre otros temas, redirígelo con amabilidad a los objetivos del sistema.
-2. Tu tono debe ser profesional, empático y claro.
-3. Siempre prioriza la seguridad física y emocional del menor.
-4. Si detectas señales de grooming o peligro inminente, indica pasos de protección, recomienda no seguir interactuando con el sospechoso y sugiere buscar apoyo formal.
-5. Responde siempre en español.
-6. Tus respuestas deben ser breves y concisas: máximo 2 o 3 párrafos cortos.
-7. No uses formato Markdown para títulos o negritas. Escribe en texto plano. Si necesitas enumerar, usa listas normales como "1. ", "2. ".
-8. No te presentes ni saludes al inicio. Ve directo a la respuesta.`;
-
-const ENRICHED_SYSTEM_INSTRUCTION = `Eres "Kuxibot", el asistente experto de Kuxipilli. Tu mision es orientar sobre seguridad digital infantil, ciberacoso, alfabetizacion digital y acompanamiento parental.
-
-REGLAS CRITICAS:
-1. Puedes responder sobre Kuxipilli, sus cursos, modulos, lecciones, guias, casos reales, evaluaciones y recursos. Todo eso forma parte del alcance del sistema.
-2. Tambien puedes responder temas relacionados con ciberseguridad, alfabetizacion digital y acompanamiento parental. Si el usuario pregunta sobre otros temas, redirigelo con amabilidad a los objetivos del sistema.
-3. Tu tono debe ser profesional, empatico y claro.
-4. Siempre prioriza la seguridad fisica y emocional del menor.
-5. Si detectas senales de grooming o peligro inminente, indica pasos de proteccion, recomienda no seguir interactuando con el sospechoso y sugiere buscar apoyo formal.
-6. Responde siempre en espanol.
-7. Tus respuestas deben ser breves y concisas: maximo 2 o 3 parrafos cortos.
-8. No uses formato Markdown para titulos o negritas. Escribe en texto plano. Si necesitas enumerar, usa listas normales como "1. ", "2. ".
-9. No te presentes ni saludes al inicio. Ve directo a la respuesta.
-10. Cuando el usuario pregunte por contenidos de Kuxipilli, usa la base de conocimiento de Kuxipilli incluida abajo. Si falta un dato exacto, dilo con claridad y ofrece orientar por curso, plataforma o tipo de riesgo.`;
+PAUTAS DE CONVERSACIÓN Y CALIDAD HUMANA:
+1. TONO: Cálido, empático, profesional y pedagógico. Habla como un especialista en protección digital infantil que realmente escucha y comprende las dudas y preocupaciones de las familias.
+2. MEMORIA Y CONTINUIDAD: Presta total atención a todo lo conversado en mensajes previos. Si el usuario ya mencionó la edad de su hijo, la plataforma, un caso o un temor específico, recuérdalo activamente y construye sobre eso sin pedirle que repita lo que ya dijo.
+3. SALUDOS Y CORTESÍA: Si te saludan cordialmente ("Hola", "Buenas tardes"), responde con amabilidad y calidez, disponiéndote a ayudar con cualquier inquietud sobre su familia.
+4. ESTRUCTURA Y FORMATO VISUAL:
+   - Utiliza formato Markdown de forma limpia y legible: usa **negritas** para enfatizar conceptos clave o pasos cruciales.
+   - Para instrucciones o listas de consejos, usa viñetas ordenadas ("- ") o números ("1. ", "2. ").
+   - Evita respuestas excesivamente kilométricas o aburridas: ofrece explicaciones directas, prácticas y comprensibles.
+5. PREVENCIÓN Y RIESGOS CRÍTICOS:
+   - Si detectas señales de grooming, sextorsión, acoso severo o peligro inminente: tranquiliza a la familia, prioriza la seguridad física y emocional del menor, aconseja nunca borrar evidencia (guardar capturas de pantalla), cortar comunicación de inmediato y buscar apoyo en la escuela o autoridades correspondientes.
+6. ALCANCE DE KUXIPILLI:
+   - Conoces los cursos, módulos, lecciones, guías prácticas y casos reales de Kuxipilli. Si es oportuno, invita a consultar las guías y cursos de la plataforma para profundizar.
+7. ENFOQUE TEMÁTICO:
+   - Si te preguntan sobre temas totalmente ajenos a la ciberseguridad, tecnología para niños, bienestar digital o Kuxipilli, redirige con simpatía hacia la seguridad y acompañamiento digital familiar.`;
 
 const STATIC_PLATFORM_CONTEXT = `Base de conocimiento de Kuxipilli:
-Kuxipilli es una plataforma educativa para madres, padres y tutores. Ayuda a entender riesgos digitales reales y acompanar mejor a ninas, ninos y adolescentes en videojuegos, redes sociales y streaming.
-El nombre Kuxipilli une dos lenguas originarias de Mexico: "kuXi", asociado a vida, y "pilli", asociado a nino. La idea central es proteger y acompanar la vida del nino detras de cada pantalla.
-La plataforma ofrece cursos, modulos, lecciones, evaluaciones, guias practicas, casos reales y un asistente conversacional llamado Kuxibot.
+Kuxipilli es una plataforma educativa para madres, padres y tutores. Ayuda a entender riesgos digitales reales y acompañar mejor a niñas, niños y adolescentes en videojuegos, redes sociales y streaming.
+El nombre Kuxipilli une dos lenguas originarias de México: "kuXi", asociado a vida, y "pilli", asociado a niño. La idea central es proteger y acompañar la vida del menor detrás de cada pantalla.
+La plataforma ofrece cursos, módulos, lecciones, evaluaciones, guías prácticas, casos reales y Kuxibot.
 Cursos principales:
-1. Videojuegos en Linea: Roblox y Minecraft. Revisa cuentas, privacidad, chat, compras, estafas, descargas, bienestar digital y acompanamiento familiar.
-2. Redes Sociales: TikTok, Discord e Instagram. Revisa privacidad, huella digital, ciberacoso, grooming, retos virales, publicidad, compras, bienestar digital y control parental.
-3. Plataformas de Streaming: YouTube y Twitch. Revisa consumo infantil, algoritmos, contenido inapropiado, chats en vivo, monetizacion, publicidad, tiempo de pantalla, control parental y uso positivo.
-Guias practicas disponibles: Roblox, Minecraft, TikTok, Discord, Instagram, YouTube y Twitch.
-Casos reales disponibles: grooming, ciberacoso, retos virales, sextorsion, estafas y riesgos de contacto con desconocidos en plataformas como Roblox, Discord, Instagram, TikTok, YouTube y Twitch.`;
+1. Videojuegos en Línea: Roblox y Minecraft (cuentas, privacidad, chat, compras, estafas, descargas, bienestar digital).
+2. Redes Sociales: TikTok, Discord e Instagram (privacidad, huella digital, ciberacoso, grooming, retos virales, control parental).
+3. Streaming: YouTube y Twitch (consumo infantil, algoritmos, contenido inapropiado, chats en vivo, moderación).
+Guías prácticas disponibles: Roblox, Minecraft, TikTok, Discord, Instagram, YouTube y Twitch.
+Casos reales disponibles: grooming, ciberacoso, retos virales, sextorsión, estafas y contacto con desconocidos en plataformas digitales.`;
 
 const compactText = (value = '', maxLength = 280) => {
     const text = String(value || '').replace(/\s+/g, ' ').trim();
@@ -68,9 +64,13 @@ const compactText = (value = '', maxLength = 280) => {
 
 const joinList = (items = []) => items.filter(Boolean).join(', ');
 
-const buildSystemInstruction = (platformContext) => (
-    `${ENRICHED_SYSTEM_INSTRUCTION}\n\n${platformContext || STATIC_PLATFORM_CONTEXT}`
-);
+const buildSystemInstruction = (platformContext, extraKnowledge = '') => {
+    let prompt = `${ENRICHED_SYSTEM_INSTRUCTION}\n\n${platformContext || STATIC_PLATFORM_CONTEXT}`;
+    if (extraKnowledge) {
+        prompt += `\n\nContexto verificado relevante para enriquecer tu respuesta:\n${extraKnowledge}`;
+    }
+    return prompt;
+};
 
 const buildKuxipilliContext = async () => {
     try {
@@ -268,7 +268,7 @@ const isRetryableGeminiError = (error) => {
     return status === 429 || status === 500 || status === 503;
 };
 
-const generateGeminiReply = async ({ apiKey, chatHistory, text, platformContext }) => {
+const generateGeminiReply = async ({ apiKey, chatHistory, text, platformContext, extraKnowledge }) => {
     const genAI = new GoogleGenerativeAI(apiKey);
     let lastError;
 
@@ -276,7 +276,7 @@ const generateGeminiReply = async ({ apiKey, chatHistory, text, platformContext 
         try {
             const model = genAI.getGenerativeModel({
                 model: modelName,
-                systemInstruction: buildSystemInstruction(platformContext),
+                systemInstruction: buildSystemInstruction(platformContext, extraKnowledge),
             });
 
             const chat = model.startChat({ history: chatHistory });
@@ -301,14 +301,15 @@ const generateGeminiReply = async ({ apiKey, chatHistory, text, platformContext 
 };
 
 // ---------------------------------------------------------------------------
-// Groq fallback
+// Groq fallback (multi-model fallback)
 // ---------------------------------------------------------------------------
-const generateGroqReply = async ({ apiKey, chatHistory, text, platformContext }) => {
+const generateGroqReply = async ({ apiKey, chatHistory, text, platformContext, extraKnowledge }) => {
     const groq = new Groq({ apiKey });
+    let lastError;
 
     // Convert Gemini-style history to OpenAI-style messages
     const messages = [
-        { role: 'system', content: buildSystemInstruction(platformContext) },
+        { role: 'system', content: buildSystemInstruction(platformContext, extraKnowledge) },
         ...chatHistory.map((m) => ({
             role: m.role === 'model' ? 'assistant' : 'user',
             content: m.parts[0].text,
@@ -316,23 +317,72 @@ const generateGroqReply = async ({ apiKey, chatHistory, text, platformContext })
         { role: 'user', content: text },
     ];
 
-    const completion = await groq.chat.completions.create({
-        model: GROQ_MODEL,
-        messages,
-        max_tokens: 512,
-        temperature: 0.7,
-    });
+    for (const modelName of GROQ_MODELS) {
+        try {
+            const completion = await groq.chat.completions.create({
+                model: modelName,
+                messages,
+                max_tokens: 600,
+                temperature: 0.7,
+            });
 
-    return {
-        text: completion.choices[0].message.content,
-        modelName: GROQ_MODEL,
-        provider: 'groq',
-    };
+            return {
+                text: completion.choices[0].message.content,
+                modelName,
+                provider: 'groq',
+            };
+        } catch (error) {
+            lastError = error;
+            console.error(`[Chatbot] Groq failed with ${modelName}:`, error.message);
+        }
+    }
+
+    throw lastError;
 };
 
 // ---------------------------------------------------------------------------
-// Route
+// Routes
 // ---------------------------------------------------------------------------
+
+// GET /api/chatbot/history — Obtiene la conversación activa más reciente del usuario
+router.get('/history', protect, async (req, res) => {
+    try {
+        const userId = req.user._id;
+        const conversation = await Conversation.findOne({ userId }).sort({ lastActivityAt: -1, createdAt: -1 });
+        if (!conversation) {
+            return res.json({ conversationId: null, messages: [] });
+        }
+
+        const messages = await Message.find({ conversationId: conversation._id })
+            .sort({ createdAt: 1 })
+            .limit(50);
+
+        return res.json({
+            conversationId: conversation._id,
+            messages,
+        });
+    } catch (error) {
+        console.error('[Chatbot] Error fetching history:', error);
+        return res.status(500).json({ message: 'Error al recuperar el historial del chat.' });
+    }
+});
+
+// POST /api/chatbot/reset — Inicia una nueva conversación limpia para el usuario
+router.post('/reset', protect, async (req, res) => {
+    try {
+        const userId = req.user._id;
+        const conversation = await Conversation.create({ userId });
+        return res.json({
+            conversationId: conversation._id,
+            message: 'Nueva conversación iniciada.',
+        });
+    } catch (error) {
+        console.error('[Chatbot] Error resetting conversation:', error);
+        return res.status(500).json({ message: 'Error al reiniciar la conversación.' });
+    }
+});
+
+// POST /api/chatbot/message — Envía un mensaje al chatbot con memoria de contexto
 router.post('/message', protect, async (req, res) => {
     const { text, conversationId } = req.body;
     const userId = req.user._id;
@@ -349,17 +399,25 @@ router.post('/message', protect, async (req, res) => {
     const groqKey   = (process.env.GROQ_API_KEY   || '').trim();
     const isMock = process.env.USE_MOCK_AI === 'true' || (!geminiKey || geminiKey === 'your_gemini_api_key');
 
-    console.log(`[Chatbot] Request from ${userId} | Mock: ${isMock} | Groq available: ${!!groqKey}`);
-
-    const knowledgeResult = getKnowledgeResponse(text);
-    if (knowledgeResult) {
-        let conversation;
-        if (conversationId) {
-            conversation = await Conversation.findById(conversationId);
-        } else {
+    // Recuperar conversación existente o crear una nueva
+    let conversation;
+    if (conversationId) {
+        conversation = await Conversation.findById(conversationId);
+    }
+    if (!conversation) {
+        conversation = await Conversation.findOne({ userId }).sort({ lastActivityAt: -1, createdAt: -1 });
+        if (!conversation) {
             conversation = await Conversation.create({ userId });
         }
+    }
 
+    const previousMessageCount = await Message.countDocuments({ conversationId: conversation._id });
+
+    // Verificación de consulta directa de conocimiento verificado (RF2):
+    // Solo intercepta como respuesta estática de diccionario si es una pregunta directa de definición
+    // y no hay una conversación activa previa en curso.
+    const knowledgeResult = getKnowledgeResponse(text);
+    if (knowledgeResult && previousMessageCount === 0) {
         const userMsg = await Message.create({
             conversationId: conversation._id,
             sender: 'user',
@@ -384,21 +442,17 @@ router.post('/message', protect, async (req, res) => {
         });
     }
 
-    // ── Mock / no API key ──────────────────────────────────────────────────
+    // ── Modo Simulado / Sin claves de IA ────────────────────────────────────
     if (isMock) {
-        let conversation;
-        if (conversationId) {
-            conversation = await Conversation.findById(conversationId);
-        } else {
-            conversation = await Conversation.create({ userId });
-        }
-
         const botText = getFallbackResponse(text);
         const botMsg = await Message.create({
             conversationId: conversation._id,
             sender: 'bot',
             text: botText,
         });
+
+        conversation.lastActivityAt = Date.now();
+        await conversation.save();
 
         return res.json({
             conversationId: conversation._id,
@@ -407,54 +461,55 @@ router.post('/message', protect, async (req, res) => {
         });
     }
 
-    const platformContext = await buildKuxipilliContext();
-
-    // ── Build shared history ───────────────────────────────────────────────
-    let conversation;
-    if (conversationId) {
-        conversation = await Conversation.findById(conversationId);
-    } else {
-        conversation = await Conversation.create({ userId });
-    }
-
-    const historyMessages = await Message.find({ conversationId: conversation._id })
-        .sort({ createdAt: -1 })
-        .limit(10);
-
-    let chatHistory = historyMessages.reverse().map((m) => ({
-        role: m.sender === 'user' ? 'user' : 'model',
-        parts: [{ text: m.text }],
-    }));
-
-    while (chatHistory.length > 0 && chatHistory[0].role === 'model') {
-        chatHistory.shift();
-    }
-
-    const cleanedHistory = [];
-    chatHistory.forEach((msg, idx) => {
-        if (idx === 0 || msg.role !== cleanedHistory[cleanedHistory.length - 1].role) {
-            cleanedHistory.push(msg);
-        }
-    });
-    chatHistory = cleanedHistory;
-
+    // Guardar mensaje del usuario en producción con IA
     const userMsg = await Message.create({
         conversationId: conversation._id,
         sender: 'user',
         text,
     });
 
+    const platformContext = await buildKuxipilliContext();
+    const extraKnowledge = getRelevantKnowledgeSnippet(text) || (knowledgeResult ? knowledgeResult.entry.answer : '');
+
+    // Construir historial de mensajes para memoria contextual de la IA (últimos 10 mensajes)
+    const historyDocs = await Message.find({
+        conversationId: conversation._id,
+        _id: { $ne: userMsg._id },
+    })
+        .sort({ createdAt: -1 })
+        .limit(10);
+
+    const orderedHistory = historyDocs.reverse();
+    const chatHistory = [];
+    for (const msg of orderedHistory) {
+        const role = msg.sender === 'user' ? 'user' : 'model';
+        if (chatHistory.length > 0 && chatHistory[chatHistory.length - 1].role === role) {
+            chatHistory[chatHistory.length - 1].parts[0].text += `\n${msg.text}`;
+        } else {
+            chatHistory.push({
+                role,
+                parts: [{ text: msg.text }],
+            });
+        }
+    }
+
+    // Gemini exige que el historial comience con un mensaje de 'user'
+    while (chatHistory.length > 0 && chatHistory[0].role !== 'user') {
+        chatHistory.shift();
+    }
+
     const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
     const phoneRegex = /(\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/g;
     const anonymizedText = text.replace(emailRegex, '[EMAIL]').replace(phoneRegex, '[TLF]');
 
-    // ── Try Gemini → Groq → static fallback ───────────────────────────────
+    // ── Intentar Gemini → Groq → Fallback local ────────────────────────────
     try {
         const result = await generateGeminiReply({
             apiKey: geminiKey,
             chatHistory,
             text: anonymizedText,
             platformContext,
+            extraKnowledge,
         });
 
         const botMsg = await Message.create({
@@ -474,7 +529,7 @@ router.post('/message', protect, async (req, res) => {
             provider: result.provider,
         });
     } catch (geminiError) {
-        console.error('[Chatbot] Gemini unavailable, trying Groq:', geminiError.message);
+        console.error('[Chatbot] Gemini no disponible, intentando Groq:', geminiError.message);
 
         if (groqKey) {
             try {
@@ -483,6 +538,7 @@ router.post('/message', protect, async (req, res) => {
                     chatHistory,
                     text: anonymizedText,
                     platformContext,
+                    extraKnowledge,
                 });
 
                 const botMsg = await Message.create({
@@ -502,17 +558,20 @@ router.post('/message', protect, async (req, res) => {
                     provider: result.provider,
                 });
             } catch (groqError) {
-                console.error('[Chatbot] Groq unavailable, using static fallback:', groqError.message);
+                console.error('[Chatbot] Groq no disponible, recurriendo a fallback:', groqError.message);
             }
         }
 
-        // Static fallback
+        // Fallback estático de emergencia
         const botText = getFallbackResponse(text);
         const botMsg = await Message.create({
             conversationId: conversation._id,
             sender: 'bot',
             text: botText,
         });
+
+        conversation.lastActivityAt = Date.now();
+        await conversation.save();
 
         return res.json({
             conversationId: conversation._id,

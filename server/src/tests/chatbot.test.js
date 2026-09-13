@@ -120,4 +120,19 @@ describe('Chatbot Expert System (RF2 / RF12 / RN-07)', () => {
         expect(response.statusCode).toEqual(200);
         expect(response.body.botMessage.text).toContain('10 casos reales');
     });
+
+    it('Should retrieve active conversation history (GET /api/chatbot/history)', async () => {
+        const response = await request(app).get('/api/chatbot/history');
+        expect(response.statusCode).toEqual(200);
+        expect(response.body).toHaveProperty('conversationId');
+        expect(response.body).toHaveProperty('messages');
+        expect(Array.isArray(response.body.messages)).toBe(true);
+    });
+
+    it('Should reset conversation cleanly (POST /api/chatbot/reset)', async () => {
+        const response = await request(app).post('/api/chatbot/reset');
+        expect(response.statusCode).toEqual(200);
+        expect(response.body).toHaveProperty('conversationId');
+        expect(response.body.message).toContain('iniciada');
+    });
 });

@@ -343,9 +343,9 @@ const RealCases = () => {
                                         </h2>
                                     </div>
 
-                                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 sm:gap-10">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8 lg:gap-10">
                                         {normalizedCases.length === 0 ? (
-                                            <div className="lg:col-span-3">
+                                            <div className="md:col-span-2 lg:col-span-3">
                                                 <EmptyState message="Aún no hay casos disponibles." />
                                             </div>
                                         ) : (

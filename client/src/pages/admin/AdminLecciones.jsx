@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Search, RefreshCw, Edit2, X, Save } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Search, RefreshCw, Edit2, X, FileText, Video, BookOpen, Filter } from 'lucide-react';
 import api from '../../services/api';
 
-const TYPE_COLORS = {
-    article: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
-    video: 'bg-violet-500/10 text-violet-400 border-violet-500/20',
-    guide: 'bg-green-500/10 text-green-400 border-green-500/20',
+const TYPE_META = {
+    article: { label: 'Artículo', icon: FileText, color: 'text-blue-400', border: 'border-blue-500/30', bg: 'bg-blue-500/10', activeBg: 'bg-blue-500/20' },
+    video:   { label: 'Video',    icon: Video,    color: 'text-violet-400', border: 'border-violet-500/30', bg: 'bg-violet-500/10', activeBg: 'bg-violet-500/20' },
+    guide:   { label: 'Guía',     icon: BookOpen, color: 'text-green-400', border: 'border-green-500/30', bg: 'bg-green-500/10', activeBg: 'bg-green-500/20' },
 };
 
 const AdminLecciones = () => {
+    const navigate = useNavigate();
     const [lessons, setLessons] = useState([]);
     const [courses, setCourses] = useState([]);
     const [total, setTotal] = useState(0);
@@ -17,10 +19,8 @@ const AdminLecciones = () => {
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState('');
     const [courseFilter, setCourseFilter] = useState('');
+    const [moduleFilter, setModuleFilter] = useState('');
     const [typeFilter, setTypeFilter] = useState('');
-    const [editing, setEditing] = useState(null);
-    const [editForm, setEditForm] = useState({});
-    const [saving, setSaving] = useState(false);
     const [toast, setToast] = useState(null);
 
     const showToast = (msg, type = 'success') => {
@@ -28,18 +28,21 @@ const AdminLecciones = () => {
         setTimeout(() => setToast(null), 3000);
     };
 
+    const openEditor = (lesson) => navigate(`/admin/lecciones/${lesson._id}`);
+
     const fetchLessons = useCallback(async () => {
         setLoading(true);
         try {
-            const { data } = await api.get('/api/admin/lessons', {
-                params: { page, limit: 20, search, courseId: courseFilter, type: typeFilter },
-            });
+            const params = { page, limit: 25, search, type: typeFilter };
+            if (moduleFilter) params.moduleId = moduleFilter;
+            else if (courseFilter) params.courseId = courseFilter;
+            const { data } = await api.get('/api/admin/lessons', { params });
             setLessons(data.lessons);
             setTotal(data.total);
             setPages(data.pages);
         } catch { showToast('Error al cargar lecciones', 'error'); }
         finally { setLoading(false); }
-    }, [page, search, courseFilter, typeFilter]);
+    }, [page, search, courseFilter, moduleFilter, typeFilter]);
 
     useEffect(() => { fetchLessons(); }, [fetchLessons]);
 
@@ -47,27 +50,38 @@ const AdminLecciones = () => {
         api.get('/api/admin/courses').then(({ data }) => setCourses(data)).catch(() => {});
     }, []);
 
-    const startEdit = async (lesson) => {
-        try {
-            const { data } = await api.get(`/api/admin/lessons/${lesson._id}`);
-            setEditing(lesson._id);
-            setEditForm({ title: data.title, type: data.type, order: data.order, videoUrl: data.videoUrl ?? '', content: data.content ?? '' });
-        } catch { showToast('Error al cargar lección', 'error'); }
+    // Modules of selected course
+    const selectedCourse = courses.find(c => c._id === courseFilter);
+    const modules = selectedCourse?.modules ?? [];
+
+    const handleCourseFilter = (id) => {
+        setCourseFilter(id);
+        setModuleFilter('');
+        setPage(1);
     };
 
-    const saveEdit = async () => {
-        setSaving(true);
-        try {
-            await api.patch(`/api/admin/lessons/${editing}`, editForm);
-            showToast('Lección actualizada');
-            setEditing(null);
-            fetchLessons();
-        } catch { showToast('Error al guardar', 'error'); }
-        finally { setSaving(false); }
+    const handleModuleFilter = (id) => {
+        setModuleFilter(id);
+        setPage(1);
     };
+
+    const handleTypeFilter = (val) => {
+        setTypeFilter(val);
+        setPage(1);
+    };
+
+    const clearFilters = () => {
+        setCourseFilter('');
+        setModuleFilter('');
+        setTypeFilter('');
+        setSearch('');
+        setPage(1);
+    };
+
+    const hasFilters = courseFilter || moduleFilter || typeFilter || search;
 
     return (
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col overflow-hidden">
             {toast && (
                 <div className={`fixed top-4 right-4 z-50 px-4 py-3 rounded-xl text-sm font-bold shadow-xl
                     ${toast.type === 'error' ? 'bg-red-900/90 text-red-200' : 'bg-green-900/90 text-green-200'}`}>
@@ -75,144 +89,206 @@ const AdminLecciones = () => {
                 </div>
             )}
 
-            {/* Edit modal */}
-            {editing && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-                    <div className="bg-[#111318] border border-white/10 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-                        <div className="flex items-center justify-between p-5 border-b border-white/7">
-                            <h2 className="font-black text-base">Editar lección</h2>
-                            <button onClick={() => setEditing(null)} className="w-8 h-8 flex items-center justify-center rounded-lg bg-white/5 text-slate-400 hover:text-white">
-                                <X className="w-4 h-4" />
+            {/* ── HEADER ── */}
+            <header className="sticky top-0 z-30 flex items-center justify-between px-6 py-4 border-b border-white/7 bg-[#0a0c10]/90 backdrop-blur-md flex-shrink-0">
+                <div>
+                    <h1 className="text-lg font-black">Lecciones</h1>
+                    <p className="text-xs text-slate-500 mt-0.5">
+                        {total} {hasFilters ? 'resultados' : 'lecciones totales'}
+                    </p>
+                </div>
+                <div className="flex items-center gap-2">
+                    {hasFilters && (
+                        <button onClick={clearFilters}
+                            className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-amber-500/20 bg-amber-500/5 text-amber-400 text-xs font-bold hover:bg-amber-500/10 transition-all">
+                            <X className="w-3 h-3" /> Limpiar filtros
+                        </button>
+                    )}
+                    <button onClick={fetchLessons}
+                        className="flex items-center gap-2 px-3 py-2 rounded-xl border border-white/7 bg-white/3 hover:bg-white/7 text-slate-400 text-xs font-bold transition-all">
+                        <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+                        Actualizar
+                    </button>
+                </div>
+            </header>
+
+            {/* ── FILTER BAR ── */}
+            <div className="border-b border-white/7 bg-[#0d0f14] flex-shrink-0">
+
+                {/* Search + type pills */}
+                <div className="flex items-center gap-4 px-6 py-3 border-b border-white/5">
+                    {/* Search */}
+                    <div className="flex items-center gap-2 bg-white/5 border border-white/7 rounded-xl px-3 py-2 w-72 flex-shrink-0">
+                        <Search className="w-3.5 h-3.5 text-slate-500 flex-shrink-0" />
+                        <input value={search} onChange={(e) => { setSearch(e.target.value); setPage(1); }}
+                            placeholder="Buscar lección..."
+                            className="bg-transparent text-sm text-slate-200 placeholder-slate-600 outline-none w-full" />
+                        {search && (
+                            <button onClick={() => { setSearch(''); setPage(1); }}>
+                                <X className="w-3 h-3 text-slate-500 hover:text-slate-300" />
                             </button>
+                        )}
+                    </div>
+
+                    {/* Type pills */}
+                    <div className="flex items-center gap-1">
+                        <div className="flex items-center gap-1 mr-1 text-[10px] font-black uppercase tracking-widest text-slate-600">
+                            <Filter className="w-3 h-3" /> Tipo:
                         </div>
-                        <div className="p-5 space-y-4">
-                            <div>
-                                <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1 block">Título</label>
-                                <input value={editForm.title ?? ''} onChange={(e) => setEditForm(f => ({ ...f, title: e.target.value }))}
-                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-slate-200 outline-none focus:border-indigo-500/50" />
-                            </div>
-                            <div>
-                                <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1 block">Tipo</label>
-                                <select value={editForm.type ?? ''} onChange={(e) => setEditForm(f => ({ ...f, type: e.target.value }))}
-                                    className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-slate-200 outline-none focus:border-indigo-500/50">
-                                    <option value="article">Artículo</option>
-                                    <option value="video">Video</option>
-                                    <option value="guide">Guía</option>
-                                </select>
-                            </div>
-                            {editForm.type === 'video' && (
-                                <div>
-                                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1 block">URL de video</label>
-                                    <input value={editForm.videoUrl ?? ''} onChange={(e) => setEditForm(f => ({ ...f, videoUrl: e.target.value }))}
-                                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-slate-200 outline-none focus:border-indigo-500/50" />
-                                </div>
-                            )}
-                            {editForm.type !== 'video' && (
-                                <div>
-                                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1 block">Contenido (Markdown)</label>
-                                    <textarea value={editForm.content ?? ''} onChange={(e) => setEditForm(f => ({ ...f, content: e.target.value }))}
-                                        rows={8} className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-slate-200 outline-none focus:border-indigo-500/50 resize-none font-mono" />
-                                </div>
-                            )}
-                            <div className="flex gap-3">
-                                <button onClick={saveEdit} disabled={saving}
-                                    className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold transition-colors">
-                                    <Save className="w-4 h-4" />
-                                    {saving ? 'Guardando...' : 'Guardar cambios'}
+                        {/* All */}
+                        <button
+                            onClick={() => handleTypeFilter('')}
+                            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold border transition-all
+                                ${!typeFilter
+                                    ? 'bg-white/10 text-slate-200 border-white/20'
+                                    : 'bg-transparent text-slate-500 border-white/7 hover:bg-white/5 hover:text-slate-300'}`}>
+                            Todos
+                        </button>
+                        {Object.entries(TYPE_META).map(([key, meta]) => {
+                            const Icon = meta.icon;
+                            const active = typeFilter === key;
+                            return (
+                                <button key={key} onClick={() => handleTypeFilter(key)}
+                                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold border transition-all
+                                        ${active
+                                            ? `${meta.activeBg} ${meta.color} ${meta.border}`
+                                            : `bg-transparent text-slate-500 border-white/7 hover:${meta.bg} hover:${meta.color}`}`}>
+                                    <Icon className="w-3 h-3" />
+                                    {meta.label}
                                 </button>
-                                <button onClick={() => setEditing(null)}
-                                    className="px-5 py-2.5 rounded-xl border border-white/10 text-slate-400 text-sm font-bold hover:bg-white/5">
-                                    Cancelar
-                                </button>
-                            </div>
-                        </div>
+                            );
+                        })}
+                    </div>
+                </div>
+
+                {/* Course pills */}
+                <div className="px-6 py-2.5 flex items-center gap-2 overflow-x-auto">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-600 flex-shrink-0 flex items-center gap-1">
+                        <BookOpen className="w-3 h-3" /> Curso:
+                    </span>
+                    <button
+                        onClick={() => handleCourseFilter('')}
+                        className={`flex-shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold border transition-all
+                            ${!courseFilter
+                                ? 'bg-indigo-500/15 text-indigo-300 border-indigo-500/25'
+                                : 'bg-transparent text-slate-500 border-white/7 hover:bg-white/5 hover:text-slate-300'}`}>
+                        Todos los cursos
+                    </button>
+                    {courses.map((c) => (
+                        <button key={c._id} onClick={() => handleCourseFilter(c._id)}
+                            className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold border transition-all
+                                ${courseFilter === c._id
+                                    ? 'bg-indigo-500/15 text-indigo-300 border-indigo-500/25'
+                                    : 'bg-transparent text-slate-500 border-white/7 hover:bg-white/5 hover:text-slate-300'}`}>
+                            {c.title}
+                            <span className="text-[9px] font-black px-1.5 py-0.5 rounded bg-white/5">
+                                {c.lessonCount ?? '—'}
+                            </span>
+                        </button>
+                    ))}
+                </div>
+
+                {/* Module pills — only when course is selected */}
+                {courseFilter && modules.length > 0 && (
+                    <div className="px-6 py-2.5 flex items-center gap-2 overflow-x-auto border-t border-white/5 bg-white/1">
+                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-600 flex-shrink-0">
+                            Módulo:
+                        </span>
+                        <button
+                            onClick={() => handleModuleFilter('')}
+                            className={`flex-shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold border transition-all
+                                ${!moduleFilter
+                                    ? 'bg-violet-500/15 text-violet-300 border-violet-500/25'
+                                    : 'bg-transparent text-slate-500 border-white/7 hover:bg-white/5 hover:text-slate-300'}`}>
+                            Todos los módulos
+                        </button>
+                        {modules.map((m, i) => (
+                            <button key={m._id} onClick={() => handleModuleFilter(m._id)}
+                                className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold border transition-all
+                                    ${moduleFilter === m._id
+                                        ? 'bg-violet-500/15 text-violet-300 border-violet-500/25'
+                                        : 'bg-transparent text-slate-500 border-white/7 hover:bg-white/5 hover:text-slate-300'}`}>
+                                <span className="w-4 h-4 rounded bg-white/5 flex items-center justify-center text-[9px] font-black">{i + 1}</span>
+                                {m.title}
+                            </button>
+                        ))}
+                    </div>
+                )}
+            </div>
+
+            {/* ── TABLE ── */}
+            <div className="flex-1 overflow-auto">
+                <table className="w-full">
+                    <thead className="sticky top-0 bg-[#0d0f14] z-10">
+                        <tr className="border-b border-white/7">
+                            <th className="text-left text-[9px] font-black uppercase tracking-widest text-slate-600 px-5 py-3 w-12">#</th>
+                            <th className="text-left text-[9px] font-black uppercase tracking-widest text-slate-600 px-4 py-3">Lección</th>
+                            <th className="text-left text-[9px] font-black uppercase tracking-widest text-slate-600 px-4 py-3 w-24">Tipo</th>
+                            <th className="text-left text-[9px] font-black uppercase tracking-widest text-slate-600 px-4 py-3">Módulo</th>
+                            <th className="text-right text-[9px] font-black uppercase tracking-widest text-slate-600 px-4 py-3 w-16"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {loading ? (
+                            <tr><td colSpan={5} className="text-center py-20 text-slate-600 text-sm">
+                                <div className="flex flex-col items-center gap-3">
+                                    <div className="w-6 h-6 border-2 border-indigo-900 border-t-indigo-500 rounded-full animate-spin" />
+                                    Cargando lecciones...
+                                </div>
+                            </td></tr>
+                        ) : lessons.length === 0 ? (
+                            <tr><td colSpan={5} className="text-center py-20 text-slate-600 text-sm">
+                                No se encontraron lecciones con los filtros actuales
+                            </td></tr>
+                        ) : lessons.map((l, i) => {
+                            const meta = TYPE_META[l.type];
+                            const Icon = meta?.icon ?? FileText;
+                            return (
+                                <tr key={l._id} className="border-b border-white/5 hover:bg-white/2 transition-colors group">
+                                    <td className="px-5 py-3 text-xs font-black text-slate-600">
+                                        {(page - 1) * 25 + i + 1}
+                                    </td>
+                                    <td className="px-4 py-3">
+                                        <div className="font-medium text-slate-200 text-sm leading-tight">{l.title}</div>
+                                    </td>
+                                    <td className="px-4 py-3">
+                                        <span className={`inline-flex items-center gap-1 text-[9px] font-black uppercase tracking-wider px-2 py-1 rounded-lg border ${meta?.bg} ${meta?.color} ${meta?.border}`}>
+                                            <Icon className="w-2.5 h-2.5" />
+                                            {meta?.label ?? l.type}
+                                        </span>
+                                    </td>
+                                    <td className="px-4 py-3 text-xs text-slate-500 max-w-xs">
+                                        <div className="line-clamp-1">{l.moduleId?.title ?? '—'}</div>
+                                    </td>
+                                    <td className="px-4 py-3 text-right">
+                                        <button onClick={() => openEditor(l)}
+                                            className="w-7 h-7 flex items-center justify-center rounded-lg border border-white/7 bg-white/3 text-slate-500 hover:text-indigo-400 hover:border-indigo-500/30 transition-colors ml-auto opacity-0 group-hover:opacity-100">
+                                            <Edit2 className="w-3.5 h-3.5" />
+                                        </button>
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+            </div>
+
+            {/* ── PAGINATION ── */}
+            {pages > 1 && (
+                <div className="flex items-center justify-between px-5 py-3 border-t border-white/7 bg-[#0d0f14] flex-shrink-0">
+                    <span className="text-xs text-slate-500">{total} lecciones · Página {page} de {pages}</span>
+                    <div className="flex gap-2">
+                        <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}
+                            className="px-3 py-1.5 rounded-lg border border-white/7 text-xs font-bold text-slate-400 hover:bg-white/5 disabled:opacity-30">
+                            ← Anterior
+                        </button>
+                        <button onClick={() => setPage(p => Math.min(pages, p + 1))} disabled={page === pages}
+                            className="px-3 py-1.5 rounded-lg border border-white/7 text-xs font-bold text-slate-400 hover:bg-white/5 disabled:opacity-30">
+                            Siguiente →
+                        </button>
                     </div>
                 </div>
             )}
-
-            <header className="sticky top-0 z-30 flex items-center justify-between px-6 py-4 border-b border-white/7 bg-[#0a0c10]/90 backdrop-blur-md">
-                <div>
-                    <h1 className="text-lg font-black">Lecciones</h1>
-                    <p className="text-xs text-slate-500 mt-0.5">{total} lecciones totales</p>
-                </div>
-                <button onClick={fetchLessons} className="flex items-center gap-2 px-3 py-2 rounded-xl border border-white/7 bg-white/3 hover:bg-white/7 text-slate-400 text-xs font-bold transition-all">
-                    <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
-                    Actualizar
-                </button>
-            </header>
-
-            <div className="p-6 space-y-4">
-                <div className="flex flex-wrap gap-3">
-                    <div className="flex items-center gap-2 bg-[#111318] border border-white/7 rounded-xl px-3 py-2 flex-1 min-w-48">
-                        <Search className="w-4 h-4 text-slate-500 flex-shrink-0" />
-                        <input value={search} onChange={(e) => { setSearch(e.target.value); setPage(1); }}
-                            placeholder="Buscar lección..." className="bg-transparent text-sm text-slate-200 placeholder-slate-600 outline-none w-full" />
-                    </div>
-                    <select value={courseFilter} onChange={(e) => { setCourseFilter(e.target.value); setPage(1); }}
-                        className="bg-[#111318] border border-white/7 rounded-xl px-3 py-2 text-sm text-slate-400 outline-none">
-                        <option value="">Todos los cursos</option>
-                        {courses.map((c) => <option key={c._id} value={c._id}>{c.title}</option>)}
-                    </select>
-                    <select value={typeFilter} onChange={(e) => { setTypeFilter(e.target.value); setPage(1); }}
-                        className="bg-[#111318] border border-white/7 rounded-xl px-3 py-2 text-sm text-slate-400 outline-none">
-                        <option value="">Todos los tipos</option>
-                        <option value="article">Artículo</option>
-                        <option value="video">Video</option>
-                        <option value="guide">Guía</option>
-                    </select>
-                </div>
-
-                <div className="bg-[#111318] border border-white/7 rounded-2xl overflow-hidden">
-                    <div className="overflow-x-auto">
-                        <table className="w-full">
-                            <thead>
-                                <tr className="border-b border-white/7">
-                                    {['Título', 'Tipo', 'Módulo', 'Orden', ''].map((h) => (
-                                        <th key={h} className="text-left text-[9px] font-black uppercase tracking-widest text-slate-600 px-4 py-3">{h}</th>
-                                    ))}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {loading ? (
-                                    <tr><td colSpan={5} className="text-center py-12 text-slate-600 text-sm">Cargando...</td></tr>
-                                ) : lessons.map((l) => (
-                                    <tr key={l._id} className="border-b border-white/5 hover:bg-white/2 transition-colors">
-                                        <td className="px-4 py-3 text-sm font-medium text-slate-200 max-w-xs">
-                                            <div className="line-clamp-1">{l.title}</div>
-                                        </td>
-                                        <td className="px-4 py-3">
-                                            <span className={`text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full border ${TYPE_COLORS[l.type] ?? 'bg-white/5 text-slate-500 border-white/10'}`}>
-                                                {l.type}
-                                            </span>
-                                        </td>
-                                        <td className="px-4 py-3 text-xs text-slate-500 max-w-xs">
-                                            <div className="line-clamp-1">{l.moduleId?.title ?? '—'}</div>
-                                        </td>
-                                        <td className="px-4 py-3 text-sm font-black text-slate-400">{l.order}</td>
-                                        <td className="px-4 py-3 text-right">
-                                            <button onClick={() => startEdit(l)}
-                                                className="w-7 h-7 flex items-center justify-center rounded-lg border border-white/7 bg-white/3 text-slate-500 hover:text-indigo-400 hover:border-indigo-500/30 transition-colors ml-auto">
-                                                <Edit2 className="w-3.5 h-3.5" />
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                    {pages > 1 && (
-                        <div className="flex items-center justify-between px-4 py-3 border-t border-white/7">
-                            <span className="text-xs text-slate-500">Página {page} de {pages}</span>
-                            <div className="flex gap-2">
-                                <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1}
-                                    className="px-3 py-1.5 rounded-lg border border-white/7 text-xs font-bold text-slate-400 hover:bg-white/5 disabled:opacity-30">← Anterior</button>
-                                <button onClick={() => setPage(p => Math.min(pages, p + 1))} disabled={page === pages}
-                                    className="px-3 py-1.5 rounded-lg border border-white/7 text-xs font-bold text-slate-400 hover:bg-white/5 disabled:opacity-30">Siguiente →</button>
-                            </div>
-                        </div>
-                    )}
-                </div>
-            </div>
         </div>
     );
 };

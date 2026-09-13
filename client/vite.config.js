@@ -11,7 +11,7 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: null,
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'robots.txt'],
+      includeAssets: ['favicon.ico', 'favicon.webp', 'apple-touch-icon.webp', 'apple-touch-icon.png', 'robots.txt'],
       manifest: {
         name: 'Kuxipilli | Educación Digital Parental',
         short_name: 'Kuxipilli',
@@ -28,9 +28,9 @@ export default defineConfig({
         display_override: ['standalone', 'window-controls-overlay'],
         screenshots: [
           {
-            src: 'og-image.jpg',
+            src: 'og-image.webp',
             sizes: '1200x630',
-            type: 'image/jpeg',
+            type: 'image/webp',
             form_factor: 'wide',
             label: 'Kuxipilli - Educación Digital Parental'
           }
@@ -51,6 +51,30 @@ export default defineConfig({
         ],
         icons: [
           {
+            src: 'pwa-192x192.webp',
+            sizes: '192x192',
+            type: 'image/webp',
+            purpose: 'any'
+          },
+          {
+            src: 'pwa-512x512.webp',
+            sizes: '512x512',
+            type: 'image/webp',
+            purpose: 'any'
+          },
+          {
+            src: 'pwa-maskable-192x192.webp',
+            sizes: '192x192',
+            type: 'image/webp',
+            purpose: 'maskable'
+          },
+          {
+            src: 'pwa-maskable-512x512.webp',
+            sizes: '512x512',
+            type: 'image/webp',
+            purpose: 'maskable'
+          },
+          {
             src: 'pwa-192x192.png',
             sizes: '192x192',
             type: 'image/png',
@@ -61,18 +85,6 @@ export default defineConfig({
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any'
-          },
-          {
-            src: 'pwa-maskable-192x192.png',
-            sizes: '192x192',
-            type: 'image/png',
-            purpose: 'maskable'
-          },
-          {
-            src: 'pwa-maskable-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'maskable'
           }
         ]
       }

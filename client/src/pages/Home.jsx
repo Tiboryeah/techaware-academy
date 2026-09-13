@@ -584,7 +584,7 @@ const Home = () => {
           </motion.div>
           <div className="space-y-6">
             <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: 'circOut' }}
-              className="text-[4rem] sm:text-7xl md:text-[8rem] lg:text-[9rem] font-black tracking-tighter text-gray-900 dark:text-white leading-[0.8]">
+              className="text-5xl sm:text-7xl md:text-[8rem] lg:text-[9rem] font-black tracking-tighter text-gray-900 dark:text-white leading-[0.9] sm:leading-[0.8]">
               Kuxi<span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-700 via-indigo-500 to-violet-400 dark:from-indigo-400 dark:via-indigo-300 dark:to-violet-200">pilli</span>
             </motion.h1>
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
