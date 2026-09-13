@@ -60,31 +60,26 @@ const Chatbot = () => {
         };
     }, [isOpen]);
 
-    const scrollToNewestMessage = (isBot = false) => {
-        if (!messagesContainerRef.current) return;
+    const textareaRef = useRef(null);
 
+    const scrollToBottom = (smooth = true) => {
+        if (!messagesContainerRef.current) return;
         const container = messagesContainerRef.current;
-        if (isBot) {
-            const messageDivs = container.querySelectorAll('.message-item');
-            if (messageDivs.length > 0) {
-                const lastMessage = messageDivs[messageDivs.length - 1];
-                lastMessage.scrollIntoView({ behavior: "smooth", block: "start" });
-            }
-        } else {
-            messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-        }
+        container.scrollTo({
+            top: container.scrollHeight,
+            behavior: smooth ? 'smooth' : 'auto',
+        });
     };
 
     useEffect(() => {
-        if (messages.length > 1) {
-            const lastMessage = messages[messages.length - 1];
-            scrollToNewestMessage(lastMessage.sender === 'bot');
+        if (messages.length > 0 || isTyping) {
+            requestAnimationFrame(() => scrollToBottom(true));
         }
-    }, [messages]);
+    }, [messages, isTyping]);
 
     useEffect(() => {
         if (isOpen) {
-            setTimeout(() => scrollToNewestMessage(false), 100);
+            setTimeout(() => scrollToBottom(false), 80);
         }
     }, [isOpen]);
 
@@ -136,6 +131,9 @@ const Chatbot = () => {
         const userMessage = { id: Date.now(), text: textToSend, sender: 'user' };
         setMessages((prev) => [...prev, userMessage]);
         setInputText("");
+        if (textareaRef.current) {
+            textareaRef.current.style.height = 'auto';
+        }
         setIsTyping(true);
 
         if (!user) {
@@ -470,6 +468,7 @@ const Chatbot = () => {
                         <form onSubmit={handleSendMessage} className="relative shrink-0 border-t border-gray-200/70 bg-white/95 px-3 pb-3 pt-3 dark:border-white/5 dark:bg-[#0d1117]/98 sm:px-5 sm:pb-4 sm:pt-3">
                             <div className="relative group flex flex-col w-full rounded-[1.5rem] border border-gray-200/80 bg-gray-50 p-3 pb-2 shadow-inner transition-all duration-300 focus-within:border-indigo-400/50 focus-within:bg-white dark:border-white/10 dark:bg-[#0a0c10] dark:focus-within:bg-black">
                                 <textarea
+                                    ref={textareaRef}
                                     value={inputText}
                                     onChange={(e) => {
                                         setInputText(e.target.value);
@@ -481,7 +480,6 @@ const Chatbot = () => {
                                             e.preventDefault();
                                             if (inputText.trim()) {
                                                 handleSendMessage(e);
-                                                e.target.style.height = 'auto';
                                             }
                                         }
                                     }}

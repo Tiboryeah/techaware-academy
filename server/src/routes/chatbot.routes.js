@@ -28,36 +28,34 @@ const GROQ_MODELS = [
     'qwen/qwen3.6-27b',
 ].filter(Boolean);
 
-const ENRICHED_SYSTEM_INSTRUCTION = `Eres "Kuxibot", el asistente virtual experto y compañero de seguridad digital infantil de la plataforma Kuxipilli.
-Tu propósito es orientar, acompañar y brindar recomendaciones prácticas, claras y tranquilizadoras a madres, padres y tutores sobre el bienestar y la protección de niñas, niños y adolescentes en internet, videojuegos (Roblox, Minecraft), redes sociales (TikTok, Discord, Instagram) y plataformas de video (YouTube, Twitch).
+const ENRICHED_SYSTEM_INSTRUCTION = `Eres "Kuxibot", el asistente virtual pedagógico y compañero de seguridad digital infantil de la plataforma Kuxipilli.
+Tu propósito es orientar, acompañar y brindar recomendaciones prácticas, humanas y tranquilizadoras a madres, padres y tutores sobre el bienestar y la protección de niñas, niños y adolescentes en internet, videojuegos (Roblox, Minecraft), redes sociales (TikTok, Discord, Instagram) y streaming (YouTube, Twitch).
 
-PAUTAS DE CONVERSACIÓN Y CALIDAD HUMANA:
-1. TONO: Cálido, empático, profesional y pedagógico. Habla como un especialista en protección digital infantil que realmente escucha y comprende las dudas y preocupaciones de las familias.
-2. MEMORIA Y CONTINUIDAD: Presta total atención a todo lo conversado en mensajes previos. Si el usuario ya mencionó la edad de su hijo, la plataforma, un caso o un temor específico, recuérdalo activamente y construye sobre eso sin pedirle que repita lo que ya dijo.
-3. SALUDOS Y CORTESÍA: Si te saludan cordialmente ("Hola", "Buenas tardes"), responde con amabilidad y calidez, disponiéndote a ayudar con cualquier inquietud sobre su familia.
-4. ESTRUCTURA Y FORMATO VISUAL:
-   - Utiliza formato Markdown de forma limpia y legible: usa **negritas** para enfatizar conceptos clave o pasos cruciales.
-   - Para instrucciones o listas de consejos, usa viñetas ordenadas ("- ") o números ("1. ", "2. ").
-   - Evita respuestas excesivamente kilométricas o aburridas: ofrece explicaciones directas, prácticas y comprensibles.
-5. PREVENCIÓN Y RIESGOS CRÍTICOS:
-   - Si detectas señales de grooming, sextorsión, acoso severo o peligro inminente: tranquiliza a la familia, prioriza la seguridad física y emocional del menor, aconseja nunca borrar evidencia (guardar capturas de pantalla), cortar comunicación de inmediato y buscar apoyo en la escuela o autoridades correspondientes.
-6. ALCANCE DE KUXIPILLI:
-   - Conoces los cursos, módulos, lecciones, guías prácticas y casos reales de Kuxipilli. Si es oportuno, invita a consultar las guías y cursos de la plataforma para profundizar.
-7. ENFOQUE TEMÁTICO:
-   - Si te preguntan sobre temas totalmente ajenos a la ciberseguridad, tecnología para niños, bienestar digital o Kuxipilli, redirige con simpatía hacia la seguridad y acompañamiento digital familiar.`;
+REGLAS CRÍTICAS DE CONVERSACIÓN (MÁXIMA PRIORIDAD):
+1. PROHIBIDO ALUCINAR PELIGROS O FORZAR SIGNIFICADOS SEXUALES:
+   - Si el usuario pregunta por una palabra, número, jerga, meme, frase o modismo que repiten los niños (ejemplo: "six seven", memes virales, modas de TikTok, jerga gamer, frases que riman):
+     * JAMÁS inventes que significa "sexo", "sexualidad", "sexting", "grooming" ni ningún delito. Inventar que una expresión infantil inofensiva tiene significado sexual o perverso alarma innecesariamente a las familias y es totalmente inaceptable.
+     * Si no es una amenaza digital documentada, dilo con total honestidad, calma y naturalidad: explica que NO es un peligro de ciberseguridad, que suele tratarse de un juego de palabras o chiste infantil (como "Why was 6 afraid of 7? Because 7 ate 9"), un audio o meme de TikTok/YouTube, o una broma entre compañeros.
+     * Aconseja a los padres preguntarle al menor con curiosidad relajada y sin regaños: "¿Dónde lo escuchaste?", para conversar con confianza.
+2. ACEPTAR CORRECCIONES CON HUMILDAD:
+   - Si el usuario te indica "No me refiero a eso", "No es eso" o aclara su intención, NUNCA insistas en tu respuesta previa ni te inventes otra teoría alarmista. Acepta la aclaración con simpatía e interés sincero y responde exactamente a lo que pide.
+3. FLUIDEZ Y BREVEDAD (RESPUESTAS ÁGILES, NO TESTAMENTOS):
+   - NUNCA generes respuestas kilométricas ni des conferencias no solicitadas. Evita listas automáticas de 6 pasos o párrafos interminables a menos que el usuario pida expresamente un manual o procedimiento paso a paso.
+   - Mantén tus respuestas en 2 a 3 párrafos breves, conversacionales, directos al grano y fáciles de leer.
+4. MEMORIA ACTIVA:
+   - Presta atención a los mensajes previos del diálogo para no pedir datos que el usuario ya compartió.
+5. PREVENCIÓN REAL Y SERIEDAD ANTE RIESGOS VERDADEROS:
+   - Solo cuando haya indicios reales de grooming, sextorsión, ciberacoso u hostigamiento evidente: brinda pasos concretos (guardar capturas de pantalla, no culpar al menor, bloquear, reportar y buscar apoyo).
+6. FORMATO VISUAL:
+   - Usa negritas con moderación para destacar conceptos clave. Usa listas cortas solo cuando sea indispensable.`;
 
 const STATIC_PLATFORM_CONTEXT = `Base de conocimiento de Kuxipilli:
-Kuxipilli es una plataforma educativa para madres, padres y tutores. Ayuda a entender riesgos digitales reales y acompañar mejor a niñas, niños y adolescentes en videojuegos, redes sociales y streaming.
-El nombre Kuxipilli une dos lenguas originarias de México: "kuXi", asociado a vida, y "pilli", asociado a niño. La idea central es proteger y acompañar la vida del menor detrás de cada pantalla.
-La plataforma ofrece cursos, módulos, lecciones, evaluaciones, guías prácticas, casos reales y Kuxibot.
-Cursos principales:
-1. Videojuegos en Línea: Roblox y Minecraft (cuentas, privacidad, chat, compras, estafas, descargas, bienestar digital).
-2. Redes Sociales: TikTok, Discord e Instagram (privacidad, huella digital, ciberacoso, grooming, retos virales, control parental).
-3. Streaming: YouTube y Twitch (consumo infantil, algoritmos, contenido inapropiado, chats en vivo, moderación).
-Guías prácticas disponibles: Roblox, Minecraft, TikTok, Discord, Instagram, YouTube y Twitch.
-Casos reales disponibles: grooming, ciberacoso, retos virales, sextorsión, estafas y contacto con desconocidos en plataformas digitales.`;
+Kuxipilli es una plataforma educativa para madres, padres y tutores sobre bienestar y seguridad digital infantil.
+El nombre Kuxipilli une dos lenguas originarias de México: "kuXi" (vida) y "pilli" (niño): proteger la vida del menor detrás de cada pantalla.
+Cursos: 1. Videojuegos en Línea (Roblox, Minecraft), 2. Redes Sociales (TikTok, Discord, Instagram), 3. Streaming (YouTube, Twitch).
+Ofrece guías prácticas para cada plataforma y 10 casos reales publicados (grooming, ciberacoso, retos virales, sextorsión, estafas y contacto con desconocidos).`;
 
-const compactText = (value = '', maxLength = 280) => {
+const compactText = (value = '', maxLength = 240) => {
     const text = String(value || '').replace(/\s+/g, ' ').trim();
     return text.length > maxLength ? `${text.slice(0, maxLength - 1)}...` : text;
 };
@@ -72,7 +70,17 @@ const buildSystemInstruction = (platformContext, extraKnowledge = '') => {
     return prompt;
 };
 
+// Cache de contexto en memoria por 10 minutos para acelerar respuestas drásticamente
+let cachedPlatformContext = null;
+let lastContextCacheTime = 0;
+const CONTEXT_CACHE_TTL = 10 * 60 * 1000;
+
 const buildKuxipilliContext = async () => {
+    const now = Date.now();
+    if (cachedPlatformContext && (now - lastContextCacheTime < CONTEXT_CACHE_TTL)) {
+        return cachedPlatformContext;
+    }
+
     try {
         const [courses, resources] = await Promise.all([
             Course.find({ status: 'published' })
@@ -80,73 +88,33 @@ const buildKuxipilliContext = async () => {
                 .sort({ createdAt: 1 })
                 .lean(),
             Resource.find({ isPublished: true, type: { $in: ['case', 'guide'] } })
-                .select('type title slug summary description category platform riskLevel tips steps tags')
+                .select('type title slug summary description category platform riskLevel')
                 .sort({ type: 1, order: 1, createdAt: 1 })
                 .lean(),
         ]);
 
         if (!courses.length && !resources.length) {
+            cachedPlatformContext = STATIC_PLATFORM_CONTEXT;
+            lastContextCacheTime = now;
             return STATIC_PLATFORM_CONTEXT;
         }
-
-        const courseIds = courses.map((course) => course._id);
-        const [modules, lessons] = await Promise.all([
-            Module.find({ courseId: { $in: courseIds } })
-                .select('courseId title description duration lessonOrder createdAt')
-                .sort({ createdAt: 1 })
-                .lean(),
-            Lesson.find({ courseId: { $in: courseIds } })
-                .select('courseId moduleId title type duration platforms riskAreas teaches createdAt')
-                .sort({ createdAt: 1 })
-                .lean(),
-        ]);
-
-        const modulesByCourse = modules.reduce((acc, module) => {
-            const key = module.courseId.toString();
-            acc[key] = acc[key] || [];
-            acc[key].push(module);
-            return acc;
-        }, {});
-
-        const lessonsByModule = lessons.reduce((acc, lesson) => {
-            const key = lesson.moduleId.toString();
-            acc[key] = acc[key] || [];
-            acc[key].push(lesson);
-            return acc;
-        }, {});
 
         const guides = resources.filter((resource) => resource.type === 'guide');
         const cases = resources.filter((resource) => resource.type === 'case');
 
         const lines = [
             STATIC_PLATFORM_CONTEXT,
-            `Totales publicados: ${courses.length} cursos, ${modules.length} modulos, ${lessons.length} lecciones, ${cases.length} casos reales y ${guides.length} guias practicas.`,
+            `Totales publicados: ${courses.length} cursos, ${cases.length} casos reales y ${guides.length} guias practicas.`,
             `Dato prioritario: si el usuario pregunta cuantos casos reales hay en Kuxipilli, responde que hay ${cases.length} casos reales publicados.`,
-            'Contenido publicado en la plataforma:',
         ];
 
         courses.forEach((course, index) => {
-            const courseModules = modulesByCourse[course._id.toString()] || [];
-            lines.push(`${index + 1}. Curso: ${course.title}. ${compactText(course.description)} Categoria: ${course.category || 'general'}. Plataformas: ${joinList(course.platforms) || 'varias'}. Riesgos: ${joinList(course.riskAreas) || 'seguridad digital'}. Duracion: ${course.duration || 'no especificada'}.`);
-
-            courseModules.forEach((module, moduleIndex) => {
-                const moduleLessons = lessonsByModule[module._id.toString()] || [];
-                const lessonTitles = moduleLessons
-                    .map((lesson) => `${lesson.type || 'leccion'}: ${lesson.title}`)
-                    .slice(0, 6);
-                lines.push(`  Modulo ${moduleIndex + 1}: ${module.title}. ${compactText(module.description, 180)} Lecciones: ${lessonTitles.join('; ') || 'sin lecciones listadas'}.`);
-            });
+            lines.push(`${index + 1}. Curso: ${course.title} (${course.category || 'general'}). Plataformas: ${joinList(course.platforms) || 'varias'}. ${compactText(course.description, 140)}`);
         });
 
-        if (guides.length) {
-            lines.push(`Guias practicas: ${guides.map((guide) => `${guide.title} (${guide.platform || guide.category || 'seguridad digital'}): ${compactText(guide.summary || guide.description, 140)}`).join(' | ')}`);
-        }
-
-        if (cases.length) {
-            lines.push(`Casos reales: ${cases.map((item) => `${item.title} (${item.platform || item.category || 'caso real'}): ${compactText(item.summary || item.description, 140)}`).join(' | ')}`);
-        }
-
-        return compactText(lines.join('\n'), 12000);
+        cachedPlatformContext = lines.join('\n');
+        lastContextCacheTime = now;
+        return cachedPlatformContext;
     } catch (error) {
         console.error('[Chatbot] Could not build Kuxipilli context:', error.message);
         return STATIC_PLATFORM_CONTEXT;
@@ -277,6 +245,10 @@ const generateGeminiReply = async ({ apiKey, chatHistory, text, platformContext,
             const model = genAI.getGenerativeModel({
                 model: modelName,
                 systemInstruction: buildSystemInstruction(platformContext, extraKnowledge),
+                generationConfig: {
+                    maxOutputTokens: 380,
+                    temperature: 0.65,
+                },
             });
 
             const chat = model.startChat({ history: chatHistory });
@@ -322,8 +294,8 @@ const generateGroqReply = async ({ apiKey, chatHistory, text, platformContext, e
             const completion = await groq.chat.completions.create({
                 model: modelName,
                 messages,
-                max_tokens: 600,
-                temperature: 0.7,
+                max_tokens: 380,
+                temperature: 0.65,
             });
 
             return {
